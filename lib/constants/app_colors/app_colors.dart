@@ -1,0 +1,65 @@
+import 'package:flutter/material.dart';
+
+class AppColor {
+  static const Color primaryColor = Color(0xFF0A04B1);
+
+
+  static const Color primaryColorLight = Color(0xFF0074E9);
+  static const Color primaryColorVeryLight = Color(0xffBDDEFF);
+  static const Color primaryShadowColor = Color(0x3F004B97);
+  static const Color gridButton = AppColor.bottomNavigationColor;
+  static const Color white = Colors.white;
+  static const Color black = Colors.black;
+  static const Color black54 = Colors.black54;
+  static const Color black45 = Colors.black45;
+  static const Color black87 = Colors.black87;
+  static const Color transparent = Colors.transparent;
+  static const Color grey = Colors.grey;
+  static Color grey300 = Colors.grey.shade300;
+  static Color grey400 = Colors.grey.shade400;
+  static const Color red = Colors.red;
+  static const Color redAccent = Colors.redAccent;
+  static const Color blue = Colors.blue;
+  static const Color green = Colors.green;
+  static const Color yellow = Colors.yellow;
+  static const Color yellowAccent = Colors.yellowAccent;
+  static const Color amber = Colors.amber;
+  static const Color amberAccent = Colors.amberAccent;
+  static const Color orange = Colors.orange;
+  static const Color orangeAccent = Colors.orangeAccent;
+  static const Color grey88 = Color(0xffE0E0E0);
+  static const Color lightGrey = Color(0xFF959595);
+  static const Color lightGrey1 = Color(0xFFD9D9D9);
+  static const Color lightGrey2 = Color(0xFFF4F4F4);
+  static const Color datatableRowColor = Color(0xFFF1F1F1);
+  static const Color leavePendingColor = Color(0xffFF8730);
+  static const Color leaveApproveColor = Color(0xff00A410);
+  static const Color leaveRejectColor = Color(0xffFF0000);
+  static const Color secondaryColor = Color(0xff004B97);
+  static const Color secondaryColor1 = Color(0xff0074EA);
+  static const Color hintTextColor = Color(0xff333333);
+  static const Color bottomNavigationColor = Color(0xffF7F9FC);
+  static const Color backGroundColor = Color(0xffFAFCFF);
+  static const Color speedMeterColor = Color(0xffB7B7B7);
+  static const Color detailBackgroundColor = Color(0xffF0F0F0);
+  static const Color moreBackgroundColor = Color(0xffDCEDFF);
+  static const Color analysisBackgroundColor = Color(0xffE7F0FF);
+  static const Color circleImageBackColor = Color(0xffC1D0FF);
+  static const Color teamWorkColor = Color(0xff00A410);
+  static const Color onLeaveColor = Color(0xffFF0000);
+  static const Color progressBackColor = Color(0xffD9D9D9);
+  static const Color borderTextColor = Color(0xffEEF1F7);
+  static const Color boxShadowColor = Color(0x0C000000);
+  static const Color listBoxShadowColor = Color(0x4C000000);
+  static const Color myTeamShadowColor = Color(0x7FFFFFFF);
+  static const Color visitListColor = Color(0xFFF3F3F3);
+  static const Color visitListShadowColor = Color(0x3F000000);
+  static const Color gridViewShadowColor = Color(0x19000000);
+  static const Color chooseFileShadowColor = Color(0xFF949494);
+  static const Color kpiScoreShadowColor = Color(0x26004B97);
+  static const Color tileColor = Color(0xffDDDDDD);
+  static const Color viewAll = Color(0xff009ED0);
+  static const Color appBarBackground = Color(0xffF8FAFB);
+  static const Color orderDetails = Color(0xff1377E7);
+  static const Color orderDetailsList = Color(0xffDDF1FA);
+}
