@@ -62,7 +62,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
               colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
               useMaterial3: true,
             ),
-            localizationsDelegates: const [],
+            localizationsDelegates: const [AppLocalizationDelegate()],
             supportedLocales: const AppLocalizationDelegate().supportedLocales,
             locale: const Locale('en'),
             //changeLangNotifier.currentLang,

@@ -71,7 +71,7 @@ class _HomeScreenState extends State<HomeScreen> {
           actions: [
             Padding(
               padding: EdgeInsets.only(right: 5.w),
-              child: IconButton(onPressed: () {}, icon: SvgPicture.asset('assets/icons/menu.svg')),
+              child: IconButton(onPressed: () {}, icon: Assets.icons.menu.svg()),
             )
           ],
           centerTitle: false,

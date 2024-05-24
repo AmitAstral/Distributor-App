@@ -77,8 +77,7 @@ class _CreditAgingWidgetState extends State<CreditAgingWidget> {
                   ),
                 ),
                 SizedBox(height: 8.h),
-                Container(
-                  width: 1.sw,
+                SizedBox(
                   height: 250.h,
                   child: BarChart(
                     mainBarData(),
@@ -166,7 +165,7 @@ class _CreditAgingWidgetState extends State<CreditAgingWidget> {
           sideTitles: SideTitles(showTitles: false),
         ),
         topTitles: const AxisTitles(
-          sideTitles: SideTitles(showTitles: true),
+          sideTitles: SideTitles(showTitles: false),
         ),
         bottomTitles: AxisTitles(
           sideTitles: SideTitles(
@@ -276,8 +275,7 @@ class _CreditAgingWidgetState extends State<CreditAgingWidget> {
           backDrawRodData: BackgroundBarChartRodData(
             show: true,
             toY: 20.h,
-            color: widget.barBackgroundColor,
-            // color: AppColor.transparent,
+            color: AppColor.transparent,
           ),
         ),
       ],
