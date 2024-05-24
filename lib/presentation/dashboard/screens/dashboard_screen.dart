@@ -17,7 +17,7 @@ class DashboardScreen extends StatelessWidget {
       child: Consumer<BottomBarNavigationProvider>(
         builder: (context, bottomProvider, child) {
           return Scaffold(
-              body: BottomBarNavigationProvider().currentPage,
+              body: const AutoRouter(),
               bottomNavigationBar: MultiProvider(
                 providers: [
                   ChangeNotifierProvider.value(value: BottomBarNavigationProvider()),
@@ -26,7 +26,8 @@ class DashboardScreen extends StatelessWidget {
                   items: BottomBarNavigationProvider().navigationItems,
                   showSelectedLabels: false,
                   showUnselectedLabels: false,
-                  backgroundColor: AppColor.primaryColor,
+                  backgroundColor: AppColor.white,
+                  elevation: 1.3,
                   currentIndex: BottomBarNavigationProvider().currentIndex,
                   type: BottomNavigationBarType.fixed,
                   fixedColor: AppColor.primaryColor,

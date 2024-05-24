@@ -28,22 +28,34 @@ class _NavigationItem {
   final String defaultRoutePath;
 
   onTap(BuildContext context) {
-    switch (defaultRoutePath) {
+    appRouter.navigateNamed('/$defaultRoutePath');
+    /*switch (defaultRoutePath) {
       case HomeRoute.name:
         BottomBarNavigationProvider().currentPage = const HomeScreen();
       case OffersRoute.name:
         BottomBarNavigationProvider().currentPage = const OffersScreen();
       case QuickOrderRoute.name:
         BottomBarNavigationProvider().currentPage = const QuickOrderScreen();
-    }
+    }*/
   }
 
   Widget _createIconFromAsset(String iconName, bool selected) => Center(
-        child: SvgPicture.asset(
-          'assets/bottom_bar_icons/$iconName${selected ? '_selected' : ''}.svg',
-          width: iconSize,
-          height: iconSize,
-        ),
+        child: selected
+            ? Container(
+                decoration: BoxDecoration(color: AppColor.primaryColor, borderRadius: BorderRadius.circular(10)),
+                child: SvgPicture.asset(
+                  'assets/bottom_bar_icons/$iconName${selected ? '_selected' : ''}.svg',
+                  width: iconSize,
+                  height: iconSize,
+                  color: AppColor.white,
+                ),
+              )
+            : SvgPicture.asset(
+                'assets/bottom_bar_icons/$iconName${selected ? '_selected' : ''}.svg',
+                width: iconSize,
+                height: iconSize,
+                color: selected ? Colors.red : AppColor.lightGrey,
+              ),
       );
 }
 
