@@ -1,13 +1,17 @@
 import 'package:distributor_empower/constants/all_constants.dart';
+import 'package:distributor_empower/core/di/locator.dart';
+import 'package:distributor_empower/generated/l10n.dart';
 import 'package:distributor_empower/init.dart';
-import 'package:distributor_empower/routes/router.dart';
-import 'package:distributor_empower/routes/router_guard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   await Future.delayed(const Duration(milliseconds: 300));
+
+  Locator.registerDi();
+
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
       statusBarColor: AppColor.transparent,
@@ -15,6 +19,7 @@ void main() async {
       statusBarBrightness: Brightness.light,
     ),
   );
+
   runApp(const MyApp());
 }
 
@@ -26,8 +31,6 @@ class MyApp extends StatefulWidget with WidgetsBindingObserver {
 }
 
 class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
-  final _appRouter = AppRouter(routeGuard: RouteGuard());
-
   @override
   void initState() {
     super.initState();
@@ -52,14 +55,17 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
         builder: (context, child) {
           return MaterialApp.router(
             scaffoldMessengerKey: Init().scaffoldMessengerKey,
-            routerDelegate: _appRouter.delegate(),
-            routeInformationParser: _appRouter.defaultRouteParser(),
+            routerDelegate: appRouter.delegate(),
+            routeInformationParser: appRouter.defaultRouteParser(),
             debugShowCheckedModeBanner: false,
-            // title: 'Flutter Demo',
             theme: ThemeData(
               colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
               useMaterial3: true,
             ),
+            localizationsDelegates: const [],
+            supportedLocales: const AppLocalizationDelegate().supportedLocales,
+            locale: const Locale('en'),
+            //changeLangNotifier.currentLang,
           );
         });
   }

@@ -1,12 +1,13 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:distributor_empower/constants/all_constants.dart';
-import 'package:distributor_empower/presentation/dashboard/bottombar_navigation/provider/bottombar_navigation_provider.dart';
+import 'package:distributor_empower/presentation/dashboard/provider/bottombar_navigation_provider.dart';
 import 'package:distributor_empower/widgets/custom_app_bar/app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+@RoutePage()
 class OffersScreen extends StatefulWidget {
-  static const String routeName = 'OffersScreen';
 
   const OffersScreen({super.key});
 
@@ -50,7 +51,6 @@ class _OffersScreenState extends State<OffersScreen> {
         ),
       ),
       body: const Center(),
-
     );
   }
 }

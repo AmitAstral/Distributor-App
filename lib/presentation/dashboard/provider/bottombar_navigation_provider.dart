@@ -1,8 +1,10 @@
 import 'package:distributor_empower/constants/all_constants.dart';
+import 'package:distributor_empower/core/di/locator.dart';
 import 'package:distributor_empower/presentation/home/screen/home_screen.dart';
 import 'package:distributor_empower/presentation/offers/offers_screen.dart';
 import 'package:distributor_empower/presentation/quick_order/quick_order_screen.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:distributor_empower/routes/router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -13,7 +15,7 @@ enum BottomBarNavigationItemName {
   drawer,
 }
 
- double iconSize = 23.438.sp;
+double iconSize = 23.438.sp;
 
 class _NavigationItem {
   _NavigationItem(String iconName, this.defaultRoutePath) {
@@ -25,7 +27,16 @@ class _NavigationItem {
   Widget? unSelectedIcon;
   final String defaultRoutePath;
 
-  onTap(BuildContext context) => AutoRouter.of(context).navigateNamed(defaultRoutePath);
+  onTap(BuildContext context) {
+    switch (defaultRoutePath) {
+      case HomeRoute.name:
+        BottomBarNavigationProvider().currentPage = const HomeScreen();
+      case OffersRoute.name:
+        BottomBarNavigationProvider().currentPage = const OffersScreen();
+      case QuickOrderRoute.name:
+        BottomBarNavigationProvider().currentPage = const QuickOrderScreen();
+    }
+  }
 
   Widget _createIconFromAsset(String iconName, bool selected) => Center(
         child: SvgPicture.asset(
@@ -40,16 +51,17 @@ class BottomBarNavigationProvider with ChangeNotifier {
   static BottomBarNavigationProvider? _instance;
   late Map<BottomBarNavigationItemName, _NavigationItem> _mapNavigationIndex;
   int _currentIndex = 0;
+  Widget currentPage = const HomeScreen();
 
   factory BottomBarNavigationProvider() => _instance ?? BottomBarNavigationProvider._internal();
 
   BottomBarNavigationProvider._internal() {
     _instance = this;
     _mapNavigationIndex = {
-      BottomBarNavigationItemName.home: _NavigationItem('home', HomeScreen.routeName),
-      BottomBarNavigationItemName.offers: _NavigationItem('offers', OffersScreen.routeName),
-      BottomBarNavigationItemName.quickOrder: _NavigationItem('wecare', QuickOrderScreen.routeName),
-      BottomBarNavigationItemName.drawer: _NavigationItem('darwer', QuickOrderScreen.routeName),
+      BottomBarNavigationItemName.home: _NavigationItem('home', HomeRoute.name),
+      BottomBarNavigationItemName.offers: _NavigationItem('offers', OffersRoute.name),
+      BottomBarNavigationItemName.quickOrder: _NavigationItem('wecare', QuickOrderRoute.name),
+      BottomBarNavigationItemName.drawer: _NavigationItem('darwer', QuickOrderRoute.name),
     };
   }
 
@@ -62,12 +74,13 @@ class BottomBarNavigationProvider with ChangeNotifier {
   int get currentIndex => _currentIndex;
 
   void setCurrentIndex(BuildContext context, int currentIndex) {
+    if (_currentIndex == currentIndex) return;
     _currentIndex = currentIndex;
-    notifyListeners();
     _mapNavigationIndex.values.toList()[currentIndex].onTap(context);
+    notifyListeners();
   }
 
-   highLightItem(BottomBarNavigationItemName item) {
+  highLightItem(BottomBarNavigationItemName item) {
     Future.delayed(
       const Duration(milliseconds: 250),
       () {

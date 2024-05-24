@@ -1,147 +1,136 @@
-// **************************************************************************
-// AutoRouteGenerator
-// **************************************************************************
-
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 // **************************************************************************
-// AutoRouteGenerator
+// AutoRouterGenerator
 // **************************************************************************
-//
+
 // ignore_for_file: type=lint
+// coverage:ignore-file
 
 part of 'router.dart';
 
-class _$AppRouter extends RootStackRouter {
-  _$AppRouter({
-    GlobalKey<NavigatorState>? navigatorKey,
-    required this.routeGuard,
-  }) : super(navigatorKey);
-
-  final RouteGuard routeGuard;
+abstract class _$AppRouter extends RootStackRouter {
+  // ignore: unused_element
+  _$AppRouter({super.navigatorKey});
 
   @override
   final Map<String, PageFactory> pagesMap = {
-    LoggedAppBodyRouter.name: (routeData) {
-      return CupertinoPageX<dynamic>(
+    DashboardRoute.name: (routeData) {
+      final args = routeData.argsAs<DashboardRouteArgs>(
+          orElse: () => const DashboardRouteArgs());
+      return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const LoggedAppBody(),
+        child: DashboardScreen(key: args.key),
       );
     },
-    HomeRouter.name: (routeData) {
-      return CupertinoPageX<dynamic>(
+    HomeRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const HomeScreen(),
       );
     },
-    OffersRouter.name: (routeData) {
-      return CupertinoPageX<dynamic>(
+    OffersRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const OffersScreen(),
       );
     },
-    QuickOrderRouter.name: (routeData) {
-      return CupertinoPageX<dynamic>(
+    QuickOrderRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const QuickOrderScreen(),
       );
     },
+    SplashRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const SplashScreen(),
+      );
+    },
   };
-
-  @override
-  List<RouteConfig> get routes => [
-        RouteConfig(
-          '/#redirect',
-          path: '/',
-          redirectTo: '/LoggedAppBody',
-          fullMatch: true,
-        ),
-        RouteConfig(
-          LoggedAppBodyRouter.name,
-          path: '/LoggedAppBody',
-          guards: [routeGuard],
-          children: [
-            RouteConfig(
-              '#redirect',
-              path: '',
-              parent: LoggedAppBodyRouter.name,
-              redirectTo: 'homepage',
-              fullMatch: true,
-            ),
-            RouteConfig(
-              HomeRouter.name,
-              path: 'homepage',
-              parent: LoggedAppBodyRouter.name,
-              guards: [routeGuard],
-            ),
-            RouteConfig(
-              OffersRouter.name,
-              path: 'OffersScreen',
-              parent: LoggedAppBodyRouter.name,
-              guards: [routeGuard],
-            ),
-            RouteConfig(
-              QuickOrderRouter.name,
-              path: 'QuickOrderScreen',
-              parent: LoggedAppBodyRouter.name,
-              guards: [routeGuard],
-            ),
-            RouteConfig(
-              QuickOrderRouter.name,
-              path: 'QuickOrderScreen',
-              parent: LoggedAppBodyRouter.name,
-              guards: [routeGuard],
-            ),
-          ],
-        ),
-      ];
 }
 
 /// generated route for
-/// [LoggedAppBody]
-class LoggedAppBodyRouter extends PageRouteInfo<void> {
-  const LoggedAppBodyRouter({List<PageRouteInfo>? children})
-      : super(
-          LoggedAppBodyRouter.name,
-          path: '/LoggedAppBody',
+/// [DashboardScreen]
+class DashboardRoute extends PageRouteInfo<DashboardRouteArgs> {
+  DashboardRoute({
+    Key? key,
+    List<PageRouteInfo>? children,
+  }) : super(
+          DashboardRoute.name,
+          args: DashboardRouteArgs(key: key),
           initialChildren: children,
         );
 
-  static const String name = 'LoggedAppBodyRouter';
+  static const String name = 'DashboardRoute';
+
+  static const PageInfo<DashboardRouteArgs> page =
+      PageInfo<DashboardRouteArgs>(name);
+}
+
+class DashboardRouteArgs {
+  const DashboardRouteArgs({this.key});
+
+  final Key? key;
+
+  @override
+  String toString() {
+    return 'DashboardRouteArgs{key: $key}';
+  }
 }
 
 /// generated route for
 /// [HomeScreen]
-class HomeRouter extends PageRouteInfo<void> {
-  const HomeRouter()
+class HomeRoute extends PageRouteInfo<void> {
+  const HomeRoute({List<PageRouteInfo>? children})
       : super(
-          HomeRouter.name,
-          path: 'homepage',
+          HomeRoute.name,
+          initialChildren: children,
         );
 
-  static const String name = 'HomeRouter';
+  static const String name = 'HomeRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
 }
 
 /// generated route for
 /// [OffersScreen]
-class OffersRouter extends PageRouteInfo<void> {
-  const OffersRouter()
+class OffersRoute extends PageRouteInfo<void> {
+  const OffersRoute({List<PageRouteInfo>? children})
       : super(
-          OffersRouter.name,
-          path: 'OffersScreen',
+          OffersRoute.name,
+          initialChildren: children,
         );
 
-  static const String name = 'OffersRouter';
+  static const String name = 'OffersRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
 }
 
 /// generated route for
 /// [QuickOrderScreen]
-class QuickOrderRouter extends PageRouteInfo<void> {
-  const QuickOrderRouter()
+class QuickOrderRoute extends PageRouteInfo<void> {
+  const QuickOrderRoute({List<PageRouteInfo>? children})
       : super(
-          QuickOrderRouter.name,
-          path: 'QuickOrderScreen',
+          QuickOrderRoute.name,
+          initialChildren: children,
         );
 
-  static const String name = 'QuickOrderRouter';
+  static const String name = 'QuickOrderRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [SplashScreen]
+class SplashRoute extends PageRouteInfo<void> {
+  const SplashRoute({List<PageRouteInfo>? children})
+      : super(
+          SplashRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'SplashRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
 }

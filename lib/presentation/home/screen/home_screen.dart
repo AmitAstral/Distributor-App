@@ -1,19 +1,20 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:distributor_empower/constants/all_constants.dart';
-import 'package:distributor_empower/presentation/dashboard/bottombar_navigation/provider/bottombar_navigation_provider.dart';
-import 'package:distributor_empower/presentation/home/screen/components/credit_aging_widget.dart';
-import 'package:distributor_empower/presentation/home/screen/components/credit_details_widget.dart';
-import 'package:distributor_empower/presentation/home/screen/components/focus_product_widget.dart';
-import 'package:distributor_empower/presentation/home/screen/components/order_details_widget1.dart';
-import 'package:distributor_empower/presentation/home/screen/components/sales_chart_widget.dart';
+import 'package:distributor_empower/gen/assets.gen.dart';
+import 'package:distributor_empower/presentation/dashboard/provider/bottombar_navigation_provider.dart';
+import 'package:distributor_empower/presentation/home/components/credit_aging_widget.dart';
+import 'package:distributor_empower/presentation/home/components/credit_details_widget.dart';
+import 'package:distributor_empower/presentation/home/components/focus_product_widget.dart';
+import 'package:distributor_empower/presentation/home/components/order_details_widget1.dart';
+import 'package:distributor_empower/presentation/home/components/sales_chart_widget.dart';
 import 'package:distributor_empower/widgets/custom_app_bar/app_bar.dart';
 import 'package:distributor_empower/widgets/smart_refresher_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
+@RoutePage()
 class HomeScreen extends StatefulWidget {
-  static const String routeName = 'homepage';
-
   const HomeScreen({super.key});
 
   @override
@@ -26,14 +27,6 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   final RefreshController _refreshController = RefreshController(initialRefresh: false);
-
-  @override
-  void dispose() {
-    _refreshController.dispose();
-    super.dispose();
-  }
-
-  void _onRefresh() async {}
 
   @override
   Widget build(BuildContext context) {
@@ -51,13 +44,12 @@ class _HomeScreenState extends State<HomeScreen> {
                   width: 40.w,
                   height: 40.w,
                   margin: EdgeInsets.only(left: 10.w),
-                  decoration: const ShapeDecoration(
+                  decoration: ShapeDecoration(
                     image: DecorationImage(
-                      image: AssetImage("assets/static_images/profile_pic.png"),
-                      // image: NetworkImage("https://via.placeholder.com/40x40"),
+                      image: Assets.staticImages.profile.provider(),
                       fit: BoxFit.fill,
                     ),
-                    shape: OvalBorder(),
+                    shape: const OvalBorder(),
                   ),
                 ),
               )),
@@ -91,22 +83,29 @@ class _HomeScreenState extends State<HomeScreen> {
       body: SmartRefresherWidget(
           controller: _refreshController,
           onRefresh: _onRefresh,
-          child: Container(
-            // height: 1.sh,
-            child: SingleChildScrollView(
-              scrollDirection: Axis.vertical,
-              child: Column(
-                children: [
-                  const SalesChartWidget(),
-                  const CreditDetailsWidget(),
-                  // OrderDetailsWidget(),
-                  const OrderDetailsWidget1(),
-                  const FocusProductWidget(),
-                  CreditAgingWidget(),
-                ],
-              ),
+          child: SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            child: Column(
+              children: [
+                const SalesChartWidget(),
+                const CreditDetailsWidget(),
+                // OrderDetailsWidget(),
+                const OrderDetailsWidget1(),
+                const FocusProductWidget(),
+                CreditAgingWidget(),
+              ],
             ),
           )),
     );
+  }
+
+  @override
+  void dispose() {
+    _refreshController.dispose();
+    super.dispose();
+  }
+
+  void _onRefresh() async {
+    _refreshController.refreshCompleted();
   }
 }

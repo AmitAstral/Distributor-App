@@ -1,13 +1,14 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:distributor_empower/constants/all_constants.dart';
-import 'package:distributor_empower/presentation/dashboard/bottombar_navigation/provider/bottombar_navigation_provider.dart';
+import 'package:distributor_empower/gen/assets.gen.dart';
+import 'package:distributor_empower/presentation/dashboard/provider/bottombar_navigation_provider.dart';
 import 'package:distributor_empower/widgets/custom_app_bar/app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+@RoutePage()
 class QuickOrderScreen extends StatefulWidget {
-  static const String routeName = 'QuickOrderScreen';
-
   const QuickOrderScreen({super.key});
 
   @override
@@ -79,11 +80,9 @@ class _QuickOrderScreenState extends State<QuickOrderScreen> {
                               margin: EdgeInsets.only(top: 21.w),
                               width: 105.w,
                               height: 80.w,
-                              decoration: const BoxDecoration(
+                              decoration: BoxDecoration(
                                 image: DecorationImage(
-                                  image: AssetImage("assets/static_images/product_image.png"),
-                                  // image: NetworkImage("https://via.placeholder.com/120x84"),
-                                  // fit: BoxFit.scaleDown,
+                                  image: Assets.staticImages.productImage.provider(),
                                 ),
                               )),
                           Icon(
@@ -114,7 +113,8 @@ class _QuickOrderScreenState extends State<QuickOrderScreen> {
                               padding: EdgeInsets.only(top: 2.w),
                               child: Text(
                                 '3gm',
-                                style: googleFontArchivo.copyWith(fontWeight: GoogleFontWeight.light, fontSize: 12.5.sp, color: const Color(0xFFC7912A)),
+                                style:
+                                    googleFontArchivo.copyWith(fontWeight: GoogleFontWeight.light, fontSize: 12.5.sp, color: const Color(0xFFC7912A)),
                               ),
                             ),
                             Padding(
@@ -157,7 +157,8 @@ class _QuickOrderScreenState extends State<QuickOrderScreen> {
                                     child: Container(
                                       padding: EdgeInsets.all(5.w),
                                       decoration: BoxDecoration(
-                                          color: AppColor.white, borderRadius: BorderRadius.only(topLeft: Radius.circular(20.r), bottomLeft: Radius.circular(20.r))),
+                                          color: AppColor.white,
+                                          borderRadius: BorderRadius.only(topLeft: Radius.circular(20.r), bottomLeft: Radius.circular(20.r))),
                                       child: Icon(
                                         Icons.remove,
                                         size: 16.sp,
@@ -174,7 +175,8 @@ class _QuickOrderScreenState extends State<QuickOrderScreen> {
                                       textAlign: TextAlign.center,
                                       controller: TextEditingController()..text = "50",
                                       cursorColor: AppColor.black,
-                                      decoration: InputDecoration(counterText: "", hintStyle: TextStyle(fontSize: 12.sp), isDense: true, contentPadding: EdgeInsets.all(5.r)),
+                                      decoration: InputDecoration(
+                                          counterText: "", hintStyle: TextStyle(fontSize: 12.sp), isDense: true, contentPadding: EdgeInsets.all(5.r)),
                                       keyboardType: TextInputType.phone,
                                       inputFormatters: [
                                         FilteringTextInputFormatter.allow(RegExp('[0-9]')),
@@ -187,7 +189,8 @@ class _QuickOrderScreenState extends State<QuickOrderScreen> {
                                     child: Container(
                                         padding: EdgeInsets.all(5.w),
                                         decoration: BoxDecoration(
-                                            color: AppColor.white, borderRadius: BorderRadius.only(topRight: Radius.circular(20.r), bottomRight: Radius.circular(20.r))),
+                                            color: AppColor.white,
+                                            borderRadius: BorderRadius.only(topRight: Radius.circular(20.r), bottomRight: Radius.circular(20.r))),
                                         child: Icon(
                                           Icons.add,
                                           size: 16.sp,
@@ -226,8 +229,7 @@ class _QuickOrderScreenState extends State<QuickOrderScreen> {
               borderRadius: BorderRadius.circular(20.r),
             )),
           ),
-          onPressed: () {
-          },
+          onPressed: () {},
           child: Row(
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,

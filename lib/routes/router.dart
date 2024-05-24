@@ -1,50 +1,23 @@
-import 'package:distributor_empower/layout/logged_app_body.dart';
+import 'package:distributor_empower/presentation/dashboard/screens/dashboard_screen.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:distributor_empower/presentation/home/screen/home_screen.dart';
 import 'package:distributor_empower/presentation/offers/offers_screen.dart';
 import 'package:distributor_empower/presentation/quick_order/quick_order_screen.dart';
-import 'package:distributor_empower/routes/router_guard.dart';
-import 'package:auto_route/auto_route.dart';
-import 'package:flutter/widgets.dart';
+import 'package:distributor_empower/presentation/splash/splash_screen.dart';
+import 'package:flutter/material.dart';
 
 part 'router.gr.dart';
 
-@CupertinoAutoRouter(
-  replaceInRouteName: 'Screen,Router',
-  routes: <AutoRoute>[
-    AutoRoute(
-      page: LoggedAppBody,
-      name: 'LoggedAppBodyRouter',
-      path: LoggedAppBody.routeName,
-      guards: [RouteGuard],
-      initial: true,
-      children: [
-        AutoRoute(
-          page: HomeScreen,
-          initial: true,
-          path: HomeScreen.routeName,
-          guards: [RouteGuard],
-        ),
-        AutoRoute(
-          page: OffersScreen,
-          path: OffersScreen.routeName,
-          guards: [RouteGuard],
-        ),
-        AutoRoute(
-          page: QuickOrderScreen,
-          path: QuickOrderScreen.routeName,
-          guards: [RouteGuard],
-        ),
-        AutoRoute(
-          page: QuickOrderScreen,
-          path: QuickOrderScreen.routeName,
-          guards: [RouteGuard],
-        ),
-
-      ],
-    ),
-  ],
-)
-// extend the generated private router
+@AutoRouterConfig(replaceInRouteName: 'Screen,Route')
 class AppRouter extends _$AppRouter {
-  AppRouter({required super.routeGuard});
+  AppRouter({required super.navigatorKey});
+
+  @override
+  List<AutoRoute> get routes => [
+        AutoRoute(page: SplashRoute.page, initial: true),
+        AutoRoute(page: DashboardRoute.page, path: "/${DashboardRoute.name}"),
+        AutoRoute(page: HomeRoute.page, path: "/${HomeRoute.name}"),
+        AutoRoute(page: OffersRoute.page, path: "/${OffersRoute.name}"),
+        AutoRoute(page: QuickOrderRoute.page, path: "/${QuickOrderRoute.name}"),
+      ];
 }
