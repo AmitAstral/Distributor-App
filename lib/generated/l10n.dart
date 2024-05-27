@@ -139,6 +139,26 @@ class AppLocalizations {
       args: [],
     );
   }
+
+  /// `Choose Quantity `
+  String get chooseQty {
+    return Intl.message(
+      'Choose Quantity ',
+      name: 'chooseQty',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `₹`
+  String get rupees {
+    return Intl.message(
+      '₹',
+      name: 'rupees',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<AppLocalizations> {

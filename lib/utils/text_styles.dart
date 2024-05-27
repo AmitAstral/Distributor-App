@@ -70,8 +70,44 @@ abstract class TextStyles {
         overflow: TextOverflow.ellipsis,
       );
 
+  static TextStyle get regular8 => _regular.copyWith(
+        fontSize: 8.sp,
+        color: AppColors.textPrimary,
+        overflow: TextOverflow.ellipsis,
+      );
+
+  static TextStyle get regular9 => _regular.copyWith(
+        fontSize: 9.sp,
+        color: AppColors.textPrimary,
+        overflow: TextOverflow.ellipsis,
+      );
+
+  static TextStyle get bold15 => _bold.copyWith(
+        fontSize: 15.sp,
+        color: AppColors.textPrimary,
+        overflow: TextOverflow.ellipsis,
+      );
+
   static TextStyle get semiBold15 => _semiBold.copyWith(
         fontSize: 15.sp,
+        color: AppColors.textPrimary,
+        overflow: TextOverflow.ellipsis,
+      );
+
+  static TextStyle get semiBold12 => _semiBold.copyWith(
+        fontSize: 12.sp,
+        color: AppColors.textPrimary,
+        overflow: TextOverflow.ellipsis,
+      );
+
+  static TextStyle get semiBold14 => _semiBold.copyWith(
+        fontSize: 14.sp,
+        color: AppColors.textPrimary,
+        overflow: TextOverflow.ellipsis,
+      );
+
+  static TextStyle get semiBold13 => _semiBold.copyWith(
+        fontSize: 13.sp,
         color: AppColors.textPrimary,
         overflow: TextOverflow.ellipsis,
       );

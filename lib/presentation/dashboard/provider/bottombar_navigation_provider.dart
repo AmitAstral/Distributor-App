@@ -37,7 +37,7 @@ class BottomBarNavigationProvider with ChangeNotifier {
 
 enum BottomNavigationEnum {
   home(HomeRoute.name),
-  cart(HomeRoute.name),
+  cart(QuickOrderRoute.name),
   profile(HomeRoute.name),
   settings(HomeRoute.name);
 

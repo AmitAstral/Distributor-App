@@ -7,5 +7,7 @@
   "profile": "Profile",
   "settings": "Settings",
   "cart": "Cart",
-  "logout": "Log Out"
+  "logout": "Log Out",
+  "chooseQty": "Choose Quantity ",
+  "rupees": "₹"
 }
