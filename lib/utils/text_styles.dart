@@ -70,6 +70,18 @@ abstract class TextStyles {
         overflow: TextOverflow.ellipsis,
       );
 
+  static TextStyle get regular14 => _regular.copyWith(
+        fontSize: 14.sp,
+        color: AppColors.textPrimary,
+        overflow: TextOverflow.ellipsis,
+      );
+
+  static TextStyle get regular10 => _regular.copyWith(
+        fontSize: 10.sp,
+        color: AppColors.textPrimary,
+        overflow: TextOverflow.ellipsis,
+      );
+
   static TextStyle get regular8 => _regular.copyWith(
         fontSize: 8.sp,
         color: AppColors.textPrimary,

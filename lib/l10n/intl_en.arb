@@ -9,5 +9,13 @@
   "cart": "Cart",
   "logout": "Log Out",
   "chooseQty": "Choose Quantity ",
-  "rupees": "₹"
+  "rupees": "₹",
+  "sales_person": "Sales Person",
+  "myOrders": "My orders",
+  "aboutUs": "About us",
+  "faqs": "FAQs",
+  "needHelp": "Need help?",
+  "shareTheApp": "Share the app",
+  "rateUsOnTheAppStore": "Rate us on the app store",
+  "sPMobileNumber": "SP Mobile Number"
 }

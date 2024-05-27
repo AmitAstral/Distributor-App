@@ -36,12 +36,18 @@ class BottomBarNavigationProvider with ChangeNotifier {
 }
 
 enum BottomNavigationEnum {
-  home(HomeRoute.name),
-  cart(QuickOrderRoute.name),
-  profile(HomeRoute.name),
-  settings(HomeRoute.name);
+  home(routePath: HomeRoute.name, icon: Icons.home, label: 'Home'),
+  cart(routePath: QuickOrderRoute.name, icon: Icons.shopping_bag_sharp, label: 'Quick Order'),
+  offers(routePath: OffersRoute.name, icon: Icons.local_offer_rounded, label: 'Offers'),
+  profile(routePath: ProfileRoute.name, icon: Icons.person_outline, label: 'Settings');
 
   final String routePath;
+  final IconData icon;
+  final String label;
 
-  const BottomNavigationEnum(this.routePath);
+  const BottomNavigationEnum({
+    required this.routePath,
+    required this.icon,
+    required this.label,
+  });
 }

@@ -159,6 +159,86 @@ class AppLocalizations {
       args: [],
     );
   }
+
+  /// `Sales Person`
+  String get sales_person {
+    return Intl.message(
+      'Sales Person',
+      name: 'sales_person',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `My orders`
+  String get myOrders {
+    return Intl.message(
+      'My orders',
+      name: 'myOrders',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `About us`
+  String get aboutUs {
+    return Intl.message(
+      'About us',
+      name: 'aboutUs',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `FAQs`
+  String get faqs {
+    return Intl.message(
+      'FAQs',
+      name: 'faqs',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Need help?`
+  String get needHelp {
+    return Intl.message(
+      'Need help?',
+      name: 'needHelp',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Share the app`
+  String get shareTheApp {
+    return Intl.message(
+      'Share the app',
+      name: 'shareTheApp',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Rate us on the app store`
+  String get rateUsOnTheAppStore {
+    return Intl.message(
+      'Rate us on the app store',
+      name: 'rateUsOnTheAppStore',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `SP Mobile Number`
+  String get sPMobileNumber {
+    return Intl.message(
+      'SP Mobile Number',
+      name: 'sPMobileNumber',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<AppLocalizations> {

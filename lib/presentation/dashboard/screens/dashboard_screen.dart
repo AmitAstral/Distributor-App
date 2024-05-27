@@ -19,16 +19,10 @@ class DashboardScreen extends StatefulWidget {
 class _DashboardScreenState extends State<DashboardScreen> with TickerProviderStateMixin {
   final CircularBottomNavigationController _navigationController = CircularBottomNavigationController(0);
 
-  final List<TabItem> _tabItems = List.of([
-    TabItem(Icons.home, AppLocalizations.current.home, AppColor.primaryColor,
-        labelStyle: const TextStyle(color: AppColor.primaryColor, fontWeight: FontWeight.normal)),
-    TabItem(Icons.shopping_bag_sharp, AppLocalizations.current.cart, AppColor.primaryColor,
-        labelStyle: const TextStyle(color: AppColor.primaryColor, fontWeight: FontWeight.bold)),
-    TabItem(Icons.person, AppLocalizations.current.profile, AppColor.primaryColor,
-        labelStyle: const TextStyle(color: AppColor.primaryColor, fontWeight: FontWeight.bold)),
-    TabItem(Icons.settings, AppLocalizations.current.settings, AppColor.primaryColor,
-        labelStyle: const TextStyle(color: AppColor.primaryColor, fontWeight: FontWeight.bold))
-  ]);
+  List<TabItem> get _tabItems => BottomNavigationEnum.values
+      .map((e) =>
+          TabItem(e.icon, e.name, AppColor.primaryColor, labelStyle: const TextStyle(color: AppColor.primaryColor, fontWeight: FontWeight.bold)))
+      .toList();
 
   @override
   Widget build(BuildContext context) {

@@ -24,6 +24,10 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final RefreshController _refreshController = RefreshController(initialRefresh: false);
 
+  _HomeScreenState() {
+    BottomBarNavigationProvider().setCurrentIndex(BottomNavigationEnum.home);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -69,7 +73,6 @@ class _HomeScreenState extends State<HomeScreen> {
               padding: EdgeInsets.only(right: 5.w),
               child: IconButton(
                   onPressed: () {
-                    debugPrint('HERE WE ARE AGAIn');
                     BottomBarNavigationProvider().dashboardKey.currentState?.openDrawer();
                   },
                   icon: Assets.icons.menu.svg()),

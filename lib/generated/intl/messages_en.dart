@@ -22,16 +22,26 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "aboutUs": MessageLookupByLibrary.simpleMessage("About us"),
         "cart": MessageLookupByLibrary.simpleMessage("Cart"),
         "chooseQty": MessageLookupByLibrary.simpleMessage("Choose Quantity "),
+        "faqs": MessageLookupByLibrary.simpleMessage("FAQs"),
         "favourite": MessageLookupByLibrary.simpleMessage("Favourite"),
         "home": MessageLookupByLibrary.simpleMessage("Home"),
         "logout": MessageLookupByLibrary.simpleMessage("Log Out"),
+        "myOrders": MessageLookupByLibrary.simpleMessage("My orders"),
+        "needHelp": MessageLookupByLibrary.simpleMessage("Need help?"),
         "offer": MessageLookupByLibrary.simpleMessage("Offer"),
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
+        "rateUsOnTheAppStore":
+            MessageLookupByLibrary.simpleMessage("Rate us on the app store"),
         "rupees": MessageLookupByLibrary.simpleMessage("₹"),
+        "sPMobileNumber":
+            MessageLookupByLibrary.simpleMessage("SP Mobile Number"),
         "sales": MessageLookupByLibrary.simpleMessage("Sales"),
+        "sales_person": MessageLookupByLibrary.simpleMessage("Sales Person"),
         "seeAll": MessageLookupByLibrary.simpleMessage("See all"),
-        "settings": MessageLookupByLibrary.simpleMessage("Settings")
+        "settings": MessageLookupByLibrary.simpleMessage("Settings"),
+        "shareTheApp": MessageLookupByLibrary.simpleMessage("Share the app")
       };
 }

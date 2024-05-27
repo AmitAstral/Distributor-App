@@ -8,7 +8,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 @RoutePage()
 class OffersScreen extends StatefulWidget {
-
   const OffersScreen({super.key});
 
   @override
@@ -16,10 +15,6 @@ class OffersScreen extends StatefulWidget {
 }
 
 class _OffersScreenState extends State<OffersScreen> {
-  _OffersScreenState() {
-    //BottomBarNavigationProvider().highLightItem(BottomBarNavigationItemName.offers);
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
