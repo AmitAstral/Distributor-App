@@ -3,5 +3,8 @@
   "seeAll": "See all",
   "home": "Home",
   "offer": "Offer",
-  "favourite": "Favourite"
+  "favourite": "Favourite",
+  "profile": "Profile",
+  "settings": "Settings",
+  "cart": "Cart"
 }

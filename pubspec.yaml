@@ -51,7 +51,7 @@ dependencies:
   syncfusion_flutter_gauges: ^25.2.3
   flutter_gen: ^5.5.0+1
   get_it: ^7.7.0
-  motion_tab_bar_v2: ^0.3.0
+  circular_bottom_navigation: ^2.4.0
 
 dev_dependencies:
   flutter_test:

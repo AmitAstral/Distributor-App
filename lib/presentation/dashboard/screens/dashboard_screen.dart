@@ -3,9 +3,9 @@ import 'package:distributor_empower/constants/all_constants.dart';
 import 'package:distributor_empower/generated/l10n.dart';
 import 'package:distributor_empower/presentation/dashboard/provider/bottombar_navigation_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:motion_tab_bar_v2/motion-tab-bar.dart';
-import 'package:motion_tab_bar_v2/motion-tab-controller.dart';
 import 'package:provider/provider.dart';
+import 'package:circular_bottom_navigation/circular_bottom_navigation.dart';
+import 'package:circular_bottom_navigation/tab_item.dart';
 
 @RoutePage()
 class DashboardScreen extends StatefulWidget {
@@ -16,17 +16,18 @@ class DashboardScreen extends StatefulWidget {
 }
 
 class _DashboardScreenState extends State<DashboardScreen> with TickerProviderStateMixin {
-  late MotionTabBarController _motionTabBarController;
+  final CircularBottomNavigationController _navigationController = CircularBottomNavigationController(0);
 
-  @override
-  void initState() {
-    _motionTabBarController = MotionTabBarController(
-      initialIndex: 1,
-      length: 4,
-      vsync: this,
-    );
-    super.initState();
-  }
+  List<TabItem> tabItems = List.of([
+    TabItem(Icons.home, AppLocalizations.current.home, AppColor.primaryColor,
+        labelStyle: const TextStyle(color: AppColor.primaryColor, fontWeight: FontWeight.normal)),
+    TabItem(Icons.shopping_bag_sharp, AppLocalizations.current.cart, AppColor.primaryColor,
+        labelStyle: const TextStyle(color: AppColor.primaryColor, fontWeight: FontWeight.bold)),
+    TabItem(Icons.person, AppLocalizations.current.profile, AppColor.primaryColor,
+        labelStyle: const TextStyle(color: AppColor.primaryColor, fontWeight: FontWeight.bold)),
+    TabItem(Icons.settings, AppLocalizations.current.settings, AppColor.primaryColor,
+        labelStyle: const TextStyle(color: AppColor.primaryColor, fontWeight: FontWeight.bold))
+  ]);
 
   @override
   Widget build(BuildContext context) {
@@ -35,37 +36,31 @@ class _DashboardScreenState extends State<DashboardScreen> with TickerProviderSt
       child: Consumer<BottomBarNavigationProvider>(
         builder: (context, bottomProvider, child) {
           return Scaffold(
-            body: const AutoRouter(),
-            bottomNavigationBar: MotionTabBar(
-              controller: _motionTabBarController,
-              icons: const [
-                Icons.home,
-                Icons.card_travel,
-                Icons.person,
-                Icons.settings,
+            body: Stack(
+              children: [
+                const Padding(padding: EdgeInsets.only(bottom: 60), child: AutoRouter()),
+                Positioned(
+                  bottom: 0,
+                  child: CircularBottomNavigation(
+                    tabItems,
+                    selectedCallback: (int? index) {
+                      _navigationController.value = index ?? 0;
+                      if (index == 3) {
+                        BottomBarNavigationProvider().setCurrentIndex(context, 0);
+                      } else {
+                        BottomBarNavigationProvider().setCurrentIndex(context, index ?? 0);
+                      }
+                    },
+                    controller: _navigationController,
+                    barBackgroundColor: Colors.white,
+                    backgroundBoxShadow: const <BoxShadow>[
+                      BoxShadow(color: Colors.black45, blurRadius: 10.0),
+                    ],
+                    barHeight: 60,
+                    iconsSize: 25,
+                  ),
+                )
               ],
-              initialSelectedTab: AppLocalizations.current.home,
-              useSafeArea: true,
-              labels: [
-                AppLocalizations.current.home,
-                AppLocalizations.current.offer,
-                AppLocalizations.current.favourite,
-                '',
-              ],
-              tabIconColor: AppColor.grey,
-              tabSelectedColor: AppColor.primaryColor,
-              tabIconSelectedColor: AppColor.white,
-              tabBarColor: AppColor.white,
-              tabIconSize: 28.0,
-              tabIconSelectedSize: 26.0,
-              onTabItemSelected: (int index) {
-                if (index == 3) {
-                  BottomBarNavigationProvider().setCurrentIndex(context, 0);
-                  //Scaffold.of(context).openDrawer();
-                } else {
-                  BottomBarNavigationProvider().setCurrentIndex(context, index);
-                }
-              },
             ),
           );
         },
