@@ -100,6 +100,12 @@ abstract class TextStyles {
         overflow: TextOverflow.ellipsis,
       );
 
+  static TextStyle get bold12 => _bold.copyWith(
+        fontSize: 12.sp,
+        color: AppColors.textPrimary,
+        overflow: TextOverflow.ellipsis,
+      );
+
   static TextStyle get semiBold15 => _semiBold.copyWith(
         fontSize: 15.sp,
         color: AppColors.textPrimary,

@@ -16,6 +16,15 @@
   "faqs": "FAQs",
   "needHelp": "Need help?",
   "shareTheApp": "Share the app",
+  "schemes": "Schemes",
+  "partyName": "Party Name",
+  "mobileNo": "Mobile No.",
+  "address": "Address",
+  "date": "Date",
+  "orderNo": "Order No",
+  "orderValue": "Order Value",
+  "orderHistory": "Order History",
+  "orderDetails": "Order Details",
   "rateUsOnTheAppStore": "Rate us on the app store",
   "sPMobileNumber": "SP Mobile Number"
 }

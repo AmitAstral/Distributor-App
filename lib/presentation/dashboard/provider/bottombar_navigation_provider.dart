@@ -11,7 +11,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 class BottomBarNavigationProvider with ChangeNotifier {
   static BottomBarNavigationProvider? _instance;
-  int _currentIndex = 0;
+  int currentIndex = 0;
 
   final GlobalKey<ScaffoldState> dashboardKey = GlobalKey();
 
@@ -21,27 +21,32 @@ class BottomBarNavigationProvider with ChangeNotifier {
     _instance = this;
   }
 
-  BottomNavigationEnum get currentNavigationEnum => BottomNavigationEnum.values[_currentIndex];
+  BottomNavigationEnum get currentNavigationEnum => BottomNavigationEnum.values[currentIndex];
 
   void setCurrentIndex(BottomNavigationEnum bottomNavigationEnum) {
     if (currentNavigationEnum == bottomNavigationEnum) return;
-    _currentIndex = bottomNavigationEnum.index;
+    currentIndex = bottomNavigationEnum.index;
     _onTap();
     notifyListeners();
   }
 
   _onTap() {
-    appRouter.navigateNamed(currentNavigationEnum.routePath);
+    appRouter.navigateNamed(currentNavigationEnum.routePath.routeName);
+  }
+
+  void unSelectAllTabs() {
+    //currentIndex = -1;
+    notifyListeners();
   }
 }
 
 enum BottomNavigationEnum {
-  home(routePath: HomeRoute.name, icon: Icons.home, label: 'Home'),
-  cart(routePath: QuickOrderRoute.name, icon: Icons.shopping_bag_sharp, label: 'Quick Order'),
-  offers(routePath: OffersRoute.name, icon: Icons.local_offer_rounded, label: 'Offers'),
-  profile(routePath: ProfileRoute.name, icon: Icons.person_outline, label: 'Settings');
+  home(routePath: HomeRoute(), icon: Icons.home, label: 'Home'),
+  cart(routePath: QuickOrderRoute(), icon: Icons.shopping_bag_sharp, label: 'Quick Order'),
+  offers(routePath: OffersRoute(), icon: Icons.local_offer_rounded, label: 'Offers'),
+  profile(routePath: ProfileRoute(), icon: Icons.person_outline, label: 'Settings');
 
-  final String routePath;
+  final PageRouteInfo routePath;
   final IconData icon;
   final String label;
 

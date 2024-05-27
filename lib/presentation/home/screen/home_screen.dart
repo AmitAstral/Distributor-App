@@ -24,10 +24,6 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final RefreshController _refreshController = RefreshController(initialRefresh: false);
 
-  _HomeScreenState() {
-    BottomBarNavigationProvider().setCurrentIndex(BottomNavigationEnum.home);
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

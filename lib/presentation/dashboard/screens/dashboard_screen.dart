@@ -1,6 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:distributor_empower/constants/all_constants.dart';
-import 'package:distributor_empower/generated/l10n.dart';
 import 'package:distributor_empower/presentation/dashboard/provider/bottombar_navigation_provider.dart';
 import 'package:distributor_empower/presentation/drawer/drawer_screen.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +20,7 @@ class _DashboardScreenState extends State<DashboardScreen> with TickerProviderSt
 
   List<TabItem> get _tabItems => BottomNavigationEnum.values
       .map((e) =>
-          TabItem(e.icon, e.name, AppColor.primaryColor, labelStyle: const TextStyle(color: AppColor.primaryColor, fontWeight: FontWeight.bold)))
+          TabItem(e.icon, e.label, AppColor.primaryColor, labelStyle: const TextStyle(color: AppColor.primaryColor, fontWeight: FontWeight.bold)))
       .toList();
 
   @override
@@ -29,10 +28,10 @@ class _DashboardScreenState extends State<DashboardScreen> with TickerProviderSt
     return ChangeNotifierProvider.value(
       value: BottomBarNavigationProvider(),
       child: Consumer<BottomBarNavigationProvider>(
-        builder: (context, bottomProvider, child) {
+        builder: (context, bottomNavigationBarProvider, child) {
           return Scaffold(
             drawer: const DrawerScreen(),
-            key: bottomProvider.dashboardKey,
+            key: bottomNavigationBarProvider.dashboardKey,
             body: Stack(
               children: [
                 const Padding(padding: EdgeInsets.only(bottom: 60), child: AutoRouter()),
@@ -44,6 +43,7 @@ class _DashboardScreenState extends State<DashboardScreen> with TickerProviderSt
                       _navigationController.value = index ?? 0;
                       BottomBarNavigationProvider().setCurrentIndex(BottomNavigationEnum.values[index ?? 0]);
                     },
+                    selectedPos: 2,
                     controller: _navigationController,
                     barBackgroundColor: Colors.white,
                     backgroundBoxShadow: const <BoxShadow>[

@@ -33,6 +33,18 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const OffersScreen(),
       );
     },
+    OrderDetailsRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const OrderDetailsScreen(),
+      );
+    },
+    OrderHistoryRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const OrderHistoryScreen(),
+      );
+    },
     ProfileRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -92,6 +104,34 @@ class OffersRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'OffersRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [OrderDetailsScreen]
+class OrderDetailsRoute extends PageRouteInfo<void> {
+  const OrderDetailsRoute({List<PageRouteInfo>? children})
+      : super(
+          OrderDetailsRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'OrderDetailsRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [OrderHistoryScreen]
+class OrderHistoryRoute extends PageRouteInfo<void> {
+  const OrderHistoryRoute({List<PageRouteInfo>? children})
+      : super(
+          OrderHistoryRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'OrderHistoryRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }

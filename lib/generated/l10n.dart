@@ -220,6 +220,96 @@ class AppLocalizations {
     );
   }
 
+  /// `Schemes`
+  String get schemes {
+    return Intl.message(
+      'Schemes',
+      name: 'schemes',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Party Name`
+  String get partyName {
+    return Intl.message(
+      'Party Name',
+      name: 'partyName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Mobile No.`
+  String get mobileNo {
+    return Intl.message(
+      'Mobile No.',
+      name: 'mobileNo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Address`
+  String get address {
+    return Intl.message(
+      'Address',
+      name: 'address',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Date`
+  String get date {
+    return Intl.message(
+      'Date',
+      name: 'date',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Order No`
+  String get orderNo {
+    return Intl.message(
+      'Order No',
+      name: 'orderNo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Order Value`
+  String get orderValue {
+    return Intl.message(
+      'Order Value',
+      name: 'orderValue',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Order History`
+  String get orderHistory {
+    return Intl.message(
+      'Order History',
+      name: 'orderHistory',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Order Details`
+  String get orderDetails {
+    return Intl.message(
+      'Order Details',
+      name: 'orderDetails',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Rate us on the app store`
   String get rateUsOnTheAppStore {
     return Intl.message(

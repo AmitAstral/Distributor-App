@@ -1,7 +1,10 @@
 import 'package:distributor_empower/constants/app_colors/app_colors.dart';
+import 'package:distributor_empower/core/di/locator.dart';
 import 'package:distributor_empower/gen/assets.gen.dart';
 import 'package:distributor_empower/generated/l10n.dart';
+import 'package:distributor_empower/presentation/dashboard/provider/bottombar_navigation_provider.dart';
 import 'package:distributor_empower/presentation/home/components/order_details_widget1.dart';
+import 'package:distributor_empower/routes/router.dart';
 import 'package:distributor_empower/utils/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -192,7 +195,9 @@ class _DrawerScreenState extends State<DrawerScreen> {
         // context.router.pushNamed(ProfileScreen.routeName);
         break;
       case 3:
-        // context.router.pushNamed(ProfileScreen.routeName);
+        BottomBarNavigationProvider().unSelectAllTabs();
+        Navigator.pop(context);
+        appRouter.pushNamed(OrderHistoryRoute.name);
         break;
       case 4:
         // context.router.pushNamed(ProfileScreen.routeName);

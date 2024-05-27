@@ -23,15 +23,23 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "aboutUs": MessageLookupByLibrary.simpleMessage("About us"),
+        "address": MessageLookupByLibrary.simpleMessage("Address"),
         "cart": MessageLookupByLibrary.simpleMessage("Cart"),
         "chooseQty": MessageLookupByLibrary.simpleMessage("Choose Quantity "),
+        "date": MessageLookupByLibrary.simpleMessage("Date"),
         "faqs": MessageLookupByLibrary.simpleMessage("FAQs"),
         "favourite": MessageLookupByLibrary.simpleMessage("Favourite"),
         "home": MessageLookupByLibrary.simpleMessage("Home"),
         "logout": MessageLookupByLibrary.simpleMessage("Log Out"),
+        "mobileNo": MessageLookupByLibrary.simpleMessage("Mobile No."),
         "myOrders": MessageLookupByLibrary.simpleMessage("My orders"),
         "needHelp": MessageLookupByLibrary.simpleMessage("Need help?"),
         "offer": MessageLookupByLibrary.simpleMessage("Offer"),
+        "orderDetails": MessageLookupByLibrary.simpleMessage("Order Details"),
+        "orderHistory": MessageLookupByLibrary.simpleMessage("Order History"),
+        "orderNo": MessageLookupByLibrary.simpleMessage("Order No"),
+        "orderValue": MessageLookupByLibrary.simpleMessage("Order Value"),
+        "partyName": MessageLookupByLibrary.simpleMessage("Party Name"),
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
         "rateUsOnTheAppStore":
             MessageLookupByLibrary.simpleMessage("Rate us on the app store"),
@@ -40,6 +48,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("SP Mobile Number"),
         "sales": MessageLookupByLibrary.simpleMessage("Sales"),
         "sales_person": MessageLookupByLibrary.simpleMessage("Sales Person"),
+        "schemes": MessageLookupByLibrary.simpleMessage("Schemes"),
         "seeAll": MessageLookupByLibrary.simpleMessage("See all"),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
         "shareTheApp": MessageLookupByLibrary.simpleMessage("Share the app")
