@@ -17,7 +17,7 @@ class QuickOrderScreen extends StatefulWidget {
 
 class _QuickOrderScreenState extends State<QuickOrderScreen> {
   _QuickOrderScreenState() {
-    BottomBarNavigationProvider().highLightItem(BottomBarNavigationItemName.quickOrder);
+    // BottomBarNavigationProvider().highLightItem(BottomBarNavigationItemName.quickOrder);
   }
 
   @override

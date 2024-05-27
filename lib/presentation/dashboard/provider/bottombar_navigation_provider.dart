@@ -1,5 +1,6 @@
 import 'package:distributor_empower/constants/all_constants.dart';
 import 'package:distributor_empower/core/di/locator.dart';
+import 'package:distributor_empower/generated/l10n.dart';
 import 'package:distributor_empower/presentation/home/screen/home_screen.dart';
 import 'package:distributor_empower/presentation/offers/offers_screen.dart';
 import 'package:distributor_empower/presentation/quick_order/quick_order_screen.dart';
@@ -17,26 +18,19 @@ enum BottomBarNavigationItemName {
 
 double iconSize = 23.438.sp;
 
-class _NavigationItem {
-  _NavigationItem(String iconName, this.defaultRoutePath) {
+class NavigationItem {
+  NavigationItem(String iconName, String name, this.defaultRoutePath) {
     selectedIcon = _createIconFromAsset(iconName, true);
     unSelectedIcon = _createIconFromAsset(iconName, false);
   }
 
   Widget? selectedIcon;
   Widget? unSelectedIcon;
+  String? name;
   final String defaultRoutePath;
 
   onTap(BuildContext context) {
-    appRouter.navigateNamed('/$defaultRoutePath');
-    /*switch (defaultRoutePath) {
-      case HomeRoute.name:
-        BottomBarNavigationProvider().currentPage = const HomeScreen();
-      case OffersRoute.name:
-        BottomBarNavigationProvider().currentPage = const OffersScreen();
-      case QuickOrderRoute.name:
-        BottomBarNavigationProvider().currentPage = const QuickOrderScreen();
-    }*/
+    appRouter.navigateNamed(defaultRoutePath);
   }
 
   Widget _createIconFromAsset(String iconName, bool selected) => Center(
@@ -61,7 +55,7 @@ class _NavigationItem {
 
 class BottomBarNavigationProvider with ChangeNotifier {
   static BottomBarNavigationProvider? _instance;
-  late Map<BottomBarNavigationItemName, _NavigationItem> _mapNavigationIndex;
+  late List<NavigationItem> navigationItem;
   int _currentIndex = 0;
   Widget currentPage = const HomeScreen();
 
@@ -69,34 +63,28 @@ class BottomBarNavigationProvider with ChangeNotifier {
 
   BottomBarNavigationProvider._internal() {
     _instance = this;
-    _mapNavigationIndex = {
-      BottomBarNavigationItemName.home: _NavigationItem('home', HomeRoute.name),
-      BottomBarNavigationItemName.offers: _NavigationItem('offers', OffersRoute.name),
-      BottomBarNavigationItemName.quickOrder: _NavigationItem('wecare', QuickOrderRoute.name),
-      BottomBarNavigationItemName.drawer: _NavigationItem('darwer', QuickOrderRoute.name),
-    };
+    navigationItem = [
+      NavigationItem('home', AppLocalizations.current.home, HomeRoute.name),
+      NavigationItem('offers', AppLocalizations.current.offer, OffersRoute.name),
+      NavigationItem('wecare', AppLocalizations.current.favourite, QuickOrderRoute.name),
+      NavigationItem('darwer', '', QuickOrderRoute.name),
+    ];
   }
-
-  List<BottomNavigationBarItem> get navigationItems => _mapNavigationIndex.values
-      .map(
-        (item) => BottomNavigationBarItem(icon: item.unSelectedIcon!, label: '', activeIcon: item.selectedIcon, backgroundColor: AppColor.white),
-      )
-      .toList();
 
   int get currentIndex => _currentIndex;
 
   void setCurrentIndex(BuildContext context, int currentIndex) {
     if (_currentIndex == currentIndex) return;
     _currentIndex = currentIndex;
-    _mapNavigationIndex.values.toList()[currentIndex].onTap(context);
+    navigationItem.toList()[currentIndex].onTap(context);
     notifyListeners();
   }
 
-  highLightItem(BottomBarNavigationItemName item) {
+/*highLightItem(BottomBarNavigationItemName item) {
     Future.delayed(
       const Duration(milliseconds: 250),
       () {
-        final int index = _mapNavigationIndex.keys.toList().indexOf(item);
+        final int index = _mapNavigationIndex.toList().indexOf(item);
         if (index == -1) {
           return;
         }
@@ -107,5 +95,5 @@ class BottomBarNavigationProvider with ChangeNotifier {
         notifyListeners();
       },
     );
-  }
+  }*/
 }

@@ -23,7 +23,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   _HomeScreenState() {
-    BottomBarNavigationProvider().highLightItem(BottomBarNavigationItemName.home);
+    // BottomBarNavigationProvider().highLightItem(BottomBarNavigationItemName.home);
   }
 
   final RefreshController _refreshController = RefreshController(initialRefresh: false);

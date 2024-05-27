@@ -17,7 +17,7 @@ class OffersScreen extends StatefulWidget {
 
 class _OffersScreenState extends State<OffersScreen> {
   _OffersScreenState() {
-    BottomBarNavigationProvider().highLightItem(BottomBarNavigationItemName.offers);
+    //BottomBarNavigationProvider().highLightItem(BottomBarNavigationItemName.offers);
   }
 
   @override

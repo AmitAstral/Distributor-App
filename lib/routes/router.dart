@@ -15,9 +15,19 @@ class AppRouter extends _$AppRouter {
   @override
   List<AutoRoute> get routes => [
         AutoRoute(page: SplashRoute.page, initial: true),
-        AutoRoute(page: DashboardRoute.page, path: "/${DashboardRoute.name}"),
-        AutoRoute(page: HomeRoute.page, path: "/${HomeRoute.name}"),
-        AutoRoute(page: OffersRoute.page, path: "/${OffersRoute.name}"),
-        AutoRoute(page: QuickOrderRoute.page, path: "/${QuickOrderRoute.name}"),
+        AutoRoute(
+          page: DashboardRoute.page,
+          path: "/${DashboardRoute.name}",
+          children: [
+            AutoRoute(
+              page: HomeRoute.page,
+              path: HomeRoute.name,
+              initial: true,
+            ),
+            AutoRoute(page: OffersRoute.page, path: OffersRoute.name),
+            AutoRoute(page: QuickOrderRoute.page, path: QuickOrderRoute.name),
+            AutoRoute(page: QuickOrderRoute.page, path: QuickOrderRoute.name),
+          ],
+        ),
       ];
 }
