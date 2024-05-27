@@ -16,11 +16,9 @@ abstract class _$AppRouter extends RootStackRouter {
   @override
   final Map<String, PageFactory> pagesMap = {
     DashboardRoute.name: (routeData) {
-      final args = routeData.argsAs<DashboardRouteArgs>(
-          orElse: () => const DashboardRouteArgs());
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: DashboardScreen(key: args.key),
+        child: const DashboardScreen(),
       );
     },
     HomeRoute.name: (routeData) {
@@ -52,31 +50,16 @@ abstract class _$AppRouter extends RootStackRouter {
 
 /// generated route for
 /// [DashboardScreen]
-class DashboardRoute extends PageRouteInfo<DashboardRouteArgs> {
-  DashboardRoute({
-    Key? key,
-    List<PageRouteInfo>? children,
-  }) : super(
+class DashboardRoute extends PageRouteInfo<void> {
+  const DashboardRoute({List<PageRouteInfo>? children})
+      : super(
           DashboardRoute.name,
-          args: DashboardRouteArgs(key: key),
           initialChildren: children,
         );
 
   static const String name = 'DashboardRoute';
 
-  static const PageInfo<DashboardRouteArgs> page =
-      PageInfo<DashboardRouteArgs>(name);
-}
-
-class DashboardRouteArgs {
-  const DashboardRouteArgs({this.key});
-
-  final Key? key;
-
-  @override
-  String toString() {
-    return 'DashboardRouteArgs{key: $key}';
-  }
+  static const PageInfo<void> page = PageInfo<void>(name);
 }
 
 /// generated route for

@@ -270,12 +270,7 @@ class _OrderDetailsWidgetState extends State<OrderDetailsWidget1> {
             value: 30,
             title: '30%',
             radius: radius,
-            titleStyle: googleFontPoppins.copyWith(
-              fontWeight: GoogleFontWeight.regular,
-              fontSize: fontSize,
-              color: AppColor.white,
-              shadows: shadows
-            ),
+            titleStyle: googleFontPoppins.copyWith(fontWeight: GoogleFontWeight.regular, fontSize: fontSize, color: AppColor.white, shadows: shadows),
           );
         case 1:
           return PieChartSectionData(
@@ -283,12 +278,7 @@ class _OrderDetailsWidgetState extends State<OrderDetailsWidget1> {
             value: 40,
             title: '40%',
             radius: radius,
-            titleStyle: googleFontPoppins.copyWith(
-                fontWeight: GoogleFontWeight.regular,
-                fontSize: fontSize,
-                color: AppColor.white,
-                shadows: shadows
-            ),
+            titleStyle: googleFontPoppins.copyWith(fontWeight: GoogleFontWeight.regular, fontSize: fontSize, color: AppColor.white, shadows: shadows),
           );
         case 0:
           return PieChartSectionData(
@@ -296,12 +286,7 @@ class _OrderDetailsWidgetState extends State<OrderDetailsWidget1> {
             value: 30,
             title: '30%',
             radius: radius,
-            titleStyle: googleFontPoppins.copyWith(
-                fontWeight: GoogleFontWeight.regular,
-                fontSize: fontSize,
-                color: AppColor.white,
-                shadows: shadows
-            ),
+            titleStyle: googleFontPoppins.copyWith(fontWeight: GoogleFontWeight.regular, fontSize: fontSize, color: AppColor.white, shadows: shadows),
           );
         default:
           throw Error();
@@ -313,6 +298,9 @@ class _OrderDetailsWidgetState extends State<OrderDetailsWidget1> {
 class AppColors {
   static const Color primary = contentColorCyan;
   static const Color menuBackground = Color(0xFF090912);
+  static const Color black = Color(0xFF000000);
+  static const Color textPrimary = Color(0xFFFFFFFF);
+  static const Color textSecondary = Color(0xFF000000);
   static const Color itemsBackground = Color(0xFF1B2339);
   static const Color pageBackground = Color(0xFF282E45);
   static const Color mainTextColor1 = Colors.white;

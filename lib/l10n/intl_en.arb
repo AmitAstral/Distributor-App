@@ -6,5 +6,6 @@
   "favourite": "Favourite",
   "profile": "Profile",
   "settings": "Settings",
-  "cart": "Cart"
+  "cart": "Cart",
+  "logout": "Log Out"
 }

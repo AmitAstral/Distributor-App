@@ -7,10 +7,10 @@ import 'package:distributor_empower/presentation/home/components/credit_details_
 import 'package:distributor_empower/presentation/home/components/focus_product_widget.dart';
 import 'package:distributor_empower/presentation/home/components/order_details_widget1.dart';
 import 'package:distributor_empower/presentation/home/components/sales_chart_widget.dart';
+import 'package:distributor_empower/utils/text_styles.dart';
 import 'package:distributor_empower/widgets/custom_app_bar/app_bar.dart';
 import 'package:distributor_empower/widgets/smart_refresher_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 @RoutePage()
@@ -22,10 +22,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  _HomeScreenState() {
-    // BottomBarNavigationProvider().highLightItem(BottomBarNavigationItemName.home);
-  }
-
   final RefreshController _refreshController = RefreshController(initialRefresh: false);
 
   @override
@@ -59,19 +55,24 @@ class _HomeScreenState extends State<HomeScreen> {
               Text(
                 "Hello,",
                 maxLines: 1,
-                style: googleFontMontserrat.copyWith(fontWeight: GoogleFontWeight.medium, fontSize: 11.sp, color: AppColor.white),
+                style: TextStyles.semiBold11,
               ),
               Text(
                 "Ambika Hardware",
                 maxLines: 2,
-                style: googleFontMontserrat.copyWith(fontWeight: GoogleFontWeight.medium, fontSize: 16.sp, color: AppColor.white),
+                style: TextStyles.semiBold16,
               ),
             ],
           ),
           actions: [
             Padding(
               padding: EdgeInsets.only(right: 5.w),
-              child: IconButton(onPressed: () {}, icon: Assets.icons.menu.svg()),
+              child: IconButton(
+                  onPressed: () {
+                    debugPrint('HERE WE ARE AGAIn');
+                    BottomBarNavigationProvider().dashboardKey.currentState?.openDrawer();
+                  },
+                  icon: Assets.icons.menu.svg()),
             )
           ],
           centerTitle: false,

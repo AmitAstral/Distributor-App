@@ -4,7 +4,6 @@ import 'package:distributor_empower/presentation/home/screen/home_screen.dart';
 import 'package:distributor_empower/presentation/offers/offers_screen.dart';
 import 'package:distributor_empower/presentation/quick_order/quick_order_screen.dart';
 import 'package:distributor_empower/presentation/splash/splash_screen.dart';
-import 'package:flutter/material.dart';
 
 part 'router.gr.dart';
 

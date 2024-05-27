@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:distributor_empower/constants/all_constants.dart';
 import 'package:distributor_empower/generated/l10n.dart';
 import 'package:distributor_empower/presentation/dashboard/provider/bottombar_navigation_provider.dart';
+import 'package:distributor_empower/presentation/drawer/drawer_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:circular_bottom_navigation/circular_bottom_navigation.dart';
@@ -18,7 +19,7 @@ class DashboardScreen extends StatefulWidget {
 class _DashboardScreenState extends State<DashboardScreen> with TickerProviderStateMixin {
   final CircularBottomNavigationController _navigationController = CircularBottomNavigationController(0);
 
-  List<TabItem> tabItems = List.of([
+  final List<TabItem> _tabItems = List.of([
     TabItem(Icons.home, AppLocalizations.current.home, AppColor.primaryColor,
         labelStyle: const TextStyle(color: AppColor.primaryColor, fontWeight: FontWeight.normal)),
     TabItem(Icons.shopping_bag_sharp, AppLocalizations.current.cart, AppColor.primaryColor,
@@ -36,20 +37,18 @@ class _DashboardScreenState extends State<DashboardScreen> with TickerProviderSt
       child: Consumer<BottomBarNavigationProvider>(
         builder: (context, bottomProvider, child) {
           return Scaffold(
+            drawer: const DrawerScreen(),
+            key: bottomProvider.dashboardKey,
             body: Stack(
               children: [
                 const Padding(padding: EdgeInsets.only(bottom: 60), child: AutoRouter()),
                 Positioned(
                   bottom: 0,
                   child: CircularBottomNavigation(
-                    tabItems,
+                    _tabItems,
                     selectedCallback: (int? index) {
                       _navigationController.value = index ?? 0;
-                      if (index == 3) {
-                        BottomBarNavigationProvider().setCurrentIndex(context, 0);
-                      } else {
-                        BottomBarNavigationProvider().setCurrentIndex(context, index ?? 0);
-                      }
+                      BottomBarNavigationProvider().setCurrentIndex(BottomNavigationEnum.values[index ?? 0]);
                     },
                     controller: _navigationController,
                     barBackgroundColor: Colors.white,
