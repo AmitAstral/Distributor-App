@@ -52,6 +52,7 @@ dependencies:
   flutter_gen: ^5.5.0+1
   get_it: ^7.7.0
   circular_bottom_navigation: ^2.4.0
+  webview_flutter: ^4.8.0
 
 dev_dependencies:
   flutter_test:

@@ -15,6 +15,17 @@ abstract class _$AppRouter extends RootStackRouter {
 
   @override
   final Map<String, PageFactory> pagesMap = {
+    CommonWebViewRoute.name: (routeData) {
+      final args = routeData.argsAs<CommonWebViewRouteArgs>();
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: CommonWebViewScreen(
+          key: args.key,
+          url: args.url,
+          title: args.title,
+        ),
+      );
+    },
     DashboardRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -64,6 +75,49 @@ abstract class _$AppRouter extends RootStackRouter {
       );
     },
   };
+}
+
+/// generated route for
+/// [CommonWebViewScreen]
+class CommonWebViewRoute extends PageRouteInfo<CommonWebViewRouteArgs> {
+  CommonWebViewRoute({
+    Key? key,
+    required String url,
+    String? title,
+    List<PageRouteInfo>? children,
+  }) : super(
+          CommonWebViewRoute.name,
+          args: CommonWebViewRouteArgs(
+            key: key,
+            url: url,
+            title: title,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'CommonWebViewRoute';
+
+  static const PageInfo<CommonWebViewRouteArgs> page =
+      PageInfo<CommonWebViewRouteArgs>(name);
+}
+
+class CommonWebViewRouteArgs {
+  const CommonWebViewRouteArgs({
+    this.key,
+    required this.url,
+    this.title,
+  });
+
+  final Key? key;
+
+  final String url;
+
+  final String? title;
+
+  @override
+  String toString() {
+    return 'CommonWebViewRouteArgs{key: $key, url: $url, title: $title}';
+  }
 }
 
 /// generated route for

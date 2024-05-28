@@ -1,5 +1,5 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:distributor_empower/constants/all_constants.dart';
+import 'package:distributor_empower/constants/app_colors/app_colors.dart';
 import 'package:distributor_empower/presentation/dashboard/provider/bottombar_navigation_provider.dart';
 import 'package:distributor_empower/presentation/drawer/drawer_screen.dart';
 import 'package:flutter/material.dart';
@@ -52,7 +52,7 @@ class _DashboardScreenState extends State<DashboardScreen> with TickerProviderSt
                     barHeight: 60,
                     iconsSize: 25,
                   ),
-                )
+                ),
               ],
             ),
           );

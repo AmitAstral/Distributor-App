@@ -7,6 +7,8 @@ import 'package:distributor_empower/presentation/order_history/order_history_scr
 import 'package:distributor_empower/presentation/profile/profile_screen.dart';
 import 'package:distributor_empower/presentation/quick_order/quick_order_screen.dart';
 import 'package:distributor_empower/presentation/splash/splash_screen.dart';
+import 'package:distributor_empower/presentation/webviews/common_webview.dart';
+import 'package:flutter/material.dart';
 
 part 'router.gr.dart';
 
@@ -27,6 +29,8 @@ class AppRouter extends _$AppRouter {
             AutoRoute(page: ProfileRoute.page, path: ProfileRoute.name),
             AutoRoute(page: OrderDetailsRoute.page, path: OrderDetailsRoute.name),
             AutoRoute(page: OrderHistoryRoute.page, path: OrderHistoryRoute.name),
+            AutoRoute(page: OrderHistoryRoute.page, path: OrderHistoryRoute.name),
+            AutoRoute(page: CommonWebViewRoute.page, path: CommonWebViewRoute.name),
           ],
         ),
       ];
