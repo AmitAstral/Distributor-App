@@ -25,6 +25,15 @@
   "orderValue": "Order Value",
   "orderHistory": "Order History",
   "orderDetails": "Order Details",
+  "welcomeToAstral": "Welcome To Astral",
+  "enterYourPhoneNumber": "Enter Your Phone Number",
   "rateUsOnTheAppStore": "Rate us on the app store",
+  "validationEnterPhoneNumber": "Please Enter a Phone Number",
+  "validationPhoneNumber": "Please Enter a Valid Phone Number",
+  "noInternetConnection": "NO INTERNET CONNECTION",
+  "enterPhoneNumber": "Enter Phone Number",
+  "enterSAPCode": "Enter SAP Code",
+  "SAPCode": "SAP Code",
+  "login": "Login",
   "sPMobileNumber": "SP Mobile Number"
 }

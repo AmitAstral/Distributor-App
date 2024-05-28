@@ -32,7 +32,7 @@ class ProfileScreen extends StatelessWidget {
             title: Text(
               AppLocalizations.current.profile,
               maxLines: 1,
-              style: TextStyles.semiBold15.copyWith(color: AppColors.textSecondary),
+              style: TextStyles.semiBold15.copyWith(color: AppColor.textSecondary),
             ),
             centerTitle: true,
             elevation: 0,
@@ -67,11 +67,11 @@ class ProfileScreen extends StatelessWidget {
                       children: [
                         Text(
                           'Hi Bhakti Hardware',
-                          style: TextStyles.semiBold16.copyWith(color: AppColors.textSecondary),
+                          style: TextStyles.semiBold16.copyWith(color: AppColor.textSecondary),
                         ),
                         Text(
                           'Edit your profile',
-                          style: TextStyles.semiBold11.copyWith(color: AppColors.textSecondary),
+                          style: TextStyles.semiBold11.copyWith(color: AppColor.textSecondary),
                         ),
                       ],
                     ),
@@ -92,14 +92,14 @@ class ProfileScreen extends StatelessWidget {
                           flex: 35,
                           child: Text(
                             "${AppLocalizations.current.sales_person} :",
-                            style: TextStyles.regular10.copyWith(color: AppColors.textSecondary),
+                            style: TextStyles.regular10.copyWith(color: AppColor.textSecondary),
                           ),
                         ),
                         Expanded(
                           flex: 65,
                           child: Text(
                             'Hiren Nakum',
-                            style: TextStyles.regular10.copyWith(color: AppColors.textSecondary),
+                            style: TextStyles.regular10.copyWith(color: AppColor.textSecondary),
                           ),
                         ),
                       ],
@@ -119,14 +119,14 @@ class ProfileScreen extends StatelessWidget {
                           flex: 35,
                           child: Text(
                             "${AppLocalizations.current.sPMobileNumber} :",
-                            style: TextStyles.regular10.copyWith(color: AppColors.textSecondary),
+                            style: TextStyles.regular10.copyWith(color: AppColor.textSecondary),
                           ),
                         ),
                         Expanded(
                           flex: 65,
                           child: Text(
                             '+91 96547 83210',
-                            style: TextStyles.regular10.copyWith(color: AppColors.textSecondary),
+                            style: TextStyles.regular10.copyWith(color: AppColor.textSecondary),
                           ),
                         ),
                       ],
@@ -151,7 +151,7 @@ class ProfileScreen extends StatelessWidget {
                             Text(
                               AppLocalizations.current.myOrders,
                               textAlign: TextAlign.center,
-                              style: TextStyles.semiBold11.copyWith(color: AppColors.textSecondary),
+                              style: TextStyles.semiBold11.copyWith(color: AppColor.textSecondary),
                             ),
                             10.verticalSpace
                           ],
@@ -176,7 +176,7 @@ class ProfileScreen extends StatelessWidget {
                             Text(
                               'My Invoices',
                               textAlign: TextAlign.center,
-                              style: TextStyles.semiBold11.copyWith(color: AppColors.textSecondary),
+                              style: TextStyles.semiBold11.copyWith(color: AppColor.textSecondary),
                             ),
                             10.verticalSpace
                           ],
@@ -201,7 +201,7 @@ class ProfileScreen extends StatelessWidget {
                             Text(
                               AppLocalizations.current.settings,
                               textAlign: TextAlign.center,
-                              style: TextStyles.semiBold11.copyWith(color: AppColors.textSecondary),
+                              style: TextStyles.semiBold11.copyWith(color: AppColor.textSecondary),
                             ),
                             10.verticalSpace
                           ],
@@ -234,7 +234,7 @@ class ProfileScreen extends StatelessWidget {
                             Expanded(
                               child: Text(
                                 AppLocalizations.current.aboutUs,
-                                style: TextStyles.semiBold14.copyWith(color: AppColors.textSecondary),
+                                style: TextStyles.semiBold14.copyWith(color: AppColor.textSecondary),
                               ),
                             ),
                             Icon(
@@ -266,7 +266,7 @@ class ProfileScreen extends StatelessWidget {
                             Expanded(
                               child: Text(
                                 AppLocalizations.current.faqs,
-                                style: TextStyles.semiBold14.copyWith(color: AppColors.textSecondary),
+                                style: TextStyles.semiBold14.copyWith(color: AppColor.textSecondary),
                               ),
                             ),
                             Icon(
@@ -294,7 +294,7 @@ class ProfileScreen extends StatelessWidget {
                             Expanded(
                               child: Text(
                                 AppLocalizations.current.needHelp,
-                                style: TextStyles.semiBold14.copyWith(color: AppColors.textSecondary),
+                                style: TextStyles.semiBold14.copyWith(color: AppColor.textSecondary),
                               ),
                             ),
                             Icon(
@@ -322,7 +322,7 @@ class ProfileScreen extends StatelessWidget {
                             Expanded(
                               child: Text(
                                 AppLocalizations.current.shareTheApp,
-                                style: TextStyles.semiBold14.copyWith(color: AppColors.textSecondary),
+                                style: TextStyles.semiBold14.copyWith(color: AppColor.textSecondary),
                               ),
                             ),
                             Icon(
@@ -350,7 +350,7 @@ class ProfileScreen extends StatelessWidget {
                             Expanded(
                               child: Text(
                                 AppLocalizations.current.rateUsOnTheAppStore,
-                                style: TextStyles.semiBold14.copyWith(color: AppColors.textSecondary),
+                                style: TextStyles.semiBold14.copyWith(color: AppColor.textSecondary),
                               ),
                             ),
                             Icon(
@@ -384,7 +384,7 @@ class ProfileScreen extends StatelessWidget {
                         Expanded(
                           child: Text(
                             AppLocalizations.current.logout,
-                            style: TextStyles.regular14.copyWith(color: AppColors.textSecondary),
+                            style: TextStyles.regular14.copyWith(color: AppColor.textSecondary),
                           ),
                         ),
                         Icon(
@@ -399,7 +399,7 @@ class ProfileScreen extends StatelessWidget {
                 50.verticalSpace,
                 Text(
                   'Version : v1.0.0',
-                  style: TextStyles.regular11.copyWith(color: AppColors.textSecondary),
+                  style: TextStyles.regular11.copyWith(color: AppColor.textSecondary),
                 ),
               ],
             ),

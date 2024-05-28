@@ -22,18 +22,27 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "SAPCode": MessageLookupByLibrary.simpleMessage("SAP Code"),
         "aboutUs": MessageLookupByLibrary.simpleMessage("About us"),
         "address": MessageLookupByLibrary.simpleMessage("Address"),
         "cart": MessageLookupByLibrary.simpleMessage("Cart"),
         "chooseQty": MessageLookupByLibrary.simpleMessage("Choose Quantity "),
         "date": MessageLookupByLibrary.simpleMessage("Date"),
+        "enterPhoneNumber":
+            MessageLookupByLibrary.simpleMessage("Enter Phone Number"),
+        "enterSAPCode": MessageLookupByLibrary.simpleMessage("Enter SAP Code"),
+        "enterYourPhoneNumber":
+            MessageLookupByLibrary.simpleMessage("Enter Your Phone Number"),
         "faqs": MessageLookupByLibrary.simpleMessage("FAQs"),
         "favourite": MessageLookupByLibrary.simpleMessage("Favourite"),
         "home": MessageLookupByLibrary.simpleMessage("Home"),
+        "login": MessageLookupByLibrary.simpleMessage("Login"),
         "logout": MessageLookupByLibrary.simpleMessage("Log Out"),
         "mobileNo": MessageLookupByLibrary.simpleMessage("Mobile No."),
         "myOrders": MessageLookupByLibrary.simpleMessage("My orders"),
         "needHelp": MessageLookupByLibrary.simpleMessage("Need help?"),
+        "noInternetConnection":
+            MessageLookupByLibrary.simpleMessage("NO INTERNET CONNECTION"),
         "offer": MessageLookupByLibrary.simpleMessage("Offer"),
         "orderDetails": MessageLookupByLibrary.simpleMessage("Order Details"),
         "orderHistory": MessageLookupByLibrary.simpleMessage("Order History"),
@@ -51,6 +60,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "schemes": MessageLookupByLibrary.simpleMessage("Schemes"),
         "seeAll": MessageLookupByLibrary.simpleMessage("See all"),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
-        "shareTheApp": MessageLookupByLibrary.simpleMessage("Share the app")
+        "shareTheApp": MessageLookupByLibrary.simpleMessage("Share the app"),
+        "validationEnterPhoneNumber":
+            MessageLookupByLibrary.simpleMessage("Please Enter a Phone Number"),
+        "validationPhoneNumber": MessageLookupByLibrary.simpleMessage(
+            "Please Enter a Valid Phone Number"),
+        "welcomeToAstral":
+            MessageLookupByLibrary.simpleMessage("Welcome To Astral")
       };
 }

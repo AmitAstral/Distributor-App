@@ -62,4 +62,7 @@ class AppColor {
   static const Color appBarBackground = Color(0xffF8FAFB);
   static const Color orderDetails = Color(0xff1377E7);
   static const Color orderDetailsList = Color(0xffDDF1FA);
+  static const Color textPrimary = Color(0xFFFFFFFF);
+  static const Color textSecondary = Color(0xFF000000);
+  static const Color borderColor = Colors.white54;
 }

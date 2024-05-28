@@ -170,7 +170,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                       ),
                       Text(
                         AppLocalizations.current.logout,
-                        style: TextStyles.semiBold11.copyWith(color: AppColors.textSecondary),
+                        style: TextStyles.semiBold11.copyWith(color: AppColor.textSecondary),
                       ),
                     ],
                   ),

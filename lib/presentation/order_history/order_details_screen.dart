@@ -27,7 +27,7 @@ class OrderDetailsScreen extends StatelessWidget {
           title: Text(
             AppLocalizations.current.orderDetails,
             maxLines: 1,
-            style: TextStyles.semiBold15.copyWith(color: AppColors.textSecondary),
+            style: TextStyles.semiBold15.copyWith(color: AppColor.textSecondary),
           ),
           centerTitle: true,
           elevation: 0,
@@ -47,7 +47,7 @@ class OrderDetailsScreen extends StatelessWidget {
                     flex: 7,
                     child: Text(
                       AppLocalizations.current.partyName,
-                      style: TextStyles.regular9.copyWith(color: AppColors.textSecondary),
+                      style: TextStyles.regular9.copyWith(color: AppColor.textSecondary),
                     ) //googleFontPoppins.copyWith(fontWeight: GoogleFontWeight.regular, fontSize: 9.sp, color: AppColor.black)),
                     ),
                 8.horizontalSpace,
@@ -56,7 +56,7 @@ class OrderDetailsScreen extends StatelessWidget {
                   child: Text(
                     AppLocalizations.current.mobileNo,
                     style: TextStyles.regular9.copyWith(
-                      color: AppColors.textSecondary,
+                      color: AppColor.textSecondary,
                     ),
                   ),
                 ),
@@ -79,7 +79,7 @@ class OrderDetailsScreen extends StatelessWidget {
                     child: Text(
                       "Bhakti Hardware",
                       maxLines: 2,
-                      style: TextStyles.semiBold11.copyWith(color: AppColors.textSecondary),
+                      style: TextStyles.semiBold11.copyWith(color: AppColor.textSecondary),
                     ),
                   ),
                 ),
@@ -99,7 +99,7 @@ class OrderDetailsScreen extends StatelessWidget {
                     child: Text(
                       '69874 56321',
                       maxLines: 2,
-                      style: TextStyles.semiBold11.copyWith(color: AppColors.textSecondary),
+                      style: TextStyles.semiBold11.copyWith(color: AppColor.textSecondary),
                     ),
                   ),
                 ),
@@ -109,7 +109,7 @@ class OrderDetailsScreen extends StatelessWidget {
             Text(
               AppLocalizations.current.address,
               textAlign: TextAlign.start,
-              style: TextStyles.regular9.copyWith(color: AppColors.textSecondary),
+              style: TextStyles.regular9.copyWith(color: AppColor.textSecondary),
             ),
             3.verticalSpace,
             Container(
@@ -125,7 +125,7 @@ class OrderDetailsScreen extends StatelessWidget {
               child: Text(
                 "Opp. St. Sebastian's Garden, Behind the W, Goa.",
                 maxLines: 3,
-                style: TextStyles.semiBold11.copyWith(color: AppColors.textSecondary),
+                style: TextStyles.semiBold11.copyWith(color: AppColor.textSecondary),
               ),
             ),
             8.verticalSpace,
@@ -139,7 +139,7 @@ class OrderDetailsScreen extends StatelessWidget {
                   children: [
                     Text(
                       AppLocalizations.current.date,
-                      style: TextStyles.regular9.copyWith(color: AppColors.textSecondary),
+                      style: TextStyles.regular9.copyWith(color: AppColor.textSecondary),
                     ),
                     3.verticalSpace,
                     Container(
@@ -154,7 +154,7 @@ class OrderDetailsScreen extends StatelessWidget {
                       child: Text(
                         "03/01/2023",
                         style: TextStyles.semiBold11.copyWith(
-                          color: AppColors.textSecondary,
+                          color: AppColor.textSecondary,
                         ),
                       ),
                     )
@@ -167,7 +167,7 @@ class OrderDetailsScreen extends StatelessWidget {
                   children: [
                     Text(
                       AppLocalizations.current.orderNo,
-                      style: TextStyles.regular9.copyWith(color: AppColors.textSecondary),
+                      style: TextStyles.regular9.copyWith(color: AppColor.textSecondary),
                     ),
                     3.verticalSpace,
                     Container(
@@ -182,7 +182,7 @@ class OrderDetailsScreen extends StatelessWidget {
                       ),
                       child: Text(
                         '456123789',
-                        style: TextStyles.semiBold11.copyWith(color: AppColors.textSecondary),
+                        style: TextStyles.semiBold11.copyWith(color: AppColor.textSecondary),
                       ),
                     ),
                   ],
@@ -202,7 +202,7 @@ class OrderDetailsScreen extends StatelessWidget {
                     child: FittedBox(
                       child: Text(
                         AppConst.product_name,
-                        style: TextStyles.bold15.copyWith(color: AppColors.textSecondary),
+                        style: TextStyles.bold15.copyWith(color: AppColor.textSecondary),
                       ),
                     ),
                   ),
@@ -211,7 +211,7 @@ class OrderDetailsScreen extends StatelessWidget {
                     child: FittedBox(
                       child: Text(
                         AppConst.sku,
-                        style: TextStyles.bold12.copyWith(color: AppColors.textSecondary),
+                        style: TextStyles.bold12.copyWith(color: AppColor.textSecondary),
                       ),
                     ),
                   ),
@@ -220,17 +220,17 @@ class OrderDetailsScreen extends StatelessWidget {
                     child: FittedBox(
                       child: Text(
                         AppConst.qty,
-                        style: TextStyles.bold12.copyWith(color: AppColors.textSecondary),
+                        style: TextStyles.bold12.copyWith(color: AppColor.textSecondary),
                       ),
                     ),
                   ),
                   Flexible(
                     flex: 2,
-                    child: FittedBox(child: Text(AppConst.price, style: TextStyles.bold12.copyWith(color: AppColors.textSecondary))),
+                    child: FittedBox(child: Text(AppConst.price, style: TextStyles.bold12.copyWith(color: AppColor.textSecondary))),
                   ),
                   Flexible(
                     flex: 2,
-                    child: FittedBox(child: Text(AppConst.amount, style: TextStyles.bold12.copyWith(color: AppColors.textSecondary))),
+                    child: FittedBox(child: Text(AppConst.amount, style: TextStyles.bold12.copyWith(color: AppColor.textSecondary))),
                   ),
                 ],
               ),
@@ -250,15 +250,15 @@ class OrderDetailsScreen extends StatelessWidget {
                             Expanded(
                                 flex: 4,
                                 child:
-                                    Text("BONDTITE PRO 180 GM", maxLines: 3, style: TextStyles.semiBold11.copyWith(color: AppColors.textSecondary))),
-                            Expanded(flex: 2, child: Text("180 GM", style: TextStyles.semiBold11.copyWith(color: AppColors.textSecondary))),
-                            Expanded(flex: 2, child: Text("6.00", style: TextStyles.semiBold11.copyWith(color: AppColors.textSecondary))),
-                            Expanded(flex: 2, child: Text("256.10", style: TextStyles.semiBold11.copyWith(color: AppColors.textSecondary))),
+                                    Text("BONDTITE PRO 180 GM", maxLines: 3, style: TextStyles.semiBold11.copyWith(color: AppColor.textSecondary))),
+                            Expanded(flex: 2, child: Text("180 GM", style: TextStyles.semiBold11.copyWith(color: AppColor.textSecondary))),
+                            Expanded(flex: 2, child: Text("6.00", style: TextStyles.semiBold11.copyWith(color: AppColor.textSecondary))),
+                            Expanded(flex: 2, child: Text("256.10", style: TextStyles.semiBold11.copyWith(color: AppColor.textSecondary))),
                             Expanded(
                               flex: 2,
                               child: Align(
                                   alignment: Alignment.center,
-                                  child: Text("1536", style: TextStyles.semiBold11.copyWith(color: AppColors.textSecondary))),
+                                  child: Text("1536", style: TextStyles.semiBold11.copyWith(color: AppColor.textSecondary))),
                             ),
                           ],
                         ),
@@ -283,7 +283,7 @@ class OrderDetailsScreen extends StatelessWidget {
                 width: 1.sw,
                 padding: EdgeInsets.only(top: 3.h),
                 alignment: Alignment.centerRight,
-                child: Text("${AppConst.rupees}16,00,000", style: TextStyles.semiBold11.copyWith(color: AppColors.textSecondary)))
+                child: Text("${AppConst.rupees}16,00,000", style: TextStyles.semiBold11.copyWith(color: AppColor.textSecondary)))
           ],
         ),
       ),

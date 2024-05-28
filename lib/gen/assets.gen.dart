@@ -108,6 +108,17 @@ class $AssetsIconsGen {
       ];
 }
 
+class $AssetsImagesGen {
+  const $AssetsImagesGen();
+
+  /// File path: assets/images/splash_logo.png
+  AssetGenImage get splashLogo =>
+      const AssetGenImage('assets/images/splash_logo.png');
+
+  /// List of all assets
+  List<AssetGenImage> get values => [splashLogo];
+}
+
 class $AssetsStaticImagesGen {
   const $AssetsStaticImagesGen();
 
@@ -133,6 +144,7 @@ class Assets {
   static const $AssetsBottomBarIconsGen bottomBarIcons =
       $AssetsBottomBarIconsGen();
   static const $AssetsIconsGen icons = $AssetsIconsGen();
+  static const $AssetsImagesGen images = $AssetsImagesGen();
   static const $AssetsStaticImagesGen staticImages = $AssetsStaticImagesGen();
 }
 

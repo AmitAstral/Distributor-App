@@ -1,3 +1,4 @@
+import 'package:distributor_empower/presentation/authentication/login/login_screen.dart';
 import 'package:distributor_empower/presentation/dashboard/screens/dashboard_screen.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:distributor_empower/presentation/home/screen/home_screen.dart';
@@ -33,5 +34,6 @@ class AppRouter extends _$AppRouter {
             AutoRoute(page: CommonWebViewRoute.page, path: CommonWebViewRoute.name),
           ],
         ),
+        AutoRoute(page: LoginRoute.page),
       ];
 }

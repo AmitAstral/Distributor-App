@@ -29,7 +29,7 @@ class OrderHistoryScreen extends StatelessWidget {
           title: Text(
             AppLocalizations.current.orderHistory,
             maxLines: 1,
-            style: TextStyles.semiBold15.copyWith(color: AppColors.textSecondary),
+            style: TextStyles.semiBold15.copyWith(color: AppColor.textSecondary),
           ),
           centerTitle: true,
           elevation: 0,
@@ -63,14 +63,14 @@ class OrderHistoryScreen extends StatelessWidget {
                         child: Text(
                           '${AppLocalizations.current.date} : 03/01/23',
                           textAlign: TextAlign.start,
-                          style: TextStyles.regular11.copyWith(color: AppColors.textSecondary),
+                          style: TextStyles.regular11.copyWith(color: AppColor.textSecondary),
                         ),
                       ),
                       Expanded(
                         child: Text(
                           '${AppLocalizations.current.orderNo} : 456123789',
                           textAlign: TextAlign.end,
-                          style: TextStyles.regular11.copyWith(color: AppColors.textSecondary),
+                          style: TextStyles.regular11.copyWith(color: AppColor.textSecondary),
                         ),
                       ),
                     ],

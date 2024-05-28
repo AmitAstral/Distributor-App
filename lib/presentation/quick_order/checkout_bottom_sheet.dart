@@ -75,11 +75,11 @@ class CheckoutBottomSheet {
                                     children: [
                                       TextSpan(
                                         text: AppLocalizations.current.chooseQty,
-                                        style: TextStyles.bold15.copyWith(color: AppColors.textSecondary),
+                                        style: TextStyles.bold15.copyWith(color: AppColor.textSecondary),
                                       ),
                                       TextSpan(
                                         text: '(Total SKU 2)',
-                                        style: TextStyles.semiBold12.copyWith(color: AppColors.textSecondary),
+                                        style: TextStyles.semiBold12.copyWith(color: AppColor.textSecondary),
                                       ),
                                     ],
                                   ),
@@ -171,28 +171,28 @@ class CheckoutBottomSheet {
                                                 padding: EdgeInsets.only(top: 2.w),
                                                 child: Text(
                                                   'Bondtite Rapid',
-                                                  style: TextStyles.semiBold11.copyWith(color: AppColors.textSecondary),
+                                                  style: TextStyles.semiBold11.copyWith(color: AppColor.textSecondary),
                                                 ),
                                               ),
                                               Padding(
                                                 padding: EdgeInsets.only(top: 2.w),
                                                 child: Text(
                                                   '3gm',
-                                                  style: TextStyles.regular12.copyWith(color: AppColors.contentColorYellow),
+                                                  style: TextStyles.regular12.copyWith(color: AppColor.yellowAccent),
                                                 ),
                                               ),
                                               Padding(
                                                 padding: EdgeInsets.only(top: 2.w),
                                                 child: Text(
                                                   '${AppLocalizations.current.rupees}10',
-                                                  style: TextStyles.semiBold11.copyWith(color: AppColors.textSecondary),
+                                                  style: TextStyles.semiBold11.copyWith(color: AppColor.textSecondary),
                                                 ),
                                               ),
                                               Padding(
                                                 padding: EdgeInsets.only(top: 2.w),
                                                 child: Text(
                                                   'Min Qty. 20',
-                                                  style: TextStyles.regular8.copyWith(color: AppColors.textSecondary),
+                                                  style: TextStyles.regular8.copyWith(color: AppColor.textSecondary),
                                                 ),
                                               ),
                                             ],
@@ -273,13 +273,13 @@ class CheckoutBottomSheet {
                                                 padding: EdgeInsets.only(top: 5.w),
                                                 child: Text(
                                                   '50x₹10',
-                                                  style: TextStyles.regular9.copyWith(color: AppColors.textSecondary),
+                                                  style: TextStyles.regular9.copyWith(color: AppColor.textSecondary),
                                                 )),
                                             Padding(
                                               padding: EdgeInsets.only(top: 0.w),
                                               child: Text(
                                                 '${AppConst.rupees}500',
-                                                style: TextStyles.semiBold12.copyWith(color: AppColors.textSecondary),
+                                                style: TextStyles.semiBold12.copyWith(color: AppColor.textSecondary),
                                               ),
                                             ),
                                           ],
@@ -308,16 +308,16 @@ class CheckoutBottomSheet {
                           children: [
                             Text(
                               'Total',
-                              style: TextStyles.semiBold13.copyWith(color: AppColors.textSecondary),
+                              style: TextStyles.semiBold13.copyWith(color: AppColor.textSecondary),
                             ),
                             3.verticalSpace,
                             Text(
                               '1x1.7kg | 10x3gm',
-                              style: TextStyles.regular11.copyWith(color: AppColors.borderColor),
+                              style: TextStyles.regular11.copyWith(color: AppColor.borderColor),
                             ),
                             Text(
                               '${AppConst.rupees}16,055',
-                              style: TextStyles.semiBold16.copyWith(color: AppColors.textSecondary),
+                              style: TextStyles.semiBold16.copyWith(color: AppColor.textSecondary),
                             )
                           ],
                         ),

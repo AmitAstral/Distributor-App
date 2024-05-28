@@ -310,11 +310,101 @@ class AppLocalizations {
     );
   }
 
+  /// `Welcome To Astral`
+  String get welcomeToAstral {
+    return Intl.message(
+      'Welcome To Astral',
+      name: 'welcomeToAstral',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter Your Phone Number`
+  String get enterYourPhoneNumber {
+    return Intl.message(
+      'Enter Your Phone Number',
+      name: 'enterYourPhoneNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Rate us on the app store`
   String get rateUsOnTheAppStore {
     return Intl.message(
       'Rate us on the app store',
       name: 'rateUsOnTheAppStore',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please Enter a Phone Number`
+  String get validationEnterPhoneNumber {
+    return Intl.message(
+      'Please Enter a Phone Number',
+      name: 'validationEnterPhoneNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please Enter a Valid Phone Number`
+  String get validationPhoneNumber {
+    return Intl.message(
+      'Please Enter a Valid Phone Number',
+      name: 'validationPhoneNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `NO INTERNET CONNECTION`
+  String get noInternetConnection {
+    return Intl.message(
+      'NO INTERNET CONNECTION',
+      name: 'noInternetConnection',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter Phone Number`
+  String get enterPhoneNumber {
+    return Intl.message(
+      'Enter Phone Number',
+      name: 'enterPhoneNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter SAP Code`
+  String get enterSAPCode {
+    return Intl.message(
+      'Enter SAP Code',
+      name: 'enterSAPCode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `SAP Code`
+  String get SAPCode {
+    return Intl.message(
+      'SAP Code',
+      name: 'SAPCode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Login`
+  String get login {
+    return Intl.message(
+      'Login',
+      name: 'login',
       desc: '',
       args: [],
     );

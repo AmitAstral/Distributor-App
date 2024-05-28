@@ -36,7 +36,7 @@ class _QuickOrderScreenState extends State<QuickOrderScreen> {
           title: Text(
             AppConst.quickOrder,
             maxLines: 1,
-            style: TextStyles.semiBold16.copyWith(color: AppColors.textSecondary),
+            style: TextStyles.semiBold16.copyWith(color: AppColor.textSecondary),
           ),
           actions: [
             Padding(
@@ -110,7 +110,7 @@ class _QuickOrderScreenState extends State<QuickOrderScreen> {
                             padding: EdgeInsets.only(top: 2.w),
                             child: Text(
                               'Bondtite Rapid',
-                              style: TextStyles.semiBold11.copyWith(color: AppColors.textSecondary),
+                              style: TextStyles.semiBold11.copyWith(color: AppColor.textSecondary),
                             ),
                           ),
                           Padding(
@@ -124,14 +124,14 @@ class _QuickOrderScreenState extends State<QuickOrderScreen> {
                             padding: EdgeInsets.only(top: 2.w),
                             child: Text(
                               '${AppConst.rupees}10',
-                              style: TextStyles.semiBold11.copyWith(color: AppColors.textSecondary),
+                              style: TextStyles.semiBold11.copyWith(color: AppColor.textSecondary),
                             ),
                           ),
                           Padding(
                             padding: EdgeInsets.only(top: 2.w),
                             child: Text(
                               'Min Qty. 20',
-                              style: TextStyles.regular9.copyWith(color: AppColors.textSecondary),
+                              style: TextStyles.regular9.copyWith(color: AppColor.textSecondary),
                             ),
                           ),
                         ],
@@ -207,13 +207,13 @@ class _QuickOrderScreenState extends State<QuickOrderScreen> {
                             padding: EdgeInsets.only(top: 5.w),
                             child: Text(
                               '50x₹10',
-                              style: TextStyles.regular9.copyWith(color: AppColors.textSecondary),
+                              style: TextStyles.regular9.copyWith(color: AppColor.textSecondary),
                             )),
                         Padding(
                           padding: EdgeInsets.only(top: 0.w),
                           child: Text(
                             '${AppConst.rupees}500',
-                            style: TextStyles.semiBold13.copyWith(color: AppColors.textSecondary),
+                            style: TextStyles.semiBold13.copyWith(color: AppColor.textSecondary),
                           ),
                         ),
                       ],
