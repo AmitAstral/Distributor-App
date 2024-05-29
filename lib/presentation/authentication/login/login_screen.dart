@@ -1,10 +1,7 @@
 import 'package:auto_route/annotations.dart';
-import 'package:distributor_empower/constants/app_colors/app_colors.dart';
 import 'package:distributor_empower/core/di/locator.dart';
-import 'package:distributor_empower/gen/assets.gen.dart';
 import 'package:distributor_empower/generated/l10n.dart';
 import 'package:distributor_empower/routes/router.dart';
-import 'package:distributor_empower/utils/text_styles.dart';
 import 'package:distributor_empower/widgets/app_button.dart';
 import 'package:distributor_empower/widgets/app_text_form_field.dart';
 import 'package:distributor_empower/widgets/auth_top_logo_widget.dart';
@@ -43,6 +40,7 @@ class LoginScreen extends StatelessWidget {
                         child: AppTextFormField(
                           hintText: AppLocalizations.current.SAPCode,
                           controller: _sapCodeController,
+                          textCapitalization: TextCapitalization.characters,
                           validator: (text) {
                             if ((text ?? '').isEmpty) return AppLocalizations.current.enterSAPCode;
                             return null;

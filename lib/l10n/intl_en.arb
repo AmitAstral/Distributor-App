@@ -37,5 +37,12 @@
   "login": "Login",
   "getOTP": "Get OTP",
   "enterOTP": "Enter OTP",
-  "sPMobileNumber": "SP Mobile Number"
+  "pin": "Pin",
+  "confirmPin": "Confirm Pin",
+  "yes": "Yes",
+  "no": "No",
+  "messageAreYouSureLogout": "Are you  sure you want to logout?",
+  "validatePinAndConfirmPin": "Pin and confirm pin must be same",
+  "sPMobileNumber": "SP Mobile Number",
+  "forgotPin": "Forgot pin?"
 }

@@ -19,6 +19,7 @@ class AppTextFormField extends StatefulWidget {
   final Widget? suffixIcon;
   final Widget? prefixIcon;
   final bool? obsecure;
+  final TextCapitalization textCapitalization;
 
   const AppTextFormField({
     required this.hintText,
@@ -36,6 +37,7 @@ class AppTextFormField extends StatefulWidget {
     this.onTap,
     this.suffixIcon,
     this.prefixIcon,
+    this.textCapitalization = TextCapitalization.none,
     this.obsecure = false,
   });
 
@@ -52,6 +54,7 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
         readOnly: widget.isDisabled,
         onTap: widget.onTap,
         maxLines: widget.maxLines ?? 1,
+        textCapitalization: widget.textCapitalization,
         obscureText: widget.obsecure ?? false,
         inputFormatters: widget.inputFormatters,
         keyboardType: widget.keyboardType,

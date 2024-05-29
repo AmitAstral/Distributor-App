@@ -430,11 +430,81 @@ class AppLocalizations {
     );
   }
 
+  /// `Pin`
+  String get pin {
+    return Intl.message(
+      'Pin',
+      name: 'pin',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Confirm Pin`
+  String get confirmPin {
+    return Intl.message(
+      'Confirm Pin',
+      name: 'confirmPin',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Yes`
+  String get yes {
+    return Intl.message(
+      'Yes',
+      name: 'yes',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No`
+  String get no {
+    return Intl.message(
+      'No',
+      name: 'no',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Are you  sure you want to logout?`
+  String get messageAreYouSureLogout {
+    return Intl.message(
+      'Are you  sure you want to logout?',
+      name: 'messageAreYouSureLogout',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Pin and confirm pin must be same`
+  String get validatePinAndConfirmPin {
+    return Intl.message(
+      'Pin and confirm pin must be same',
+      name: 'validatePinAndConfirmPin',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `SP Mobile Number`
   String get sPMobileNumber {
     return Intl.message(
       'SP Mobile Number',
       name: 'sPMobileNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Forgot pin?`
+  String get forgotPin {
+    return Intl.message(
+      'Forgot pin?',
+      name: 'forgotPin',
       desc: '',
       args: [],
     );

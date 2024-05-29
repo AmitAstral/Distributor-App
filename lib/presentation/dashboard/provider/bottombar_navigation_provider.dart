@@ -44,7 +44,7 @@ enum BottomNavigationEnum {
   home(routePath: HomeRoute(), icon: Icons.home, label: 'Home'),
   cart(routePath: QuickOrderRoute(), icon: Icons.shopping_bag_sharp, label: 'Quick Order'),
   offers(routePath: OffersRoute(), icon: Icons.local_offer_rounded, label: 'Offers'),
-  profile(routePath: ProfileRoute(), icon: Icons.person_outline, label: 'Settings');
+  profile(routePath: ProfileRoute(), icon: Icons.person, label: 'Settings');
 
   final PageRouteInfo routePath;
   final IconData icon;

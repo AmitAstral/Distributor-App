@@ -27,6 +27,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "address": MessageLookupByLibrary.simpleMessage("Address"),
         "cart": MessageLookupByLibrary.simpleMessage("Cart"),
         "chooseQty": MessageLookupByLibrary.simpleMessage("Choose Quantity "),
+        "confirmPin": MessageLookupByLibrary.simpleMessage("Confirm Pin"),
         "date": MessageLookupByLibrary.simpleMessage("Date"),
         "enterOTP": MessageLookupByLibrary.simpleMessage("Enter OTP"),
         "enterPhoneNumber":
@@ -36,13 +37,17 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Enter Your Phone Number"),
         "faqs": MessageLookupByLibrary.simpleMessage("FAQs"),
         "favourite": MessageLookupByLibrary.simpleMessage("Favourite"),
+        "forgotPin": MessageLookupByLibrary.simpleMessage("Forgot pin?"),
         "getOTP": MessageLookupByLibrary.simpleMessage("Get OTP"),
         "home": MessageLookupByLibrary.simpleMessage("Home"),
         "login": MessageLookupByLibrary.simpleMessage("Login"),
         "logout": MessageLookupByLibrary.simpleMessage("Log Out"),
+        "messageAreYouSureLogout": MessageLookupByLibrary.simpleMessage(
+            "Are you  sure you want to logout?"),
         "mobileNo": MessageLookupByLibrary.simpleMessage("Mobile No."),
         "myOrders": MessageLookupByLibrary.simpleMessage("My orders"),
         "needHelp": MessageLookupByLibrary.simpleMessage("Need help?"),
+        "no": MessageLookupByLibrary.simpleMessage("No"),
         "noInternetConnection":
             MessageLookupByLibrary.simpleMessage("NO INTERNET CONNECTION"),
         "offer": MessageLookupByLibrary.simpleMessage("Offer"),
@@ -51,6 +56,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "orderNo": MessageLookupByLibrary.simpleMessage("Order No"),
         "orderValue": MessageLookupByLibrary.simpleMessage("Order Value"),
         "partyName": MessageLookupByLibrary.simpleMessage("Party Name"),
+        "pin": MessageLookupByLibrary.simpleMessage("Pin"),
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
         "rateUsOnTheAppStore":
             MessageLookupByLibrary.simpleMessage("Rate us on the app store"),
@@ -63,11 +69,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "seeAll": MessageLookupByLibrary.simpleMessage("See all"),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
         "shareTheApp": MessageLookupByLibrary.simpleMessage("Share the app"),
+        "validatePinAndConfirmPin": MessageLookupByLibrary.simpleMessage(
+            "Pin and confirm pin must be same"),
         "validationEnterPhoneNumber":
             MessageLookupByLibrary.simpleMessage("Please Enter a Phone Number"),
         "validationPhoneNumber": MessageLookupByLibrary.simpleMessage(
             "Please Enter a Valid Phone Number"),
         "welcomeToAstral":
-            MessageLookupByLibrary.simpleMessage("Welcome To Astral")
+            MessageLookupByLibrary.simpleMessage("Welcome To Astral"),
+        "yes": MessageLookupByLibrary.simpleMessage("Yes")
       };
 }

@@ -1,4 +1,6 @@
+import 'package:distributor_empower/core/di/locator.dart';
 import 'package:distributor_empower/core/storage/storage_constants.dart';
+import 'package:distributor_empower/routes/router.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 
@@ -37,4 +39,10 @@ class StorageService {
   Future<void> clear() async => await _box.clear();
 
   Future<void> remove(String key) async => await _box.delete(key);
+
+  void logout() {
+
+    isLogin = false;
+    appRouter.pushAndRemoveAll(LoginRoute());
+  }
 }

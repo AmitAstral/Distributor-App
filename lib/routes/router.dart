@@ -1,5 +1,6 @@
 import 'package:distributor_empower/presentation/authentication/login/login_screen.dart';
 import 'package:distributor_empower/presentation/authentication/otp/otp_screen.dart';
+import 'package:distributor_empower/presentation/authentication/pin/verify_pin_screen.dart';
 import 'package:distributor_empower/presentation/dashboard/screens/dashboard_screen.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:distributor_empower/presentation/home/screen/home_screen.dart';
@@ -10,6 +11,7 @@ import 'package:distributor_empower/presentation/profile/profile_screen.dart';
 import 'package:distributor_empower/presentation/quick_order/quick_order_screen.dart';
 import 'package:distributor_empower/presentation/splash/splash_screen.dart';
 import 'package:distributor_empower/presentation/webviews/common_webview.dart';
+import 'package:distributor_empower/presentation/authentication/pin/set_pin_screen.dart';
 import 'package:flutter/material.dart';
 
 part 'router.gr.dart';
@@ -37,5 +39,14 @@ class AppRouter extends _$AppRouter {
         ),
         AutoRoute(page: LoginRoute.page),
         AutoRoute(page: OtpRoute.page),
+        AutoRoute(page: SetPinRoute.page),
+        AutoRoute(page: VerifyPinRoute.page),
       ];
+
+  void pushAndRemoveAll(PageRouteInfo route) {
+    pushAndPopUntil(
+      route,
+      predicate: (route) => false,
+    );
+  }
 }

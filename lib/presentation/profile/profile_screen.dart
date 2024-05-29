@@ -5,6 +5,7 @@ import 'package:distributor_empower/gen/assets.gen.dart';
 import 'package:distributor_empower/generated/l10n.dart';
 import 'package:distributor_empower/presentation/home/components/order_details_widget1.dart';
 import 'package:distributor_empower/routes/router.dart';
+import 'package:distributor_empower/utils/common_dialog.dart';
 import 'package:distributor_empower/utils/extensions.dart';
 import 'package:distributor_empower/utils/text_styles.dart';
 import 'package:distributor_empower/widgets/custom_app_bar/app_bar.dart';
@@ -395,6 +396,17 @@ class ProfileScreen extends StatelessWidget {
                       ],
                     ),
                   ),
+                ).addGesture(
+                  () {
+                    CommonDialog.showCommonDialog(
+                      title: AppLocalizations.current.messageAreYouSureLogout,
+                      positiveTitle: AppLocalizations.current.yes,
+                      negativeTitle: AppLocalizations.current.no,
+                      onPositivePressed: () {
+                        storage.logout();
+                      },
+                    );
+                  },
                 ),
                 50.verticalSpace,
                 Text(

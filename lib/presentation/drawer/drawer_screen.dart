@@ -5,6 +5,8 @@ import 'package:distributor_empower/generated/l10n.dart';
 import 'package:distributor_empower/presentation/dashboard/provider/bottombar_navigation_provider.dart';
 import 'package:distributor_empower/presentation/home/components/order_details_widget1.dart';
 import 'package:distributor_empower/routes/router.dart';
+import 'package:distributor_empower/utils/common_dialog.dart';
+import 'package:distributor_empower/utils/extensions.dart';
 import 'package:distributor_empower/utils/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -175,6 +177,17 @@ class _DrawerScreenState extends State<DrawerScreen> {
                     ],
                   ),
                 ),
+              ).addGesture(
+                () {
+                  CommonDialog.showCommonDialog(
+                    title: AppLocalizations.current.messageAreYouSureLogout,
+                    positiveTitle: AppLocalizations.current.yes,
+                    negativeTitle: AppLocalizations.current.no,
+                    onPositivePressed: () {
+                      storage.logout();
+                    },
+                  );
+                },
               ),
             ],
           ),
