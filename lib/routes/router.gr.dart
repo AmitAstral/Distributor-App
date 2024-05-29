@@ -39,8 +39,7 @@ abstract class _$AppRouter extends RootStackRouter {
       );
     },
     LoginRoute.name: (routeData) {
-      final args = routeData.argsAs<LoginRouteArgs>(
-          orElse: () => const LoginRouteArgs());
+      final args = routeData.argsAs<LoginRouteArgs>(orElse: () => const LoginRouteArgs());
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: LoginScreen(key: args.key),
@@ -62,6 +61,13 @@ abstract class _$AppRouter extends RootStackRouter {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const OrderHistoryScreen(),
+      );
+    },
+    OtpRoute.name: (routeData) {
+      final args = routeData.argsAs<OtpRouteArgs>(orElse: () => const OtpRouteArgs());
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: OtpScreen(key: args.key),
       );
     },
     ProfileRoute.name: (routeData) {
@@ -105,8 +111,7 @@ class CommonWebViewRoute extends PageRouteInfo<CommonWebViewRouteArgs> {
 
   static const String name = 'CommonWebViewRoute';
 
-  static const PageInfo<CommonWebViewRouteArgs> page =
-      PageInfo<CommonWebViewRouteArgs>(name);
+  static const PageInfo<CommonWebViewRouteArgs> page = PageInfo<CommonWebViewRouteArgs>(name);
 }
 
 class CommonWebViewRouteArgs {
@@ -224,6 +229,34 @@ class OrderHistoryRoute extends PageRouteInfo<void> {
   static const String name = 'OrderHistoryRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [OtpScreen]
+class OtpRoute extends PageRouteInfo<OtpRouteArgs> {
+  OtpRoute({
+    Key? key,
+    List<PageRouteInfo>? children,
+  }) : super(
+          OtpRoute.name,
+          args: OtpRouteArgs(key: key),
+          initialChildren: children,
+        );
+
+  static const String name = 'OtpRoute';
+
+  static const PageInfo<OtpRouteArgs> page = PageInfo<OtpRouteArgs>(name);
+}
+
+class OtpRouteArgs {
+  const OtpRouteArgs({this.key});
+
+  final Key? key;
+
+  @override
+  String toString() {
+    return 'OtpRouteArgs{key: $key}';
+  }
 }
 
 /// generated route for

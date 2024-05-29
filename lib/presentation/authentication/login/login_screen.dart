@@ -1,14 +1,15 @@
 import 'package:auto_route/annotations.dart';
 import 'package:distributor_empower/constants/app_colors/app_colors.dart';
+import 'package:distributor_empower/core/di/locator.dart';
 import 'package:distributor_empower/gen/assets.gen.dart';
 import 'package:distributor_empower/generated/l10n.dart';
-import 'package:distributor_empower/presentation/home/components/order_details_widget1.dart';
+import 'package:distributor_empower/routes/router.dart';
 import 'package:distributor_empower/utils/text_styles.dart';
 import 'package:distributor_empower/widgets/app_button.dart';
 import 'package:distributor_empower/widgets/app_text_form_field.dart';
+import 'package:distributor_empower/widgets/auth_top_logo_widget.dart';
 import 'package:distributor_empower/widgets/progress_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 @RoutePage()
@@ -26,7 +27,7 @@ class LoginScreen extends StatelessWidget {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              _buildTopView(),
+              const AuthTopLogoWidget(),
               SizedBox(
                 height: 0.5.sh,
                 child: Padding(
@@ -51,9 +52,11 @@ class LoginScreen extends StatelessWidget {
                       30.verticalSpace,
                       AppButton(
                           onPressed: () async {
-                            _formKey.currentState!.validate();
+                            if (_formKey.currentState!.validate()) {
+                              appRouter.push(OtpRoute());
+                            }
                           },
-                          text: AppLocalizations.current.login),
+                          text: AppLocalizations.current.getOTP),
                       const Spacer(),
                     ],
                   ),
@@ -62,25 +65,6 @@ class LoginScreen extends StatelessWidget {
             ],
           ),
         ),
-      ),
-    );
-  }
-
-  Container _buildTopView() {
-    return Container(
-      height: 0.5.sh,
-      color: AppColor.primaryColor,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            AppLocalizations.current.welcomeToAstral,
-            style: TextStyles.semiBold16,
-          ),
-          SizedBox(height: 10.h),
-          Hero(tag: "SplashLogo", transitionOnUserGestures: true, child: Center(child: Assets.images.splashLogo.image(height: 70.h))),
-        ],
       ),
     );
   }

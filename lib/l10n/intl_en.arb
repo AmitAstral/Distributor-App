@@ -35,5 +35,7 @@
   "enterSAPCode": "Enter SAP Code",
   "SAPCode": "SAP Code",
   "login": "Login",
+  "getOTP": "Get OTP",
+  "enterOTP": "Enter OTP",
   "sPMobileNumber": "SP Mobile Number"
 }

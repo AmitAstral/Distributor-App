@@ -4,22 +4,24 @@ import 'package:flutter/material.dart';
 
 class AppButton extends StatelessWidget {
   final Function()? onPressed;
-  final Widget? child;
   final int duration;
   final String? text;
   final TextStyle? textStyle;
   final bool? isLoading;
   final double? horizontalPadding;
   final double? verticalPadding;
+  final bool isDisable;
+  final Color bgColor;
 
   const AppButton(
       {super.key,
-      this.child,
       this.textStyle,
       this.onPressed,
       this.duration = 100,
+      this.isDisable = false,
       this.text,
       this.isLoading,
+      this.bgColor = AppColor.primaryColor,
       this.horizontalPadding,
       this.verticalPadding});
 
@@ -29,9 +31,9 @@ class AppButton extends StatelessWidget {
       child: SizedBox(
         width: 0.5.sw,
         child: ElevatedButton(
-          onPressed: onPressed ?? () {},
-          style: const ButtonStyle(
-            backgroundColor: WidgetStatePropertyAll(AppColor.primaryColor),
+          onPressed: isDisable ? () {} : onPressed ?? () {},
+          style: ButtonStyle(
+            backgroundColor: WidgetStatePropertyAll(bgColor.withOpacity(isDisable ? 0.4 : 1)),
           ),
           child: Text(
             text ?? '',

@@ -410,6 +410,26 @@ class AppLocalizations {
     );
   }
 
+  /// `Get OTP`
+  String get getOTP {
+    return Intl.message(
+      'Get OTP',
+      name: 'getOTP',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter OTP`
+  String get enterOTP {
+    return Intl.message(
+      'Enter OTP',
+      name: 'enterOTP',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `SP Mobile Number`
   String get sPMobileNumber {
     return Intl.message(
