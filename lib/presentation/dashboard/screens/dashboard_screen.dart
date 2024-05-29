@@ -1,11 +1,12 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:distributor_empower/constants/app_colors/app_colors.dart';
+import 'package:convex_bottom_bar/convex_bottom_bar.dart';
+import 'package:distributor_empower/constants/all_constants.dart';
+import 'package:distributor_empower/core/di/locator.dart';
 import 'package:distributor_empower/presentation/dashboard/provider/bottombar_navigation_provider.dart';
 import 'package:distributor_empower/presentation/drawer/drawer_screen.dart';
+import 'package:distributor_empower/widgets/bottom_tab_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:circular_bottom_navigation/circular_bottom_navigation.dart';
-import 'package:circular_bottom_navigation/tab_item.dart';
 
 @RoutePage()
 class DashboardScreen extends StatefulWidget {
@@ -16,43 +17,38 @@ class DashboardScreen extends StatefulWidget {
 }
 
 class _DashboardScreenState extends State<DashboardScreen> with TickerProviderStateMixin {
-  List<TabItem> get _tabItems => BottomNavigationEnum.values
-      .map((e) =>
-          TabItem(e.icon, e.label, AppColor.primaryColor, labelStyle: const TextStyle(color: AppColor.primaryColor, fontWeight: FontWeight.bold)))
-      .toList();
+  @override
+  void initState() {
+    BottomBarNavigationProvider().navigationController = TabController(length: BottomNavigationEnum.values.length, vsync: this);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider.value(
       value: BottomBarNavigationProvider(),
       child: Consumer<BottomBarNavigationProvider>(
-        builder: (context, bottomNavigationBarProvider, child) {
+        builder: (context, currentProvider, child) {
           return Scaffold(
             drawer: const DrawerScreen(),
-            key: bottomNavigationBarProvider.dashboardKey,
-            body: Stack(
-              children: [
-                const Padding(padding: EdgeInsets.only(bottom: 60), child: AutoRouter()),
-                Positioned(
-                  bottom: 0,
-                  child: CircularBottomNavigation(
-                    _tabItems,
-                    selectedCallback: (int? index) {
-                      bottomNavigationBarProvider.setCurrentIndex(BottomNavigationEnum.values[index ?? 0]);
-                    },
-                    selectedPos: 0,
-                    allowSelectedIconCallback: true,
-                    controller: bottomNavigationBarProvider.navigationController,
-                    barBackgroundColor: Colors.white,
-                    backgroundBoxShadow: const <BoxShadow>[
-                      BoxShadow(color: Colors.black45, blurRadius: 10.0),
-                    ],
-                    barHeight: 60,
-                    iconsSize: 25,
-                  ),
-                ),
-              ],
+            key: currentProvider.dashboardKey,
+            bottomNavigationBar: ConvexAppBar.builder(
+              count: 4,
+              backgroundColor: AppColor.white,
+              itemBuilder: BottomTabBuilder(),
+              top: currentProvider.currentIndex == -1 ? 0 : -15,
+              curveSize: currentProvider.currentIndex == -1 ? 0 : 50,
+              controller: currentProvider.navigationController,
+              onTap: (index) {
+                currentProvider.setCurrentBottomItem(BottomNavigationEnum.values[index]);
+              },
             ),
+            body: WillPopScope(
+                onWillPop: () {
+                  debugPrint('HERE WILL POP SCOPE');
+                  return Future.value(true);
+                },
+                child: const AutoRouter()),
           );
         },
       ),

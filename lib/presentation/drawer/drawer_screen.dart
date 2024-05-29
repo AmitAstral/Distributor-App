@@ -89,7 +89,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
               ).addGesture(
                 () {
                   appRouter.maybePop();
-                  BottomBarNavigationProvider().setCurrentIndex(BottomNavigationEnum.profile);
+                  BottomBarNavigationProvider().setCurrentBottomItem(BottomNavigationEnum.profile);
                 },
               ),
               Padding(
@@ -207,7 +207,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
         break;
       case 1:
         Navigator.pop(context);
-        BottomBarNavigationProvider().setCurrentIndex(BottomNavigationEnum.profile);
+        BottomBarNavigationProvider().setCurrentBottomItem(BottomNavigationEnum.profile);
         break;
       case 2:
         // context.router.pushNamed(ProfileScreen.routeName);

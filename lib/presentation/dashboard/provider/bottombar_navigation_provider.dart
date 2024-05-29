@@ -1,4 +1,3 @@
-import 'package:circular_bottom_navigation/circular_bottom_navigation.dart';
 import 'package:distributor_empower/core/di/locator.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:distributor_empower/routes/router.dart';
@@ -10,6 +9,8 @@ class BottomBarNavigationProvider with ChangeNotifier {
 
   final GlobalKey<ScaffoldState> dashboardKey = GlobalKey();
 
+  late final TabController navigationController;
+
   factory BottomBarNavigationProvider() => _instance ?? BottomBarNavigationProvider._internal();
 
   BottomBarNavigationProvider._internal() {
@@ -18,40 +19,38 @@ class BottomBarNavigationProvider with ChangeNotifier {
 
   BottomNavigationEnum get currentNavigationEnum => BottomNavigationEnum.values[currentIndex];
 
-  final navigationController = CircularBottomNavigationController(0);
-
-  void setCurrentIndex(BottomNavigationEnum bottomNavigationEnum) {
-    if (currentNavigationEnum == bottomNavigationEnum) return;
+  void setCurrentBottomItem(BottomNavigationEnum bottomNavigationEnum) {
+    //if (currentNavigationEnum == bottomNavigationEnum) return;
     currentIndex = bottomNavigationEnum.index;
-    navigationController.value = currentIndex;
+    navigationController.index = currentIndex;
     _onTap();
     notifyListeners();
   }
 
   _onTap() {
-    appRouter.pushAndPopUntil(currentNavigationEnum.routePath, predicate: (Route<dynamic> route) {
-      return route.isFirst;
+    appRouter.pushAndPopUntil(currentNavigationEnum.route, predicate: (Route<dynamic> route) {
+      return currentNavigationEnum.route == const HomeRoute() ? false : route.isFirst;
     });
   }
 
   void unSelectAllTabs() {
-    //currentIndex = -1;
-    notifyListeners();
+    /*currentIndex = -1;
+    notifyListeners();*/
   }
 }
 
 enum BottomNavigationEnum {
-  home(routePath: HomeRoute(), icon: Icons.home, label: 'Home'),
-  cart(routePath: QuickOrderRoute(), icon: Icons.shopping_bag_sharp, label: 'Quick Order'),
-  offers(routePath: OffersRoute(), icon: Icons.local_offer_rounded, label: 'Offers'),
-  profile(routePath: ProfileRoute(), icon: Icons.person, label: 'Settings');
+  home(route: HomeRoute(), icon: Icons.home, label: 'Home'),
+  cart(route: QuickOrderRoute(), icon: Icons.shopping_bag_sharp, label: 'Quick Order'),
+  offers(route: OffersRoute(), icon: Icons.local_offer_rounded, label: 'Offers'),
+  profile(route: ProfileRoute(), icon: Icons.person, label: 'Settings');
 
-  final PageRouteInfo routePath;
+  final PageRouteInfo route;
   final IconData icon;
   final String label;
 
   const BottomNavigationEnum({
-    required this.routePath,
+    required this.route,
     required this.icon,
     required this.label,
   });
