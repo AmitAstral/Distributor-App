@@ -47,7 +47,7 @@ class AppBarWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return AppBar(
       shadowColor: shadowColor,
-      backgroundColor: backgroundColor ?? AppColor.grey88,
+      backgroundColor: backgroundColor ?? AppColor.primaryColor,
       systemOverlayStyle: systemOverlayStyle ??
           const SystemUiOverlayStyle(
             statusBarColor: AppColor.transparent,
@@ -66,8 +66,13 @@ class AppBarWidget extends StatelessWidget {
           bottom: Radius.circular(shapeRadius ?? 0),
         ),
       ),
-      leading: leading ?? const AutoLeadingButton(),
-      title: title ?? Text(titleText ?? "", style: textStyle ?? googleFontMontserrat.copyWith(color: AppColor.white, fontSize: 17.sp, fontWeight: GoogleFontWeight.extraBold)),
+      leading: leading ??
+          const AutoLeadingButton(
+            color: AppColor.white,
+          ),
+      title: title ??
+          Text(titleText ?? "",
+              style: textStyle ?? googleFontMontserrat.copyWith(color: AppColor.white, fontSize: 17.sp, fontWeight: GoogleFontWeight.extraBold)),
       actions: actions,
       flexibleSpace: flexibleSpace,
       // ??

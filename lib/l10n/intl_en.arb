@@ -44,5 +44,6 @@
   "messageAreYouSureLogout": "Are you  sure you want to logout?",
   "validatePinAndConfirmPin": "Pin and confirm pin must be same",
   "sPMobileNumber": "SP Mobile Number",
-  "forgotPin": "Forgot pin?"
+  "forgotPin": "Forgot pin?",
+  "verify": "Verify"
 }

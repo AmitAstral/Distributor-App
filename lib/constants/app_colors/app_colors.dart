@@ -59,7 +59,7 @@ class AppColor {
   static const Color kpiScoreShadowColor = Color(0x26004B97);
   static const Color tileColor = Color(0xffDDDDDD);
   static const Color viewAll = Color(0xff009ED0);
-  static const Color appBarBackground = Color(0xffF8FAFB);
+  static const Color appBarBackground = Color(0xff0b00a9);
   static const Color orderDetails = Color(0xff1377E7);
   static const Color orderDetailsList = Color(0xffDDF1FA);
   static const Color textPrimary = Color(0xFFFFFFFF);

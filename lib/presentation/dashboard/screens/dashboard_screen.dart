@@ -16,8 +16,6 @@ class DashboardScreen extends StatefulWidget {
 }
 
 class _DashboardScreenState extends State<DashboardScreen> with TickerProviderStateMixin {
-  final CircularBottomNavigationController _navigationController = CircularBottomNavigationController(0);
-
   List<TabItem> get _tabItems => BottomNavigationEnum.values
       .map((e) =>
           TabItem(e.icon, e.label, AppColor.primaryColor, labelStyle: const TextStyle(color: AppColor.primaryColor, fontWeight: FontWeight.bold)))
@@ -40,11 +38,11 @@ class _DashboardScreenState extends State<DashboardScreen> with TickerProviderSt
                   child: CircularBottomNavigation(
                     _tabItems,
                     selectedCallback: (int? index) {
-                      _navigationController.value = index ?? 0;
-                      BottomBarNavigationProvider().setCurrentIndex(BottomNavigationEnum.values[index ?? 0]);
+                      bottomNavigationBarProvider.setCurrentIndex(BottomNavigationEnum.values[index ?? 0]);
                     },
-                    selectedPos: 2,
-                    controller: _navigationController,
+                    selectedPos: 0,
+                    allowSelectedIconCallback: true,
+                    controller: bottomNavigationBarProvider.navigationController,
                     barBackgroundColor: Colors.white,
                     backgroundBoxShadow: const <BoxShadow>[
                       BoxShadow(color: Colors.black45, blurRadius: 10.0),

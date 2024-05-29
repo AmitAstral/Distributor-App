@@ -27,13 +27,10 @@ class ProfileScreen extends StatelessWidget {
           preferredSize: Size.fromHeight(AppBar().preferredSize.height),
           child: AppBarWidget(
             toolbarHeight: AppBar().preferredSize.height,
-            backgroundColor: const Color(0xFFF8FAFB),
-            systemOverlayStyle: const SystemUiOverlayStyle(
-                statusBarColor: AppColor.transparent, statusBarIconBrightness: Brightness.dark, statusBarBrightness: Brightness.dark),
             title: Text(
               AppLocalizations.current.profile,
               maxLines: 1,
-              style: TextStyles.semiBold15.copyWith(color: AppColor.textSecondary),
+              style: TextStyles.semiBold15,
             ),
             centerTitle: true,
             elevation: 0,

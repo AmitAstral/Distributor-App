@@ -75,6 +75,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Please Enter a Phone Number"),
         "validationPhoneNumber": MessageLookupByLibrary.simpleMessage(
             "Please Enter a Valid Phone Number"),
+        "verify": MessageLookupByLibrary.simpleMessage("Verify"),
         "welcomeToAstral":
             MessageLookupByLibrary.simpleMessage("Welcome To Astral"),
         "yes": MessageLookupByLibrary.simpleMessage("Yes")

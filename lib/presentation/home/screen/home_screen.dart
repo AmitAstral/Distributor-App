@@ -30,8 +30,6 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(AppBar().preferredSize.height + 5.h),
         child: AppBarWidget(
-          toolbarHeight: AppBar().preferredSize.height + 5.h,
-          backgroundColor: AppColor.primaryColor,
           titleSpacing: 10.w,
           leading: GestureDetector(
               onTap: () {},

@@ -1,13 +1,8 @@
-import 'package:distributor_empower/constants/all_constants.dart';
+import 'package:circular_bottom_navigation/circular_bottom_navigation.dart';
 import 'package:distributor_empower/core/di/locator.dart';
-import 'package:distributor_empower/generated/l10n.dart';
-import 'package:distributor_empower/presentation/home/screen/home_screen.dart';
-import 'package:distributor_empower/presentation/offers/offers_screen.dart';
-import 'package:distributor_empower/presentation/quick_order/quick_order_screen.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:distributor_empower/routes/router.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class BottomBarNavigationProvider with ChangeNotifier {
   static BottomBarNavigationProvider? _instance;
@@ -23,15 +18,20 @@ class BottomBarNavigationProvider with ChangeNotifier {
 
   BottomNavigationEnum get currentNavigationEnum => BottomNavigationEnum.values[currentIndex];
 
+  final navigationController = CircularBottomNavigationController(0);
+
   void setCurrentIndex(BottomNavigationEnum bottomNavigationEnum) {
     if (currentNavigationEnum == bottomNavigationEnum) return;
     currentIndex = bottomNavigationEnum.index;
+    navigationController.value = currentIndex;
     _onTap();
     notifyListeners();
   }
 
   _onTap() {
-    appRouter.navigateNamed(currentNavigationEnum.routePath.routeName);
+    appRouter.pushAndPopUntil(currentNavigationEnum.routePath, predicate: (Route<dynamic> route) {
+      return route.isFirst;
+    });
   }
 
   void unSelectAllTabs() {

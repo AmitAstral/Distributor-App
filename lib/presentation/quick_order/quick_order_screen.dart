@@ -23,29 +23,21 @@ class _QuickOrderScreenState extends State<QuickOrderScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(AppBar().preferredSize.height),
+        preferredSize: Size.fromHeight(AppBar().preferredSize.height + 5.h),
         child: AppBarWidget(
           toolbarHeight: AppBar().preferredSize.height,
-          backgroundColor: AppColor.appBarBackground,
-          systemOverlayStyle: const SystemUiOverlayStyle(
-            statusBarColor: AppColor.transparent,
-            statusBarIconBrightness: Brightness.dark,
-            statusBarBrightness: Brightness.dark,
-          ),
-          leading: Container(),
           title: Text(
             AppConst.quickOrder,
             maxLines: 1,
-            style: TextStyles.semiBold16.copyWith(color: AppColor.textSecondary),
+            style: TextStyles.semiBold16,
           ),
+          leading: const SizedBox.shrink(),
           actions: [
             Padding(
               padding: EdgeInsets.only(right: 8.w),
               child: IconButton(
                 onPressed: () {},
-                icon: Assets.icons.filter.svg(
-                  color: AppColor.primaryColor,
-                ),
+                icon: Assets.icons.filter.svg(color: AppColor.white),
               ),
             )
           ],
