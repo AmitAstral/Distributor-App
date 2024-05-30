@@ -1,4 +1,5 @@
 import 'package:auto_route/annotations.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:distributor_empower/constants/all_constants.dart';
 import 'package:distributor_empower/core/di/locator.dart';
 import 'package:distributor_empower/generated/l10n.dart';
@@ -100,7 +101,7 @@ class VerifyPinScreen extends StatelessWidget {
                           builder: (context, _, __) {
                             return AppButton(
                               onPressed: _validateAndContinue,
-                              text: AppLocalizations.of(context).verify,
+                              text: AppLocalizations.current.verify,
                               isDisable: _isDisable.value,
                             );
                           }),
@@ -118,6 +119,6 @@ class VerifyPinScreen extends StatelessWidget {
 
   void _validateAndContinue() {
     storage.isLogin = true;
-    appRouter.pushAndRemoveAll(const DashboardRoute());
+    appRouter.replace(const DashboardRoute());
   }
 }

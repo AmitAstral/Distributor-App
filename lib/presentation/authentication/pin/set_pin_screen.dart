@@ -95,7 +95,10 @@ class SetPinScreen extends StatelessWidget {
   void _validateAndContinue() {
     if (!_isDisable.value && _pin == _confirmPin) {
       storage.isLogin = true;
-      appRouter.pushAndRemoveAll(const DashboardRoute());
+      appRouter.pushAndPopUntil(
+        const DashboardRoute(),
+        predicate: (route) => false,
+      );
     } else {
       errorToast(AppLocalizations.current.validatePinAndConfirmPin);
     }

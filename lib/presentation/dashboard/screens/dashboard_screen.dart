@@ -1,7 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:distributor_empower/constants/all_constants.dart';
-import 'package:distributor_empower/core/di/locator.dart';
 import 'package:distributor_empower/presentation/dashboard/provider/bottombar_navigation_provider.dart';
 import 'package:distributor_empower/presentation/drawer/drawer_screen.dart';
 import 'package:distributor_empower/widgets/bottom_tab_builder.dart';
@@ -19,7 +18,7 @@ class DashboardScreen extends StatefulWidget {
 class _DashboardScreenState extends State<DashboardScreen> with TickerProviderStateMixin {
   @override
   void initState() {
-    BottomBarNavigationProvider().navigationController = TabController(length: BottomNavigationEnum.values.length, vsync: this);
+    BottomBarNavigationProvider().navigationController ??= TabController(length: BottomNavigationEnum.values.length, vsync: this);
     super.initState();
   }
 
@@ -43,12 +42,7 @@ class _DashboardScreenState extends State<DashboardScreen> with TickerProviderSt
                 currentProvider.setCurrentBottomItem(BottomNavigationEnum.values[index]);
               },
             ),
-            body: WillPopScope(
-                onWillPop: () {
-                  debugPrint('HERE WILL POP SCOPE');
-                  return Future.value(true);
-                },
-                child: const AutoRouter()),
+            body: const AutoRouter(),
           );
         },
       ),

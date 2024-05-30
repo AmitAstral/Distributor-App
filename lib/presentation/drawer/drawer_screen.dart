@@ -214,7 +214,6 @@ class _DrawerScreenState extends State<DrawerScreen> {
         break;
       case 3:
         Navigator.pop(context);
-        BottomBarNavigationProvider().unSelectAllTabs();
         appRouter.pushNamed(OrderHistoryRoute.name);
         break;
       case 4:

@@ -18,7 +18,13 @@ part 'router.gr.dart';
 
 @AutoRouterConfig(replaceInRouteName: 'Screen,Route')
 class AppRouter extends _$AppRouter {
-  AppRouter({required super.navigatorKey});
+  static AppRouter? _instance;
+
+  AppRouter._internal() {
+    _instance = this;
+  }
+
+  factory AppRouter() => _instance ?? AppRouter._internal();
 
   @override
   List<AutoRoute> get routes => [

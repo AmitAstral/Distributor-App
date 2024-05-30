@@ -41,8 +41,10 @@ class StorageService {
   Future<void> remove(String key) async => await _box.delete(key);
 
   void logout() {
-
     isLogin = false;
-    appRouter.pushAndRemoveAll(LoginRoute());
+    appRouter.pushAndPopUntil(
+      LoginRoute(),
+      predicate: (route) => false,
+    );
   }
 }

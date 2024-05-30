@@ -4,14 +4,15 @@ import 'package:distributor_empower/routes/router.dart';
 import 'package:flutter/material.dart';
 
 class BottomBarNavigationProvider with ChangeNotifier {
-  static BottomBarNavigationProvider? _instance;
   int currentIndex = 0;
 
   final GlobalKey<ScaffoldState> dashboardKey = GlobalKey();
 
-  late final TabController navigationController;
+  TabController? navigationController;
 
   factory BottomBarNavigationProvider() => _instance ?? BottomBarNavigationProvider._internal();
+
+  static BottomBarNavigationProvider? _instance;
 
   BottomBarNavigationProvider._internal() {
     _instance = this;
@@ -20,22 +21,24 @@ class BottomBarNavigationProvider with ChangeNotifier {
   BottomNavigationEnum get currentNavigationEnum => BottomNavigationEnum.values[currentIndex];
 
   void setCurrentBottomItem(BottomNavigationEnum bottomNavigationEnum) {
-    //if (currentNavigationEnum == bottomNavigationEnum) return;
+    if (appRouter.childControllers.firstOrNull?.topPage?.name == bottomNavigationEnum.route.routeName) return;
     currentIndex = bottomNavigationEnum.index;
-    navigationController.index = currentIndex;
+    navigationController?.index = currentIndex;
     _onTap();
     notifyListeners();
   }
 
-  _onTap() {
+  void _onTap() {
     appRouter.pushAndPopUntil(currentNavigationEnum.route, predicate: (Route<dynamic> route) {
       return currentNavigationEnum.route == const HomeRoute() ? false : route.isFirst;
     });
   }
 
-  void unSelectAllTabs() {
-    /*currentIndex = -1;
-    notifyListeners();*/
+  void selectHomePage() {
+    if (currentIndex == BottomNavigationEnum.home.index) return;
+    currentIndex = BottomNavigationEnum.home.index;
+    navigationController?.index = currentIndex;
+    notifyListeners();
   }
 }
 
