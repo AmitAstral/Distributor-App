@@ -9,7 +9,6 @@ class LoginProvider extends BaseProvider {
     isLoading = true;
     notifyListeners();
 
-    //await Future.delayed(const Duration(seconds: 5));
     final response = await apiRep.loginApi(ApiReqData(sapCode: sapCode), onApiError: onApiError);
 
     isLoading = false;

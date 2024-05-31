@@ -29,7 +29,7 @@ class PinPutWidget extends StatelessWidget {
     return Pinput(
       onCompleted: (value) {},
       onChanged: onChange,
-      obscureText: true,
+      obscureText: isObscureText,
       defaultPinTheme: _defaultPinTheme,
       focusedPinTheme: focusedPinTheme,
       mainAxisAlignment: MainAxisAlignment.spaceAround,

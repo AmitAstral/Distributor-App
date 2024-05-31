@@ -29,7 +29,7 @@ class UserResponse extends BaseModel {
     allowAppVersion = json['AllowAppVersion'];
     currentAppVersion = json['CurrentAppVersion'];
     isActive = json['IsActive'];
-    isAlreadyRegister = json['IsAlreadyRegister'];
+    isAlreadyRegister = json['IsAlreadyRegister'] == '1';
     return this;
   }
 
@@ -52,7 +52,7 @@ class UserResponse extends BaseModel {
   @HiveField(8)
   String? isActive;
   @HiveField(9)
-  String? isAlreadyRegister;
+  bool? isAlreadyRegister = false;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};

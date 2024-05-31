@@ -26,7 +26,7 @@ class UserResponseAdapter extends TypeAdapter<UserResponse> {
       allowAppVersion: fields[6] as String?,
       currentAppVersion: fields[7] as String?,
       isActive: fields[8] as String?,
-      isAlreadyRegister: fields[9] as String?,
+      isAlreadyRegister: fields[9] as bool?,
     );
   }
 

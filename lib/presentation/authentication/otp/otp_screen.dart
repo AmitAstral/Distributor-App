@@ -13,6 +13,7 @@ import 'package:flutter/material.dart';
 @RoutePage()
 class OtpScreen extends StatelessWidget {
   final ValueNotifier<bool> _isDisable = ValueNotifier(true);
+  String _otp = '';
 
   OtpScreen({super.key});
 
@@ -58,8 +59,8 @@ class OtpScreen extends StatelessWidget {
                           builder: (context, _, __) {
                             return AppButton(
                               onPressed: () async {
-                                if (!_isDisable.value) {
-                                  appRouter.replace(SetPinRoute());
+                                if (!_isDisable.value && _otp == storage.userInfo.otp) {
+                                  if (storage.userInfo.isAlreadyRegister ?? false) appRouter.replace(SetPinRoute());
                                 }
                               },
                               text: AppLocalizations.current.login,

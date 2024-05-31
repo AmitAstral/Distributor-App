@@ -16,7 +16,9 @@ class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   final TextEditingController _sapCodeController = TextEditingController();
+
   final _loginProvider = LoginProvider();
 
   @override
