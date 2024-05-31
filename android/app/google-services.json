@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "379571000887",
+    "project_id": "flutter-architecture-168d6",
+    "storage_bucket": "flutter-architecture-168d6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:379571000887:android:93290d734f8e2d5a66d1b2",
+        "android_client_info": {
+          "package_name": "com.architecutre.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD2V9FVmYmfVyovk4O-tsraNJLUVl-N6J0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

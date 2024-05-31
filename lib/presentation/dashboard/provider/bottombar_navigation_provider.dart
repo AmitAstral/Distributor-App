@@ -35,10 +35,14 @@ class BottomBarNavigationProvider with ChangeNotifier {
   }
 
   void selectHomePage() {
-    if (currentIndex == BottomNavigationEnum.home.index) return;
-    currentIndex = BottomNavigationEnum.home.index;
-    navigationController?.index = currentIndex;
-    notifyListeners();
+    Future.delayed(const Duration(milliseconds: 100), () {
+      if (appRouter.childControllers.firstOrNull?.topPage?.name == BottomNavigationEnum.home.route.routeName &&
+          currentIndex != BottomNavigationEnum.home.index) {
+        currentIndex = BottomNavigationEnum.home.index;
+        navigationController?.index = currentIndex;
+        notifyListeners();
+      }
+    });
   }
 }
 

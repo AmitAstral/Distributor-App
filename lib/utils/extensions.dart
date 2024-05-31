@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
 
 extension StrExtensions on String {}
 
@@ -9,4 +10,8 @@ extension WidgetsExtensions on Widget {
       child: this,
     );
   }
+}
+
+void hideKeyboard() {
+  SystemChannels.textInput.invokeMethod('TextInput.hide');
 }

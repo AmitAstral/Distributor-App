@@ -23,7 +23,7 @@ if (flutterVersionName == null) {
 }
 
 android {
-    namespace "com.example.distributor_empower"
+    namespace "com.architecutre.app"
     compileSdk flutter.compileSdkVersion
     ndkVersion flutter.ndkVersion
 
