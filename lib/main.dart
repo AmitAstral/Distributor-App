@@ -6,6 +6,7 @@ import 'package:distributor_empower/fcm/firebase_option.dart';
 import 'package:distributor_empower/fcm/push_notification_manager.dart';
 import 'package:distributor_empower/generated/l10n.dart';
 import 'package:distributor_empower/init.dart';
+import 'package:distributor_empower/model/user_response.dart';
 import 'package:distributor_empower/routes/router.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +17,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
   await Hive.openBox(box);
+  Hive.registerAdapter(UserResponseAdapter());
 
   await Future.delayed(const Duration(milliseconds: 100));
 

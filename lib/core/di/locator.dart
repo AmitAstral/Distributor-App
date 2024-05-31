@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:distributor_empower/core/api/api_repositry.dart';
 import 'package:distributor_empower/core/api/api_service.dart';
 import 'package:distributor_empower/core/storage/storage.dart';
 import 'package:distributor_empower/routes/navigation.dart';
@@ -11,6 +12,7 @@ abstract class Locator {
     getIt.registerLazySingleton<NavigationService>(() => NavigationService());
     getIt.registerLazySingleton<StorageService>(() => StorageService());
     getIt.registerLazySingleton<ApiService>(() => ApiService());
+    getIt.registerLazySingleton<ApiRepository>(() => ApiRepository());
   }
 }
 
@@ -19,3 +21,4 @@ final navigation = GetIt.I<NavigationService>();
 final appRouter = AutoRouter.of(appContext);
 final storage = GetIt.I<StorageService>();
 final apiService = GetIt.I<ApiService>();
+final apiRep = GetIt.I<ApiRepository>();

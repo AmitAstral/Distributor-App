@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:distributor_empower/core/di/locator.dart';
 import 'package:distributor_empower/core/storage/storage_constants.dart';
+import 'package:distributor_empower/model/user_response.dart';
 import 'package:distributor_empower/routes/router.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
@@ -24,9 +27,9 @@ class StorageService {
 
   set appLocale(Locale locale) => _put(appLocaleKey, locale.languageCode);
 
-  /*LoginResModel get userInfo => LoginResModel.fromJson(json.decode(_get(userInfoKey)));
+  UserResponse get userInfo => UserResponse().fromJson(json.decode(_get(userInfoKey)));
 
-  set userInfo(LoginResModel loginModel) => _put(userInfoKey, json.encode(loginModel.toJson()));*/
+  set userInfo(UserResponse loginModel) => _put(userInfoKey, json.encode(loginModel.toJson()));
 
   String get fcmToken => _get(userInfoKey, defaultValue: '');
 

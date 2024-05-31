@@ -7,7 +7,7 @@ class AppButton extends StatelessWidget {
   final int duration;
   final String? text;
   final TextStyle? textStyle;
-  final bool? isLoading;
+  final bool isLoading;
   final double? horizontalPadding;
   final double? verticalPadding;
   final bool isDisable;
@@ -20,7 +20,7 @@ class AppButton extends StatelessWidget {
       this.duration = 100,
       this.isDisable = false,
       this.text,
-      this.isLoading,
+      this.isLoading = false,
       this.bgColor = AppColor.primaryColor,
       this.horizontalPadding,
       this.verticalPadding});
@@ -31,14 +31,22 @@ class AppButton extends StatelessWidget {
       child: SizedBox(
         width: 0.5.sw,
         child: ElevatedButton(
-          onPressed: isDisable ? () {} : onPressed ?? () {},
+          onPressed: (isDisable && isLoading) ? () {} : onPressed ?? () {},
           style: ButtonStyle(
             backgroundColor: WidgetStatePropertyAll(bgColor.withOpacity(isDisable ? 0.4 : 1)),
           ),
-          child: Text(
-            text ?? '',
-            style: textStyle ?? TextStyles.semiBold16,
-          ),
+          child: isLoading
+              ? const SizedBox(
+                  height: 24,
+                  width: 24,
+                  child: CircularProgressIndicator(
+                    color: AppColor.white,
+                    strokeWidth: 2,
+                  ))
+              : Text(
+                  text ?? '',
+                  style: textStyle ?? TextStyles.semiBold16,
+                ),
         ),
       ),
     );

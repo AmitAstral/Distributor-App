@@ -14,8 +14,7 @@ final internetCheckInterceptor = InterceptorsWrapper(
       if (isConnected) {
         return handler.next(options);
       } else {
-        throw DioException.connectionError(
-            requestOptions: RequestOptions(), reason: 'Internet is not connected', error: 'Internet is not connected');
+        throw DioException.connectionError(requestOptions: RequestOptions(), reason: 'Internet is not connected', error: 'Internet is not connected');
       }
     } on DioException catch (e) {
       return handler.reject(e);
@@ -96,10 +95,8 @@ class CustomLogInterceptor extends Interceptor {
       options.headers.forEach((key, v) => _printKV(' $key', v));
     }
     if (requestBody) {
-      logPrint('data:');
-      _printRequestData(options.data);
+      logPrint('Request : ${options.data}');
     }
-    logPrint('');
 
     handler.next(options);
   }

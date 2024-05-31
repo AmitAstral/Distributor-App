@@ -15,9 +15,22 @@ mixin class ApiCaller {
     hideKeyboard();
     try {
       var data = (await apiCall).data;
-      return (baseModel == null) ? data : baseModel.fromJson(data['data']) as T?;
+      if (data['statusCode'] == '200') {
+        if (baseModel == null) {
+          return data;
+        } else {
+          if (data['data'] is List && (data['data'] as List).isNotEmpty) {
+            return baseModel.fromJson(data['data'][0]) as T?;
+          } else {
+            return baseModel.fromJson(data['data']) as T?;
+          }
+        }
+      } else {
+        if (onApiError != null) onApiError(data['responseMessage']);
+        return null;
+      }
     } catch (e) {
-      _handleApiError(e, onApiError, isShowErrorMessage);
+      _handleApiError(e, onApiError);
     }
     return null;
   }
@@ -33,7 +46,7 @@ mixin class ApiCaller {
       var data = (await apiCall).data;
       return (baseModel == null) ? data : _convertDataToList<T>(data, baseModel);
     } catch (e) {
-      _handleApiError(e, onApiError, isShowErrorMessage);
+      _handleApiError(e, onApiError);
     }
     return null;
   }
@@ -49,7 +62,7 @@ mixin class ApiCaller {
     return null;
   }
 
-  void _handleApiError(e, Function(String)? onApiError, bool isShowErrorMessage) {
+  void _handleApiError(e, Function(String)? onApiError) {
     var message = 'Something went wrong';
     if (e is DioException) {
       if (e.error != null) {
