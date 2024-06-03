@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 class BaseProvider extends ChangeNotifier {
   late Function(String errorRes) onApiError;
   bool isShowErrorMessage = true;
+  bool isButtonLoading = false;
 
   BaseProvider() {
     onApiError = (error) {

@@ -519,6 +519,56 @@ class AppLocalizations {
       args: [],
     );
   }
+
+  /// `Something went wrong, Please connect with Internet to use Application.`
+  String get somethingWentWrongPleaseConnectWithInternetToUseApplication {
+    return Intl.message(
+      'Something went wrong, Please connect with Internet to use Application.',
+      name: 'somethingWentWrongPleaseConnectWithInternetToUseApplication',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Internet is not connected`
+  String get internetIsNotConnected {
+    return Intl.message(
+      'Internet is not connected',
+      name: 'internetIsNotConnected',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The entered OTP is invalid.`
+  String get theEnteredOtpIsInvalid {
+    return Intl.message(
+      'The entered OTP is invalid.',
+      name: 'theEnteredOtpIsInvalid',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Set Pin`
+  String get setPin {
+    return Intl.message(
+      'Set Pin',
+      name: 'setPin',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `We sent OTP on`
+  String get weSentOtpOn {
+    return Intl.message(
+      'We sent OTP on',
+      name: 'weSentOtpOn',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<AppLocalizations> {

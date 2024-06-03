@@ -90,6 +90,11 @@ abstract class TextStyles {
         color: AppColor.textPrimary,
       );
 
+  static TextStyle get bold20 => _bold.copyWith(
+        fontSize: 20.sp,
+        color: AppColor.textPrimary,
+      );
+
   static TextStyle get semiBold15 => _semiBold.copyWith(
         fontSize: 15.sp,
         color: AppColor.textPrimary,
@@ -107,6 +112,11 @@ abstract class TextStyles {
 
   static TextStyle get semiBold13 => _semiBold.copyWith(
         fontSize: 13.sp,
+        color: AppColor.textPrimary,
+      );
+
+  static TextStyle get semiBold18 => _semiBold.copyWith(
+        fontSize: 18.sp,
         color: AppColor.textPrimary,
       );
 

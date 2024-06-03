@@ -15,7 +15,7 @@ class UserResponse extends BaseModel {
     this.allowAppVersion,
     this.currentAppVersion,
     this.isActive,
-    this.isAlreadyRegister,
+    this.isPinSet,
   });
 
   @override
@@ -29,7 +29,7 @@ class UserResponse extends BaseModel {
     allowAppVersion = json['AllowAppVersion'];
     currentAppVersion = json['CurrentAppVersion'];
     isActive = json['IsActive'];
-    isAlreadyRegister = json['IsAlreadyRegister'] == '1';
+    isPinSet = (json['IsPinSet'] is String) ? json['IsPinSet'] == '1' : json['IsPinSet'];
     return this;
   }
 
@@ -52,7 +52,7 @@ class UserResponse extends BaseModel {
   @HiveField(8)
   String? isActive;
   @HiveField(9)
-  bool? isAlreadyRegister = false;
+  bool? isPinSet = false;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -65,7 +65,9 @@ class UserResponse extends BaseModel {
     map['AllowAppVersion'] = allowAppVersion;
     map['CurrentAppVersion'] = currentAppVersion;
     map['IsActive'] = isActive;
-    map['IsAlreadyRegister'] = isAlreadyRegister;
+    map['IsPinSet'] = isPinSet;
     return map;
   }
+
+  get secureNumber => (distributorMobileNumber ?? '').replaceAllMapped(RegExp(r'.(?=.{4})'), (match) => '*');
 }

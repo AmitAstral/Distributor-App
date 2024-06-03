@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
+import 'package:distributor_empower/generated/l10n.dart';
 import 'package:flutter/foundation.dart';
 
 /// [LogInterceptor] is used to print logs during network requests.
@@ -14,7 +17,8 @@ final internetCheckInterceptor = InterceptorsWrapper(
       if (isConnected) {
         return handler.next(options);
       } else {
-        throw DioException.connectionError(requestOptions: RequestOptions(), reason: 'Internet is not connected', error: 'Internet is not connected');
+        throw DioException.connectionError(
+            requestOptions: RequestOptions(), reason: AppLocalizations.current.internetIsNotConnected, error: 'Internet is not connected');
       }
     } on DioException catch (e) {
       return handler.reject(e);
@@ -24,7 +28,7 @@ final internetCheckInterceptor = InterceptorsWrapper(
 
 Future<bool> checkInternetConnectivity() async {
   var connectivityResult = await Connectivity().checkConnectivity();
-  return connectivityResult != ConnectivityResult.none;
+  return !connectivityResult.contains(ConnectivityResult.none);
 }
 
 class CustomLogInterceptor extends Interceptor {
@@ -74,7 +78,7 @@ class CustomLogInterceptor extends Interceptor {
     RequestInterceptorHandler handler,
   ) async {
     logPrint('*** Request ***');
-    _printKV('uri', options.uri);
+    _printKV('URL :', options.uri);
 
     if (request) {
       _printKV('method', options.method);
@@ -95,7 +99,7 @@ class CustomLogInterceptor extends Interceptor {
       options.headers.forEach((key, v) => _printKV(' $key', v));
     }
     if (requestBody) {
-      logPrint('Request : ${options.data}');
+      logPrint('Request : ${jsonEncode(options.data)}');
     }
 
     handler.next(options);
@@ -122,8 +126,7 @@ class CustomLogInterceptor extends Interceptor {
   @override
   void onError(DioException err, ErrorInterceptorHandler handler) async {
     if (error) {
-      logPrint('*** DioException ***:');
-      logPrint('uri: ${err.requestOptions.uri}');
+      logPrint('URL : ${err.requestOptions.uri}');
       logPrint('$err');
       if (err.response != null) {
         _printResponse(err.response!);
@@ -135,7 +138,7 @@ class CustomLogInterceptor extends Interceptor {
   }
 
   void _printResponse(Response response) {
-    _printKV('uri', response.requestOptions.uri);
+    _printKV('URL :', response.requestOptions.uri);
     if (responseHeader) {
       _printKV('statusCode', response.statusCode);
       if (response.isRedirect == true) {

@@ -40,6 +40,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "forgotPin": MessageLookupByLibrary.simpleMessage("Forgot pin?"),
         "getOTP": MessageLookupByLibrary.simpleMessage("Get OTP"),
         "home": MessageLookupByLibrary.simpleMessage("Home"),
+        "internetIsNotConnected":
+            MessageLookupByLibrary.simpleMessage("Internet is not connected"),
         "login": MessageLookupByLibrary.simpleMessage("Login"),
         "logout": MessageLookupByLibrary.simpleMessage("Log Out"),
         "messageAreYouSureLogout": MessageLookupByLibrary.simpleMessage(
@@ -67,8 +69,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "sales_person": MessageLookupByLibrary.simpleMessage("Sales Person"),
         "schemes": MessageLookupByLibrary.simpleMessage("Schemes"),
         "seeAll": MessageLookupByLibrary.simpleMessage("See all"),
+        "setPin": MessageLookupByLibrary.simpleMessage("Set Pin"),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
         "shareTheApp": MessageLookupByLibrary.simpleMessage("Share the app"),
+        "somethingWentWrongPleaseConnectWithInternetToUseApplication":
+            MessageLookupByLibrary.simpleMessage(
+                "Something went wrong, Please connect with Internet to use Application."),
+        "theEnteredOtpIsInvalid":
+            MessageLookupByLibrary.simpleMessage("The entered OTP is invalid."),
         "validatePinAndConfirmPin": MessageLookupByLibrary.simpleMessage(
             "Pin and confirm pin must be same"),
         "validationEnterPhoneNumber":
@@ -76,6 +84,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "validationPhoneNumber": MessageLookupByLibrary.simpleMessage(
             "Please Enter a Valid Phone Number"),
         "verify": MessageLookupByLibrary.simpleMessage("Verify"),
+        "weSentOtpOn": MessageLookupByLibrary.simpleMessage("We sent OTP on"),
         "welcomeToAstral":
             MessageLookupByLibrary.simpleMessage("Welcome To Astral"),
         "yes": MessageLookupByLibrary.simpleMessage("Yes")

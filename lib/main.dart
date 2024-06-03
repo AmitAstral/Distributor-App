@@ -8,6 +8,7 @@ import 'package:distributor_empower/generated/l10n.dart';
 import 'package:distributor_empower/init.dart';
 import 'package:distributor_empower/model/user_response.dart';
 import 'package:distributor_empower/routes/router.dart';
+import 'package:distributor_empower/utils/device_info.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -28,6 +29,7 @@ void main() async {
   FirebaseCrashlyticsUtils().init();
 
   Locator.registerDi();
+  await getCurrentAppVersion();
 
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(

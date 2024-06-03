@@ -15,7 +15,7 @@ class LoginProvider extends BaseProvider {
     notifyListeners();
 
     if (response != null) {
-      storage.userInfo = response;
+      storage.userDetails = response;
       return true;
     }
     return false;

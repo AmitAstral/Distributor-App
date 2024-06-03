@@ -27,7 +27,7 @@ mixin class ApiCaller {
         }
       } else {
         if (onApiError != null) onApiError(data['responseMessage']);
-        return null;
+        return (baseModel != null) ? null : data;
       }
     } catch (e) {
       _handleApiError(e, onApiError);

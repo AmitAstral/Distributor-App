@@ -2,6 +2,7 @@ import 'package:auto_route/annotations.dart';
 import 'package:distributor_empower/core/di/locator.dart';
 import 'package:distributor_empower/generated/l10n.dart';
 import 'package:distributor_empower/presentation/authentication/login/login_provider.dart';
+import 'package:distributor_empower/presentation/authentication/otp/otp_screen.dart';
 import 'package:distributor_empower/routes/router.dart';
 import 'package:distributor_empower/widgets/app_button.dart';
 import 'package:distributor_empower/widgets/app_text_form_field.dart';
@@ -77,7 +78,12 @@ class LoginScreen extends StatelessWidget {
     if (_formKey.currentState!.validate()) {
       final result = await _loginProvider.callLoginAPI(_sapCodeController.text.trim());
       if (result) {
-        appRouter.push(OtpRoute());
+        appRouter.push(
+          OtpRoute(
+            sentOTP: storage.userDetails.otp ?? '',
+            screenType: OTPVerificationType.login,
+          ),
+        );
       }
     }
   }

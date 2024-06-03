@@ -31,7 +31,7 @@ class AppButton extends StatelessWidget {
       child: SizedBox(
         width: 0.5.sw,
         child: ElevatedButton(
-          onPressed: (isDisable && isLoading) ? () {} : onPressed ?? () {},
+          onPressed: (isDisable || isLoading) ? () {} : onPressed ?? () {},
           style: ButtonStyle(
             backgroundColor: WidgetStatePropertyAll(bgColor.withOpacity(isDisable ? 0.4 : 1)),
           ),

@@ -13,12 +13,16 @@ enum Environment {
 String baseUrl = Environment.debug.value;
 
 class ApiConstants {
+  static const String basicToken = 'AB697893-C1BA-453B-8ABC-20EBF899D453-552C411E-0474-4A1F-9A9C-7785BEA5F39B';
   static const String authentication = 'Authentication/';
   static const String common = 'Common/';
   static const String user = 'User/';
 
   static const String login = '${user}UserLoginProcess';
+  static const String userSetPin = '${user}UserSetPin';
   static const String checkServerStatus = '${common}CheckServerStatus';
   static const String getAllSetting = '${common}GetAllSetting';
   static const String generateJWToken = '${authentication}GenerateJWTToken';
+  static const String logout = '${user}Logout';
+  static const String sendOTP = '${user}SendOTP';
 }

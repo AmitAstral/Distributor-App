@@ -1,7 +1,9 @@
 import 'dart:convert';
 
+import 'package:distributor_empower/core/api/api_service.dart';
 import 'package:distributor_empower/core/di/locator.dart';
 import 'package:distributor_empower/core/storage/storage_constants.dart';
+import 'package:distributor_empower/model/base/api_req_data.dart';
 import 'package:distributor_empower/model/user_response.dart';
 import 'package:distributor_empower/routes/router.dart';
 import 'package:flutter/material.dart';
@@ -20,20 +22,24 @@ class StorageService {
 
   set authToken(String token) {
     _put(authTokenKey, token);
-    /*GetIt.I.get<ApiService>().setAuthToken(token);*/
+    apiService.setAuthToken(token);
   }
 
   Locale get appLocale => Locale(_get(appLocaleKey) ?? 'en');
 
   set appLocale(Locale locale) => _put(appLocaleKey, locale.languageCode);
 
-  UserResponse get userInfo => UserResponse().fromJson(json.decode(_get(userInfoKey)));
+  UserResponse get userDetails => UserResponse().fromJson(json.decode(_get(userInfoKey)));
 
-  set userInfo(UserResponse loginModel) => _put(userInfoKey, json.encode(loginModel.toJson()));
+  set userDetails(UserResponse loginModel) => _put(userInfoKey, json.encode(loginModel.toJson()));
 
-  String get fcmToken => _get(userInfoKey, defaultValue: '');
+  String get fcmToken => _get(fcmTokenKey, defaultValue: '');
 
-  set fcmToken(String fcmToken) => _put(userInfoKey, fcmToken);
+  set fcmToken(String fcmToken) => _put(fcmTokenKey, fcmToken);
+
+  String get currentAppVersion => _get(currentAppVersionKey, defaultValue: '');
+
+  set currentAppVersion(String version) => _put(currentAppVersionKey, version);
 
   bool get isLogin => _get(isLoginKey, defaultValue: false);
 
@@ -44,7 +50,9 @@ class StorageService {
   Future<void> remove(String key) async => await _box.delete(key);
 
   void logout() {
+    apiRep.logoutUser(req: ApiReqData(withUserInfo: true, fcmID: storage.fcmToken));
     isLogin = false;
+    authToken = '';
     appRouter.pushAndPopUntil(
       LoginRoute(),
       predicate: (route) => false,

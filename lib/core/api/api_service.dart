@@ -2,9 +2,8 @@ import 'package:dio/dio.dart' as dio;
 import 'package:dio/dio.dart';
 import 'package:distributor_empower/core/api/api_constants.dart';
 import 'package:distributor_empower/core/api/custom_log_interceptor.dart';
-import 'package:distributor_empower/core/storage/storage.dart';
+import 'package:distributor_empower/core/di/locator.dart';
 import 'package:flutter/foundation.dart';
-import 'package:get_it/get_it.dart';
 
 class ApiService {
   late dio.Dio _dio;
@@ -20,7 +19,7 @@ class ApiService {
     /**
      * set auth token if it exists in local
      */
-    setAuthToken(GetIt.I.get<StorageService>().authToken);
+    setAuthToken(storage.authToken);
     _dio.interceptors.add(internetCheckInterceptor);
     _dio.interceptors.add(CustomLogInterceptor(requestBody: true, responseBody: true));
   }
@@ -117,5 +116,6 @@ class ApiService {
     if (token.isNotEmpty) {
       _dio.options.headers.addAll({'Authorization': 'Bearer $token'});
     }
+    _dio.options.headers.addAll({'Authentication': ApiConstants.basicToken});
   }
 }

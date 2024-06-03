@@ -65,11 +65,14 @@ abstract class _$AppRouter extends RootStackRouter {
       );
     },
     OtpRoute.name: (routeData) {
-      final args =
-          routeData.argsAs<OtpRouteArgs>(orElse: () => const OtpRouteArgs());
+      final args = routeData.argsAs<OtpRouteArgs>();
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: OtpScreen(key: args.key),
+        child: OtpScreen(
+          screenType: args.screenType,
+          sentOTP: args.sentOTP,
+          key: args.key,
+        ),
       );
     },
     ProfileRoute.name: (routeData) {
@@ -254,11 +257,17 @@ class OrderHistoryRoute extends PageRouteInfo<void> {
 /// [OtpScreen]
 class OtpRoute extends PageRouteInfo<OtpRouteArgs> {
   OtpRoute({
+    OTPVerificationType? screenType,
+    required String sentOTP,
     Key? key,
     List<PageRouteInfo>? children,
   }) : super(
           OtpRoute.name,
-          args: OtpRouteArgs(key: key),
+          args: OtpRouteArgs(
+            screenType: screenType,
+            sentOTP: sentOTP,
+            key: key,
+          ),
           initialChildren: children,
         );
 
@@ -268,13 +277,21 @@ class OtpRoute extends PageRouteInfo<OtpRouteArgs> {
 }
 
 class OtpRouteArgs {
-  const OtpRouteArgs({this.key});
+  const OtpRouteArgs({
+    this.screenType,
+    required this.sentOTP,
+    this.key,
+  });
+
+  final OTPVerificationType? screenType;
+
+  final String sentOTP;
 
   final Key? key;
 
   @override
   String toString() {
-    return 'OtpRouteArgs{key: $key}';
+    return 'OtpRouteArgs{screenType: $screenType, sentOTP: $sentOTP, key: $key}';
   }
 }
 
