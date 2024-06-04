@@ -33,8 +33,10 @@ class UserPinProvider extends BaseProvider {
     } catch (e, stack) {
       debugPrintStack(stackTrace: stack);
     } finally {
-      isButtonLoading = false;
-      notifyListeners();
+      Future.delayed(const Duration(seconds: 1), () {
+        isButtonLoading = false;
+        notifyListeners();
+      });
     }
     return false;
   }
@@ -57,7 +59,7 @@ class UserPinProvider extends BaseProvider {
 
   void generateJWTToken() async {
     try {
-      apiRep.generateJWTToken(onApiError: onApiError);
+      await apiRep.generateJWTToken(onApiError: onApiError);
     } catch (e, stack) {
       debugPrintStack(stackTrace: stack);
     }

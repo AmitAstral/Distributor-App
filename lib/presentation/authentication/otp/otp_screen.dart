@@ -4,6 +4,7 @@ import 'package:distributor_empower/core/di/locator.dart';
 import 'package:distributor_empower/generated/l10n.dart';
 import 'package:distributor_empower/presentation/authentication/pin/provider/user_pin_provider.dart';
 import 'package:distributor_empower/routes/router.dart';
+import 'package:distributor_empower/utils/extensions.dart';
 import 'package:distributor_empower/utils/text_styles.dart';
 import 'package:distributor_empower/utils/toast.dart';
 import 'package:distributor_empower/widgets/app_button.dart';
@@ -11,6 +12,7 @@ import 'package:distributor_empower/widgets/auth_top_logo_widget.dart';
 import 'package:distributor_empower/widgets/pin_put_widget.dart';
 import 'package:distributor_empower/widgets/progress_widget.dart';
 import 'package:flutter/material.dart';
+import 'dart:async';
 
 @RoutePage()
 class OtpScreen extends StatelessWidget {
@@ -19,8 +21,11 @@ class OtpScreen extends StatelessWidget {
   String sentOTP = '';
 
   OTPVerificationType? screenType = OTPVerificationType.login;
+  final ValueNotifier<int> _secondsRemaining = ValueNotifier(0);
 
   final _userPinProvider = UserPinProvider();
+
+  Timer? _timer;
 
   OtpScreen({this.screenType, required this.sentOTP, super.key}) {
     _sendOTP(false);
@@ -77,21 +82,55 @@ class OtpScreen extends StatelessWidget {
                           ],
                         ),
                       ),
-                      20.verticalSpace,
+                      10.verticalSpace,
+                      ValueListenableBuilder(
+                          valueListenable: _secondsRemaining,
+                          child: Center(
+                            child: Text(
+                              AppLocalizations.current.resendOtp,
+                              style: TextStyles.regular12.copyWith(color: AppColor.primaryColor, decoration: TextDecoration.underline),
+                            ),
+                          ).addGesture(
+                            () {
+                              _sendOTP(true);
+                              startTimer();
+                            },
+                          ),
+                          builder: (context, value, Widget? child) {
+                            return value == 0
+                                ? child!
+                                : Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        AppLocalizations.current.resendOtpIn,
+                                        style: TextStyles.regular12.copyWith(color: AppColor.textSecondary),
+                                      ),
+                                      Text(
+                                        ' $value',
+                                        style: TextStyles.bold12.copyWith(color: AppColor.textSecondary),
+                                      ),
+                                    ],
+                                  );
+                          }),
+                      10.verticalSpace,
                       ValueListenableBuilder(
                           valueListenable: _isDisable,
                           builder: (context, _, __) {
                             return AppButton(
                               onPressed: () async {
                                 if (_otp == sentOTP) {
+                                  if (screenType == OTPVerificationType.forgotPin) {
+                                    appRouter.replace(SetPinRoute());
+                                    return;
+                                  }
+                                  _userPinProvider.generateJWTToken();
                                   if (storage.userDetails.isPinSet ?? false) {
-                                    if (screenType == OTPVerificationType.forgotPin) {
-                                      appRouter.replace(SetPinRoute());
-                                    } else {
-                                      appRouter.replace(
-                                        VerifyPinRoute(),
-                                      );
-                                    }
+                                    storage.isLogin = true;
+                                    appRouter.pushAndPopUntil(
+                                      VerifyPinRoute(),
+                                      predicate: (route) => false,
+                                    );
                                   } else {
                                     appRouter.replace(SetPinRoute());
                                   }
@@ -120,9 +159,22 @@ class OtpScreen extends StatelessWidget {
   }
 
   Future<void> _sendOTP(bool isShowMessage) async {
-    if (screenType == OTPVerificationType.forgotPin) {
-      sentOTP = await _userPinProvider.sendOTP(isShowMessage: isShowMessage);
-    }
+    if (sentOTP.isEmpty) sentOTP = await _userPinProvider.sendOTP(isShowMessage: isShowMessage);
+  }
+
+  void startTimer() {
+    _secondsRemaining.value = 60;
+    const oneSec = Duration(seconds: 1);
+    _timer = Timer.periodic(
+      oneSec,
+      (timer) {
+        if (_secondsRemaining.value == 0) {
+          _timer?.cancel();
+        } else {
+          _secondsRemaining.value = _secondsRemaining.value - 1;
+        }
+      },
+    );
   }
 }
 

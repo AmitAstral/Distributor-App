@@ -50,5 +50,7 @@
   "internetIsNotConnected": "Internet is not connected",
   "theEnteredOtpIsInvalid": "The entered OTP is invalid.",
   "setPin": "Set Pin",
-  "weSentOtpOn": "We sent OTP on"
+  "weSentOtpOn": "We sent OTP on",
+  "resendOtpIn": "Resend OTP in",
+  "resendOtp": "Resend OTP"
 }

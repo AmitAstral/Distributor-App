@@ -569,6 +569,26 @@ class AppLocalizations {
       args: [],
     );
   }
+
+  /// `Resend OTP in`
+  String get resendOtpIn {
+    return Intl.message(
+      'Resend OTP in',
+      name: 'resendOtpIn',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Resend OTP`
+  String get resendOtp {
+    return Intl.message(
+      'Resend OTP',
+      name: 'resendOtp',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -24,9 +24,7 @@ class SetPinScreen extends StatelessWidget {
   String _confirmPin = '';
   final _deviceInfo = DeviceInfo();
 
-  SetPinScreen({super.key}) {
-    _userPinProvider.generateJWTToken();
-  }
+  SetPinScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -62,6 +62,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
         "rateUsOnTheAppStore":
             MessageLookupByLibrary.simpleMessage("Rate us on the app store"),
+        "resendOtp": MessageLookupByLibrary.simpleMessage("Resend OTP"),
+        "resendOtpIn": MessageLookupByLibrary.simpleMessage("Resend OTP in"),
         "rupees": MessageLookupByLibrary.simpleMessage("₹"),
         "sPMobileNumber":
             MessageLookupByLibrary.simpleMessage("SP Mobile Number"),
