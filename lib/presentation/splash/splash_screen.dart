@@ -10,18 +10,9 @@ import 'package:distributor_empower/utils/text_styles.dart';
 import 'package:flutter/material.dart';
 
 @RoutePage()
-class SplashScreen extends StatefulWidget {
-  const SplashScreen({super.key});
-
-  @override
-  State<SplashScreen> createState() => _SplashScreenState();
-}
-
-class _SplashScreenState extends State<SplashScreen> {
-  @override
-  void initState() {
+class SplashScreen extends StatelessWidget {
+  SplashScreen({super.key}) {
     _moveToNextScreen();
-    super.initState();
   }
 
   @override

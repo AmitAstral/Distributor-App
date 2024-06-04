@@ -56,5 +56,6 @@
   "refresh": "Refresh",
   "close": "Close",
   "wereDownForMaintenanceNWillBeBackSoon": "We're down for maintenance \n We'll be back soon...",
-  "verifyPin": "Verify Pin"
+  "verifyPin": "Verify Pin",
+  "somethingWentWrong": "Something went wrong"
 }

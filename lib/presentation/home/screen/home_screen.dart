@@ -85,7 +85,7 @@ class _HomeScreenState extends State<HomeScreen> {
             scrollDirection: Axis.vertical,
             child: Column(
               children: [
-                const SalesChartWidget(),
+                SalesChartWidget(),
                 const CreditDetailsWidget(),
                 // OrderDetailsWidget(),
                 const OrderDetailsWidget1(),

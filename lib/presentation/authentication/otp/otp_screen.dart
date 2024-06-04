@@ -18,17 +18,18 @@ import 'dart:async';
 class OtpScreen extends StatelessWidget {
   final ValueNotifier<bool> _isDisable = ValueNotifier(true);
   String _otp = '';
-  String sentOTP = '';
 
-  OTPVerificationType? screenType = OTPVerificationType.login;
   final ValueNotifier<int> _secondsRemaining = ValueNotifier(0);
 
   final _userPinProvider = UserPinProvider();
 
   Timer? _timer;
 
+  OTPVerificationType? screenType = OTPVerificationType.login;
+  String sentOTP = '';
+
   OtpScreen({this.screenType, required this.sentOTP, super.key}) {
-    _sendOTP(false);
+    if (screenType == OTPVerificationType.forgotPin) _sendOTP(false);
   }
 
   @override
@@ -154,16 +155,12 @@ class OtpScreen extends StatelessWidget {
     );
   }
 
-  Future<void> resendOTP() async {
-    await _userPinProvider.sendOTP(isShowMessage: false);
-  }
-
   Future<void> _sendOTP(bool isShowMessage) async {
-    if (sentOTP.isEmpty) sentOTP = await _userPinProvider.sendOTP(isShowMessage: isShowMessage);
+    sentOTP = await _userPinProvider.sendOTP(isShowMessage: isShowMessage);
   }
 
   void startTimer() {
-    _secondsRemaining.value = 60;
+    _secondsRemaining.value = 30;
     const oneSec = Duration(seconds: 1);
     _timer = Timer.periodic(
       oneSec,

@@ -2,16 +2,10 @@ import 'package:distributor_empower/constants/all_constants.dart';
 import 'package:distributor_empower/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
-import 'package:syncfusion_flutter_charts/sparkcharts.dart';
 
-class SalesChartWidget extends StatefulWidget {
-  const SalesChartWidget({super.key});
+class SalesChartWidget extends StatelessWidget {
+  SalesChartWidget({super.key});
 
-  @override
-  State<SalesChartWidget> createState() => _SalesChartWidgetState();
-}
-
-class _SalesChartWidgetState extends State<SalesChartWidget> {
   final List<ChartData> chartData = [
     ChartData("Jan", 1),
     ChartData("Feb", 2.5),

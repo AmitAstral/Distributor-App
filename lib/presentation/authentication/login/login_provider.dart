@@ -14,8 +14,8 @@ class LoginProvider extends BaseProvider {
     isLoading = false;
     notifyListeners();
 
-    if (response != null) {
-      storage.userDetails = response;
+    if (response.getData != null) {
+      storage.userDetails = response.getData!;
       return true;
     }
     return false;

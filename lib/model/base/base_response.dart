@@ -1,35 +1,43 @@
 import 'package:distributor_empower/model/base/base_model.dart';
 
 class BaseResponse<T extends BaseModel?> {
-  T? data;
+  List<T?>? dataList;
+
+  String? dataStr;
 
   String? message;
 
   String? statusCode;
 
-  bool isSuccess = false;
+  bool? isSuccess = false;
 
-  /*BaseResponse({required this.isSuccess, required T baseModel, Map<String, dynamic>? json, this.message, this.statusCode}) {
-    data = baseModel?.fromJson(json ?? {}) as T?;
-  }*/
+  dynamic actualData;
+
+  T? get getData => dataList?.firstOrNull;
 
   BaseResponse({
-    required this.message,
-    required this.statusCode,
-    required this.isSuccess,
-    required Map<String, dynamic>? dataJson,
-    required BaseModel? baseModel,
-  }) {
-    data = baseModel?.fromJson(dataJson ?? {}) as T?;
-  }
+    this.message,
+    this.statusCode,
+    this.isSuccess,
+    this.actualData,
+  });
 
-  factory BaseResponse.fromJson(Map<String, dynamic> json, T? baseModel) {
-    return BaseResponse(
-      isSuccess: json['isSuccess'] as bool? ?? false,
-      baseModel: baseModel,
-      message: json['message'] as String?,
+  factory BaseResponse.fromJson(Map<String, dynamic> json, BaseModel? baseModel) {
+    final baseResponse = BaseResponse<T>(
+      isSuccess: json['result'] as bool? ?? false,
+      message: json['responseMessage'] as String?,
       statusCode: json['statusCode'] as String?,
-      dataJson: json['data'],
     );
+    final rawData = json['data'];
+    if (baseModel != null) {
+      if (rawData is List) {
+        baseResponse.dataList = List.from(rawData.map((x) => (baseModel.fromJson(x) as T?)));
+      } else if (rawData is Map<String, dynamic>) {
+        baseResponse.dataList = [baseModel.fromJson(rawData)] as List<T>?;
+      }
+    } else if (rawData is String) {
+      baseResponse.dataStr = rawData;
+    }
+    return baseResponse;
   }
 }

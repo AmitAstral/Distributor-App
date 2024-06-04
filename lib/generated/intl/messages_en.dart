@@ -76,6 +76,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "setPin": MessageLookupByLibrary.simpleMessage("Set Pin"),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
         "shareTheApp": MessageLookupByLibrary.simpleMessage("Share the app"),
+        "somethingWentWrong":
+            MessageLookupByLibrary.simpleMessage("Something went wrong"),
         "somethingWentWrongPleaseConnectWithInternetToUseApplication":
             MessageLookupByLibrary.simpleMessage(
                 "Something went wrong, Please connect with Internet to use Application."),

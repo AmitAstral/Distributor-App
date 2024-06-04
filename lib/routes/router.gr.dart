@@ -39,8 +39,7 @@ abstract class _$AppRouter extends RootStackRouter {
       );
     },
     LoginRoute.name: (routeData) {
-      final args = routeData.argsAs<LoginRouteArgs>(
-          orElse: () => const LoginRouteArgs());
+      final args = routeData.argsAs<LoginRouteArgs>(orElse: () => const LoginRouteArgs());
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: LoginScreen(key: args.key),
@@ -100,8 +99,7 @@ abstract class _$AppRouter extends RootStackRouter {
       );
     },
     SetPinRoute.name: (routeData) {
-      final args = routeData.argsAs<SetPinRouteArgs>(
-          orElse: () => const SetPinRouteArgs());
+      final args = routeData.argsAs<SetPinRouteArgs>(orElse: () => const SetPinRouteArgs());
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: SetPinScreen(key: args.key),
@@ -110,12 +108,11 @@ abstract class _$AppRouter extends RootStackRouter {
     SplashRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const SplashScreen(),
+        child: SplashScreen(),
       );
     },
     VerifyPinRoute.name: (routeData) {
-      final args = routeData.argsAs<VerifyPinRouteArgs>(
-          orElse: () => const VerifyPinRouteArgs());
+      final args = routeData.argsAs<VerifyPinRouteArgs>(orElse: () => const VerifyPinRouteArgs());
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: VerifyPinScreen(key: args.key),
@@ -144,8 +141,7 @@ class CommonWebViewRoute extends PageRouteInfo<CommonWebViewRouteArgs> {
 
   static const String name = 'CommonWebViewRoute';
 
-  static const PageInfo<CommonWebViewRouteArgs> page =
-      PageInfo<CommonWebViewRouteArgs>(name);
+  static const PageInfo<CommonWebViewRouteArgs> page = PageInfo<CommonWebViewRouteArgs>(name);
 }
 
 class CommonWebViewRouteArgs {
@@ -419,8 +415,7 @@ class VerifyPinRoute extends PageRouteInfo<VerifyPinRouteArgs> {
 
   static const String name = 'VerifyPinRoute';
 
-  static const PageInfo<VerifyPinRouteArgs> page =
-      PageInfo<VerifyPinRouteArgs>(name);
+  static const PageInfo<VerifyPinRouteArgs> page = PageInfo<VerifyPinRouteArgs>(name);
 }
 
 class VerifyPinRouteArgs {

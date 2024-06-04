@@ -13,7 +13,7 @@ class UserPinProvider extends BaseProvider {
       isButtonLoading = true;
       notifyListeners();
       final response = await apiRep.setUserPin(req, onApiError: onApiError);
-      return response;
+      return response.isSuccess ?? false;
     } catch (e, stack) {
       debugPrintStack(stackTrace: stack);
     } finally {
@@ -28,7 +28,7 @@ class UserPinProvider extends BaseProvider {
       isButtonLoading = true;
       notifyListeners();
       final response = await apiRep.setUserPin(req, onApiError: onApiError);
-      return response;
+      return response.isSuccess ?? false;
     } catch (e, stack) {
       debugPrintStack(stackTrace: stack);
     } finally {
@@ -45,8 +45,8 @@ class UserPinProvider extends BaseProvider {
       resendOTPLoader = true;
       notifyListeners();
       final response = await apiRep.sendOTP(req: ApiReqData.getUserDetails, onApiError: onApiError);
-      if (isShowMessage) successToast(response['responseMessage']);
-      return response['data'].toString();
+      if (isShowMessage) successToast(response.message ?? '');
+      return response.dataStr ?? '';
     } catch (e, stack) {
       debugPrintStack(stackTrace: stack);
     } finally {
@@ -59,7 +59,7 @@ class UserPinProvider extends BaseProvider {
   void generateJWTToken() async {
     try {
       final response = await apiRep.generateJWTToken(onApiError: onApiError);
-      storage.authToken = response['data'];
+      storage.authToken = response.dataStr ?? '';
     } catch (e, stack) {
       debugPrintStack(stackTrace: stack);
     }
