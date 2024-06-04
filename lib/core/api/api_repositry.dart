@@ -37,7 +37,6 @@ class ApiRepository extends ApiCaller {
       apiCall: apiService.post(endPoint: ApiConstants.generateJWToken, data: ApiReqData.getUserDetails.toJson()),
       onApiError: onApiError,
     );
-    storage.authToken = data['data'];
     return data;
   }
 

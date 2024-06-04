@@ -57,16 +57,15 @@ class _SplashScreenState extends State<SplashScreen> {
 
       final result = await commonProvider.checkServerStatus();
 
-      if (result == true) {
-        appRouter.replace(const MaintenanceRoute());
-        return;
-      }
-
-      if (storage.isLogin) {
-        await commonProvider.getAllSetting();
-        appRouter.replace(VerifyPinRoute());
+      if (result) {
+        if (storage.isLogin) {
+          await commonProvider.getAllSetting();
+          appRouter.replace(VerifyPinRoute());
+        } else {
+          appRouter.replace(LoginRoute());
+        }
       } else {
-        appRouter.replace(LoginRoute());
+        appRouter.replace(const MaintenanceRoute());
       }
     } else {
       appRouter.replace(const NoInternetRoute());

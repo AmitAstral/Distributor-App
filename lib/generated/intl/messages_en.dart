@@ -88,6 +88,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "validationPhoneNumber": MessageLookupByLibrary.simpleMessage(
             "Please Enter a Valid Phone Number"),
         "verify": MessageLookupByLibrary.simpleMessage("Verify"),
+        "verifyPin": MessageLookupByLibrary.simpleMessage("Verify Pin"),
         "weSentOtpOn": MessageLookupByLibrary.simpleMessage("We sent OTP on"),
         "welcomeToAstral":
             MessageLookupByLibrary.simpleMessage("Welcome To Astral"),

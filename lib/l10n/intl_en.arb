@@ -55,5 +55,6 @@
   "resendOtp": "Resend OTP",
   "refresh": "Refresh",
   "close": "Close",
-  "wereDownForMaintenanceNWillBeBackSoon": "We're down for maintenance \n We'll be back soon..."
+  "wereDownForMaintenanceNWillBeBackSoon": "We're down for maintenance \n We'll be back soon...",
+  "verifyPin": "Verify Pin"
 }

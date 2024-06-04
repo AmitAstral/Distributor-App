@@ -619,6 +619,16 @@ class AppLocalizations {
       args: [],
     );
   }
+
+  /// `Verify Pin`
+  String get verifyPin {
+    return Intl.message(
+      'Verify Pin',
+      name: 'verifyPin',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -116,7 +116,7 @@ class VerifyPinScreen extends StatelessWidget {
                                 builder: (context, provider, child) {
                                   return AppButton(
                                     onPressed: _validateAndContinue,
-                                    text: AppLocalizations.current.verify,
+                                    text: AppLocalizations.current.verifyPin,
                                     isDisable: _isDisable.value,
                                     isLoading: provider.isButtonLoading,
                                   );
