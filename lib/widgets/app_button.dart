@@ -12,6 +12,7 @@ class AppButton extends StatelessWidget {
   final double? verticalPadding;
   final bool isDisable;
   final Color bgColor;
+  final double? width;
 
   const AppButton(
       {super.key,
@@ -21,6 +22,7 @@ class AppButton extends StatelessWidget {
       this.isDisable = false,
       this.text,
       this.isLoading = false,
+      this.width,
       this.bgColor = AppColor.primaryColor,
       this.horizontalPadding,
       this.verticalPadding});
@@ -29,7 +31,7 @@ class AppButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: SizedBox(
-        width: 0.5.sw,
+        width: width ?? 0.5.sw,
         child: ElevatedButton(
           onPressed: (isDisable || isLoading) ? () {} : onPressed ?? () {},
           style: ButtonStyle(

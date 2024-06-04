@@ -1,9 +1,11 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:distributor_empower/constants/all_constants.dart';
+import 'package:distributor_empower/core/api/custom_log_interceptor.dart';
 import 'package:distributor_empower/core/di/locator.dart';
 import 'package:distributor_empower/gen/assets.gen.dart';
 import 'package:distributor_empower/generated/l10n.dart';
 import 'package:distributor_empower/routes/router.dart';
+import 'package:distributor_empower/utils/providers/common_provider.dart';
 import 'package:distributor_empower/utils/text_styles.dart';
 import 'package:flutter/material.dart';
 
@@ -29,7 +31,6 @@ class _SplashScreenState extends State<SplashScreen> {
         child: Container(
           width: 1.sw,
           color: AppColor.primaryColor,
-          /*decoration: BoxDecoration(image: DecorationImage(image: Assets.images.splashLogo.provider(), fit: BoxFit.cover)),*/
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
@@ -49,10 +50,26 @@ class _SplashScreenState extends State<SplashScreen> {
 
   Future<void> _moveToNextScreen() async {
     await Future.delayed(const Duration(seconds: 2));
-    if (storage.isLogin) {
-      appRouter.replace(VerifyPinRoute());
+    final isConnected = await checkInternetConnectivity();
+
+    if (isConnected) {
+      final commonProvider = CommonProvider();
+
+      final result = await commonProvider.checkServerStatus();
+
+      if (result == true) {
+        appRouter.replace(const MaintenanceRoute());
+        return;
+      }
+
+      if (storage.isLogin) {
+        await commonProvider.getAllSetting();
+        appRouter.replace(VerifyPinRoute());
+      } else {
+        appRouter.replace(LoginRoute());
+      }
     } else {
-      appRouter.replace(LoginRoute());
+      appRouter.replace(const NoInternetRoute());
     }
   }
 }

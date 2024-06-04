@@ -67,10 +67,12 @@ class PushNotificationsManager {
       sound: true,
     );
 
-    _firebaseMessaging.getToken().then((String? token) {
-      storage.fcmToken = token ?? '';
-      debugPrint('Push Messaging token: ${storage.fcmToken}');
-    });
+    if (storage.fcmToken.isEmpty) {
+      _firebaseMessaging.getToken().then((String? token) {
+        storage.fcmToken = token ?? '';
+        debugPrint('Push Messaging token: ${storage.fcmToken}');
+      });
+    }
 
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       RemoteNotification? notification = message.notification;

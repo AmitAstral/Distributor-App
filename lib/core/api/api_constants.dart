@@ -18,11 +18,14 @@ class ApiConstants {
   static const String common = 'Common/';
   static const String user = 'User/';
 
+  ///USER
   static const String login = '${user}UserLoginProcess';
   static const String userSetPin = '${user}UserSetPin';
-  static const String checkServerStatus = '${common}CheckServerStatus';
-  static const String getAllSetting = '${common}GetAllSetting';
   static const String generateJWToken = '${authentication}GenerateJWTToken';
   static const String logout = '${user}Logout';
   static const String sendOTP = '${user}SendOTP';
+
+  ///COMMON
+  static const String checkServerStatus = '${common}CheckServerStatus';
+  static const String getAllSetting = '${common}GetAllSetting';
 }

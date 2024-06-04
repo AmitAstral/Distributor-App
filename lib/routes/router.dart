@@ -4,6 +4,8 @@ import 'package:distributor_empower/presentation/authentication/pin/verify_pin_s
 import 'package:distributor_empower/presentation/dashboard/screens/dashboard_screen.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:distributor_empower/presentation/home/screen/home_screen.dart';
+import 'package:distributor_empower/presentation/maintainance/maintenance_screen.dart';
+import 'package:distributor_empower/presentation/maintainance/no_internet_screen.dart';
 import 'package:distributor_empower/presentation/offers/offers_screen.dart';
 import 'package:distributor_empower/presentation/order_history/order_details_screen.dart';
 import 'package:distributor_empower/presentation/order_history/order_history_screen.dart';
@@ -47,6 +49,8 @@ class AppRouter extends _$AppRouter {
         AutoRoute(page: OtpRoute.page),
         AutoRoute(page: SetPinRoute.page),
         AutoRoute(page: VerifyPinRoute.page),
+        AutoRoute(page: MaintenanceRoute.page),
+        AutoRoute(page: NoInternetRoute.page),
       ];
 
   void pushAndRemoveAll(PageRouteInfo route) {

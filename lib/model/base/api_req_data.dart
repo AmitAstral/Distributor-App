@@ -33,6 +33,8 @@ class ApiReqData {
     this.fcmID,
   });
 
+  static UserInfo get getUserDetails => getUserInfo;
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> json = {};
     json['page'] = page;

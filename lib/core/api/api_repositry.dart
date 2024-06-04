@@ -11,7 +11,7 @@ class ApiRepository extends ApiCaller {
     Function(String)? onApiError,
   }) async {
     var data = await executeApiCall<UserResponse>(
-      apiCall: apiService.post(url: ApiConstants.login, data: req.toJson()),
+      apiCall: apiService.post(endPoint: ApiConstants.login, data: req.toJson()),
       baseModel: UserResponse(),
       onApiError: onApiError,
     );
@@ -23,7 +23,7 @@ class ApiRepository extends ApiCaller {
     Function(String)? onApiError,
   }) async {
     var data = await executeApiCall(
-      apiCall: apiService.post(url: ApiConstants.userSetPin, data: req.toJson()),
+      apiCall: apiService.post(endPoint: ApiConstants.userSetPin, data: req.toJson()),
       onApiError: onApiError,
     );
     return data['result'];
@@ -34,7 +34,7 @@ class ApiRepository extends ApiCaller {
     Function(String)? onApiError,
   }) async {
     var data = await executeApiCall(
-      apiCall: apiService.post(url: ApiConstants.generateJWToken, data: getUserInfo.toJson()),
+      apiCall: apiService.post(endPoint: ApiConstants.generateJWToken, data: ApiReqData.getUserDetails.toJson()),
       onApiError: onApiError,
     );
     storage.authToken = data['data'];
@@ -46,7 +46,7 @@ class ApiRepository extends ApiCaller {
     Function(String)? onApiError,
   }) async {
     var data = await executeApiCall(
-      apiCall: apiService.post(url: ApiConstants.logout, data: req.toJson()),
+      apiCall: apiService.post(endPoint: ApiConstants.logout, data: req.toJson()),
       onApiError: onApiError,
     );
     return data;
@@ -54,8 +54,23 @@ class ApiRepository extends ApiCaller {
 
   Future<dynamic> sendOTP({required UserInfo req, Function(String)? onApiError}) async {
     var data = await executeApiCall(
-      apiCall: apiService.post(url: ApiConstants.sendOTP, data: req.toJson()),
+      apiCall: apiService.post(endPoint: ApiConstants.sendOTP, data: req.toJson()),
       onApiError: onApiError,
+    );
+    return data;
+  }
+
+  Future<dynamic> checkServerStatus(Function(String) onApiError) async {
+    var data = await executeApiCall(
+      apiCall: apiService.get(endPoint: ApiConstants.checkServerStatus),
+      onApiError: onApiError,
+    );
+    return data;
+  }
+
+  Future<dynamic> getAllSetting() async {
+    var data = await executeApiCall(
+      apiCall: apiService.post(endPoint: ApiConstants.getAllSetting, data: ApiReqData.getUserDetails.toJson()),
     );
     return data;
   }

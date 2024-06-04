@@ -45,7 +45,7 @@ class UserPinProvider extends BaseProvider {
     try {
       resendOTPLoader = true;
       notifyListeners();
-      final response = await apiRep.sendOTP(req: getUserInfo, onApiError: onApiError);
+      final response = await apiRep.sendOTP(req: ApiReqData.getUserDetails, onApiError: onApiError);
       if (isShowMessage) successToast(response['responseMessage']);
       return response['data'].toString();
     } catch (e, stack) {

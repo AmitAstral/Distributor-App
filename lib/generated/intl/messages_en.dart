@@ -27,6 +27,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "address": MessageLookupByLibrary.simpleMessage("Address"),
         "cart": MessageLookupByLibrary.simpleMessage("Cart"),
         "chooseQty": MessageLookupByLibrary.simpleMessage("Choose Quantity "),
+        "close": MessageLookupByLibrary.simpleMessage("Close"),
         "confirmPin": MessageLookupByLibrary.simpleMessage("Confirm Pin"),
         "date": MessageLookupByLibrary.simpleMessage("Date"),
         "enterOTP": MessageLookupByLibrary.simpleMessage("Enter OTP"),
@@ -51,7 +52,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "needHelp": MessageLookupByLibrary.simpleMessage("Need help?"),
         "no": MessageLookupByLibrary.simpleMessage("No"),
         "noInternetConnection":
-            MessageLookupByLibrary.simpleMessage("NO INTERNET CONNECTION"),
+            MessageLookupByLibrary.simpleMessage("No internet connection"),
         "offer": MessageLookupByLibrary.simpleMessage("Offer"),
         "orderDetails": MessageLookupByLibrary.simpleMessage("Order Details"),
         "orderHistory": MessageLookupByLibrary.simpleMessage("Order History"),
@@ -62,6 +63,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
         "rateUsOnTheAppStore":
             MessageLookupByLibrary.simpleMessage("Rate us on the app store"),
+        "refresh": MessageLookupByLibrary.simpleMessage("Refresh"),
         "resendOtp": MessageLookupByLibrary.simpleMessage("Resend OTP"),
         "resendOtpIn": MessageLookupByLibrary.simpleMessage("Resend OTP in"),
         "rupees": MessageLookupByLibrary.simpleMessage("₹"),
@@ -89,6 +91,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "weSentOtpOn": MessageLookupByLibrary.simpleMessage("We sent OTP on"),
         "welcomeToAstral":
             MessageLookupByLibrary.simpleMessage("Welcome To Astral"),
+        "wereDownForMaintenanceNWillBeBackSoon":
+            MessageLookupByLibrary.simpleMessage(
+                "We\'re down for maintenance \n We\'ll be back soon..."),
         "yes": MessageLookupByLibrary.simpleMessage("Yes")
       };
 }

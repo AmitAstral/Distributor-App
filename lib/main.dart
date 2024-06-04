@@ -19,6 +19,7 @@ void main() async {
   await Hive.initFlutter();
   await Hive.openBox(box);
   Hive.registerAdapter(UserResponseAdapter());
+  Locator.registerDi();
 
   await Future.delayed(const Duration(milliseconds: 100));
 
@@ -28,7 +29,6 @@ void main() async {
   await PushNotificationsManager().init();
   FirebaseCrashlyticsUtils().init();
 
-  Locator.registerDi();
   await getCurrentAppVersion();
 
   SystemChrome.setSystemUIOverlayStyle(

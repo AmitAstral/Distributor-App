@@ -70,6 +70,7 @@ dependencies:
   uuid: ^4.4.0
   device_info_plus: ^10.1.0
   package_info_plus: ^8.0.0
+  lottie: ^3.1.2
 
 dev_dependencies:
   flutter_test:
@@ -104,6 +105,7 @@ flutter:
     - assets/icons/
     - assets/static_images/
     - assets/images/
+    - assets/lotties/
 
 flutter_gen:
   integrations:

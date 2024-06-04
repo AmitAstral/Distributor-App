@@ -360,10 +360,10 @@ class AppLocalizations {
     );
   }
 
-  /// `NO INTERNET CONNECTION`
+  /// `No internet connection`
   String get noInternetConnection {
     return Intl.message(
-      'NO INTERNET CONNECTION',
+      'No internet connection',
       name: 'noInternetConnection',
       desc: '',
       args: [],
@@ -585,6 +585,36 @@ class AppLocalizations {
     return Intl.message(
       'Resend OTP',
       name: 'resendOtp',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Refresh`
+  String get refresh {
+    return Intl.message(
+      'Refresh',
+      name: 'refresh',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Close`
+  String get close {
+    return Intl.message(
+      'Close',
+      name: 'close',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `We're down for maintenance \n We'll be back soon...`
+  String get wereDownForMaintenanceNWillBeBackSoon {
+    return Intl.message(
+      'We\'re down for maintenance \n We\'ll be back soon...',
+      name: 'wereDownForMaintenanceNWillBeBackSoon',
       desc: '',
       args: [],
     );

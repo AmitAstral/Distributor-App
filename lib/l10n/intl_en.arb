@@ -30,7 +30,7 @@
   "rateUsOnTheAppStore": "Rate us on the app store",
   "validationEnterPhoneNumber": "Please Enter a Phone Number",
   "validationPhoneNumber": "Please Enter a Valid Phone Number",
-  "noInternetConnection": "NO INTERNET CONNECTION",
+  "noInternetConnection": "No internet connection",
   "enterPhoneNumber": "Enter Phone Number",
   "enterSAPCode": "Enter SAP Code",
   "SAPCode": "SAP Code",
@@ -52,5 +52,8 @@
   "setPin": "Set Pin",
   "weSentOtpOn": "We sent OTP on",
   "resendOtpIn": "Resend OTP in",
-  "resendOtp": "Resend OTP"
+  "resendOtp": "Resend OTP",
+  "refresh": "Refresh",
+  "close": "Close",
+  "wereDownForMaintenanceNWillBeBackSoon": "We're down for maintenance \n We'll be back soon..."
 }

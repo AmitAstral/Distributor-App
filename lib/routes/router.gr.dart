@@ -46,6 +46,18 @@ abstract class _$AppRouter extends RootStackRouter {
         child: LoginScreen(key: args.key),
       );
     },
+    MaintenanceRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const MaintenanceScreen(),
+      );
+    },
+    NoInternetRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const NoInternetScreen(),
+      );
+    },
     OffersRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -209,6 +221,34 @@ class LoginRouteArgs {
   String toString() {
     return 'LoginRouteArgs{key: $key}';
   }
+}
+
+/// generated route for
+/// [MaintenanceScreen]
+class MaintenanceRoute extends PageRouteInfo<void> {
+  const MaintenanceRoute({List<PageRouteInfo>? children})
+      : super(
+          MaintenanceRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'MaintenanceRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [NoInternetScreen]
+class NoInternetRoute extends PageRouteInfo<void> {
+  const NoInternetRoute({List<PageRouteInfo>? children})
+      : super(
+          NoInternetRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'NoInternetRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
 }
 
 /// generated route for

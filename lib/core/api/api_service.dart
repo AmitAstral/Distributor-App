@@ -25,12 +25,12 @@ class ApiService {
   }
 
   Future<dio.Response<T>> get<T>({
-    required String url,
+    required String endPoint,
     Map<String, dynamic>? queryParams,
     bool isCompleteUrl = false,
   }) async {
     try {
-      return isCompleteUrl ? await _dio.getUri(Uri(path: url, queryParameters: queryParams)) : await _dio.get(url, queryParameters: queryParams);
+      return isCompleteUrl ? await _dio.getUri(Uri(path: endPoint, queryParameters: queryParams)) : await _dio.get(endPoint, queryParameters: queryParams);
     } catch (error) {
       debugPrint('Network error: $error');
       rethrow;
@@ -38,7 +38,7 @@ class ApiService {
   }
 
   Future<dio.Response<T>> post<T>({
-    required String url,
+    required String endPoint,
     data,
     Map<String, dynamic>? queryParams,
     bool isCompleteUrl = false,
@@ -46,7 +46,7 @@ class ApiService {
     try {
       return isCompleteUrl
           ? await _dio.postUri(
-              Uri(path: url, queryParameters: queryParams),
+              Uri(path: endPoint, queryParameters: queryParams),
               data: data,
               options: data is FormData
                   ? dio.Options(
@@ -55,7 +55,7 @@ class ApiService {
                   : null,
             )
           : await _dio.post(
-              url,
+              endPoint,
               queryParameters: queryParams,
               data: data,
               options: data is FormData

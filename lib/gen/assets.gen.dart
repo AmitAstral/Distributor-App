@@ -119,6 +119,20 @@ class $AssetsImagesGen {
   List<AssetGenImage> get values => [splashLogo];
 }
 
+class $AssetsLottiesGen {
+  const $AssetsLottiesGen();
+
+  /// File path: assets/lotties/maintenance_animation.json
+  String get maintenanceAnimation =>
+      'assets/lotties/maintenance_animation.json';
+
+  /// File path: assets/lotties/no_internet.json
+  String get noInternet => 'assets/lotties/no_internet.json';
+
+  /// List of all assets
+  List<String> get values => [maintenanceAnimation, noInternet];
+}
+
 class $AssetsStaticImagesGen {
   const $AssetsStaticImagesGen();
 
@@ -145,6 +159,7 @@ class Assets {
       $AssetsBottomBarIconsGen();
   static const $AssetsIconsGen icons = $AssetsIconsGen();
   static const $AssetsImagesGen images = $AssetsImagesGen();
+  static const $AssetsLottiesGen lotties = $AssetsLottiesGen();
   static const $AssetsStaticImagesGen staticImages = $AssetsStaticImagesGen();
 }
 
