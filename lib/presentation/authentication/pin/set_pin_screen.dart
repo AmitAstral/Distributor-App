@@ -6,7 +6,6 @@ import 'package:distributor_empower/model/base/api_req_data.dart';
 import 'package:distributor_empower/presentation/authentication/pin/provider/set_pin_type.dart';
 import 'package:distributor_empower/presentation/authentication/pin/provider/user_pin_provider.dart';
 import 'package:distributor_empower/routes/router.dart';
-import 'package:distributor_empower/utils/device_info.dart';
 import 'package:distributor_empower/utils/text_styles.dart';
 import 'package:distributor_empower/utils/toast.dart';
 import 'package:distributor_empower/widgets/app_button.dart';
@@ -22,7 +21,6 @@ class SetPinScreen extends StatelessWidget {
   final _userPinProvider = UserPinProvider();
   String _pin = '';
   String _confirmPin = '';
-  final _deviceInfo = DeviceInfo();
 
   SetPinScreen({super.key});
 
@@ -111,14 +109,6 @@ class SetPinScreen extends StatelessWidget {
         pin: _pin,
         confirmPin: _confirmPin,
         pinType: ((storage.userDetails.isPinSet ?? false) ? SetPinType.resetPin : SetPinType.newPin).index,
-        userDeviceToken: UserDeviceToken(
-          fcmID: storage.fcmToken,
-          deviceName: await _deviceInfo.getDeviceName,
-          deviceType: _deviceInfo.getDeviceType,
-          modelName: await _deviceInfo.getDeviceModelName,
-          osVersion: await _deviceInfo.getOsVersion,
-          uuid: await _deviceInfo.getUuid,
-        ),
         withUserInfo: true,
       ));
 

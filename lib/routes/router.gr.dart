@@ -80,7 +80,7 @@ abstract class _$AppRouter extends RootStackRouter {
       final args = routeData.argsAs<OtpRouteArgs>();
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: OtpScreen(
+        child: OtpVerificationScreen(
           screenType: args.screenType,
           sentOTP: args.sentOTP,
           key: args.key,
@@ -296,7 +296,7 @@ class OrderHistoryRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [OtpScreen]
+/// [OtpVerificationScreen]
 class OtpRoute extends PageRouteInfo<OtpRouteArgs> {
   OtpRoute({
     OTPVerificationType? screenType,

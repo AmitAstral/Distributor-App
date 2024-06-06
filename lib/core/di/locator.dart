@@ -20,4 +20,3 @@ final appContext = AppRouter().navigatorKey.currentContext!;
 final appRouter = AutoRouter.of(appContext);
 final storage = GetIt.I<StorageService>();
 final apiService = GetIt.I<ApiService>();
-final apiRep = GetIt.I<ApiRepository>();

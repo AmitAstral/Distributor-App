@@ -8,22 +8,20 @@ import 'package:distributor_empower/utils/extensions.dart';
 import 'package:flutter/cupertino.dart';
 
 mixin class ApiCaller {
-
   Future<BaseResponse<T?>> executeApiCall<T extends BaseModel>({
     required Future<Response> apiCall,
     Function(String)? onApiError,
     BaseModel? baseModel,
   }) async {
-    hideKeyboard();
     try {
       var data = (await apiCall).data;
       final baseResponse = BaseResponse<T>.fromJson(data, baseModel);
 
-      if (!(baseResponse.isSuccess ?? true) && onApiError != null) {
-        onApiError(baseResponse.message ?? '');
+      if (baseResponse.isSuccess ?? false) {
+        return baseResponse;
+      } else {
+        if (onApiError != null) onApiError(baseResponse.message ?? '');
       }
-
-      return baseResponse;
     } catch (e) {
       _handleApiError(e, onApiError);
     }

@@ -9,7 +9,6 @@ class ApiReqData {
   String? confirmPin;
   int? pinType;
   UserDeviceToken? userDeviceToken;
-  UserInfo? userInfo;
   String? distributorUserID;
   String? mobile;
   String? pageName;
@@ -24,7 +23,6 @@ class ApiReqData {
     this.pin,
     this.confirmPin,
     this.pinType,
-    this.userInfo,
     this.userDeviceToken,
     this.distributorUserID,
     this.mobile,
@@ -49,9 +47,7 @@ class ApiReqData {
       json['userDeviceToken'] = userDeviceToken!.toJson();
     }
 
-    if (userInfo != null) {
-      json['UserInfo'] = userInfo!.toJson();
-    } else if (withUserInfo ?? false) {
+    if (withUserInfo ?? false) {
       json['UserInfo'] = getUserInfo;
     }
 
@@ -92,7 +88,7 @@ class UserDeviceToken {
     data['device_name'] = deviceName;
     data['model_name'] = modelName;
     data['FCM_ID'] = fcmID;
-
+    data['UserInfo'] = getUserInfo;
     return data;
   }
 }
@@ -104,8 +100,9 @@ class UserInfo {
   String? pageName;
   String? currentAppVersion;
   String? token;
+  bool? withUserInfo;
 
-  UserInfo({this.distributorUserID, this.sapCode, this.mobile, this.pageName, this.currentAppVersion, this.token});
+  UserInfo({this.distributorUserID, this.sapCode, this.mobile, this.pageName, this.currentAppVersion, this.token, this.withUserInfo = false});
 
   UserInfo.fromJson(Map<String, dynamic> json) {
     distributorUserID = json['DistributorUserID'];
@@ -124,6 +121,9 @@ class UserInfo {
     data['PageName'] = pageName;
     data['CurrentAppVersion'] = currentAppVersion;
     data['Token'] = token;
+    if (withUserInfo ?? false) {
+      data['UserInfo'] = getUserInfo;
+    }
     return data;
   }
 }

@@ -1,11 +1,13 @@
 import 'dart:convert';
 
+import 'package:distributor_empower/core/api/api_repositry.dart';
 import 'package:distributor_empower/core/di/locator.dart';
 import 'package:distributor_empower/core/storage/storage_constants.dart';
 import 'package:distributor_empower/model/base/api_req_data.dart';
 import 'package:distributor_empower/model/user_response.dart';
 import 'package:distributor_empower/routes/router.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:hive/hive.dart';
 
 class StorageService {
@@ -28,7 +30,7 @@ class StorageService {
 
   set appLocale(Locale locale) => _put(appLocaleKey, locale.languageCode);
 
-  UserResponse get userDetails => UserResponse().fromJson(json.decode(_get(userInfoKey)));
+  UserResponse get userDetails => _get(userInfoKey) == '' ? UserResponse() : UserResponse().fromJson(json.decode(_get(userInfoKey)));
 
   set userDetails(UserResponse? loginModel) => _put(userInfoKey, json.encode(loginModel?.toJson()));
 
@@ -49,7 +51,7 @@ class StorageService {
   Future<void> remove(String key) async => await _box.delete(key);
 
   void logout() {
-    apiRep.logoutUser(req: ApiReqData(withUserInfo: true, fcmID: storage.fcmToken));
+    GetIt.I<ApiRepository>().logoutUser(req: ApiReqData(withUserInfo: true, fcmID: storage.fcmToken));
     isLogin = false;
     authToken = '';
     userDetails = null;

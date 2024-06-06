@@ -24,6 +24,7 @@ class ApiConstants {
   static const String generateJWToken = '${authentication}GenerateJWTToken';
   static const String logout = '${user}Logout';
   static const String sendOTP = '${user}SendOTP';
+  static const String submitUserInfo = '${user}SubmitUserInformation';
 
   ///COMMON
   static const String checkServerStatus = '${common}CheckServerStatus';

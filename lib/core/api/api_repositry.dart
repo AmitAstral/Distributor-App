@@ -73,4 +73,12 @@ class ApiRepository extends ApiCaller {
     );
     return data;
   }
+
+  Future<BaseResponse> submitUserInfo(UserDeviceToken request, {required Function(String errorRes) onApiError}) async {
+    var data = await executeApiCall(
+      apiCall: apiService.post(endPoint: ApiConstants.submitUserInfo, data: request.toJson()),
+      onApiError: onApiError,
+    );
+    return data;
+  }
 }

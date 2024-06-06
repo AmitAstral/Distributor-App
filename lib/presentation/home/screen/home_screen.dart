@@ -44,7 +44,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   margin: EdgeInsets.only(left: 10.w),
                   decoration: ShapeDecoration(
                     image: DecorationImage(
-                      image: NetworkImage(storage.userDetails.getUserProfile),
+                      image: CachedNetworkImageProvider(storage.userDetails.getUserProfile),
                       fit: BoxFit.cover,
                     ),
                     shape: const OvalBorder(),
