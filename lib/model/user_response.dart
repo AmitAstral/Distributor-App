@@ -1,38 +1,12 @@
+import 'package:distributor_empower/core/di/locator.dart';
 import 'package:distributor_empower/model/base/base_model.dart';
+import 'package:distributor_empower/utils/device_info.dart';
 import 'package:hive/hive.dart';
 
 part 'user_response.g.dart';
 
 @HiveType(typeId: 1)
 class UserResponse extends BaseModel {
-  UserResponse({
-    this.distributorUserID,
-    this.distributorSapCode,
-    this.distributorName,
-    this.distributorMobileNumber,
-    this.otp,
-    this.token,
-    this.allowAppVersion,
-    this.currentAppVersion,
-    this.isActive,
-    this.isPinSet,
-  });
-
-  @override
-  UserResponse fromJson(Map<String, dynamic> json) {
-    distributorUserID = json['DistributorUserID'];
-    distributorSapCode = json['DistributorSapCode'];
-    distributorName = json['DistributorName'];
-    distributorMobileNumber = json['DistributorMobileNumber'];
-    otp = json['OTP'];
-    token = json['Token'];
-    allowAppVersion = json['AllowAppVersion'];
-    currentAppVersion = json['CurrentAppVersion'];
-    isActive = json['IsActive'];
-    isPinSet = (json['IsPinSet'] is String) ? json['IsPinSet'] == '1' : json['IsPinSet'];
-    return this;
-  }
-
   @HiveField(0)
   String? distributorUserID;
   @HiveField(1)
@@ -53,6 +27,42 @@ class UserResponse extends BaseModel {
   String? isActive;
   @HiveField(9)
   bool? isPinSet = false;
+  @HiveField(10)
+  String? profile;
+  @HiveField(11)
+  String? Address;
+
+  UserResponse({
+    this.distributorUserID,
+    this.distributorSapCode,
+    this.distributorName,
+    this.distributorMobileNumber,
+    this.otp,
+    this.token,
+    this.allowAppVersion,
+    this.currentAppVersion,
+    this.isActive,
+    this.isPinSet,
+    this.profile,
+    this.Address,
+  });
+
+  @override
+  UserResponse fromJson(Map<String, dynamic> json) {
+    distributorUserID = json['DistributorUserID'];
+    distributorSapCode = json['DistributorSapCode'];
+    distributorName = json['DistributorName'];
+    Address = json['Address'];
+    distributorMobileNumber = json['DistributorMobileNumber'];
+    otp = json['OTP'];
+    token = json['Token'];
+    allowAppVersion = json['AllowAppVersion'];
+    currentAppVersion = json['CurrentAppVersion'];
+    isActive = json['IsActive'];
+    profile = json['DistributorProfile'];
+    isPinSet = (json['IsPinSet'] is String) ? json['IsPinSet'] == '1' : json['IsPinSet'];
+    return this;
+  }
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -66,8 +76,14 @@ class UserResponse extends BaseModel {
     map['CurrentAppVersion'] = currentAppVersion;
     map['IsActive'] = isActive;
     map['IsPinSet'] = isPinSet;
+    map['DistributorProfile'] = profile;
+    map['Address'] = Address;
     return map;
   }
 
   get secureNumber => (distributorMobileNumber ?? '').replaceAllMapped(RegExp(r'.(?=.{4})'), (match) => '*');
+
+  get isUpdateAvailable => storage.isLogin && allowAppVersion != storage.currentAppVersion;
+
+  String get getUserProfile => profile ?? 'https://www.vhv.rs/dpng/d/505-5058560_person-placeholder-image-free-hd-png-download.png';
 }

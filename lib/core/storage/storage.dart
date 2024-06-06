@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:distributor_empower/core/api/api_service.dart';
 import 'package:distributor_empower/core/di/locator.dart';
 import 'package:distributor_empower/core/storage/storage_constants.dart';
 import 'package:distributor_empower/model/base/api_req_data.dart';
@@ -31,7 +30,7 @@ class StorageService {
 
   UserResponse get userDetails => UserResponse().fromJson(json.decode(_get(userInfoKey)));
 
-  set userDetails(UserResponse loginModel) => _put(userInfoKey, json.encode(loginModel.toJson()));
+  set userDetails(UserResponse? loginModel) => _put(userInfoKey, json.encode(loginModel?.toJson()));
 
   String get fcmToken => _get(fcmTokenKey, defaultValue: '');
 
@@ -53,6 +52,7 @@ class StorageService {
     apiRep.logoutUser(req: ApiReqData(withUserInfo: true, fcmID: storage.fcmToken));
     isLogin = false;
     authToken = '';
+    userDetails = null;
     appRouter.pushAndPopUntil(
       LoginRoute(),
       predicate: (route) => false,

@@ -6,14 +6,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 
 class UserPinProvider extends BaseProvider {
-  bool resendOTPLoader = false;
 
   Future<bool> setUserPin(ApiReqData req) async {
     try {
       isButtonLoading = true;
       notifyListeners();
       final response = await apiRep.setUserPin(req, onApiError: onApiError);
-      return response.isSuccess ?? false;
+      return response.getIsSuccess;
     } catch (e, stack) {
       debugPrintStack(stackTrace: stack);
     } finally {
@@ -42,7 +41,7 @@ class UserPinProvider extends BaseProvider {
 
   Future<String> sendOTP({bool isShowMessage = true}) async {
     try {
-      resendOTPLoader = true;
+      isButtonLoading = true;
       notifyListeners();
       final response = await apiRep.sendOTP(req: ApiReqData.getUserDetails, onApiError: onApiError);
       if (isShowMessage) successToast(response.message ?? '');
@@ -50,7 +49,7 @@ class UserPinProvider extends BaseProvider {
     } catch (e, stack) {
       debugPrintStack(stackTrace: stack);
     } finally {
-      resendOTPLoader = false;
+      isButtonLoading = false;
       notifyListeners();
     }
     return '';

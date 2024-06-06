@@ -17,7 +17,6 @@ abstract class Locator {
 }
 
 final appContext = AppRouter().navigatorKey.currentContext!;
-final navigation = GetIt.I<NavigationService>();
 final appRouter = AutoRouter.of(appContext);
 final storage = GetIt.I<StorageService>();
 final apiService = GetIt.I<ApiService>();

@@ -4,6 +4,7 @@ import 'package:distributor_empower/core/di/locator.dart';
 import 'package:distributor_empower/generated/l10n.dart';
 import 'package:distributor_empower/presentation/authentication/pin/provider/user_pin_provider.dart';
 import 'package:distributor_empower/routes/router.dart';
+import 'package:distributor_empower/utils/common_dialog.dart';
 import 'package:distributor_empower/utils/extensions.dart';
 import 'package:distributor_empower/utils/text_styles.dart';
 import 'package:distributor_empower/utils/toast.dart';
@@ -13,6 +14,8 @@ import 'package:distributor_empower/widgets/pin_put_widget.dart';
 import 'package:distributor_empower/widgets/progress_widget.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
+
+import 'package:provider/provider.dart';
 
 @RoutePage()
 class OtpScreen extends StatelessWidget {
@@ -86,19 +89,31 @@ class OtpScreen extends StatelessWidget {
                       10.verticalSpace,
                       ValueListenableBuilder(
                           valueListenable: _secondsRemaining,
-                          child: Center(
-                            child: Text(
-                              AppLocalizations.current.resendOtp,
-                              style: TextStyles.regular12.copyWith(color: AppColor.primaryColor, decoration: TextDecoration.underline),
-                            ),
-                          ).addGesture(
-                            () {
-                              _sendOTP(true);
-                              startTimer();
-                            },
+                          child: ChangeNotifierProvider.value(
+                            value: _userPinProvider,
+                            child: Consumer<UserPinProvider>(builder: (context, provider, child) {
+                              return Center(
+                                child: provider.isButtonLoading
+                                    ? const SizedBox(
+                                        height: 20,
+                                        width: 20,
+                                        child: CircularProgressIndicator(
+                                          strokeWidth: 2,
+                                        ))
+                                    : Text(
+                                        AppLocalizations.current.resendOtp,
+                                        style: TextStyles.regular12.copyWith(color: AppColor.primaryColor, decoration: TextDecoration.underline),
+                                      ),
+                              ).addGesture(
+                                () async {
+                                  await _sendOTP(true);
+                                  _startTimer();
+                                },
+                              );
+                            }),
                           ),
                           builder: (context, value, Widget? child) {
-                            return value == 0
+                            return (value == 0
                                 ? child!
                                 : Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
@@ -112,7 +127,7 @@ class OtpScreen extends StatelessWidget {
                                         style: TextStyles.bold12.copyWith(color: AppColor.textSecondary),
                                       ),
                                     ],
-                                  );
+                                  ));
                           }),
                       10.verticalSpace,
                       ValueListenableBuilder(
@@ -123,17 +138,17 @@ class OtpScreen extends StatelessWidget {
                                 if (_otp == sentOTP) {
                                   if (screenType == OTPVerificationType.forgotPin) {
                                     appRouter.replace(SetPinRoute());
-                                    return;
-                                  }
-                                  _userPinProvider.generateJWTToken();
-                                  if (storage.userDetails.isPinSet ?? false) {
-                                    storage.isLogin = true;
-                                    appRouter.pushAndPopUntil(
-                                      VerifyPinRoute(),
-                                      predicate: (route) => false,
-                                    );
                                   } else {
-                                    appRouter.replace(SetPinRoute());
+                                    _userPinProvider.generateJWTToken();
+                                    if (storage.userDetails.isPinSet ?? false) {
+                                      storage.isLogin = true;
+                                      appRouter.pushAndPopUntil(
+                                        VerifyPinRoute(),
+                                        predicate: (route) => false,
+                                      );
+                                    } else {
+                                      appRouter.replace(SetPinRoute());
+                                    }
                                   }
                                 } else {
                                   errorToast(AppLocalizations.current.theEnteredOtpIsInvalid);
@@ -159,7 +174,7 @@ class OtpScreen extends StatelessWidget {
     sentOTP = await _userPinProvider.sendOTP(isShowMessage: isShowMessage);
   }
 
-  void startTimer() {
+  void _startTimer() {
     _secondsRemaining.value = 30;
     const oneSec = Duration(seconds: 1);
     _timer = Timer.periodic(

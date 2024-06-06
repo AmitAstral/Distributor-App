@@ -27,13 +27,15 @@ class UserResponseAdapter extends TypeAdapter<UserResponse> {
       currentAppVersion: fields[7] as String?,
       isActive: fields[8] as String?,
       isPinSet: fields[9] as bool?,
+      profile: fields[10] as String?,
+      Address: fields[11] as String?,
     );
   }
 
   @override
   void write(BinaryWriter writer, UserResponse obj) {
     writer
-      ..writeByte(10)
+      ..writeByte(12)
       ..writeByte(0)
       ..write(obj.distributorUserID)
       ..writeByte(1)
@@ -53,7 +55,11 @@ class UserResponseAdapter extends TypeAdapter<UserResponse> {
       ..writeByte(8)
       ..write(obj.isActive)
       ..writeByte(9)
-      ..write(obj.isPinSet);
+      ..write(obj.isPinSet)
+      ..writeByte(10)
+      ..write(obj.profile)
+      ..writeByte(11)
+      ..write(obj.Address);
   }
 
   @override

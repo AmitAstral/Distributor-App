@@ -1,3 +1,4 @@
+
 import 'package:auto_route/auto_route.dart';
 import 'package:distributor_empower/constants/all_constants.dart';
 import 'package:distributor_empower/core/api/custom_log_interceptor.dart';
@@ -5,6 +6,7 @@ import 'package:distributor_empower/core/di/locator.dart';
 import 'package:distributor_empower/gen/assets.gen.dart';
 import 'package:distributor_empower/generated/l10n.dart';
 import 'package:distributor_empower/routes/router.dart';
+import 'package:distributor_empower/utils/common_dialog.dart';
 import 'package:distributor_empower/utils/providers/common_provider.dart';
 import 'package:distributor_empower/utils/text_styles.dart';
 import 'package:flutter/material.dart';
@@ -41,25 +43,29 @@ class SplashScreen extends StatelessWidget {
 
   Future<void> _moveToNextScreen() async {
     await Future.delayed(const Duration(seconds: 2));
-    final isConnected = await checkInternetConnectivity();
+    if (storage.userDetails.isUpdateAvailable) {
+      CommonDialog.showUpdateAppDialog();
+    } else {
+      final isConnected = await checkInternetConnectivity();
 
-    if (isConnected) {
-      final commonProvider = CommonProvider();
+      if (isConnected) {
+        final commonProvider = CommonProvider();
 
-      final result = await commonProvider.checkServerStatus();
+        final result = await commonProvider.checkServerStatus();
 
-      if (result) {
-        if (storage.isLogin) {
-          await commonProvider.getAllSetting();
-          appRouter.replace(VerifyPinRoute());
+        if (result) {
+          if (storage.isLogin) {
+            await commonProvider.getAllSetting();
+            appRouter.replace(VerifyPinRoute());
+          } else {
+            appRouter.replace(LoginRoute());
+          }
         } else {
-          appRouter.replace(LoginRoute());
+          appRouter.replace(const MaintenanceRoute());
         }
       } else {
-        appRouter.replace(const MaintenanceRoute());
+        appRouter.replace(const NoInternetRoute());
       }
-    } else {
-      appRouter.replace(const NoInternetRoute());
     }
   }
 }

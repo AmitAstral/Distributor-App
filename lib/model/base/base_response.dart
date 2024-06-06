@@ -15,11 +15,12 @@ class BaseResponse<T extends BaseModel?> {
 
   T? get getData => dataList?.firstOrNull;
 
+  get getIsSuccess => isSuccess ?? false;
+
   BaseResponse({
     this.message,
     this.statusCode,
     this.isSuccess,
-    this.actualData,
   });
 
   factory BaseResponse.fromJson(Map<String, dynamic> json, BaseModel? baseModel) {
@@ -37,6 +38,8 @@ class BaseResponse<T extends BaseModel?> {
       }
     } else if (rawData is String) {
       baseResponse.dataStr = rawData;
+    } else {
+      baseResponse.actualData = rawData;
     }
     return baseResponse;
   }

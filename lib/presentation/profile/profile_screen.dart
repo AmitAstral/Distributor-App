@@ -10,6 +10,7 @@ import 'package:distributor_empower/utils/common_dialog.dart';
 import 'package:distributor_empower/utils/extensions.dart';
 import 'package:distributor_empower/utils/text_styles.dart';
 import 'package:distributor_empower/widgets/custom_app_bar/app_bar.dart';
+import 'package:distributor_empower/widgets/profile_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -51,29 +52,21 @@ class ProfileScreen extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      Container(
-                        width: 50.sp,
-                        height: 50.sp,
-                        decoration: ShapeDecoration(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.r),
-                          ),
-                        ),
-                        child: Image(
-                          image: Assets.staticImages.profile.provider(),
-                          fit: BoxFit.fill,
-                        ),
+                      ProfileWidget(
+                        width: 45.h,
+                        height: 45.h,
                       ),
                       9.horizontalSpace,
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Hi Bhakti Hardware',
+                            AppLocalizations.current.hiWithName(storage.userDetails.distributorName ?? ''),
+                            maxLines: 2,
                             style: TextStyles.semiBold16.copyWith(color: AppColor.textSecondary),
                           ),
                           Text(
-                            'Edit your profile',
+                            AppLocalizations.current.editYourProfile,
                             style: TextStyles.semiBold11.copyWith(color: AppColor.textSecondary),
                           ),
                         ],

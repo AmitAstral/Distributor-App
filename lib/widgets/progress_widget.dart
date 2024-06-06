@@ -18,9 +18,8 @@ class ProgressWidget extends StatelessWidget {
     this.progressIndicator = const CircularProgressIndicator(color: AppColor.primaryColor),
     this.offset,
     this.dismissible = false,
-    required this.child,
-  })  : assert(child != null),
-        assert(inAsyncCall != null);
+    this.child,
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -39,7 +39,8 @@ abstract class _$AppRouter extends RootStackRouter {
       );
     },
     LoginRoute.name: (routeData) {
-      final args = routeData.argsAs<LoginRouteArgs>(orElse: () => const LoginRouteArgs());
+      final args = routeData.argsAs<LoginRouteArgs>(
+          orElse: () => const LoginRouteArgs());
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: LoginScreen(key: args.key),
@@ -99,20 +100,24 @@ abstract class _$AppRouter extends RootStackRouter {
       );
     },
     SetPinRoute.name: (routeData) {
-      final args = routeData.argsAs<SetPinRouteArgs>(orElse: () => const SetPinRouteArgs());
+      final args = routeData.argsAs<SetPinRouteArgs>(
+          orElse: () => const SetPinRouteArgs());
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: SetPinScreen(key: args.key),
       );
     },
     SplashRoute.name: (routeData) {
+      final args = routeData.argsAs<SplashRouteArgs>(
+          orElse: () => const SplashRouteArgs());
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: SplashScreen(),
+        child: SplashScreen(key: args.key),
       );
     },
     VerifyPinRoute.name: (routeData) {
-      final args = routeData.argsAs<VerifyPinRouteArgs>(orElse: () => const VerifyPinRouteArgs());
+      final args = routeData.argsAs<VerifyPinRouteArgs>(
+          orElse: () => const VerifyPinRouteArgs());
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: VerifyPinScreen(key: args.key),
@@ -141,7 +146,8 @@ class CommonWebViewRoute extends PageRouteInfo<CommonWebViewRouteArgs> {
 
   static const String name = 'CommonWebViewRoute';
 
-  static const PageInfo<CommonWebViewRouteArgs> page = PageInfo<CommonWebViewRouteArgs>(name);
+  static const PageInfo<CommonWebViewRouteArgs> page =
+      PageInfo<CommonWebViewRouteArgs>(name);
 }
 
 class CommonWebViewRouteArgs {
@@ -389,16 +395,30 @@ class SetPinRouteArgs {
 
 /// generated route for
 /// [SplashScreen]
-class SplashRoute extends PageRouteInfo<void> {
-  const SplashRoute({List<PageRouteInfo>? children})
-      : super(
+class SplashRoute extends PageRouteInfo<SplashRouteArgs> {
+  SplashRoute({
+    Key? key,
+    List<PageRouteInfo>? children,
+  }) : super(
           SplashRoute.name,
+          args: SplashRouteArgs(key: key),
           initialChildren: children,
         );
 
   static const String name = 'SplashRoute';
 
-  static const PageInfo<void> page = PageInfo<void>(name);
+  static const PageInfo<SplashRouteArgs> page = PageInfo<SplashRouteArgs>(name);
+}
+
+class SplashRouteArgs {
+  const SplashRouteArgs({this.key});
+
+  final Key? key;
+
+  @override
+  String toString() {
+    return 'SplashRouteArgs{key: $key}';
+  }
 }
 
 /// generated route for
@@ -415,7 +435,8 @@ class VerifyPinRoute extends PageRouteInfo<VerifyPinRouteArgs> {
 
   static const String name = 'VerifyPinRoute';
 
-  static const PageInfo<VerifyPinRouteArgs> page = PageInfo<VerifyPinRouteArgs>(name);
+  static const PageInfo<VerifyPinRouteArgs> page =
+      PageInfo<VerifyPinRouteArgs>(name);
 }
 
 class VerifyPinRouteArgs {

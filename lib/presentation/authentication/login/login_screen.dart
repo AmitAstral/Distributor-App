@@ -34,7 +34,7 @@ class LoginScreen extends StatelessWidget {
               SizedBox(
                 height: 0.5.sh,
                 child: Padding(
-                  padding: const EdgeInsets.all(30),
+                  padding: EdgeInsets.all(30.h),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -58,7 +58,11 @@ class LoginScreen extends StatelessWidget {
                         value: _loginProvider,
                         child: Consumer<LoginProvider>(
                           builder: (context, state, child) {
-                            return AppButton(isLoading: _loginProvider.isLoading, onPressed: _callLoginAPI, text: AppLocalizations.current.getOTP);
+                            return AppButton(
+                              isLoading: _loginProvider.isButtonLoading,
+                              onPressed: _callLoginAPI,
+                              text: AppLocalizations.current.getOTP,
+                            );
                           },
                         ),
                       ),

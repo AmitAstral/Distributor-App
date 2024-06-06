@@ -9,16 +9,11 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 @RoutePage()
-class OffersScreen extends StatefulWidget {
+class OffersScreen extends StatelessWidget {
   static const String routeName = 'OffersScreen';
 
   const OffersScreen({super.key});
 
-  @override
-  State<OffersScreen> createState() => _OffersScreenState();
-}
-
-class _OffersScreenState extends State<OffersScreen> {
   @override
   Widget build(BuildContext context) {
     return PopScope(

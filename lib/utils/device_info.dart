@@ -10,7 +10,7 @@ class DeviceInfo {
   final _deviceInfo = DeviceInfoPlugin();
 
   Future<String> get getUuid async {
-    var uuid = const Uuid();
+    const uuid = Uuid();
     String deviceId = uuid.v4();
     return deviceId;
   }
@@ -62,6 +62,11 @@ Future<String> getCurrentAppVersion() async {
   PackageInfo packageInfo = await PackageInfo.fromPlatform();
   storage.currentAppVersion = packageInfo.version;
   return packageInfo.version;
+}
+
+Future<String> getAppPackageName() async {
+  PackageInfo packageInfo = await PackageInfo.fromPlatform();
+  return packageInfo.packageName;
 }
 
 UserInfo get getUserInfo {

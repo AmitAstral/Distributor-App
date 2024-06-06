@@ -12,14 +12,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 @RoutePage()
-class QuickOrderScreen extends StatefulWidget {
+class QuickOrderScreen extends StatelessWidget {
   const QuickOrderScreen({super.key});
 
-  @override
-  State<QuickOrderScreen> createState() => _QuickOrderScreenState();
-}
-
-class _QuickOrderScreenState extends State<QuickOrderScreen> {
   @override
   Widget build(BuildContext context) {
     return PopScope(

@@ -57,5 +57,11 @@
   "close": "Close",
   "wereDownForMaintenanceNWillBeBackSoon": "We're down for maintenance \n We'll be back soon...",
   "verifyPin": "Verify Pin",
-  "somethingWentWrong": "Something went wrong"
+  "somethingWentWrong": "Something went wrong",
+  "hello": "Hello,",
+  "hiWithName": "Hi, {name}",
+  "editYourProfile": "Edit your profile",
+  "newUpdateIsAvailable": "New update is available",
+  "updateNow": "Update Now",
+  "cancel": "Cancel"
 }

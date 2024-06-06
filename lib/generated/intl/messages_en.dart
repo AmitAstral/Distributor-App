@@ -20,16 +20,21 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
+  static String m0(name) => "Hi, ${name}";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "SAPCode": MessageLookupByLibrary.simpleMessage("SAP Code"),
         "aboutUs": MessageLookupByLibrary.simpleMessage("About us"),
         "address": MessageLookupByLibrary.simpleMessage("Address"),
+        "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "cart": MessageLookupByLibrary.simpleMessage("Cart"),
         "chooseQty": MessageLookupByLibrary.simpleMessage("Choose Quantity "),
         "close": MessageLookupByLibrary.simpleMessage("Close"),
         "confirmPin": MessageLookupByLibrary.simpleMessage("Confirm Pin"),
         "date": MessageLookupByLibrary.simpleMessage("Date"),
+        "editYourProfile":
+            MessageLookupByLibrary.simpleMessage("Edit your profile"),
         "enterOTP": MessageLookupByLibrary.simpleMessage("Enter OTP"),
         "enterPhoneNumber":
             MessageLookupByLibrary.simpleMessage("Enter Phone Number"),
@@ -40,6 +45,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "favourite": MessageLookupByLibrary.simpleMessage("Favourite"),
         "forgotPin": MessageLookupByLibrary.simpleMessage("Forgot pin?"),
         "getOTP": MessageLookupByLibrary.simpleMessage("Get OTP"),
+        "hello": MessageLookupByLibrary.simpleMessage("Hello,"),
+        "hiWithName": m0,
         "home": MessageLookupByLibrary.simpleMessage("Home"),
         "internetIsNotConnected":
             MessageLookupByLibrary.simpleMessage("Internet is not connected"),
@@ -50,6 +57,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "mobileNo": MessageLookupByLibrary.simpleMessage("Mobile No."),
         "myOrders": MessageLookupByLibrary.simpleMessage("My orders"),
         "needHelp": MessageLookupByLibrary.simpleMessage("Need help?"),
+        "newUpdateIsAvailable":
+            MessageLookupByLibrary.simpleMessage("New update is available"),
         "no": MessageLookupByLibrary.simpleMessage("No"),
         "noInternetConnection":
             MessageLookupByLibrary.simpleMessage("No internet connection"),
@@ -83,6 +92,7 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Something went wrong, Please connect with Internet to use Application."),
         "theEnteredOtpIsInvalid":
             MessageLookupByLibrary.simpleMessage("The entered OTP is invalid."),
+        "updateNow": MessageLookupByLibrary.simpleMessage("Update Now"),
         "validatePinAndConfirmPin": MessageLookupByLibrary.simpleMessage(
             "Pin and confirm pin must be same"),
         "validationEnterPhoneNumber":

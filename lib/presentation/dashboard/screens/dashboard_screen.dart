@@ -1,8 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:distributor_empower/constants/all_constants.dart';
+import 'package:distributor_empower/core/di/locator.dart';
 import 'package:distributor_empower/presentation/dashboard/provider/bottombar_navigation_provider.dart';
 import 'package:distributor_empower/presentation/drawer/drawer_screen.dart';
+import 'package:distributor_empower/utils/common_dialog.dart';
 import 'package:distributor_empower/widgets/bottom_tab_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -19,6 +21,9 @@ class _DashboardScreenState extends State<DashboardScreen> with TickerProviderSt
   @override
   void initState() {
     BottomBarNavigationProvider().navigationController ??= TabController(length: BottomNavigationEnum.values.length, vsync: this);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _showUpdateDialog();
+    });
     super.initState();
   }
 
@@ -47,5 +52,9 @@ class _DashboardScreenState extends State<DashboardScreen> with TickerProviderSt
         },
       ),
     );
+  }
+
+  void _showUpdateDialog() {
+    if (storage.userDetails.isUpdateAvailable) CommonDialog.showUpdateAppDialog();
   }
 }

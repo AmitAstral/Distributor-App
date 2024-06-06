@@ -41,7 +41,7 @@ class MaintenanceScreen extends StatelessWidget {
               AppButton(
                 width: 0.4.sw,
                 onPressed: () {
-                  appRouter.replace(const SplashRoute());
+                  appRouter.replace(SplashRoute());
                 },
                 text: AppLocalizations.current.refresh,
               ),

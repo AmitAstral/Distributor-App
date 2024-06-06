@@ -3,14 +3,9 @@ import 'package:distributor_empower/generated/l10n.dart';
 import 'package:distributor_empower/utils/text_styles.dart';
 import 'package:flutter/material.dart';
 
-class NoInternetScreen extends StatefulWidget {
+class NoInternetScreen extends StatelessWidget {
   const NoInternetScreen({super.key});
 
-  @override
-  State<NoInternetScreen> createState() => _NoInternetScreenState();
-}
-
-class _NoInternetScreenState extends State<NoInternetScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
