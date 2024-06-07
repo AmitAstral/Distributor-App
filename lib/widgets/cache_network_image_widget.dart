@@ -51,10 +51,13 @@ class CachedNetworkImageWidget extends CachedNetworkImage {
   @override
   ProgressIndicatorBuilder? get progressIndicatorBuilder => (context, url, error) {
         return SizedBox(
-          width: (width ?? 50) - 10.w,
-          height: (height ?? 50) - 10.w,
-          child: CircularProgressIndicator(
-            color: loaderColor ?? AppColor.primaryColor,
+          width: 30.w,
+          height: 30.w,
+          child: Center(
+            child: CircularProgressIndicator(
+              color: loaderColor ?? AppColor.primaryColor,
+              strokeWidth: 2,
+            ),
           ),
         );
       };

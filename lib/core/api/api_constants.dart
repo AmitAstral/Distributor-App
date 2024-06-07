@@ -17,6 +17,7 @@ class ApiConstants {
   static const String authentication = 'Authentication/';
   static const String common = 'Common/';
   static const String user = 'User/';
+  static const String dashboard = 'Dashboard/';
 
   ///USER
   static const String login = '${user}UserLoginProcess';
@@ -29,4 +30,7 @@ class ApiConstants {
   ///COMMON
   static const String checkServerStatus = '${common}CheckServerStatus';
   static const String getAllSetting = '${common}GetAllSetting';
+
+  ///Dashboard
+  static const String getDashboard = '${dashboard}GetDashboard';
 }

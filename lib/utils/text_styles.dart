@@ -125,6 +125,11 @@ abstract class TextStyles {
         color: AppColor.textPrimary,
       );
 
+  static TextStyle get semiBold10 => _semiBold.copyWith(
+        fontSize: 10.sp,
+        color: AppColor.textPrimary,
+      );
+
   static TextStyle get semiBold16 => _semiBold.copyWith(
         fontSize: 16.sp,
         color: AppColor.textPrimary,

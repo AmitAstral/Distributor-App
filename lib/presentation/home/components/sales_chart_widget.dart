@@ -1,25 +1,14 @@
 import 'package:distributor_empower/constants/all_constants.dart';
 import 'package:distributor_empower/generated/l10n.dart';
+import 'package:distributor_empower/model/dashboard_response.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class SalesChartWidget extends StatelessWidget {
-  SalesChartWidget({super.key});
+  final List<Sales>? sales;
+  final String? title;
 
-  final List<ChartData> chartData = [
-    ChartData("Jan", 1),
-    ChartData("Feb", 2.5),
-    ChartData("Mar", 1.5),
-    ChartData("Apr", 3.5),
-    ChartData("May", 1.99),
-    ChartData("Jun", 1.44),
-    ChartData("Jul", 2),
-    ChartData("Aug", 1.56),
-    ChartData("Sep", 2.1),
-    ChartData("Oct", 2.1),
-    ChartData("Nov", 3.1),
-    ChartData("Dec", 1.1),
-  ];
+  SalesChartWidget(this.sales, {super.key, this.title});
 
   final TooltipBehavior _tooltip = TooltipBehavior(enable: true);
 
@@ -33,7 +22,7 @@ class SalesChartWidget extends StatelessWidget {
           Padding(
             padding: EdgeInsets.only(left: 10.w, right: 10.w, top: 10.h),
             child: Text(
-              AppLocalizations.current.sales,
+              title ?? '',
               style: googleFontPoppins.copyWith(
                 fontWeight: GoogleFontWeight.semiBold,
                 fontSize: 14.sp,
@@ -62,28 +51,15 @@ class SalesChartWidget extends StatelessWidget {
               borderWidth: 0,
               margin: const EdgeInsets.all(0),
               series: <CartesianSeries>[
-                SplineAreaSeries<ChartData, String>(
+                SplineAreaSeries<Sales, String>(
                   enableTooltip: true,
                   splineType: SplineType.cardinal,
                   cardinalSplineTension: 1,
-                  dataSource: [
-                    ChartData("Jan", 0),
-                    ChartData("Feb", 2.5),
-                    ChartData("Mar", 1),
-                    ChartData("Apr", 3.5),
-                    ChartData("May", 1.99),
-                    ChartData("Jun", 1.44),
-                    ChartData("Jul", 2),
-                    ChartData("Aug", 1.56),
-                    ChartData("Sep", 2.1),
-                    ChartData("Oct", 2),
-                    ChartData("Nov", 1.56),
-                    ChartData("Dec", 2.1),
-                  ],
-                  xValueMapper: (ChartData data, _) => data.x,
-                  yValueMapper: (ChartData data, _) => data.y,
+                  dataSource: sales,
+                  xValueMapper: (Sales data, _) => data.monthName,
+                  yValueMapper: (Sales data, _) => data.netTotalSales,
                   borderColor: const Color(0xFFC3C1FF),
-                  name: "Sales",
+                  name: AppLocalizations.of(context).sales,
                   borderWidth: 1.5,
                   color: const Color(0xFF0A04B1),
                   gradient: LinearGradient(
@@ -100,11 +76,4 @@ class SalesChartWidget extends StatelessWidget {
       ),
     );
   }
-}
-
-class ChartData {
-  ChartData(this.x, this.y);
-
-  final String x;
-  final double y;
 }

@@ -4,7 +4,7 @@ import 'package:distributor_empower/core/di/locator.dart';
 import 'package:distributor_empower/gen/assets.gen.dart';
 import 'package:distributor_empower/generated/l10n.dart';
 import 'package:distributor_empower/presentation/dashboard/provider/bottombar_navigation_provider.dart';
-import 'package:distributor_empower/presentation/home/components/order_details_widget1.dart';
+import 'package:distributor_empower/presentation/home/components/order_details_widget.dart';
 import 'package:distributor_empower/routes/router.dart';
 import 'package:distributor_empower/utils/common_dialog.dart';
 import 'package:distributor_empower/utils/extensions.dart';

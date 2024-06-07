@@ -1,6 +1,6 @@
 import 'package:auto_route/annotations.dart';
 import 'package:distributor_empower/constants/all_constants.dart';
-import 'package:distributor_empower/presentation/home/components/order_details_widget1.dart';
+import 'package:distributor_empower/presentation/home/components/order_details_widget.dart';
 import 'package:distributor_empower/utils/text_styles.dart';
 import 'package:distributor_empower/widgets/custom_app_bar/app_bar.dart';
 import 'package:distributor_empower/widgets/progress_widget.dart';

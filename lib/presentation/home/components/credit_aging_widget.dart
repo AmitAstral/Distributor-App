@@ -1,10 +1,16 @@
 import 'package:distributor_empower/constants/all_constants.dart';
+import 'package:distributor_empower/generated/l10n.dart';
+import 'package:distributor_empower/model/dashboard_response.dart';
+import 'package:distributor_empower/utils/text_styles.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CreditAgingWidget extends StatefulWidget {
-  CreditAgingWidget({super.key});
+  final List<CreditAging>? creditAging;
+  final String title;
+
+  CreditAgingWidget(this.creditAging, {super.key, required this.title});
 
   final Color barBackgroundColor = const Color(0xFFC9E4FF).withOpacity(0.5);
   final Color barColor = AppColor.primaryColor;
@@ -15,9 +21,9 @@ class CreditAgingWidget extends StatefulWidget {
 }
 
 class _CreditAgingWidgetState extends State<CreditAgingWidget> {
-  final Duration animDuration = const Duration(milliseconds: 250);
-
   int touchedIndex = -1;
+
+  List<CreditAging> get getCreditAging => widget.creditAging ?? <CreditAging>[];
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +38,7 @@ class _CreditAgingWidgetState extends State<CreditAgingWidget> {
           Container(
             alignment: Alignment.centerLeft,
             child: Text(
-              "Credit Aging",
+              widget.title ?? '',
               style: googleFontPoppins.copyWith(
                 fontWeight: GoogleFontWeight.semiBold,
                 fontSize: 14.sp,
@@ -67,7 +73,7 @@ class _CreditAgingWidgetState extends State<CreditAgingWidget> {
                 Opacity(
                   opacity: 0.50,
                   child: Text(
-                    '* amount in lacs',
+                    AppLocalizations.of(context).amountInLacs,
                     textAlign: TextAlign.center,
                     style: googleFontPoppins.copyWith(
                       fontWeight: GoogleFontWeight.regular,
@@ -81,7 +87,7 @@ class _CreditAgingWidgetState extends State<CreditAgingWidget> {
                   height: 250.h,
                   child: BarChart(
                     mainBarData(),
-                    swapAnimationDuration: animDuration,
+                    swapAnimationDuration: const Duration(milliseconds: 250),
                   ),
                 ),
               ],
@@ -96,56 +102,13 @@ class _CreditAgingWidgetState extends State<CreditAgingWidget> {
     return BarChartData(
       barTouchData: BarTouchData(
         touchTooltipData: BarTouchTooltipData(
-          // tooltipBgColor: Colors.blueGrey,
-          tooltipHorizontalAlignment: FLHorizontalAlignment.right,
-          tooltipMargin: 1.h - 11.h,
+          tooltipHorizontalAlignment: FLHorizontalAlignment.center,
+          tooltipMargin: -10.h,
           getTooltipItem: (group, groupIndex, rod, rodIndex) {
-            String weekDay;
-            switch (group.x) {
-              case 0:
-                weekDay = '0-5';
-                break;
-              case 1:
-                weekDay = '6-10';
-                break;
-              case 2:
-                weekDay = '11-20';
-                break;
-              case 3:
-                weekDay = '21-32';
-                break;
-              case 4:
-                weekDay = '33-35';
-                break;
-              case 5:
-                weekDay = '36-45';
-                break;
-              case 6:
-                weekDay = '46-60';
-                break;
-              case 7:
-                weekDay = '≥61';
-                break;
-              default:
-                throw Error();
-            }
+            final value = getCreditAging[groupIndex].value ?? '';
             return BarTooltipItem(
-              '$weekDay\n',
-              TextStyle(
-                color: AppColor.grey88,
-                fontWeight: FontWeight.bold,
-                fontSize: 17.sp,
-              ),
-              children: <TextSpan>[
-                TextSpan(
-                  text: (rod.toY - 1).toString(),
-                  style: TextStyle(
-                    color: widget.touchedBarColor,
-                    fontSize: 15.sp,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-              ],
+              value,
+              TextStyles.regular12.copyWith(color: AppColor.primaryColor),
             );
           },
         ),
@@ -185,45 +148,41 @@ class _CreditAgingWidgetState extends State<CreditAgingWidget> {
       ),
       barGroups: showingGroups(),
       gridData: const FlGridData(show: false),
+      alignment: BarChartAlignment.spaceAround,
     );
   }
 
-  Widget getTitles(double value, TitleMeta meta) {
+  BarTouchData get barTouchData => BarTouchData(
+    enabled: false,
+    touchTooltipData: BarTouchTooltipData(
+      getTooltipColor: (group) => Colors.transparent,
+      tooltipPadding: EdgeInsets.zero,
+      tooltipMargin: 8,
+      getTooltipItem: (
+          BarChartGroupData group,
+          int groupIndex,
+          BarChartRodData rod,
+          int rodIndex,
+          ) {
+        return BarTooltipItem(
+          rod.toY.round().toString(),
+          const TextStyle(
+            color: AppColor.primaryColor,
+            fontWeight: FontWeight.bold,
+          ),
+        );
+      },
+    ),
+  );
+
+  Widget getTitles(double index, TitleMeta meta) {
     TextStyle style = googleFontNunitoSans.copyWith(
       fontWeight: GoogleFontWeight.semiBold,
       fontSize: 10.sp,
       color: AppColor.black,
     );
     Widget text;
-    switch (value.toInt()) {
-      case 0:
-        text = Text('0-5', style: style);
-        break;
-      case 1:
-        text = Text('6-10', style: style);
-        break;
-      case 2:
-        text = Text('11-20', style: style);
-        break;
-      case 3:
-        text = Text('21-32', style: style);
-        break;
-      case 4:
-        text = Text('33-35', style: style);
-        break;
-      case 5:
-        text = Text('36-45', style: style);
-        break;
-      case 6:
-        text = Text('46-60', style: style);
-        break;
-      case 7:
-        text = Text('≥61', style: style);
-        break;
-      default:
-        text = Text('', style: style);
-        break;
-    }
+    text = Text(getCreditAging[index.toInt()].label ?? '', style: style);
     return SideTitleWidget(
       axisSide: meta.axisSide,
       space: 16.h,
@@ -231,28 +190,12 @@ class _CreditAgingWidgetState extends State<CreditAgingWidget> {
     );
   }
 
-  List<BarChartGroupData> showingGroups() => List.generate(8, (i) {
-        switch (i) {
-          case 0:
-            return makeGroupData(0, 3.20, isTouched: i == touchedIndex);
-          case 1:
-            return makeGroupData(1, 5.23, isTouched: i == touchedIndex);
-          case 2:
-            return makeGroupData(2, 5.48, isTouched: i == touchedIndex);
-          case 3:
-            return makeGroupData(3, 3.21, isTouched: i == touchedIndex);
-          case 4:
-            return makeGroupData(4, 4.90, isTouched: i == touchedIndex);
-          case 5:
-            return makeGroupData(5, 3.30, isTouched: i == touchedIndex);
-          case 6:
-            return makeGroupData(6, 3.80, isTouched: i == touchedIndex);
-          case 7:
-            return makeGroupData(7, 2.80, isTouched: i == touchedIndex);
-          default:
-            return throw Error();
-        }
-      });
+  List<BarChartGroupData> showingGroups() {
+    return getCreditAging
+        .map((e) =>
+            makeGroupData(getCreditAging.indexOf(e), double.tryParse((e.value ?? '0')) ?? 0, isTouched: getCreditAging.indexOf(e) == touchedIndex))
+        .toList();
+  }
 
   BarChartGroupData makeGroupData(
     int x,

@@ -1,17 +1,25 @@
 import 'package:distributor_empower/constants/all_constants.dart';
 import 'package:distributor_empower/generated/l10n.dart';
+import 'package:distributor_empower/model/dashboard_response.dart';
+import 'package:distributor_empower/utils/extensions.dart';
+import 'package:distributor_empower/utils/text_styles.dart';
+import 'package:distributor_empower/widgets/cache_network_image_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class FocusProductWidget extends StatelessWidget {
-  const FocusProductWidget({super.key});
+  final List<FocusProduct>? focusProductList;
+  final String title;
+
+  const FocusProductWidget(this.focusProductList, {required this.title, super.key});
 
   @override
   Widget build(BuildContext context) {
+    if (focusProductList?.isEmpty ?? true) return const SizedBox.shrink();
     return Container(
       height: 180.h,
       width: 1.sw,
-      margin: EdgeInsets.only(bottom: 6.h),
+      margin: const EdgeInsets.only(bottom: 6).h,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -22,7 +30,7 @@ class FocusProductWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Text(
-                  'Focus Products',
+                  title,
                   style: googleFontPoppins.copyWith(
                     fontWeight: GoogleFontWeight.semiBold,
                     fontSize: 14.sp,
@@ -44,9 +52,10 @@ class FocusProductWidget extends StatelessWidget {
           Flexible(
             child: ListView.builder(
                 shrinkWrap: true,
-                itemCount: 100,
+                itemCount: focusProductList?.length ?? 0,
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) {
+                  final item = focusProductList?[index];
                   return Container(
                     width: 140.w,
                     margin: EdgeInsets.only(left: 10.w, right: index == 5 ? 10.w : 0),
@@ -63,11 +72,11 @@ class FocusProductWidget extends StatelessWidget {
                           margin: EdgeInsets.only(top: 16.h, bottom: 8.h),
                           width: 112.w,
                           height: 56.75.w,
-                          decoration: const BoxDecoration(
-                            image: DecorationImage(
-                              image: NetworkImage("https://via.placeholder.com/112x57"),
-                              fit: BoxFit.fill,
-                            ),
+                          child: CachedNetworkImageWidget(
+                            imageUrl: item?.productImage ?? '',
+                            errorListener: (value) {
+                              debugPrint('Image load to failed $value');
+                            },
                           ),
                         ),
                         Opacity(
@@ -76,11 +85,10 @@ class FocusProductWidget extends StatelessWidget {
                             alignment: Alignment.centerLeft,
                             padding: EdgeInsets.symmetric(horizontal: 8.w),
                             child: Text(
-                              'BondTite Quick',
-                              style: googleFontPoppins.copyWith(
-                                fontWeight: GoogleFontWeight.semiBold,
-                                fontSize: 11.sp,
-                                color: const Color(0xFF333333),
+                              item?.title ?? '',
+                              style: TextStyles.semiBold10.copyWith(
+                                color: AppColor.hintTextColor,
+                                overflow: TextOverflow.ellipsis,
                               ),
                             ),
                           ),
@@ -92,7 +100,7 @@ class FocusProductWidget extends StatelessWidget {
                             TextSpan(
                               children: [
                                 TextSpan(
-                                  text: '₹ 5',
+                                  text: item?.rate.formatWithCurrency,
                                   style: googleFontPoppins.copyWith(
                                     fontWeight: GoogleFontWeight.semiBold,
                                     fontSize: 10.5.sp,

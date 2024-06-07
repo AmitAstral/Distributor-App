@@ -1,11 +1,17 @@
 import 'package:distributor_empower/constants/all_constants.dart';
+import 'package:distributor_empower/generated/l10n.dart';
+import 'package:distributor_empower/model/dashboard_response.dart';
+import 'package:distributor_empower/utils/extensions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 
 class CreditDetailsWidget extends StatelessWidget {
-  const CreditDetailsWidget({super.key});
+  final CreditDetails? creditDetails;
+  final String? title;
+
+  const CreditDetailsWidget(this.creditDetails, {super.key, this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +40,7 @@ class CreditDetailsWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Credit Details',
+            title ?? '',
             style: googleFontPoppins.copyWith(
               fontWeight: GoogleFontWeight.semiBold,
               fontSize: 14.sp,
@@ -72,7 +78,7 @@ class CreditDetailsWidget extends StatelessWidget {
                             ),
                             pointers: <GaugePointer>[
                               RangePointer(
-                                  value: 70,
+                                  value: creditDetails?.remainingPercentage ?? 0,
                                   cornerStyle: CornerStyle.startCurve,
                                   enableAnimation: true,
                                   animationDuration: 2000,
@@ -84,19 +90,20 @@ class CreditDetailsWidget extends StatelessWidget {
                                       AppColor.primaryColor,
                                     ],
                                   )),
-                              const MarkerPointer(
-                                  value: 70,
-                                  enableAnimation: true,
-                                  overlayColor: AppColor.primaryColor,
-                                  animationDuration: 2000,
-                                  // markerHeight: 10,
-                                  // markerWidth: 10,
-                                  markerType: MarkerType.circle,
-                                  enableDragging: true,
-                                  color: AppColor.transparent,
-                                  borderWidth: 3,
-                                  elevation: 10,
-                                  borderColor: Color(0xFFFEFEFE)),
+                              MarkerPointer(
+                                value: creditDetails?.remainingPercentage ?? 0,
+                                enableAnimation: true,
+                                overlayColor: AppColor.primaryColor,
+                                animationDuration: 2000,
+                                // markerHeight: 10,
+                                // markerWidth: 10,
+                                markerType: MarkerType.circle,
+                                enableDragging: true,
+                                color: AppColor.transparent,
+                                borderWidth: 3,
+                                elevation: 10,
+                                borderColor: const Color(0xFFFEFEFE),
+                              ),
                             ],
                           ),
                         ],
@@ -108,7 +115,7 @@ class CreditDetailsWidget extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             Text(
-                              '70%',
+                              AppLocalizations.of(context).amountWithPercentage((creditDetails?.remainingPercentage ?? 0).toString()),
                               style: googleFontMontserrat.copyWith(
                                 fontWeight: GoogleFontWeight.medium,
                                 fontSize: 14.sp,
@@ -116,7 +123,7 @@ class CreditDetailsWidget extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              '(3,00,000 Left)',
+                              AppLocalizations.of(context).creditLeftWithAmount((creditDetails?.remainingCredit ?? '').formatWithCurrency),
                               style: googleFontMontserrat.copyWith(
                                 fontWeight: GoogleFontWeight.regular,
                                 fontSize: 9.sp,
@@ -146,7 +153,7 @@ class CreditDetailsWidget extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Credit Limit',
+                            AppLocalizations.of(context).creditLimit,
                             style: googleFontPoppins.copyWith(
                               fontWeight: GoogleFontWeight.medium,
                               fontSize: 10.sp,
@@ -154,7 +161,7 @@ class CreditDetailsWidget extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            '₹ 10,00,000',
+                            (creditDetails?.creditLimit ?? '').formatWithCurrency,
                             style: googleFontMontserrat.copyWith(
                               fontWeight: GoogleFontWeight.semiBold,
                               fontSize: 13.sp,
@@ -171,7 +178,7 @@ class CreditDetailsWidget extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Used Credit',
+                            AppLocalizations.of(context).usedCredit,
                             style: googleFontPoppins.copyWith(
                               fontWeight: GoogleFontWeight.medium,
                               fontSize: 10.sp,
@@ -179,7 +186,7 @@ class CreditDetailsWidget extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            '₹ 7,00,000',
+                            (creditDetails?.usedCredit ?? '').formatWithCurrency,
                             style: googleFontMontserrat.copyWith(
                               fontWeight: GoogleFontWeight.semiBold,
                               fontSize: 13.sp,
@@ -196,7 +203,7 @@ class CreditDetailsWidget extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Remaining Credit',
+                            AppLocalizations.of(context).remainingCredit,
                             style: googleFontPoppins.copyWith(
                               fontWeight: GoogleFontWeight.medium,
                               fontSize: 10.sp,
@@ -204,7 +211,7 @@ class CreditDetailsWidget extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            '₹ 3,00,000',
+                            (creditDetails?.remainingCredit ?? '').formatWithCurrency,
                             style: googleFontMontserrat.copyWith(
                               fontWeight: GoogleFontWeight.semiBold,
                               fontSize: 13.sp,

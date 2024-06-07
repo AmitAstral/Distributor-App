@@ -699,6 +699,106 @@ class AppLocalizations {
       args: [],
     );
   }
+
+  /// `Credit Limit`
+  String get creditLimit {
+    return Intl.message(
+      'Credit Limit',
+      name: 'creditLimit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Used Credit`
+  String get usedCredit {
+    return Intl.message(
+      'Used Credit',
+      name: 'usedCredit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Remaining Credit`
+  String get remainingCredit {
+    return Intl.message(
+      'Remaining Credit',
+      name: 'remainingCredit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `({name} Left)`
+  String creditLeftWithAmount(Object name) {
+    return Intl.message(
+      '($name Left)',
+      name: 'creditLeftWithAmount',
+      desc: '',
+      args: [name],
+    );
+  }
+
+  /// `{name} %`
+  String amountWithPercentage(Object name) {
+    return Intl.message(
+      '$name %',
+      name: 'amountWithPercentage',
+      desc: '',
+      args: [name],
+    );
+  }
+
+  /// `Total Order`
+  String get totalOrder {
+    return Intl.message(
+      'Total Order',
+      name: 'totalOrder',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Dispatched Order`
+  String get dispatchedOrder {
+    return Intl.message(
+      'Dispatched Order',
+      name: 'dispatchedOrder',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Authorized pending Order`
+  String get authorizedPendingOrder {
+    return Intl.message(
+      'Authorized pending Order',
+      name: 'authorizedPendingOrder',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Unauthorized Pending Order`
+  String get unauthorizedPendingOrder {
+    return Intl.message(
+      'Unauthorized Pending Order',
+      name: 'unauthorizedPendingOrder',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `* amount in lacs`
+  String get amountInLacs {
+    return Intl.message(
+      '* amount in lacs',
+      name: 'amountInLacs',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<AppLocalizations> {

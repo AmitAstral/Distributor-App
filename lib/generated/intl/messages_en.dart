@@ -20,19 +20,32 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
-  static String m0(name) => "Hi, ${name}";
+  static String m0(name) => "${name} %";
+
+  static String m1(name) => "(${name} Left)";
+
+  static String m2(name) => "Hi, ${name}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "SAPCode": MessageLookupByLibrary.simpleMessage("SAP Code"),
         "aboutUs": MessageLookupByLibrary.simpleMessage("About us"),
         "address": MessageLookupByLibrary.simpleMessage("Address"),
+        "amountInLacs":
+            MessageLookupByLibrary.simpleMessage("* amount in lacs"),
+        "amountWithPercentage": m0,
+        "authorizedPendingOrder":
+            MessageLookupByLibrary.simpleMessage("Authorized pending Order"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "cart": MessageLookupByLibrary.simpleMessage("Cart"),
         "chooseQty": MessageLookupByLibrary.simpleMessage("Choose Quantity "),
         "close": MessageLookupByLibrary.simpleMessage("Close"),
         "confirmPin": MessageLookupByLibrary.simpleMessage("Confirm Pin"),
+        "creditLeftWithAmount": m1,
+        "creditLimit": MessageLookupByLibrary.simpleMessage("Credit Limit"),
         "date": MessageLookupByLibrary.simpleMessage("Date"),
+        "dispatchedOrder":
+            MessageLookupByLibrary.simpleMessage("Dispatched Order"),
         "editYourProfile":
             MessageLookupByLibrary.simpleMessage("Edit your profile"),
         "enterOTP": MessageLookupByLibrary.simpleMessage("Enter OTP"),
@@ -46,7 +59,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "forgotPin": MessageLookupByLibrary.simpleMessage("Forgot pin?"),
         "getOTP": MessageLookupByLibrary.simpleMessage("Get OTP"),
         "hello": MessageLookupByLibrary.simpleMessage("Hello,"),
-        "hiWithName": m0,
+        "hiWithName": m2,
         "home": MessageLookupByLibrary.simpleMessage("Home"),
         "internetIsNotConnected":
             MessageLookupByLibrary.simpleMessage("Internet is not connected"),
@@ -73,6 +86,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "rateUsOnTheAppStore":
             MessageLookupByLibrary.simpleMessage("Rate us on the app store"),
         "refresh": MessageLookupByLibrary.simpleMessage("Refresh"),
+        "remainingCredit":
+            MessageLookupByLibrary.simpleMessage("Remaining Credit"),
         "resendOtp": MessageLookupByLibrary.simpleMessage("Resend OTP"),
         "resendOtpIn": MessageLookupByLibrary.simpleMessage("Resend OTP in"),
         "rupees": MessageLookupByLibrary.simpleMessage("₹"),
@@ -92,7 +107,11 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Something went wrong, Please connect with Internet to use Application."),
         "theEnteredOtpIsInvalid":
             MessageLookupByLibrary.simpleMessage("The entered OTP is invalid."),
+        "totalOrder": MessageLookupByLibrary.simpleMessage("Total Order"),
+        "unauthorizedPendingOrder":
+            MessageLookupByLibrary.simpleMessage("Unauthorized Pending Order"),
         "updateNow": MessageLookupByLibrary.simpleMessage("Update Now"),
+        "usedCredit": MessageLookupByLibrary.simpleMessage("Used Credit"),
         "validatePinAndConfirmPin": MessageLookupByLibrary.simpleMessage(
             "Pin and confirm pin must be same"),
         "validationEnterPhoneNumber":

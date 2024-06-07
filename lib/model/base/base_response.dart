@@ -34,7 +34,7 @@ class BaseResponse<T extends BaseModel?> {
       if (rawData is List) {
         baseResponse.dataList = List.from(rawData.map((x) => (baseModel.fromJson(x) as T?)));
       } else if (rawData is Map<String, dynamic>) {
-        baseResponse.dataList = [baseModel.fromJson(rawData)] as List<T>?;
+        baseResponse.dataList = [baseModel.fromJson(rawData) as T?];
       }
     } else if (rawData is String) {
       baseResponse.dataStr = rawData;

@@ -28,7 +28,7 @@ class UserResponseAdapter extends TypeAdapter<UserResponse> {
       isActive: fields[8] as String?,
       isPinSet: fields[9] as bool?,
       profile: fields[10] as String?,
-      Address: fields[11] as String?,
+      address: fields[11] as String?,
     );
   }
 
@@ -59,7 +59,7 @@ class UserResponseAdapter extends TypeAdapter<UserResponse> {
       ..writeByte(10)
       ..write(obj.profile)
       ..writeByte(11)
-      ..write(obj.Address);
+      ..write(obj.address);
   }
 
   @override

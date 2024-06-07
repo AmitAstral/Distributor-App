@@ -2,7 +2,7 @@ import 'package:distributor_empower/constants/app_colors/app_colors.dart';
 import 'package:distributor_empower/constants/app_statics_text/app_labels.dart';
 import 'package:distributor_empower/gen/assets.gen.dart';
 import 'package:distributor_empower/generated/l10n.dart';
-import 'package:distributor_empower/presentation/home/components/order_details_widget1.dart';
+import 'package:distributor_empower/presentation/home/components/order_details_widget.dart';
 import 'package:distributor_empower/utils/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

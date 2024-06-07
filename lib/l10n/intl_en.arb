@@ -63,5 +63,15 @@
   "editYourProfile": "Edit your profile",
   "newUpdateIsAvailable": "New update is available",
   "updateNow": "Update Now",
-  "cancel": "Cancel"
+  "cancel": "Cancel",
+  "creditLimit": "Credit Limit",
+  "usedCredit": "Used Credit",
+  "remainingCredit": "Remaining Credit",
+  "creditLeftWithAmount": "({name} Left)",
+  "amountWithPercentage": "{name} %",
+  "totalOrder": "Total Order",
+  "dispatchedOrder": "Dispatched Order",
+  "authorizedPendingOrder": "Authorized pending Order",
+  "unauthorizedPendingOrder": "Unauthorized Pending Order",
+  "amountInLacs": "* amount in lacs"
 }

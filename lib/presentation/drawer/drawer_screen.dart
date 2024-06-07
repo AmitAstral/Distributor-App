@@ -68,9 +68,9 @@ class _DrawerScreenState extends State<DrawerScreen> {
                                   overflow: TextOverflow.ellipsis,
                                 ),
                               ),
-                              if (storage.userDetails.Address?.isNotEmpty ?? false)
+                              if (storage.userDetails.address?.isNotEmpty ?? false)
                                 Text(
-                                  storage.userDetails.Address ?? '',
+                                  storage.userDetails.address ?? '',
                                   maxLines: 3,
                                   style: TextStyles.regular11.copyWith(
                                     color: AppColor.white,

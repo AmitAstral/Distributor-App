@@ -1,6 +1,7 @@
 import 'package:distributor_empower/core/di/locator.dart';
 import 'package:distributor_empower/model/base/base_model.dart';
 import 'package:distributor_empower/utils/device_info.dart';
+import 'package:distributor_empower/utils/extensions.dart';
 import 'package:hive/hive.dart';
 
 part 'user_response.g.dart';
@@ -30,7 +31,7 @@ class UserResponse extends BaseModel {
   @HiveField(10)
   String? profile;
   @HiveField(11)
-  String? Address;
+  String? address;
 
   UserResponse({
     this.distributorUserID,
@@ -44,7 +45,7 @@ class UserResponse extends BaseModel {
     this.isActive,
     this.isPinSet,
     this.profile,
-    this.Address,
+    this.address,
   });
 
   @override
@@ -52,7 +53,7 @@ class UserResponse extends BaseModel {
     distributorUserID = json['DistributorUserID'];
     distributorSapCode = json['DistributorSapCode'];
     distributorName = json['DistributorName'];
-    Address = json['Address'];
+    address = json['Address'];
     distributorMobileNumber = json['DistributorMobileNumber'];
     otp = json['OTP'];
     token = json['Token'];
@@ -77,7 +78,7 @@ class UserResponse extends BaseModel {
     map['IsActive'] = isActive;
     map['IsPinSet'] = isPinSet;
     map['DistributorProfile'] = profile;
-    map['Address'] = Address;
+    map['Address'] = address;
     return map;
   }
 
@@ -85,5 +86,5 @@ class UserResponse extends BaseModel {
 
   get isUpdateAvailable => storage.isLogin && allowAppVersion != storage.currentAppVersion;
 
-  String get getUserProfile => profile ?? 'https://www.vhv.rs/dpng/d/505-5058560_person-placeholder-image-free-hd-png-download.png';
+  String get getUserProfile => profile.ifBlank ?? 'https://www.vhv.rs/dpng/d/505-5058560_person-placeholder-image-free-hd-png-download.png';
 }
