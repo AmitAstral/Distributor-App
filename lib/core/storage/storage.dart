@@ -30,9 +30,9 @@ class StorageService {
 
   set appLocale(Locale locale) => _put(appLocaleKey, locale.languageCode);
 
-  UserResponse get userDetails => _get(userInfoKey) == '' ? UserResponse() : UserResponse().fromJson(json.decode(_get(userInfoKey)));
+  UserResponse get userDetails => UserResponse().fromJson(json.decode(_get(userInfoKey) ?? {}));
 
-  set userDetails(UserResponse? loginModel) => _put(userInfoKey, json.encode(loginModel?.toJson()));
+  set userDetails(UserResponse? loginModel) => _put(userInfoKey, json.encode(loginModel?.toJson() ?? {}));
 
   String get fcmToken => _get(fcmTokenKey, defaultValue: '');
 

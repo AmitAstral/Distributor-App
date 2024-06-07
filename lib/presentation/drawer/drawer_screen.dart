@@ -47,7 +47,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Padding(
-                padding: EdgeInsets.only(left: 8.w, right: 8.w),
+                padding: const EdgeInsets.only(left: 8, right: 8).w,
                 child: IntrinsicWidth(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -55,7 +55,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                       ProfileWidget(),
                       Expanded(
                         child: Padding(
-                          padding: EdgeInsets.only(left: 8.w),
+                          padding: const EdgeInsets.only(left: 8).w,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -91,7 +91,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                 },
               ),
               Padding(
-                padding: EdgeInsets.only(top: 18.h),
+                padding: const EdgeInsets.only(top: 18).h,
                 child: Opacity(
                   opacity: 0.30,
                   child: Container(

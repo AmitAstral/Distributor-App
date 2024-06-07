@@ -42,12 +42,14 @@ class _HomeScreenState extends State<HomeScreen> {
                   width: 40.w,
                   height: 40.w,
                   margin: EdgeInsets.only(left: 10.w),
-                  decoration: ShapeDecoration(
-                    image: DecorationImage(
-                      image: CachedNetworkImageProvider(storage.userDetails.getUserProfile),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.all(Radius.circular(40.w)),
+                    child: CachedNetworkImageWidget(
+                      imageUrl: storage.userDetails.getUserProfile,
                       fit: BoxFit.cover,
+                      loaderColor: AppColor.white,
+                      errorIconColor: AppColor.white,
                     ),
-                    shape: const OvalBorder(),
                   ),
                 ),
               )),

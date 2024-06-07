@@ -3,6 +3,9 @@ import 'package:distributor_empower/constants/all_constants.dart';
 import 'package:flutter/material.dart';
 
 class CachedNetworkImageWidget extends CachedNetworkImage {
+  Color? loaderColor;
+  Color? errorIconColor;
+
   CachedNetworkImageWidget({
     super.key,
     required super.imageUrl,
@@ -33,20 +36,25 @@ class CachedNetworkImageWidget extends CachedNetworkImage {
     super.maxWidthDiskCache,
     super.maxHeightDiskCache,
     super.errorListener,
+    this.loaderColor,
+    this.errorIconColor,
   });
 
   @override
   LoadingErrorWidgetBuilder? get errorWidget => (context, url, error) {
-        return const Icon(Icons.error_outline);
+        return Icon(
+          Icons.error_outline,
+          color: errorIconColor ?? AppColor.primaryColor,
+        );
       };
 
   @override
   ProgressIndicatorBuilder? get progressIndicatorBuilder => (context, url, error) {
         return SizedBox(
-          width: width,
-          height: height,
-          child: const CircularProgressIndicator(
-            color: AppColor.primaryColor,
+          width: (width ?? 50) - 10.w,
+          height: (height ?? 50) - 10.w,
+          child: CircularProgressIndicator(
+            color: loaderColor ?? AppColor.primaryColor,
           ),
         );
       };

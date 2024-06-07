@@ -1,4 +1,5 @@
 import 'package:distributor_empower/core/di/locator.dart';
+import 'package:distributor_empower/widgets/cache_network_image_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -10,15 +11,16 @@ class ProfileWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: height ?? 45.h,
-      width: width ?? 45.h,
-      decoration: BoxDecoration(
-          image: DecorationImage(
-            image: NetworkImage(storage.userDetails.getUserProfile),
-            fit: BoxFit.cover,
-          ),
-          borderRadius: BorderRadius.circular(10)),
+    return ClipRRect(
+      borderRadius: const BorderRadius.all(
+        Radius.circular(10),
+      ).h,
+      child: CachedNetworkImageWidget(
+        imageUrl: storage.userDetails.getUserProfile,
+        height: height ?? 45.h,
+        width: width ?? 45.h,
+        fit: BoxFit.cover,
+      ),
     );
   }
 }

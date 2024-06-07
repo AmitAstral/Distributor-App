@@ -17,8 +17,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 @RoutePage()
 class ProfileScreen extends StatelessWidget {
-  static const String routeName = 'ProfileScreen';
-
   const ProfileScreen({super.key});
 
   @override
@@ -43,11 +41,9 @@ class ProfileScreen extends StatelessWidget {
               flexibleSpace: null,
             ),
           ),
-          body: Container(
-            padding: EdgeInsets.only(top: 15.w, left: 15.w, right: 15.w),
-            height: 1.sh,
-            width: 1.sw,
-            child: SingleChildScrollView(
+          body: SingleChildScrollView(
+            child: Padding(
+              padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 14.w),
               child: Column(
                 children: [
                   Row(
@@ -57,19 +53,24 @@ class ProfileScreen extends StatelessWidget {
                         height: 45.h,
                       ),
                       9.horizontalSpace,
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            AppLocalizations.current.hiWithName(storage.userDetails.distributorName ?? ''),
-                            maxLines: 2,
-                            style: TextStyles.semiBold16.copyWith(color: AppColor.textSecondary),
-                          ),
-                          Text(
-                            AppLocalizations.current.editYourProfile,
-                            style: TextStyles.semiBold11.copyWith(color: AppColor.textSecondary),
-                          ),
-                        ],
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              AppLocalizations.current.hiWithName(storage.userDetails.distributorName ?? ''),
+                              maxLines: 2,
+                              style: TextStyles.semiBold16.copyWith(
+                                color: AppColor.textSecondary,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                            Text(
+                              AppLocalizations.current.editYourProfile,
+                              style: TextStyles.semiBold11.copyWith(color: AppColor.textSecondary),
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),
@@ -405,7 +406,7 @@ class ProfileScreen extends StatelessWidget {
                   ),
                   50.verticalSpace,
                   Text(
-                    'Version : v1.0.0',
+                    'Version : v${storage.currentAppVersion}',
                     style: TextStyles.regular11.copyWith(color: AppColor.textSecondary),
                   ),
                 ],
