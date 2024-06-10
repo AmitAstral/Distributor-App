@@ -14,7 +14,29 @@ extension StrExtensions on String? {
     return format.format(int.tryParse(this ?? '0') ?? double.tryParse(this ?? '0') ?? '0');
   }
 
+  num get parseToNum => int.tryParse(this ?? '0') ?? double.tryParse(this ?? '0') ?? 0;
+
   Color get getColorFromColorString => HexColor.fromHex(this ?? '#fff');
+
+  String get removeTrailingZeros {
+    String formattedNumber = (double.tryParse(this ?? '0') ?? 0).toStringAsFixed(2); // Convert to string with 2 decimal places
+    if (formattedNumber.endsWith('.00')) {
+      return formattedNumber.substring(0, formattedNumber.length - 3); // Remove the ".00"
+    } else {
+      return formattedNumber; // Return the number as is
+    }
+  }
+}
+
+extension NumExtension on num {
+  String get removeTrailingZeros {
+    String formattedNumber = toStringAsFixed(2); // Convert to string with 2 decimal places
+    if (formattedNumber.endsWith('.00')) {
+      return formattedNumber.substring(0, formattedNumber.length - 3); // Remove the ".00"
+    } else {
+      return formattedNumber; // Return the number as is
+    }
+  }
 }
 
 extension WidgetsExtensions on Widget {

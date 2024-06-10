@@ -30,7 +30,13 @@ class StorageService {
 
   set appLocale(Locale locale) => _put(appLocaleKey, locale.languageCode);
 
-  UserResponse get userDetails => UserResponse().fromJson(json.decode(_get(userInfoKey) ?? {}));
+  UserResponse get userDetails {
+    try {
+      return UserResponse().fromJson(json.decode(_get(userInfoKey) ?? {}));
+    } catch (e) {
+      return UserResponse();
+    }
+  }
 
   set userDetails(UserResponse? loginModel) => _put(userInfoKey, json.encode(loginModel?.toJson() ?? {}));
 

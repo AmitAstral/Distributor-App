@@ -1,20 +1,18 @@
+import 'dart:math';
+
 import 'package:distributor_empower/constants/all_constants.dart';
 import 'package:distributor_empower/generated/l10n.dart';
 import 'package:distributor_empower/model/dashboard_response.dart';
+import 'package:distributor_empower/utils/extensions.dart';
 import 'package:distributor_empower/utils/text_styles.dart';
 import 'package:fl_chart/fl_chart.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CreditAgingWidget extends StatefulWidget {
   final List<CreditAging>? creditAging;
   final String title;
 
-  CreditAgingWidget(this.creditAging, {super.key, required this.title});
-
-  final Color barBackgroundColor = const Color(0xFFC9E4FF).withOpacity(0.5);
-  final Color barColor = AppColor.primaryColor;
-  final Color touchedBarColor = AppColor.green;
+  const CreditAgingWidget(this.creditAging, {super.key, required this.title});
 
   @override
   State<CreditAgingWidget> createState() => _CreditAgingWidgetState();
@@ -39,11 +37,7 @@ class _CreditAgingWidgetState extends State<CreditAgingWidget> {
             alignment: Alignment.centerLeft,
             child: Text(
               widget.title ?? '',
-              style: googleFontPoppins.copyWith(
-                fontWeight: GoogleFontWeight.semiBold,
-                fontSize: 14.sp,
-                color: const Color(0xFF333333),
-              ),
+              style: TextStyles.semiBold14.copyWith(color: const Color(0xFF333333)),
             ),
           ),
           Container(
@@ -85,10 +79,7 @@ class _CreditAgingWidgetState extends State<CreditAgingWidget> {
                 SizedBox(height: 8.h),
                 SizedBox(
                   height: 250.h,
-                  child: BarChart(
-                    mainBarData(),
-                    swapAnimationDuration: const Duration(milliseconds: 250),
-                  ),
+                  child: buildBarChart(),
                 ),
               ],
             ),
@@ -98,131 +89,92 @@ class _CreditAgingWidgetState extends State<CreditAgingWidget> {
     );
   }
 
-  BarChartData mainBarData() {
-    return BarChartData(
-      barTouchData: BarTouchData(
+  BarChart buildBarChart() {
+    final numList = getCreditAging.map(
+      (e) => e.value.parseToNum.toDouble(),
+    );
+    return BarChart(
+      BarChartData(
+        barTouchData: barTouchData,
+        titlesData: titlesData,
+        borderData: borderData,
+        barGroups: barGroups,
+        gridData: const FlGridData(show: false),
+        alignment: BarChartAlignment.spaceAround,
+        maxY: numList.reduce(max),
+        minY: numList.reduce(min),
+      ),
+    );
+  }
+
+  BarTouchData get barTouchData => BarTouchData(
+        enabled: false,
         touchTooltipData: BarTouchTooltipData(
-          tooltipHorizontalAlignment: FLHorizontalAlignment.center,
-          tooltipMargin: -10.h,
-          getTooltipItem: (group, groupIndex, rod, rodIndex) {
-            final value = getCreditAging[groupIndex].value ?? '';
+          getTooltipColor: (group) => Colors.transparent,
+          tooltipPadding: EdgeInsets.zero,
+          tooltipMargin: 8,
+          getTooltipItem: (
+            BarChartGroupData group,
+            int groupIndex,
+            BarChartRodData rod,
+            int rodIndex,
+          ) {
             return BarTooltipItem(
-              value,
-              TextStyles.regular12.copyWith(color: AppColor.primaryColor),
+              getCreditAging[groupIndex].value.parseToNum < 1 ? '' : getCreditAging[groupIndex].value.removeTrailingZeros,
+              TextStyles.regular12.copyWith(
+                color: AppColor.primaryColor,
+              ),
             );
           },
         ),
-        touchCallback: (FlTouchEvent event, barTouchResponse) {
-          setState(() {
-            if (!event.isInterestedForInteractions || barTouchResponse == null || barTouchResponse.spot == null) {
-              touchedIndex = -1;
-              return;
-            }
-            touchedIndex = barTouchResponse.spot!.touchedBarGroupIndex;
-          });
-        },
-      ),
-      titlesData: FlTitlesData(
+      );
+
+  Widget getTitles(double value, TitleMeta meta) {
+    final style = TextStyles.regular10.copyWith(color: AppColor.textSecondary);
+    final text = getCreditAging[value.toInt()].label ?? '';
+    return SideTitleWidget(
+      axisSide: meta.axisSide,
+      space: 4,
+      child: Text(text, style: style),
+    );
+  }
+
+  FlTitlesData get titlesData => FlTitlesData(
         show: true,
-        rightTitles: const AxisTitles(
+        bottomTitles: AxisTitles(
+          sideTitles: SideTitles(
+            showTitles: true,
+            reservedSize: 30,
+            getTitlesWidget: getTitles,
+          ),
+        ),
+        leftTitles: const AxisTitles(
           sideTitles: SideTitles(showTitles: false),
         ),
         topTitles: const AxisTitles(
           sideTitles: SideTitles(showTitles: false),
         ),
-        bottomTitles: AxisTitles(
-          sideTitles: SideTitles(
-            showTitles: true,
-            getTitlesWidget: getTitles,
-            reservedSize: 35.h,
-          ),
+        rightTitles: const AxisTitles(
+          sideTitles: SideTitles(showTitles: false),
         ),
-        leftTitles: const AxisTitles(
-          sideTitles: SideTitles(
-            showTitles: false,
-          ),
-        ),
-      ),
-      borderData: FlBorderData(
+      );
+
+  FlBorderData get borderData => FlBorderData(
         show: false,
-      ),
-      barGroups: showingGroups(),
-      gridData: const FlGridData(show: false),
-      alignment: BarChartAlignment.spaceAround,
-    );
-  }
+      );
 
-  BarTouchData get barTouchData => BarTouchData(
-    enabled: false,
-    touchTooltipData: BarTouchTooltipData(
-      getTooltipColor: (group) => Colors.transparent,
-      tooltipPadding: EdgeInsets.zero,
-      tooltipMargin: 8,
-      getTooltipItem: (
-          BarChartGroupData group,
-          int groupIndex,
-          BarChartRodData rod,
-          int rodIndex,
-          ) {
-        return BarTooltipItem(
-          rod.toY.round().toString(),
-          const TextStyle(
-            color: AppColor.primaryColor,
-            fontWeight: FontWeight.bold,
-          ),
-        );
-      },
-    ),
-  );
-
-  Widget getTitles(double index, TitleMeta meta) {
-    TextStyle style = googleFontNunitoSans.copyWith(
-      fontWeight: GoogleFontWeight.semiBold,
-      fontSize: 10.sp,
-      color: AppColor.black,
-    );
-    Widget text;
-    text = Text(getCreditAging[index.toInt()].label ?? '', style: style);
-    return SideTitleWidget(
-      axisSide: meta.axisSide,
-      space: 16.h,
-      child: text,
-    );
-  }
-
-  List<BarChartGroupData> showingGroups() {
-    return getCreditAging
-        .map((e) =>
-            makeGroupData(getCreditAging.indexOf(e), double.tryParse((e.value ?? '0')) ?? 0, isTouched: getCreditAging.indexOf(e) == touchedIndex))
-        .toList();
-  }
-
-  BarChartGroupData makeGroupData(
-    int x,
-    double y, {
-    bool isTouched = false,
-    Color? barColor,
-    double? width,
-    List<int> showTooltips = const [],
-  }) {
-    barColor ??= widget.barColor;
-    return BarChartGroupData(
-      x: x,
-      barsSpace: y,
-      barRods: [
-        BarChartRodData(
-          toY: isTouched ? y + 1 : y,
-          color: isTouched ? widget.touchedBarColor : barColor,
-          width: width = 8.w,
-          borderSide: isTouched ? BorderSide(color: widget.touchedBarColor) : const BorderSide(color: AppColor.white, width: 0),
-          backDrawRodData: BackgroundBarChartRodData(
-            show: true,
-            toY: 20.h,
-            color: AppColor.transparent,
-          ),
+  List<BarChartGroupData> get barGroups => getCreditAging
+      .map(
+        (e) => BarChartGroupData(
+          x: getCreditAging.indexOf(e),
+          barRods: [
+            BarChartRodData(
+              color: AppColor.primaryColor,
+              toY: e.value.parseToNum.toDouble(),
+            )
+          ],
+          showingTooltipIndicators: [0],
         ),
-      ],
-      showingTooltipIndicators: showTooltips,
-    );
-  }
+      )
+      .toList();
 }
