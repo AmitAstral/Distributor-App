@@ -65,10 +65,6 @@ class ProfileScreen extends StatelessWidget {
                                 overflow: TextOverflow.ellipsis,
                               ),
                             ),
-                            Text(
-                              AppLocalizations.current.editYourProfile,
-                              style: TextStyles.semiBold11.copyWith(color: AppColor.textSecondary),
-                            ),
                           ],
                         ),
                       ),

@@ -31,15 +31,6 @@ class OffersScreen extends StatelessWidget {
               maxLines: 1,
               style: TextStyles.semiBold16,
             ),
-            actions: [
-              Padding(
-                padding: EdgeInsets.only(right: 8.w),
-                child: IconButton(
-                  onPressed: () {},
-                  icon: Assets.icons.filter.svg(color: AppColor.white),
-                ),
-              )
-            ],
             centerTitle: true,
             elevation: 0,
             flexibleSpace: null,

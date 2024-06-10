@@ -56,6 +56,7 @@ class SetPinScreen extends StatelessWidget {
                               onChange: (String otp) {
                                 _pin = otp;
                                 _isDisable.value = !(_pin.length == 4 && _confirmPin.length == 4);
+                                if (!_isDisable.value) _validateAndContinue();
                               },
                               isObscureText: true,
                             ),
@@ -69,6 +70,7 @@ class SetPinScreen extends StatelessWidget {
                               onChange: (String otp) {
                                 _confirmPin = otp;
                                 _isDisable.value = !(_pin.length == 4 && _confirmPin.length == 4);
+                                if (!_isDisable.value) _validateAndContinue();
                               },
                               isObscureText: true,
                             ),

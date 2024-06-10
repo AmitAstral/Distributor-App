@@ -1,6 +1,5 @@
 import 'package:distributor_empower/core/di/locator.dart';
 import 'package:distributor_empower/model/base/base_model.dart';
-import 'package:distributor_empower/utils/device_info.dart';
 import 'package:distributor_empower/utils/extensions.dart';
 import 'package:hive/hive.dart';
 
@@ -32,6 +31,10 @@ class UserResponse extends BaseModel {
   String? profile;
   @HiveField(11)
   String? address;
+  @HiveField(12)
+  String? otpSentMessage;
+  @HiveField(13)
+  String? otpResendMessage;
 
   UserResponse({
     this.distributorUserID,
@@ -61,6 +64,8 @@ class UserResponse extends BaseModel {
     currentAppVersion = json['CurrentAppVersion'];
     isActive = json['IsActive'];
     profile = json['DistributorProfile'];
+    otpSentMessage = json['OtpSentMessage'];
+    otpResendMessage = json['OtpResendMessage'];
     isPinSet = (json['IsPinSet'] is String) ? json['IsPinSet'] == '1' : json['IsPinSet'];
     return this;
   }
@@ -79,6 +84,8 @@ class UserResponse extends BaseModel {
     map['IsPinSet'] = isPinSet;
     map['DistributorProfile'] = profile;
     map['Address'] = address;
+    map['OtpSentMessage'] = otpSentMessage;
+    map['OtpResendMessage'] = otpResendMessage;
     return map;
   }
 

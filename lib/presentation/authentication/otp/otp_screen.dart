@@ -54,18 +54,9 @@ class OtpVerificationScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const Spacer(),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            "${AppLocalizations.current.weSentOtpOn} ",
-                            style: TextStyles.regular13.copyWith(color: AppColor.textSecondary),
-                          ),
-                          Text(
-                            storage.userDetails.secureNumber,
-                            style: TextStyles.semiBold13.copyWith(color: AppColor.primaryColor),
-                          )
-                        ],
+                      Text(
+                        storage.userDetails.otpSentMessage ?? '',
+                        style: TextStyles.regular13.copyWith(color: AppColor.textSecondary),
                       ),
                       const Spacer(),
                       Center(
@@ -73,7 +64,7 @@ class OtpVerificationScreen extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              AppLocalizations.current.enterOTP,
+                              AppLocalizations.current.astralCode,
                               style: TextStyles.regular12.copyWith(color: AppColor.textSecondary),
                             ),
                             10.verticalSpace,
@@ -81,6 +72,7 @@ class OtpVerificationScreen extends StatelessWidget {
                               onChange: (String otpStr) {
                                 _otp = otpStr;
                                 _otpVerificationProvider.isDisable.value = _otp.length < 4;
+                                if (_otp.length == 4) _onPressVerifyOTP();
                               },
                             ),
                           ],
@@ -94,14 +86,16 @@ class OtpVerificationScreen extends StatelessWidget {
                               value: _otpVerificationProvider,
                               child: Consumer<OTPVerificationProvider>(builder: (context, provider, child) {
                                 return Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     (value == 0
                                         ? _buildResendOTPWidget()
                                         : Row(
-                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            mainAxisAlignment: MainAxisAlignment.start,
+                                            mainAxisSize: MainAxisSize.min,
                                             children: [
                                               Text(
-                                                AppLocalizations.current.resendOtpIn,
+                                                '${AppLocalizations.current.resendOtp} in',
                                                 style: TextStyles.regular12.copyWith(color: AppColor.textSecondary),
                                               ),
                                               Text(
@@ -139,24 +133,22 @@ class OtpVerificationScreen extends StatelessWidget {
   }
 
   Widget _buildResendOTPWidget() {
-    return Center(
-      child: _otpVerificationProvider.isResendOTPButtonLoading
-          ? const SizedBox(
-              height: 20,
-              width: 20,
-              child: CircularProgressIndicator(
-                strokeWidth: 2,
-              ))
-          : Text(
-              AppLocalizations.current.resendOtp,
-              style: TextStyles.regular12.copyWith(color: AppColor.primaryColor, decoration: TextDecoration.underline),
-            ),
-    ).addGesture(
-      () async {
-        await _sendOTP(true);
-        _startTimer();
-      },
-    );
+    return _otpVerificationProvider.isResendOTPButtonLoading
+        ? const SizedBox(
+            height: 20,
+            width: 20,
+            child: CircularProgressIndicator(
+              strokeWidth: 2,
+            ))
+        : Text(
+            storage.userDetails.otpResendMessage ?? AppLocalizations.current.resendOtp,
+            style: TextStyles.regular12.copyWith(color: AppColor.primaryColor, decoration: TextDecoration.underline),
+          ).addGesture(
+            () async {
+              await _sendOTP(true);
+              _startTimer();
+            },
+          );
   }
 
   Future<void> _sendOTP(bool isShowMessage) async {
@@ -164,7 +156,7 @@ class OtpVerificationScreen extends StatelessWidget {
   }
 
   void _startTimer() {
-    _secondsRemaining.value = 30;
+    _secondsRemaining.value = 59;
     const oneSec = Duration(seconds: 1);
     _timer = Timer.periodic(
       oneSec,

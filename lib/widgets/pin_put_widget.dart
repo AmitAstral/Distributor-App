@@ -22,12 +22,15 @@ class PinPutWidget extends StatelessWidget {
   final Function(String) onChange;
   final bool isObscureText;
 
-  PinPutWidget({super.key, required this.onChange, this.isObscureText = false});
+  PinPutWidget({
+    super.key,
+    required this.onChange,
+    this.isObscureText = false,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Pinput(
-      onCompleted: (value) {},
       onChanged: onChange,
       obscureText: isObscureText,
       defaultPinTheme: _defaultPinTheme,

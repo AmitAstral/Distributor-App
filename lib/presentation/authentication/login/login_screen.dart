@@ -61,7 +61,7 @@ class LoginScreen extends StatelessWidget {
                             return AppButton(
                               isLoading: _loginProvider.isButtonLoading,
                               onPressed: _callLoginAPI,
-                              text: AppLocalizations.current.getOTP,
+                              text: AppLocalizations.current.login,
                             );
                           },
                         ),

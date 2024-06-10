@@ -35,7 +35,15 @@ class VerifyPinScreen extends StatelessWidget {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              const AuthTopLogoWidget(),
+              Stack(
+                children: [
+                  const AuthTopLogoWidget(),
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: _buildLogoutButton(),
+                  )
+                ],
+              ),
               SizedBox(
                 height: 0.5.sh,
                 child: Padding(
@@ -45,31 +53,7 @@ class VerifyPinScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      20.verticalSpace,
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            storage.userDetails.secureNumber ?? '',
-                            style: TextStyles.regular12.copyWith(color: AppColor.textSecondary),
-                          ),
-                          5.horizontalSpace,
-                          Text(
-                            AppLocalizations.current.logout,
-                            style: TextStyles.semiBold12.copyWith(color: AppColor.primaryColor),
-                          ).addGesture(() {
-                            CommonDialog.showCommonDialog(
-                              title: AppLocalizations.current.messageAreYouSureLogout,
-                              positiveTitle: AppLocalizations.current.yes,
-                              negativeTitle: AppLocalizations.current.no,
-                              onPositivePressed: () {
-                                storage.logout();
-                              },
-                            );
-                          }),
-                        ],
-                      ),
-                      20.verticalSpace,
+                      40.verticalSpace,
                       Center(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -83,6 +67,9 @@ class VerifyPinScreen extends StatelessWidget {
                               onChange: (String otp) {
                                 _pin = otp;
                                 _isDisable.value = !(_pin.length == 4);
+                                if (!_isDisable.value) {
+                                  _validateAndContinue();
+                                }
                               },
                               isObscureText: true,
                             ),
@@ -133,6 +120,29 @@ class VerifyPinScreen extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+  Widget _buildLogoutButton() {
+    return SafeArea(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 20).h,
+        child: const Icon(
+          Icons.logout,
+          color: AppColor.white,
+        ),
+      ),
+    ).addGesture(
+      () {
+        CommonDialog.showCommonDialog(
+          title: AppLocalizations.current.messageAreYouSureLogout,
+          positiveTitle: AppLocalizations.current.yes,
+          negativeTitle: AppLocalizations.current.no,
+          onPositivePressed: () {
+            storage.logout();
+          },
+        );
+      },
     );
   }
 

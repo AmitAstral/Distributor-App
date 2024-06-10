@@ -32,15 +32,6 @@ class QuickOrderScreen extends StatelessWidget {
               style: TextStyles.semiBold16,
             ),
             leading: const SizedBox.shrink(),
-            actions: [
-              Padding(
-                padding: EdgeInsets.only(right: 8.w),
-                child: IconButton(
-                  onPressed: () {},
-                  icon: Assets.icons.filter.svg(color: AppColor.white),
-                ),
-              )
-            ],
             centerTitle: true,
             elevation: 0,
             flexibleSpace: null,

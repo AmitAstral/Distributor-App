@@ -410,21 +410,11 @@ class AppLocalizations {
     );
   }
 
-  /// `Get OTP`
-  String get getOTP {
+  /// `Continue`
+  String get continueLabel {
     return Intl.message(
-      'Get OTP',
-      name: 'getOTP',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Enter OTP`
-  String get enterOTP {
-    return Intl.message(
-      'Enter OTP',
-      name: 'enterOTP',
+      'Continue',
+      name: 'continueLabel',
       desc: '',
       args: [],
     );
@@ -465,6 +455,16 @@ class AppLocalizations {
     return Intl.message(
       'No',
       name: 'no',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Astral code`
+  String get astralCode {
+    return Intl.message(
+      'Astral code',
+      name: 'astralCode',
       desc: '',
       args: [],
     );
@@ -540,10 +540,10 @@ class AppLocalizations {
     );
   }
 
-  /// `The entered OTP is invalid.`
+  /// `The entered Astral code is invalid.`
   String get theEnteredOtpIsInvalid {
     return Intl.message(
-      'The entered OTP is invalid.',
+      'The entered Astral code is invalid.',
       name: 'theEnteredOtpIsInvalid',
       desc: '',
       args: [],
@@ -560,30 +560,10 @@ class AppLocalizations {
     );
   }
 
-  /// `We sent OTP on`
-  String get weSentOtpOn {
-    return Intl.message(
-      'We sent OTP on',
-      name: 'weSentOtpOn',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Resend OTP in`
-  String get resendOtpIn {
-    return Intl.message(
-      'Resend OTP in',
-      name: 'resendOtpIn',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Resend OTP`
+  /// `Resend Astral code`
   String get resendOtp {
     return Intl.message(
-      'Resend OTP',
+      'Resend Astral code',
       name: 'resendOtp',
       desc: '',
       args: [],

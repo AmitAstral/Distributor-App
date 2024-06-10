@@ -34,6 +34,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "amountInLacs":
             MessageLookupByLibrary.simpleMessage("* amount in lacs"),
         "amountWithPercentage": m0,
+        "astralCode": MessageLookupByLibrary.simpleMessage("Astral code"),
         "authorizedPendingOrder":
             MessageLookupByLibrary.simpleMessage("Authorized pending Order"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
@@ -41,6 +42,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "chooseQty": MessageLookupByLibrary.simpleMessage("Choose Quantity "),
         "close": MessageLookupByLibrary.simpleMessage("Close"),
         "confirmPin": MessageLookupByLibrary.simpleMessage("Confirm Pin"),
+        "continueLabel": MessageLookupByLibrary.simpleMessage("Continue"),
         "creditLeftWithAmount": m1,
         "creditLimit": MessageLookupByLibrary.simpleMessage("Credit Limit"),
         "date": MessageLookupByLibrary.simpleMessage("Date"),
@@ -48,7 +50,6 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Dispatched Order"),
         "editYourProfile":
             MessageLookupByLibrary.simpleMessage("Edit your profile"),
-        "enterOTP": MessageLookupByLibrary.simpleMessage("Enter OTP"),
         "enterPhoneNumber":
             MessageLookupByLibrary.simpleMessage("Enter Phone Number"),
         "enterSAPCode": MessageLookupByLibrary.simpleMessage("Enter SAP Code"),
@@ -57,7 +58,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "faqs": MessageLookupByLibrary.simpleMessage("FAQs"),
         "favourite": MessageLookupByLibrary.simpleMessage("Favourite"),
         "forgotPin": MessageLookupByLibrary.simpleMessage("Forgot pin?"),
-        "getOTP": MessageLookupByLibrary.simpleMessage("Get OTP"),
         "hello": MessageLookupByLibrary.simpleMessage("Hello,"),
         "hiWithName": m2,
         "home": MessageLookupByLibrary.simpleMessage("Home"),
@@ -88,8 +88,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "refresh": MessageLookupByLibrary.simpleMessage("Refresh"),
         "remainingCredit":
             MessageLookupByLibrary.simpleMessage("Remaining Credit"),
-        "resendOtp": MessageLookupByLibrary.simpleMessage("Resend OTP"),
-        "resendOtpIn": MessageLookupByLibrary.simpleMessage("Resend OTP in"),
+        "resendOtp": MessageLookupByLibrary.simpleMessage("Resend Astral code"),
         "rupees": MessageLookupByLibrary.simpleMessage("₹"),
         "sPMobileNumber":
             MessageLookupByLibrary.simpleMessage("SP Mobile Number"),
@@ -105,8 +104,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "somethingWentWrongPleaseConnectWithInternetToUseApplication":
             MessageLookupByLibrary.simpleMessage(
                 "Something went wrong, Please connect with Internet to use Application."),
-        "theEnteredOtpIsInvalid":
-            MessageLookupByLibrary.simpleMessage("The entered OTP is invalid."),
+        "theEnteredOtpIsInvalid": MessageLookupByLibrary.simpleMessage(
+            "The entered Astral code is invalid."),
         "totalOrder": MessageLookupByLibrary.simpleMessage("Total Order"),
         "unauthorizedPendingOrder":
             MessageLookupByLibrary.simpleMessage("Unauthorized Pending Order"),
@@ -120,7 +119,6 @@ class MessageLookup extends MessageLookupByLibrary {
             "Please Enter a Valid Phone Number"),
         "verify": MessageLookupByLibrary.simpleMessage("Verify"),
         "verifyPin": MessageLookupByLibrary.simpleMessage("Verify Pin"),
-        "weSentOtpOn": MessageLookupByLibrary.simpleMessage("We sent OTP on"),
         "welcomeToAstral":
             MessageLookupByLibrary.simpleMessage("Welcome To Astral"),
         "wereDownForMaintenanceNWillBeBackSoon":
