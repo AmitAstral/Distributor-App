@@ -88,6 +88,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "refresh": MessageLookupByLibrary.simpleMessage("Refresh"),
         "remainingCredit":
             MessageLookupByLibrary.simpleMessage("Remaining Credit"),
+        "reports": MessageLookupByLibrary.simpleMessage("Reports"),
         "resendOtp": MessageLookupByLibrary.simpleMessage("Resend Astral code"),
         "rupees": MessageLookupByLibrary.simpleMessage("₹"),
         "sPMobileNumber":

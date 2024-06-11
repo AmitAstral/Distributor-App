@@ -11,6 +11,7 @@ import 'package:distributor_empower/presentation/home/components/order_details_w
 import 'package:distributor_empower/presentation/home/components/sales_chart_widget.dart';
 import 'package:distributor_empower/presentation/home/provider/home_provider.dart';
 import 'package:distributor_empower/presentation/home/screen/home_shimmer_effect_widget.dart';
+import 'package:distributor_empower/routes/router.dart';
 import 'package:distributor_empower/widgets/cache_network_image_widget.dart';
 import 'package:distributor_empower/utils/text_styles.dart';
 import 'package:distributor_empower/widgets/custom_app_bar/app_bar.dart';
@@ -71,7 +72,9 @@ class _HomeScreenState extends State<HomeScreen> {
     return AppBarWidget(
       titleSpacing: 10.w,
       leading: GestureDetector(
-          onTap: () {},
+          onTap: () {
+            appRouter.push(const ReportRoute());
+          },
           child: FittedBox(
             child: Container(
               width: 40.w,

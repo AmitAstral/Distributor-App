@@ -76,8 +76,8 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const OrderHistoryScreen(),
       );
     },
-    OtpRoute.name: (routeData) {
-      final args = routeData.argsAs<OtpRouteArgs>();
+    OtpVerificationRoute.name: (routeData) {
+      final args = routeData.argsAs<OtpVerificationRouteArgs>();
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: OtpVerificationScreen(
@@ -97,6 +97,12 @@ abstract class _$AppRouter extends RootStackRouter {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const QuickOrderScreen(),
+      );
+    },
+    ReportRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const ReportScreen(),
       );
     },
     SetPinRoute.name: (routeData) {
@@ -297,15 +303,15 @@ class OrderHistoryRoute extends PageRouteInfo<void> {
 
 /// generated route for
 /// [OtpVerificationScreen]
-class OtpRoute extends PageRouteInfo<OtpRouteArgs> {
-  OtpRoute({
+class OtpVerificationRoute extends PageRouteInfo<OtpVerificationRouteArgs> {
+  OtpVerificationRoute({
     OTPVerificationType? screenType,
     required String sentOTP,
     Key? key,
     List<PageRouteInfo>? children,
   }) : super(
-          OtpRoute.name,
-          args: OtpRouteArgs(
+          OtpVerificationRoute.name,
+          args: OtpVerificationRouteArgs(
             screenType: screenType,
             sentOTP: sentOTP,
             key: key,
@@ -313,13 +319,14 @@ class OtpRoute extends PageRouteInfo<OtpRouteArgs> {
           initialChildren: children,
         );
 
-  static const String name = 'OtpRoute';
+  static const String name = 'OtpVerificationRoute';
 
-  static const PageInfo<OtpRouteArgs> page = PageInfo<OtpRouteArgs>(name);
+  static const PageInfo<OtpVerificationRouteArgs> page =
+      PageInfo<OtpVerificationRouteArgs>(name);
 }
 
-class OtpRouteArgs {
-  const OtpRouteArgs({
+class OtpVerificationRouteArgs {
+  const OtpVerificationRouteArgs({
     this.screenType,
     required this.sentOTP,
     this.key,
@@ -333,7 +340,7 @@ class OtpRouteArgs {
 
   @override
   String toString() {
-    return 'OtpRouteArgs{screenType: $screenType, sentOTP: $sentOTP, key: $key}';
+    return 'OtpVerificationRouteArgs{screenType: $screenType, sentOTP: $sentOTP, key: $key}';
   }
 }
 
@@ -361,6 +368,20 @@ class QuickOrderRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'QuickOrderRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [ReportScreen]
+class ReportRoute extends PageRouteInfo<void> {
+  const ReportRoute({List<PageRouteInfo>? children})
+      : super(
+          ReportRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'ReportRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }

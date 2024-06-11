@@ -4,7 +4,7 @@ import 'package:distributor_empower/constants/all_constants.dart';
 import 'package:distributor_empower/core/di/locator.dart';
 import 'package:distributor_empower/generated/l10n.dart';
 import 'package:distributor_empower/model/base/api_req_data.dart';
-import 'package:distributor_empower/presentation/authentication/otp/otp_screen.dart';
+import 'package:distributor_empower/presentation/authentication/otp/otp_verification_screen.dart';
 import 'package:distributor_empower/presentation/authentication/pin/provider/set_pin_type.dart';
 import 'package:distributor_empower/presentation/authentication/pin/provider/user_pin_provider.dart';
 import 'package:distributor_empower/routes/router.dart';
@@ -83,7 +83,7 @@ class VerifyPinScreen extends StatelessWidget {
                             ).addGesture(
                               () {
                                 appRouter.push(
-                                  OtpRoute(
+                                  OtpVerificationRoute(
                                     sentOTP: '',
                                     screenType: OTPVerificationType.forgotPin,
                                   ),
