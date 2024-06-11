@@ -3,6 +3,7 @@ import 'package:distributor_empower/constants/all_constants.dart';
 import 'package:distributor_empower/core/di/locator.dart';
 import 'package:distributor_empower/gen/assets.gen.dart';
 import 'package:distributor_empower/generated/l10n.dart';
+import 'package:distributor_empower/model/dashboard_response.dart';
 import 'package:distributor_empower/presentation/dashboard/provider/bottombar_navigation_provider.dart';
 import 'package:distributor_empower/presentation/home/components/credit_aging_widget.dart';
 import 'package:distributor_empower/presentation/home/components/credit_details_widget.dart';
@@ -125,34 +126,58 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget _buildHomeGraphs() {
     return SmartRefresherWidget(
-        controller: _refreshController,
-        onRefresh: _onRefresh,
-        child: SingleChildScrollView(
-          scrollDirection: Axis.vertical,
-          child: Column(
-            children: [
-              SalesChartWidget(
-                _homeProvider.dashboardData?.sales,
-                title: _homeProvider.dashboardData?.salesTitle,
+      controller: _refreshController,
+      onRefresh: _onRefresh,
+      child: (_homeProvider.dashboardData?.isEmpty ?? true)
+          ? Center(
+              child: Text(
+                AppLocalizations.current.noDataFound,
+                style: TextStyles.semiBold16.copyWith(
+                  color: AppColor.textSecondary,
+                ),
               ),
-              CreditDetailsWidget(
-                _homeProvider.dashboardData?.creditDetails,
-                title: _homeProvider.dashboardData?.creditDetailsTitle,
-              ),
-              OrderDetailsWidget(
-                _homeProvider.dashboardData?.orderDetails,
-                title: _homeProvider.dashboardData?.orderDetailsTitle,
-              ),
-              FocusProductWidget(
-                _homeProvider.dashboardData?.focusProduct,
-                title: _homeProvider.dashboardData?.focusDetailsTitle ?? '',
-              ),
-              CreditAgingWidget(
-                _homeProvider.dashboardData?.creditAging,
-                title: _homeProvider.dashboardData?.creditAgeingTitle ?? '',
-              ),
-            ],
-          ),
-        ));
+            )
+          : ListView.builder(
+              itemCount: _homeProvider.dashboardData?.length ?? 0,
+              itemBuilder: (context, index) {
+                return getViewWidget(_homeProvider.dashboardData?[index]);
+              },
+            ),
+    );
+  }
+
+  Widget getViewWidget(DashboardResponse? dashboardData) {
+    switch (dashboardData?.getViewType) {
+      case DashboardViewType.sales:
+        return SalesChartWidget(
+          dashboardData?.sales,
+          title: dashboardData?.title,
+        );
+      case DashboardViewType.creditDetails:
+        return CreditDetailsWidget(
+          dashboardData?.creditDetails,
+          title: dashboardData?.title,
+        );
+
+      case DashboardViewType.orderDetails:
+        return OrderDetailsWidget(
+          dashboardData?.orderDetail,
+          title: dashboardData?.title,
+        );
+
+      case DashboardViewType.focusProduct:
+        return FocusProductWidget(
+          dashboardData?.focusProduct,
+          title: dashboardData?.title ?? '',
+        );
+
+      case DashboardViewType.creditAging:
+        return CreditAgingWidget(
+          dashboardData?.creditAging,
+          title: dashboardData?.title ?? '',
+        );
+      default:
+        return const SizedBox.shrink();
+    }
   }
 }

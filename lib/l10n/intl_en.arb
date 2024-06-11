@@ -72,5 +72,6 @@
   "authorizedPendingOrder": "Authorized pending Order",
   "unauthorizedPendingOrder": "Unauthorized Pending Order",
   "amountInLacs": "* amount in lacs",
-  "reports": "Reports"
+  "reports": "Reports",
+  "noDataFound": "No data found"
 }

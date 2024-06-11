@@ -9,7 +9,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
 class CreditAgingWidget extends StatefulWidget {
-  final List<CreditAging>? creditAging;
+  final CreditAgingData? creditAging;
   final String title;
 
   const CreditAgingWidget(this.creditAging, {super.key, required this.title});
@@ -21,7 +21,7 @@ class CreditAgingWidget extends StatefulWidget {
 class _CreditAgingWidgetState extends State<CreditAgingWidget> {
   int touchedIndex = -1;
 
-  List<CreditAging> get getCreditAging => widget.creditAging ?? <CreditAging>[];
+  List<CreditAging> get getCreditAging => (widget.creditAging?.list ?? <CreditAging>[]);
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +67,7 @@ class _CreditAgingWidgetState extends State<CreditAgingWidget> {
                 Opacity(
                   opacity: 0.50,
                   child: Text(
-                    AppLocalizations.of(context).amountInLacs,
+                    widget.creditAging?.amountLabel ?? '',
                     textAlign: TextAlign.center,
                     style: googleFontPoppins.copyWith(
                       fontWeight: GoogleFontWeight.regular,

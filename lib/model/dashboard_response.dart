@@ -1,257 +1,305 @@
+import 'dart:ui';
+
 import 'package:distributor_empower/model/base/base_model.dart';
 import 'package:distributor_empower/utils/extensions.dart';
-import 'package:flutter/material.dart';
 
 class DashboardResponse extends BaseModel {
+  String? title;
+  String? viewType;
+  dynamic data;
+
   DashboardResponse({
-    this.sales,
-    this.creditDetails,
-    this.orderDetails,
-    this.focusProduct,
-    this.creditAging,
+    this.title,
+    this.viewType,
+    this.data,
   });
 
-  List<Sales>? sales;
-  CreditDetails? creditDetails;
-  OrderDetails? orderDetails;
-  List<FocusProduct>? focusProduct;
-  List<CreditAging>? creditAging;
-  String? salesTitle;
-  String? creditDetailsTitle;
-  String? orderDetailsTitle;
-  String? focusDetailsTitle;
-  String? creditAgeingTitle;
+  List<Sales> get sales {
+    try {
+      return data ?? [];
+    } catch (e) {
+      return [];
+    }
+  }
 
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    if (sales != null) {
-      map['Sales'] = sales?.map((v) => v.toJson()).toList();
+  CreditDetails get creditDetails {
+    try {
+      return data ?? CreditDetails();
+    } catch (e) {
+      return CreditDetails();
     }
-    if (creditDetails != null) {
-      map['CreditDetails'] = creditDetails?.toJson();
+  }
+
+  List<OrderDetail> get orderDetail {
+    try {
+      return data ?? [];
+    } catch (e) {
+      return [];
     }
-    if (orderDetails != null) {
-      map['OrderDetails'] = orderDetails?.toJson();
+  }
+
+  List<FocusProduct> get focusProduct {
+    try {
+      return data ?? [];
+    } catch (e) {
+      return [];
     }
-    if (focusProduct != null) {
-      map['FocusProduct'] = focusProduct?.map((v) => v.toJson()).toList();
+  }
+
+  CreditAgingData get creditAging {
+    try {
+      return data ?? CreditAgingData();
+    } catch (e) {
+      return CreditAgingData();
     }
-    if (creditAging != null) {
-      map['CreditAging'] = creditAging?.map((v) => v.toJson()).toList();
+  }
+
+  DashboardViewType get getViewType {
+    try {
+      return DashboardViewType.values.byName((viewType ?? 'none'));
+    } catch (e) {
+      return DashboardViewType.none;
     }
-    return map;
   }
 
   @override
   DashboardResponse fromJson(Map<String, dynamic> json) {
-    if (json['Sales'] != null) {
-      sales = [];
-      json['Sales'].forEach((v) {
-        sales?.add(Sales.fromJson(v));
-      });
-    }
-    creditDetails = json['CreditDetails'] != null ? CreditDetails.fromJson(json['CreditDetails']) : null;
-    orderDetails = json['OrderDetails'] != null ? OrderDetails.fromJson(json['OrderDetails']) : null;
-    if (json['FocusProduct'] != null) {
-      focusProduct = [];
-      json['FocusProduct'].forEach((v) {
-        focusProduct?.add(FocusProduct.fromJson(v));
-      });
-    }
-    if (json['CreditAging'] != null) {
-      creditAging = [];
-      json['CreditAging'].forEach((v) {
-        creditAging?.add(CreditAging.fromJson(v));
-      });
-    }
+    final obj = DashboardResponse(
+      title: json['Title'],
+      viewType: json['ViewType'] ?? '',
+    );
 
-    salesTitle = json['SalesTitle'] ?? '';
-    creditDetailsTitle = json['CreditDetailTitle'] ?? '';
-    orderDetailsTitle = json['OrderDetailTitle'] ?? '';
-    focusDetailsTitle = json['FocusProductTitle'] ?? '';
-    creditAgeingTitle = json['CreditAgingTitle'] ?? '';
-    return this;
+    final data = json['Data'];
+
+    switch (obj.getViewType) {
+      case DashboardViewType.sales:
+        obj.data = List<Sales>.from(data.map((x) => Sales.fromJson(x)));
+      case DashboardViewType.creditDetails:
+        obj.data = CreditDetails.fromJson(data);
+      case DashboardViewType.orderDetails:
+        obj.data = List<OrderDetail>.from(data.map((x) => OrderDetail.fromJson(x)));
+      case DashboardViewType.focusProduct:
+        obj.data = List<FocusProduct>.from(data.map((x) => FocusProduct.fromJson(x)));
+      case DashboardViewType.creditAging:
+        obj.data = CreditAgingData.fromJson(data);
+      default:
+        obj.data = data;
+    }
+    return obj;
   }
 }
 
-class CreditAging {
-  CreditAging({
-    this.label,
-    this.value,
-  });
-
-  CreditAging.fromJson(dynamic json) {
-    label = json['Label'];
-    value = json['Value'];
-  }
-
-  String? label;
-  String? value;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['Label'] = label;
-    map['Value'] = value;
-    return map;
-  }
+enum DashboardViewType {
+  sales,
+  creditDetails,
+  orderDetails,
+  focusProduct,
+  creditAging,
+  none;
 }
 
-class FocusProduct {
-  FocusProduct({
-    this.id,
-    this.title,
-    this.rate,
-    this.productImage,
-    this.gst,
-    this.sapcode,
-    this.unit,
-    this.packSize,
-    this.cartonQty,
+class Sales {
+  String year;
+  String monthNumber;
+  String monthName;
+  double netTotalSales;
+
+  Sales({
+    required this.year,
+    required this.monthNumber,
+    required this.monthName,
+    required this.netTotalSales,
   });
 
-  FocusProduct.fromJson(dynamic json) {
-    id = json['Id'];
-    title = json['Title'];
-    rate = json['Rate'];
-    productImage = json['ProductImage'];
-    gst = json['Gst'];
-    sapcode = json['sapcode'];
-    unit = json['unit'];
-    packSize = json['pack_size'];
-    cartonQty = json['CartonQty'];
+  factory Sales.fromJson(Map<String, dynamic> json) {
+    return Sales(
+      year: json['Year'],
+      monthNumber: json['MonthNumber'],
+      monthName: json['MonthName'],
+      netTotalSales: double.tryParse(json['Net_Total_Sales'] ?? '0') ?? 0,
+    );
   }
-
-  String? id;
-  String? title;
-  String? rate;
-  String? productImage;
-  String? gst;
-  String? sapcode;
-  String? unit;
-  String? packSize;
-  String? cartonQty;
 
   Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['Id'] = id;
-    map['Title'] = title;
-    map['Rate'] = rate;
-    map['ProductImage'] = productImage;
-    map['Gst'] = gst;
-    map['sapcode'] = sapcode;
-    map['unit'] = unit;
-    map['pack_size'] = packSize;
-    map['CartonQty'] = cartonQty;
-    return map;
-  }
-}
-
-class OrderDetails {
-  OrderDetails({
-    this.totalOrder,
-    this.dispatchedOrder,
-    this.authorizedPendingOrder,
-    this.unAuthorizedPendingOrder,
-    this.percentageDispatched = 0,
-    this.percentageAuthorizedPending = 0,
-    this.percentageUnAuthorizedPending = 0,
-    this.colorDispatched,
-    this.colorAuthorizedPending,
-    this.colorUnAuthorizedPending,
-  });
-
-  OrderDetails.fromJson(dynamic json) {
-    totalOrder = json['TotalOrder'];
-    dispatchedOrder = json['DispatchedOrder'];
-    authorizedPendingOrder = json['AuthorizedPendingOrder'];
-    unAuthorizedPendingOrder = json['UnAuthorizedPendingOrder'];
-    percentageDispatched = double.tryParse(json['PercentageDispatched'] ?? '0') ?? 0;
-    percentageAuthorizedPending = double.tryParse(json['PercentageAuthorizedPending'] ?? '0') ?? 0;
-    percentageUnAuthorizedPending = double.tryParse(json['PercentageUnAuthorizedPending'] ?? '0') ?? 0;
-    colorDispatched = json['ColorDispatched'].toString().getColorFromColorString;
-    colorAuthorizedPending = json['ColorAuthorizedPending'].toString().getColorFromColorString;
-    colorUnAuthorizedPending = json['ColorUnAuthorizedPending'].toString().getColorFromColorString;
-  }
-
-  String? totalOrder;
-  String? dispatchedOrder;
-  String? authorizedPendingOrder;
-  String? unAuthorizedPendingOrder;
-  double percentageDispatched = 0;
-  double percentageAuthorizedPending = 0;
-  double percentageUnAuthorizedPending = 0;
-  Color? colorDispatched;
-  Color? colorAuthorizedPending;
-  Color? colorUnAuthorizedPending;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['TotalOrder'] = totalOrder;
-    map['DispatchedOrder'] = dispatchedOrder;
-    map['AuthorizedPendingOrder'] = authorizedPendingOrder;
-    map['UnAuthorizedPendingOrder'] = unAuthorizedPendingOrder;
-    map['PercentageDispatched'] = percentageDispatched;
-    map['PercentageAuthorizedPending'] = percentageAuthorizedPending;
-    map['PercentageUnAuthorizedPending'] = percentageUnAuthorizedPending;
-    map['ColorDispatched'] = colorDispatched;
-    map['ColorAuthorizedPending'] = colorAuthorizedPending;
-    map['ColorUnAuthorizedPending'] = colorUnAuthorizedPending;
-    return map;
+    return {
+      'Year': year,
+      'MonthNumber': monthNumber,
+      'MonthName': monthName,
+      'Net_Total_Sales': netTotalSales,
+    };
   }
 }
 
 class CreditDetails {
-  CreditDetails({
-    this.creditLimit,
-    this.usedCredit,
-    this.remainingCredit,
-    this.remainingPercentage,
-  });
-
-  CreditDetails.fromJson(dynamic json) {
-    creditLimit = json['CreditLimit'];
-    usedCredit = json['UsedCredit'];
-    remainingCredit = json['RemainingCredit'];
-    remainingPercentage = double.tryParse(json['RemainingPercentage'] ?? '0') ?? 0;
-  }
-
-  String? creditLimit;
-  String? usedCredit;
   String? remainingCredit;
   double? remainingPercentage;
+  List<Tile>? tiles;
+
+  CreditDetails({
+    this.remainingCredit,
+    this.remainingPercentage,
+    this.tiles,
+  });
+
+  factory CreditDetails.fromJson(Map<String, dynamic> json) {
+    return CreditDetails(
+      remainingCredit: json['RemainingCredit'],
+      remainingPercentage: double.tryParse(json['RemainingPercentage'] ?? '0') ?? 0,
+      tiles: List<Tile>.from(json['tiles'].map((x) => Tile.fromJson(x))),
+    );
+  }
 
   Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['CreditLimit'] = creditLimit;
-    map['UsedCredit'] = usedCredit;
-    map['RemainingCredit'] = remainingCredit;
-    map['RemainingPercentage'] = remainingPercentage;
-    return map;
+    return {
+      'RemainingCredit': remainingCredit,
+      'RemainingPercentage': remainingPercentage,
+      /*'tiles': List<dynamic>.from(tiles?.map((x) => x.toJson())),*/
+    };
   }
 }
 
-class Sales {
-  Sales({
-    this.monthNumber,
-    this.monthName,
-    this.netTotalSales,
+class Tile {
+  String label;
+  String value;
+
+  Tile({
+    required this.label,
+    required this.value,
   });
 
-  Sales.fromJson(dynamic json) {
-    monthNumber = json['MonthNumber'] ?? '';
-    monthName = json['MonthName'] ?? '';
-    netTotalSales = double.tryParse(json['Net_Total_Sales']) ?? 0;
+  factory Tile.fromJson(Map<String, dynamic> json) {
+    return Tile(
+      label: json['Label'],
+      value: json['Value'],
+    );
   }
 
-  String? monthNumber;
-  String? monthName;
-  double? netTotalSales;
+  Map<String, dynamic> toJson() {
+    return {
+      'Label': label,
+      'Value': value,
+    };
+  }
+}
+
+class OrderDetail {
+  String? label;
+  String? value;
+  double? percentageValue;
+  Color? colorCode;
+
+  OrderDetail({
+    this.label,
+    this.value,
+    this.percentageValue,
+    this.colorCode,
+  });
+
+  factory OrderDetail.fromJson(Map<String, dynamic> json) {
+    return OrderDetail(
+      label: json['Label'],
+      value: json['Value'],
+      percentageValue: double.tryParse(json['PercentageValue'] ?? '0') ?? 0,
+      colorCode: (json['ColorCode'] ?? '').toString().getColorFromColorString,
+    );
+  }
 
   Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['MonthNumber'] = monthNumber;
-    map['MonthName'] = monthName;
-    map['Net_Total_Sales'] = netTotalSales;
-    return map;
+    return {
+      'Label': label,
+      'Value': value,
+      'PercentageValue': percentageValue,
+      'ColorCode': colorCode,
+    };
+  }
+}
+
+class FocusProduct {
+  String id;
+  String title;
+  String rate;
+  String productImage;
+  String gst;
+  String sapcode;
+  String unit;
+  String packSize;
+  String cartonQty;
+
+  FocusProduct({
+    required this.id,
+    required this.title,
+    required this.rate,
+    required this.productImage,
+    required this.gst,
+    required this.sapcode,
+    required this.unit,
+    required this.packSize,
+    required this.cartonQty,
+  });
+
+  factory FocusProduct.fromJson(Map<String, dynamic> json) {
+    return FocusProduct(
+      id: json['Id'],
+      title: json['Title'],
+      rate: json['Rate'],
+      productImage: json['ProductImage'],
+      gst: json['Gst'],
+      sapcode: json['sapcode'],
+      unit: json['unit'],
+      packSize: json['pack_size'],
+      cartonQty: json['CartonQty'],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'Id': id,
+      'Title': title,
+      'Rate': rate,
+      'ProductImage': productImage,
+      'Gst': gst,
+      'sapcode': sapcode,
+      'unit': unit,
+      'pack_size': packSize,
+      'CartonQty': cartonQty,
+    };
+  }
+}
+
+class CreditAgingData {
+  String? amountLabel;
+  List<CreditAging>? list;
+
+  CreditAgingData({this.amountLabel, this.list});
+
+  factory CreditAgingData.fromJson(Map<String, dynamic> json) {
+    return CreditAgingData(
+      amountLabel: json['GraphLabel'],
+      list: List<CreditAging>.from(json['tiles'].map((x) => CreditAging.fromJson(x))),
+    );
+  }
+}
+
+class CreditAging {
+  String label;
+  String value;
+
+  CreditAging({
+    required this.label,
+    required this.value,
+  });
+
+  factory CreditAging.fromJson(Map<String, dynamic> json) {
+    return CreditAging(
+      label: json['Label'],
+      value: json['Value'],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'Label': label,
+      'Value': value,
+    };
   }
 }

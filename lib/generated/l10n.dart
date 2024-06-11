@@ -789,6 +789,16 @@ class AppLocalizations {
       args: [],
     );
   }
+
+  /// `No data found`
+  String get noDataFound {
+    return Intl.message(
+      'No data found',
+      name: 'noDataFound',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<AppLocalizations> {

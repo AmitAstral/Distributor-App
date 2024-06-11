@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 
 class HomeProvider extends BaseProvider {
   bool isLoading = false;
-  DashboardResponse? dashboardData;
+  List<DashboardResponse?>? dashboardData;
 
   Future<void> callGetDashboardAPI() async {
     isLoading = true;
@@ -14,7 +14,7 @@ class HomeProvider extends BaseProvider {
       dashboardData = null;
       final response = await apiRep.getDashboard(ApiReqData.getUserDetails, onApiError);
       if (response.getIsSuccess && response.getData != null) {
-        dashboardData = response.getData;
+        dashboardData = response.dataList;
       }
     } catch (e, stack) {
       debugPrintStack(stackTrace: stack);

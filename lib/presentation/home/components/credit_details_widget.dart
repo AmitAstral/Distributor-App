@@ -1,7 +1,7 @@
 import 'package:distributor_empower/constants/all_constants.dart';
 import 'package:distributor_empower/generated/l10n.dart';
 import 'package:distributor_empower/model/dashboard_response.dart';
-import 'package:distributor_empower/utils/extensions.dart';
+import 'package:distributor_empower/utils/text_styles.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -17,7 +17,6 @@ class CreditDetailsWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 1.sw,
-      height: 145.h,
       margin: EdgeInsets.symmetric(horizontal: 10.w, vertical: 6.h),
       padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 8.w),
       decoration: ShapeDecoration(
@@ -52,6 +51,7 @@ class CreditDetailsWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              10.horizontalSpace,
               Expanded(
                 // flex: 4,
                 child: SizedBox(
@@ -123,12 +123,10 @@ class CreditDetailsWidget extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              AppLocalizations.of(context).creditLeftWithAmount((creditDetails?.remainingCredit ?? '').formatWithCurrency),
-                              style: googleFontMontserrat.copyWith(
-                                fontWeight: GoogleFontWeight.regular,
-                                fontSize: 9.sp,
-                                color: AppColor.hintTextColor,
+                              AppLocalizations.of(context).creditLeftWithAmount(
+                                (creditDetails?.remainingCredit ?? ''),
                               ),
+                              style: TextStyles.regular9.copyWith(color: AppColor.hintTextColor),
                             ),
                           ],
                         ),
@@ -137,91 +135,33 @@ class CreditDetailsWidget extends StatelessWidget {
                   ),
                 ),
               ),
-              15.horizontalSpace,
+              30.horizontalSpace,
               Expanded(
-                // flex: 4,
-                child: Padding(
-                  padding: EdgeInsets.only(left: 10.55.w),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Column(
+                child: SizedBox(
+                  width: 105.w,
+                  child: ListView.builder(
+                    itemCount: creditDetails?.tiles?.length ?? 0,
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      final item = creditDetails?.tiles?[index];
+                      return Column(
                         mainAxisSize: MainAxisSize.min,
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            AppLocalizations.of(context).creditLimit,
-                            style: googleFontPoppins.copyWith(
-                              fontWeight: GoogleFontWeight.medium,
-                              fontSize: 10.sp,
-                              color: const Color(0xFF7E7E7E),
-                            ),
+                            item?.label ?? '',
+                            style: TextStyles.semiBold10.copyWith(color: AppColor.lightGrey),
                           ),
                           Text(
-                            (creditDetails?.creditLimit ?? '').formatWithCurrency,
-                            style: googleFontMontserrat.copyWith(
-                              fontWeight: GoogleFontWeight.semiBold,
-                              fontSize: 13.sp,
-                              color: const Color(0xFF333333),
-                              height: 0,
-                            ),
+                            item?.value ?? '0',
+                            style: TextStyles.semiBold13.copyWith(color: AppColor.hintTextColor),
+                            overflow: TextOverflow.ellipsis,
                           ),
+                          5.verticalSpace,
                         ],
-                      ),
-                      SizedBox(height: 8.h),
-                      Column(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            AppLocalizations.of(context).usedCredit,
-                            style: googleFontPoppins.copyWith(
-                              fontWeight: GoogleFontWeight.medium,
-                              fontSize: 10.sp,
-                              color: const Color(0xFF7E7E7E),
-                            ),
-                          ),
-                          Text(
-                            (creditDetails?.usedCredit ?? '').formatWithCurrency,
-                            style: googleFontMontserrat.copyWith(
-                              fontWeight: GoogleFontWeight.semiBold,
-                              fontSize: 13.sp,
-                              color: const Color(0xFF333333),
-                              height: 0,
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 8.h),
-                      Column(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            AppLocalizations.of(context).remainingCredit,
-                            style: googleFontPoppins.copyWith(
-                              fontWeight: GoogleFontWeight.medium,
-                              fontSize: 10.sp,
-                              color: const Color(0xFF7E7E7E),
-                            ),
-                          ),
-                          Text(
-                            (creditDetails?.remainingCredit ?? '').formatWithCurrency,
-                            style: googleFontMontserrat.copyWith(
-                              fontWeight: GoogleFontWeight.semiBold,
-                              fontSize: 13.sp,
-                              color: const Color(0xFF333333),
-                              height: 0,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
+                      );
+                    },
                   ),
                 ),
               ),

@@ -16,7 +16,7 @@ extension StrExtensions on String? {
 
   num get parseToNum => int.tryParse(this ?? '0') ?? double.tryParse(this ?? '0') ?? 0;
 
-  Color get getColorFromColorString => HexColor.fromHex(this ?? '#fff');
+  Color get getColorFromColorString => HexColor.fromHex(ifBlank ?? '#fff');
 
   String get removeTrailingZeros {
     String formattedNumber = (double.tryParse(this ?? '0') ?? 0).toStringAsFixed(2); // Convert to string with 2 decimal places

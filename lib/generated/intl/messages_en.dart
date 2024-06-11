@@ -73,6 +73,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "newUpdateIsAvailable":
             MessageLookupByLibrary.simpleMessage("New update is available"),
         "no": MessageLookupByLibrary.simpleMessage("No"),
+        "noDataFound": MessageLookupByLibrary.simpleMessage("No data found"),
         "noInternetConnection":
             MessageLookupByLibrary.simpleMessage("No internet connection"),
         "offer": MessageLookupByLibrary.simpleMessage("Offer"),
