@@ -3,10 +3,12 @@ import 'package:distributor_empower/core/di/locator.dart';
 import 'package:distributor_empower/gen/assets.gen.dart';
 import 'package:distributor_empower/generated/l10n.dart';
 import 'package:distributor_empower/presentation/dashboard/provider/bottombar_navigation_provider.dart';
+import 'package:distributor_empower/presentation/home/provider/home_provider.dart';
 import 'package:distributor_empower/routes/router.dart';
 import 'package:distributor_empower/utils/common_dialog.dart';
 import 'package:distributor_empower/utils/extensions.dart';
 import 'package:distributor_empower/utils/text_styles.dart';
+import 'package:distributor_empower/widgets/cache_network_image_widget.dart';
 import 'package:distributor_empower/widgets/profile_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -20,17 +22,6 @@ class DrawerScreen extends StatefulWidget {
 
 class _DrawerScreenState extends State<DrawerScreen> {
   int currentIndex = 0;
-
-  List<dynamic> menuList = [
-    {"name": "Home", "icon": Icons.home},
-    {"name": "Profile", "icon": Icons.person_outline_rounded},
-    {"name": "Schemes", "icon": Icons.account_tree_outlined},
-    {"name": "My Orders", "icon": Icons.currency_rupee_sharp},
-    {"name": "Analytics", "icon": Icons.shopping_cart_outlined},
-    {"name": "Price List", "icon": Icons.add_shopping_cart_sharp},
-    {"name": "Knowledge Gallery", "icon": Icons.lightbulb_outlined},
-    {"name": "We Care", "icon": Icons.account_circle_outlined},
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -110,14 +101,15 @@ class _DrawerScreenState extends State<DrawerScreen> {
               Expanded(
                 child: ListView.builder(
                     shrinkWrap: true,
-                    itemCount: menuList.length,
+                    itemCount: menuListData?.length ?? 0,
                     itemBuilder: (context, index) {
+                      final item = menuListData?[index];
                       return InkWell(
                         onTap: () {
                           setState(() {
                             currentIndex = index;
                           });
-                          _drawerNavigation();
+                          _drawerNavigation(item?.id);
                         },
                         child: Container(
                           width: 1.sw,
@@ -139,14 +131,14 @@ class _DrawerScreenState extends State<DrawerScreen> {
                             children: [
                               Container(
                                 padding: EdgeInsets.only(left: 8.w, right: 25.w),
-                                child: Icon(
-                                  menuList[index]["icon"],
+                                child: CachedNetworkImageWidget(
+                                  imageUrl: item?.iconsUrl ?? '',
                                   color: AppColor.white,
                                 ),
                               ),
                               Expanded(
                                 child: Text(
-                                  menuList[index]["name"],
+                                  item?.menuName ?? '',
                                   style: TextStyles.semiBold15,
                                 ),
                               ),
@@ -198,33 +190,37 @@ class _DrawerScreenState extends State<DrawerScreen> {
     );
   }
 
-  void _drawerNavigation() {
-    switch (currentIndex) {
-      case 0:
+  void _drawerNavigation(String? id) {
+    switch (id) {
+      case '1':
         Navigator.pop(context);
         break;
-      case 1:
+      case '2':
         Navigator.pop(context);
         BottomBarNavigationProvider().setCurrentBottomItem(BottomNavigationEnum.profile);
         break;
-      case 2:
-        // context.router.pushNamed(ProfileScreen.routeName);
+      case '3':
+        Navigator.pop(context);
+        BottomBarNavigationProvider().setCurrentBottomItem(BottomNavigationEnum.offers);
         break;
-      case 3:
+      case '4':
         Navigator.pop(context);
         appRouter.pushNamed(OrderHistoryRoute.name);
         break;
-      case 4:
-        // context.router.pushNamed(ProfileScreen.routeName);
+      case '5':
+        //REPORTS
         break;
-      case 5:
-        // context.router.pushNamed(ProfileScreen.routeName);
+      case '6':
+        //PRICE LIST
         break;
-      case 6:
-        // context.router.pushNamed(ProfileScreen.routeName);
+      case '7':
+        //Knowledge Gallery
         break;
-      case 7:
-        // context.router.pushNamed(ProfileScreen.routeName);
+      case '8':
+        //NEWS
+        break;
+      case '9':
+        //We CARE
         break;
     }
   }

@@ -38,9 +38,8 @@ class BaseResponse<T extends BaseModel?> {
       }
     } else if (rawData is String) {
       baseResponse.dataStr = rawData;
-    } else {
-      baseResponse.actualData = rawData;
     }
+    baseResponse.actualData = rawData;
     return baseResponse;
   }
 }

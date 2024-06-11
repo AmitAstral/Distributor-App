@@ -36,6 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     _homeProvider.callGetDashboardAPI();
+    _homeProvider.callGetMenuList();
     super.initState();
   }
 
