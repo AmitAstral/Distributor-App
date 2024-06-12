@@ -4,7 +4,6 @@ import 'package:distributor_empower/model/dashboard_response.dart';
 import 'package:distributor_empower/utils/extensions.dart';
 import 'package:distributor_empower/utils/text_styles.dart';
 import 'package:distributor_empower/widgets/cache_network_image_widget.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class FocusProductWidget extends StatelessWidget {
@@ -31,11 +30,7 @@ class FocusProductWidget extends StatelessWidget {
               children: [
                 Text(
                   title,
-                  style: googleFontPoppins.copyWith(
-                    fontWeight: GoogleFontWeight.semiBold,
-                    fontSize: 14.sp,
-                    color: const Color(0xFF333333),
-                  ),
+                  style: TextStyles.semiBold14.copyWith(color: AppColor.textSecondary),
                 ),
                 Text(
                   AppLocalizations.current.seeAll,

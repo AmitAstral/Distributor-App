@@ -26,13 +26,15 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m2(name) => "Hi, ${name}";
 
+  static String m3(name) => "SapCode : ${name}";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
+
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "SAPCode": MessageLookupByLibrary.simpleMessage("SAP Code"),
         "aboutUs": MessageLookupByLibrary.simpleMessage("About us"),
         "address": MessageLookupByLibrary.simpleMessage("Address"),
-        "amountInLacs":
-            MessageLookupByLibrary.simpleMessage("* amount in lacs"),
+        "amountInLacs": MessageLookupByLibrary.simpleMessage("* amount in lacs"),
         "amountWithPercentage": m0,
         "astralCode": MessageLookupByLibrary.simpleMessage("Astral code"),
         "authorizedPendingOrder":
@@ -87,25 +89,22 @@ class MessageLookup extends MessageLookupByLibrary {
         "rateUsOnTheAppStore":
             MessageLookupByLibrary.simpleMessage("Rate us on the app store"),
         "refresh": MessageLookupByLibrary.simpleMessage("Refresh"),
-        "remainingCredit":
-            MessageLookupByLibrary.simpleMessage("Remaining Credit"),
+        "remainingCredit": MessageLookupByLibrary.simpleMessage("Remaining Credit"),
         "reports": MessageLookupByLibrary.simpleMessage("Reports"),
         "resendOtp": MessageLookupByLibrary.simpleMessage("Resend Astral code"),
         "rupees": MessageLookupByLibrary.simpleMessage("₹"),
-        "sPMobileNumber":
-            MessageLookupByLibrary.simpleMessage("SP Mobile Number"),
+        "sPMobileNumber": MessageLookupByLibrary.simpleMessage("SP Mobile Number"),
         "sales": MessageLookupByLibrary.simpleMessage("Sales"),
         "sales_person": MessageLookupByLibrary.simpleMessage("Sales Person"),
+        "sapcodeTitle": m3,
         "schemes": MessageLookupByLibrary.simpleMessage("Schemes"),
         "seeAll": MessageLookupByLibrary.simpleMessage("See all"),
         "setPin": MessageLookupByLibrary.simpleMessage("Set Pin"),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
         "shareTheApp": MessageLookupByLibrary.simpleMessage("Share the app"),
-        "somethingWentWrong":
-            MessageLookupByLibrary.simpleMessage("Something went wrong"),
+        "somethingWentWrong": MessageLookupByLibrary.simpleMessage("Something went wrong"),
         "somethingWentWrongPleaseConnectWithInternetToUseApplication":
-            MessageLookupByLibrary.simpleMessage(
-                "Something went wrong, Please connect with Internet to use Application."),
+            MessageLookupByLibrary.simpleMessage("Something went wrong, Please connect with Internet to use Application."),
         "theEnteredOtpIsInvalid": MessageLookupByLibrary.simpleMessage(
             "The entered Astral code is invalid."),
         "totalOrder": MessageLookupByLibrary.simpleMessage("Total Order"),

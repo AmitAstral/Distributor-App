@@ -1,4 +1,4 @@
-import 'package:distributor_empower/utils/device_info.dart';
+import 'package:distributor_empower/core/di/locator.dart';
 
 class ApiReqData {
   int? page;
@@ -126,4 +126,16 @@ class UserInfo {
     }
     return data;
   }
+}
+
+UserInfo get getUserInfo {
+  final userDetails = storage.userDetails;
+  return UserInfo(
+    pageName: appRouter.current.name,
+    mobile: userDetails.distributorMobileNumber,
+    sapCode: userDetails.distributorSapCode,
+    distributorUserID: userDetails.distributorUserID,
+    currentAppVersion: storage.currentAppVersion,
+    token: userDetails.token,
+  );
 }

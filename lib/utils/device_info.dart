@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:distributor_empower/core/di/locator.dart';
-import 'package:distributor_empower/model/base/api_req_data.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:uuid/uuid.dart';
 
@@ -67,16 +66,4 @@ Future<String> getCurrentAppVersion() async {
 Future<String> getAppPackageName() async {
   PackageInfo packageInfo = await PackageInfo.fromPlatform();
   return packageInfo.packageName;
-}
-
-UserInfo get getUserInfo {
-  final userDetails = storage.userDetails;
-  return UserInfo(
-    pageName: appRouter.current.name,
-    mobile: userDetails.distributorMobileNumber,
-    sapCode: userDetails.distributorSapCode,
-    distributorUserID: userDetails.distributorUserID,
-    currentAppVersion: storage.currentAppVersion,
-    token: userDetails.token,
-  );
 }

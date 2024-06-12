@@ -1,7 +1,6 @@
 import 'package:distributor_empower/constants/all_constants.dart';
 import 'package:distributor_empower/generated/l10n.dart';
 import 'package:distributor_empower/model/dashboard_response.dart';
-import 'package:distributor_empower/utils/extensions.dart';
 import 'package:distributor_empower/utils/text_styles.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
@@ -50,11 +49,7 @@ class _OrderDetailsWidgetState extends State<OrderDetailsWidget> {
             padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 8.w),
             child: Text(
               widget.title ?? '',
-              style: googleFontPoppins.copyWith(
-                fontWeight: GoogleFontWeight.semiBold,
-                fontSize: 14.sp,
-                color: const Color(0xFF333333),
-              ),
+              style: TextStyles.semiBold14.copyWith(color: AppColor.textSecondary),
             ),
           ),
           // SizedBox(height: 9.h),

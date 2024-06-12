@@ -1,7 +1,6 @@
 import 'dart:math';
 
 import 'package:distributor_empower/constants/all_constants.dart';
-import 'package:distributor_empower/generated/l10n.dart';
 import 'package:distributor_empower/model/dashboard_response.dart';
 import 'package:distributor_empower/utils/extensions.dart';
 import 'package:distributor_empower/utils/text_styles.dart';

@@ -1,7 +1,6 @@
-import 'dart:ui';
-
 import 'package:distributor_empower/model/base/base_model.dart';
 import 'package:distributor_empower/utils/extensions.dart';
+import 'package:flutter/cupertino.dart';
 
 class DashboardResponse extends BaseModel {
   String? title;
@@ -54,6 +53,14 @@ class DashboardResponse extends BaseModel {
     }
   }
 
+  List<FilterData> get filter {
+    try {
+      return data ?? [];
+    } catch (e) {
+      return [];
+    }
+  }
+
   DashboardViewType get getViewType {
     try {
       return DashboardViewType.values.byName((viewType ?? 'none'));
@@ -69,21 +76,28 @@ class DashboardResponse extends BaseModel {
       viewType: json['ViewType'] ?? '',
     );
 
-    final data = json['Data'];
+    try {
+      final data = json['Data'];
 
-    switch (obj.getViewType) {
-      case DashboardViewType.sales:
-        obj.data = List<Sales>.from(data.map((x) => Sales.fromJson(x)));
-      case DashboardViewType.creditDetails:
-        obj.data = CreditDetails.fromJson(data);
-      case DashboardViewType.orderDetails:
-        obj.data = List<OrderDetail>.from(data.map((x) => OrderDetail.fromJson(x)));
-      case DashboardViewType.focusProduct:
-        obj.data = List<FocusProduct>.from(data.map((x) => FocusProduct.fromJson(x)));
-      case DashboardViewType.creditAging:
-        obj.data = CreditAgingData.fromJson(data);
-      default:
-        obj.data = data;
+      switch (obj.getViewType) {
+        case DashboardViewType.sales:
+          obj.data = List<Sales>.from(data.map((x) => Sales.fromJson(x)));
+        case DashboardViewType.creditDetails:
+          obj.data = CreditDetails.fromJson(data);
+        case DashboardViewType.orderDetails:
+          obj.data = List<OrderDetail>.from(data.map((x) => OrderDetail.fromJson(x)));
+        case DashboardViewType.focusProduct:
+          obj.data = List<FocusProduct>.from(data.map((x) => FocusProduct.fromJson(x)));
+        case DashboardViewType.creditAging:
+          obj.data = CreditAgingData.fromJson(data);
+        case DashboardViewType.filter:
+          obj.data = List<FilterData>.from(data.map((x) => FilterData.fromJson(x)));
+        default:
+          obj.data = data;
+      }
+    } catch (e, stack) {
+      debugPrint(e.toString());
+      debugPrintStack(stackTrace: stack);
     }
     return obj;
   }
@@ -95,6 +109,7 @@ enum DashboardViewType {
   orderDetails,
   focusProduct,
   creditAging,
+  filter,
   none;
 }
 
@@ -301,5 +316,31 @@ class CreditAging {
       'Label': label,
       'Value': value,
     };
+  }
+}
+
+class FilterData {
+  FilterData({
+    this.divisionID,
+    this.label,
+    this.sapCode,
+  });
+
+  FilterData.fromJson(dynamic json) {
+    divisionID = json['DivisionID'];
+    label = json['Label'];
+    sapCode = json['SapCode'];
+  }
+
+  dynamic divisionID;
+  String? label;
+  String? sapCode;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['DivisionID'] = divisionID;
+    map['Label'] = label;
+    map['SapCode'] = sapCode;
+    return map;
   }
 }

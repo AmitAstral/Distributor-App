@@ -1,19 +1,26 @@
 import 'package:distributor_empower/constants/all_constants.dart';
 import 'package:distributor_empower/generated/l10n.dart';
 import 'package:distributor_empower/model/dashboard_response.dart';
+import 'package:distributor_empower/utils/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
-class SalesChartWidget extends StatelessWidget {
+class SalesChartWidget extends StatefulWidget {
   final List<Sales>? sales;
   final String? title;
 
-  SalesChartWidget(this.sales, {super.key, this.title});
+  const SalesChartWidget(this.sales, {super.key, this.title});
 
+  @override
+  State<SalesChartWidget> createState() => _SalesChartWidgetState();
+}
+
+class _SalesChartWidgetState extends State<SalesChartWidget> with AutomaticKeepAliveClientMixin {
   final TooltipBehavior _tooltip = TooltipBehavior(enable: true);
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Container(
       padding: EdgeInsets.only(bottom: 6.h),
       child: Column(
@@ -22,31 +29,19 @@ class SalesChartWidget extends StatelessWidget {
           Padding(
             padding: EdgeInsets.only(left: 10.w, right: 10.w, top: 10.h),
             child: Text(
-              title ?? '',
-              style: googleFontPoppins.copyWith(
-                fontWeight: GoogleFontWeight.semiBold,
-                fontSize: 14.sp,
-                color: const Color(0xFF333333),
-              ),
+              widget.title ?? '',
+              style: TextStyles.semiBold14.copyWith(color: AppColor.textSecondary),
             ),
           ),
           SfCartesianChart(
               plotAreaBorderWidth: 0,
               primaryXAxis: const CategoryAxis(
-                  // edgeLabelPlacement: EdgeLabelPlacement.shift,
-                  //Hide the gridlines of x-axis
                   majorGridLines: MajorGridLines(
                     width: 0,
                   ),
-                  //Hide the axis line of x-axis
                   axisLine: AxisLine(width: 0),
                   labelAlignment: LabelAlignment.center),
-              primaryYAxis: const NumericAxis(
-                  isVisible: false,
-                  //Hide the gridlines of y-axis
-                  majorGridLines: MajorGridLines(width: 0),
-                  //Hide the axis line of y-axis
-                  axisLine: AxisLine(width: 0)),
+              primaryYAxis: const NumericAxis(isVisible: false, majorGridLines: MajorGridLines(width: 0), axisLine: AxisLine(width: 0)),
               tooltipBehavior: _tooltip,
               borderWidth: 0,
               margin: const EdgeInsets.all(0),
@@ -55,7 +50,7 @@ class SalesChartWidget extends StatelessWidget {
                   enableTooltip: true,
                   splineType: SplineType.cardinal,
                   cardinalSplineTension: 1,
-                  dataSource: sales,
+                  dataSource: widget.sales,
                   xValueMapper: (Sales data, _) => data.monthName,
                   yValueMapper: (Sales data, _) => data.netTotalSales,
                   borderColor: const Color(0xFFC3C1FF),
@@ -76,4 +71,7 @@ class SalesChartWidget extends StatelessWidget {
       ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

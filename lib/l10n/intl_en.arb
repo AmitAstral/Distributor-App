@@ -73,5 +73,6 @@
   "unauthorizedPendingOrder": "Unauthorized Pending Order",
   "amountInLacs": "* amount in lacs",
   "reports": "Reports",
-  "noDataFound": "No data found"
+  "noDataFound": "No data found",
+  "sapcodeTitle": "SapCode : {name}"
 }

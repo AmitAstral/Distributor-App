@@ -40,11 +40,7 @@ class CreditDetailsWidget extends StatelessWidget {
         children: [
           Text(
             title ?? '',
-            style: googleFontPoppins.copyWith(
-              fontWeight: GoogleFontWeight.semiBold,
-              fontSize: 14.sp,
-              color: const Color(0xFF333333),
-            ),
+            style: TextStyles.semiBold14.copyWith(color: AppColor.textSecondary),
           ),
           SizedBox(height: 9.h),
           Row(

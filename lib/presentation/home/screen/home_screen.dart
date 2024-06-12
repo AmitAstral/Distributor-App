@@ -7,14 +7,15 @@ import 'package:distributor_empower/model/dashboard_response.dart';
 import 'package:distributor_empower/presentation/dashboard/provider/bottombar_navigation_provider.dart';
 import 'package:distributor_empower/presentation/home/components/credit_aging_widget.dart';
 import 'package:distributor_empower/presentation/home/components/credit_details_widget.dart';
+import 'package:distributor_empower/presentation/home/components/filter_menu_widget.dart';
 import 'package:distributor_empower/presentation/home/components/focus_product_widget.dart';
 import 'package:distributor_empower/presentation/home/components/order_details_widget.dart';
 import 'package:distributor_empower/presentation/home/components/sales_chart_widget.dart';
 import 'package:distributor_empower/presentation/home/provider/home_provider.dart';
 import 'package:distributor_empower/presentation/home/screen/home_shimmer_effect_widget.dart';
 import 'package:distributor_empower/routes/router.dart';
-import 'package:distributor_empower/widgets/cache_network_image_widget.dart';
 import 'package:distributor_empower/utils/text_styles.dart';
+import 'package:distributor_empower/widgets/cache_network_image_widget.dart';
 import 'package:distributor_empower/widgets/custom_app_bar/app_bar.dart';
 import 'package:distributor_empower/widgets/smart_refresher_widget.dart';
 import 'package:flutter/material.dart';
@@ -149,6 +150,14 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget getViewWidget(DashboardResponse? dashboardData) {
     switch (dashboardData?.getViewType) {
+      case DashboardViewType.filter:
+        return FilterMenuWidget(
+          dashboardData?.filter,
+          dashboardData?.title ?? '',
+          (FilterData filterData) {
+            _onRefresh();
+          },
+        );
       case DashboardViewType.sales:
         return SalesChartWidget(
           dashboardData?.sales,
