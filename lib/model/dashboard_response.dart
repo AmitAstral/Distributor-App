@@ -61,13 +61,7 @@ class DashboardResponse extends BaseModel {
     }
   }
 
-  DashboardViewType get getViewType {
-    try {
-      return DashboardViewType.values.byName((viewType ?? 'none'));
-    } catch (e) {
-      return DashboardViewType.none;
-    }
-  }
+  DashboardViewType get getViewType => DashboardViewType.values.byName((viewType.ifBlank ?? 'none'));
 
   @override
   DashboardResponse fromJson(Map<String, dynamic> json) {

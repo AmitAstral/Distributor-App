@@ -20,7 +20,7 @@ class CreditAgingWidget extends StatefulWidget {
 class _CreditAgingWidgetState extends State<CreditAgingWidget> {
   int touchedIndex = -1;
 
-  List<CreditAging> get getCreditAging => (widget.creditAging?.list ?? <CreditAging>[]);
+  List<CreditAging> get getCreditAging => widget.creditAging?.list ?? [];
 
   @override
   Widget build(BuildContext context) {

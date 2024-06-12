@@ -9,10 +9,10 @@ import 'package:distributor_empower/presentation/home/components/credit_aging_wi
 import 'package:distributor_empower/presentation/home/components/credit_details_widget.dart';
 import 'package:distributor_empower/presentation/home/components/filter_menu_widget.dart';
 import 'package:distributor_empower/presentation/home/components/focus_product_widget.dart';
+import 'package:distributor_empower/presentation/home/components/home_shimmer_effect_widget.dart';
 import 'package:distributor_empower/presentation/home/components/order_details_widget.dart';
 import 'package:distributor_empower/presentation/home/components/sales_chart_widget.dart';
 import 'package:distributor_empower/presentation/home/provider/home_provider.dart';
-import 'package:distributor_empower/presentation/home/screen/home_shimmer_effect_widget.dart';
 import 'package:distributor_empower/routes/router.dart';
 import 'package:distributor_empower/utils/text_styles.dart';
 import 'package:distributor_empower/widgets/cache_network_image_widget.dart';
