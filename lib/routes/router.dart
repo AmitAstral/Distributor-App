@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:distributor_empower/presentation/ageing/ageing_screen.dart';
 import 'package:distributor_empower/presentation/authentication/login/login_screen.dart';
 import 'package:distributor_empower/presentation/authentication/otp/otp_verification_screen.dart';
 import 'package:distributor_empower/presentation/authentication/pin/set_pin_screen.dart';
@@ -48,6 +49,7 @@ class AppRouter extends _$AppRouter {
             AutoRoute(page: ReportRoute.page, path: ReportRoute.name),
             AutoRoute(page: PendingOrderRoute.page, path: PendingOrderRoute.name),
             AutoRoute(page: PendingOrderDetailsRoute.page, path: PendingOrderDetailsRoute.name),
+            AutoRoute(page: AgeingRoute.page, path: AgeingRoute.name),
           ],
         ),
         AutoRoute(page: LoginRoute.page),

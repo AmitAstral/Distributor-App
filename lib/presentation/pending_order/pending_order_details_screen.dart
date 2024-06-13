@@ -79,7 +79,7 @@ class _PendingOrderDetailsScreenState extends State<PendingOrderDetailsScreen> {
               margin: const EdgeInsets.only(left: 8).w,
               child: Text(
                 AppLocalizations.of(context).itemName,
-                style: TextStyles.semiBold11,
+                style: TextStyles.semiBold12,
               ),
             ),
           ),
@@ -88,7 +88,7 @@ class _PendingOrderDetailsScreenState extends State<PendingOrderDetailsScreen> {
               padding: const EdgeInsets.all(5),
               child: Text(
                 AppLocalizations.of(context).unit,
-                style: TextStyles.semiBold11,
+                style: TextStyles.semiBold12,
               ),
             ),
           ),
@@ -97,7 +97,7 @@ class _PendingOrderDetailsScreenState extends State<PendingOrderDetailsScreen> {
             padding: const EdgeInsets.all(5),
             child: Text(
               AppLocalizations.of(context).orderQty,
-              style: TextStyles.semiBold11,
+              style: TextStyles.semiBold12,
             ),
           )),
           TableCell(
@@ -106,7 +106,7 @@ class _PendingOrderDetailsScreenState extends State<PendingOrderDetailsScreen> {
               alignment: Alignment.centerRight,
               child: Text(
                 AppLocalizations.of(context).pendingQty,
-                style: TextStyles.semiBold11,
+                style: TextStyles.semiBold12,
               ),
             ),
           ),
@@ -116,7 +116,7 @@ class _PendingOrderDetailsScreenState extends State<PendingOrderDetailsScreen> {
             padding: const EdgeInsets.all(5),
             child: Text(
               AppLocalizations.of(context).pendingAmt,
-              style: TextStyles.semiBold11,
+              style: TextStyles.semiBold12,
             ),
           )),
         ]);
@@ -134,8 +134,8 @@ class _PendingOrderDetailsScreenState extends State<PendingOrderDetailsScreen> {
               alignment: Alignment.centerLeft,
               padding: const EdgeInsets.all(5).h,
               child: Text(
-                'ItemId',
-                style: TextStyles.regular11.copyWith(color: AppColor.textSecondary),
+                'BADCD',
+                style: TextStyles.regular12.copyWith(color: AppColor.textSecondary),
               ),
             ),
           ),
@@ -144,8 +144,8 @@ class _PendingOrderDetailsScreenState extends State<PendingOrderDetailsScreen> {
             child: Padding(
               padding: const EdgeInsets.all(5).h,
               child: Text(
-                'unit',
-                style: TextStyles.regular11.copyWith(color: AppColor.textSecondary),
+                'KG',
+                style: TextStyles.regular12.copyWith(color: AppColor.textSecondary),
               ),
             ),
           )),
@@ -154,8 +154,8 @@ class _PendingOrderDetailsScreenState extends State<PendingOrderDetailsScreen> {
             alignment: Alignment.centerRight,
             padding: const EdgeInsets.all(5).h,
             child: Text(
-              'orderQty',
-              style: TextStyles.regular11.copyWith(color: AppColor.textSecondary),
+              '10',
+              style: TextStyles.regular12.copyWith(color: AppColor.textSecondary),
             ),
           )),
           TableCell(
@@ -163,8 +163,8 @@ class _PendingOrderDetailsScreenState extends State<PendingOrderDetailsScreen> {
               alignment: Alignment.centerRight,
               padding: const EdgeInsets.all(5).h,
               child: Text(
-                'pendingQty',
-                style: TextStyles.regular11.copyWith(color: AppColor.textSecondary),
+                '20',
+                style: TextStyles.regular12.copyWith(color: AppColor.textSecondary),
               ),
             ),
           ),
@@ -173,8 +173,8 @@ class _PendingOrderDetailsScreenState extends State<PendingOrderDetailsScreen> {
               alignment: Alignment.centerRight,
               padding: const EdgeInsets.all(5).h,
               child: Text(
-                'Pending Amt',
-                style: TextStyles.regular11.copyWith(color: AppColor.textSecondary),
+                '12,012',
+                style: TextStyles.regular12.copyWith(color: AppColor.textSecondary),
               ),
             ),
           ),
@@ -185,7 +185,7 @@ class _PendingOrderDetailsScreenState extends State<PendingOrderDetailsScreen> {
     return Row(
       children: [
         10.horizontalSpace,
-        _buildTextView(AppLocalizations.current.orderNo, 'Order No' /*widget.pendingOrderData.orderNo ?? ''*/),
+        _buildTextView(AppLocalizations.current.orderNo, '1250' /*widget.pendingOrderData.orderNo ?? ''*/),
         const Spacer(),
         _buildTextView(AppLocalizations.current.date, '24/02/2024' /*widget.pendingOrderData.formattedDate ?? ''*/),
         10.horizontalSpace,

@@ -94,11 +94,23 @@ class ReportScreen extends StatelessWidget {
   }
 
   void _onPressReportMenu(ReportMenuResponse? item) {
-    switch (item?.id) {
-      case '3':
-        //Pending Order
+    switch (item?.reportType) {
+      case ReportType.pendingOrder:
         appRouter.push(const PendingOrderRoute());
         break;
+
+      case ReportType.statementOfAccount:
+        appRouter.push(const PendingOrderRoute());
+        break;
+
+      case ReportType.ageing:
+        appRouter.push(AgeingRoute());
+        break;
+
+      case ReportType.salesReport:
+        appRouter.push(const PendingOrderRoute());
+        break;
+
       default:
         errorToast(AppLocalizations.current.somethingWentWrong);
     }

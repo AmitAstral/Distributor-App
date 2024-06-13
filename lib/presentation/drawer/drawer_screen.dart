@@ -132,8 +132,26 @@ class _DrawerScreenState extends State<DrawerScreen> {
                               Container(
                                 padding: EdgeInsets.only(left: 8.w, right: 25.w),
                                 child: CachedNetworkImageWidget(
-                                  imageUrl: item?.iconsUrl ?? '',
+                                  imageUrl: (item?.iconsUrl ?? ''),
                                   color: AppColor.white,
+                                  height: 20.h,
+                                  width: 20.h,
+                                  errorWidget: (context, url, error) => const Icon(
+                                    Icons.error_outline,
+                                    color: AppColor.white,
+                                  ),
+                                  progressIndicatorBuilder: (context, url, progress) {
+                                    return Center(
+                                      child: SizedBox(
+                                        height: 20.h,
+                                        width: 20.h,
+                                        child: const CircularProgressIndicator(
+                                          color: AppColor.white,
+                                          strokeWidth: 2,
+                                        ),
+                                      ),
+                                    );
+                                  },
                                 ),
                               ),
                               Expanded(

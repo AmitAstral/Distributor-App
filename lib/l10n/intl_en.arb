@@ -84,5 +84,8 @@
   "unit": "Unit",
   "orderQty": "Order Qty.",
   "pendingQty": "Pending Qty.",
-  "pendingAmt": "Pending Amt."
+  "pendingAmt": "Pending Amt.",
+  "ageing": "Ageing",
+  "currentBalance": "Current Balance",
+  "availableCredit": "Available Credit"
 }

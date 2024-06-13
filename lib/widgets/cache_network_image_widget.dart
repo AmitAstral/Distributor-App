@@ -41,7 +41,9 @@ class CachedNetworkImageWidget extends CachedNetworkImage {
   });
 
   @override
-  LoadingErrorWidgetBuilder? get errorWidget => (context, url, error) {
+  LoadingErrorWidgetBuilder? get errorWidget =>
+      super.errorWidget ??
+      (context, url, error) {
         return Icon(
           Icons.error_outline,
           color: errorIconColor ?? AppColor.primaryColor,
@@ -49,7 +51,9 @@ class CachedNetworkImageWidget extends CachedNetworkImage {
       };
 
   @override
-  ProgressIndicatorBuilder? get progressIndicatorBuilder => (context, url, error) {
+  ProgressIndicatorBuilder? get progressIndicatorBuilder =>
+      super.progressIndicatorBuilder ??
+      (context, url, error) {
         return SizedBox(
           width: 30.w,
           height: 30.w,

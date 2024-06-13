@@ -910,6 +910,36 @@ class AppLocalizations {
       args: [],
     );
   }
+
+  /// `Ageing`
+  String get ageing {
+    return Intl.message(
+      'Ageing',
+      name: 'ageing',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Current Balance`
+  String get currentBalance {
+    return Intl.message(
+      'Current Balance',
+      name: 'currentBalance',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Available Credit`
+  String get availableCredit {
+    return Intl.message(
+      'Available Credit',
+      name: 'availableCredit',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<AppLocalizations> {
