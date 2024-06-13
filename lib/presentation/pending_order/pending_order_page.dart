@@ -1,7 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:distributor_empower/constants/app_colors/app_colors.dart';
+import 'package:distributor_empower/core/di/locator.dart';
 import 'package:distributor_empower/generated/l10n.dart';
 import 'package:distributor_empower/presentation/pending_order/provider/pending_order_provider.dart';
+import 'package:distributor_empower/routes/router.dart';
 import 'package:distributor_empower/utils/text_styles.dart';
 import 'package:distributor_empower/widgets/custom_app_bar/app_bar.dart';
 import 'package:distributor_empower/widgets/no_data_found_widget.dart';
@@ -161,7 +163,7 @@ class _PendingOrderScreenState extends State<PendingOrderScreen> {
           ),
           GestureDetector(
               onTap: () {
-                //navigateToDetailsPage(item);
+                navigateToDetailsPage('');
               },
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 5).w,
@@ -171,9 +173,6 @@ class _PendingOrderScreenState extends State<PendingOrderScreen> {
   }
 
   void navigateToDetailsPage(item) {
-    /*Get.to(() =>
-        PendingOrderDetailsPage(
-          pendingOrderData: item,
-        ));*/
+    appRouter.push(const PendingOrderDetailsRoute());
   }
 }

@@ -86,6 +86,12 @@ abstract class _$AppRouter extends RootStackRouter {
         ),
       );
     },
+    PendingOrderDetailsRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const PendingOrderDetailsScreen(),
+      );
+    },
     PendingOrderRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -343,6 +349,20 @@ class OtpVerificationRouteArgs {
   String toString() {
     return 'OtpVerificationRouteArgs{screenType: $screenType, sentOTP: $sentOTP, key: $key}';
   }
+}
+
+/// generated route for
+/// [PendingOrderDetailsScreen]
+class PendingOrderDetailsRoute extends PageRouteInfo<void> {
+  const PendingOrderDetailsRoute({List<PageRouteInfo>? children})
+      : super(
+          PendingOrderDetailsRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'PendingOrderDetailsRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
 }
 
 /// generated route for

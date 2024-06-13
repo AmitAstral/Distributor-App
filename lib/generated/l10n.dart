@@ -850,6 +850,66 @@ class AppLocalizations {
       args: [],
     );
   }
+
+  /// `Pending Order Details`
+  String get pendingOrderDetails {
+    return Intl.message(
+      'Pending Order Details',
+      name: 'pendingOrderDetails',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Item Name`
+  String get itemName {
+    return Intl.message(
+      'Item Name',
+      name: 'itemName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Unit`
+  String get unit {
+    return Intl.message(
+      'Unit',
+      name: 'unit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Order Qty.`
+  String get orderQty {
+    return Intl.message(
+      'Order Qty.',
+      name: 'orderQty',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Pending Qty.`
+  String get pendingQty {
+    return Intl.message(
+      'Pending Qty.',
+      name: 'pendingQty',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Pending Amt.`
+  String get pendingAmt {
+    return Intl.message(
+      'Pending Amt.',
+      name: 'pendingAmt',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<AppLocalizations> {

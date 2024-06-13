@@ -10,6 +10,7 @@ import 'package:distributor_empower/presentation/maintainance/no_internet_screen
 import 'package:distributor_empower/presentation/offers/offers_screen.dart';
 import 'package:distributor_empower/presentation/order_history/order_details_screen.dart';
 import 'package:distributor_empower/presentation/order_history/order_history_screen.dart';
+import 'package:distributor_empower/presentation/pending_order/pending_order_details_screen.dart';
 import 'package:distributor_empower/presentation/pending_order/pending_order_page.dart';
 import 'package:distributor_empower/presentation/profile/profile_screen.dart';
 import 'package:distributor_empower/presentation/quick_order/quick_order_screen.dart';
@@ -46,6 +47,7 @@ class AppRouter extends _$AppRouter {
             AutoRoute(page: CommonWebViewRoute.page, path: CommonWebViewRoute.name),
             AutoRoute(page: ReportRoute.page, path: ReportRoute.name),
             AutoRoute(page: PendingOrderRoute.page, path: PendingOrderRoute.name),
+            AutoRoute(page: PendingOrderDetailsRoute.page, path: PendingOrderDetailsRoute.name),
           ],
         ),
         AutoRoute(page: LoginRoute.page),

@@ -78,5 +78,11 @@
   "pendingOrder": "Pending Order",
   "orderDate": "Order Date",
   "orderAmount": "Order Amt.",
-  "status": "Status"
+  "status": "Status",
+  "pendingOrderDetails": "Pending Order Details",
+  "itemName": "Item Name",
+  "unit": "Unit",
+  "orderQty": "Order Qty.",
+  "pendingQty": "Pending Qty.",
+  "pendingAmt": "Pending Amt."
 }
