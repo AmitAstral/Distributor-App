@@ -810,6 +810,46 @@ class AppLocalizations {
       args: [name],
     );
   }
+
+  /// `Pending Order`
+  String get pendingOrder {
+    return Intl.message(
+      'Pending Order',
+      name: 'pendingOrder',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Order Date`
+  String get orderDate {
+    return Intl.message(
+      'Order Date',
+      name: 'orderDate',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Order Amt.`
+  String get orderAmount {
+    return Intl.message(
+      'Order Amt.',
+      name: 'orderAmount',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Status`
+  String get status {
+    return Intl.message(
+      'Status',
+      name: 'status',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<AppLocalizations> {

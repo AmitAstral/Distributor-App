@@ -46,8 +46,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "creditLeftWithAmount": m1,
         "creditLimit": MessageLookupByLibrary.simpleMessage("Credit Limit"),
         "date": MessageLookupByLibrary.simpleMessage("Date"),
-        "dispatchedOrder":
-            MessageLookupByLibrary.simpleMessage("Dispatched Order"),
+        "dispatchedOrder": MessageLookupByLibrary.simpleMessage("Dispatched Order"),
         "editYourProfile":
             MessageLookupByLibrary.simpleMessage("Edit your profile"),
         "enterPhoneNumber":
@@ -70,18 +69,19 @@ class MessageLookup extends MessageLookupByLibrary {
         "mobileNo": MessageLookupByLibrary.simpleMessage("Mobile No."),
         "myOrders": MessageLookupByLibrary.simpleMessage("My orders"),
         "needHelp": MessageLookupByLibrary.simpleMessage("Need help?"),
-        "newUpdateIsAvailable":
-            MessageLookupByLibrary.simpleMessage("New update is available"),
+        "newUpdateIsAvailable": MessageLookupByLibrary.simpleMessage("New update is available"),
         "no": MessageLookupByLibrary.simpleMessage("No"),
         "noDataFound": MessageLookupByLibrary.simpleMessage("No data found"),
-        "noInternetConnection":
-            MessageLookupByLibrary.simpleMessage("No internet connection"),
+        "noInternetConnection": MessageLookupByLibrary.simpleMessage("No internet connection"),
         "offer": MessageLookupByLibrary.simpleMessage("Offer"),
+        "orderAmount": MessageLookupByLibrary.simpleMessage("Order Amt."),
+        "orderDate": MessageLookupByLibrary.simpleMessage("Order Date"),
         "orderDetails": MessageLookupByLibrary.simpleMessage("Order Details"),
         "orderHistory": MessageLookupByLibrary.simpleMessage("Order History"),
         "orderNo": MessageLookupByLibrary.simpleMessage("Order No"),
         "orderValue": MessageLookupByLibrary.simpleMessage("Order Value"),
         "partyName": MessageLookupByLibrary.simpleMessage("Party Name"),
+        "pendingOrder": MessageLookupByLibrary.simpleMessage("Pending Order"),
         "pin": MessageLookupByLibrary.simpleMessage("Pin"),
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
         "rateUsOnTheAppStore": MessageLookupByLibrary.simpleMessage("Rate us on the app store"),
@@ -102,6 +102,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "somethingWentWrong": MessageLookupByLibrary.simpleMessage("Something went wrong"),
         "somethingWentWrongPleaseConnectWithInternetToUseApplication":
             MessageLookupByLibrary.simpleMessage("Something went wrong, Please connect with Internet to use Application."),
+        "status": MessageLookupByLibrary.simpleMessage("Status"),
         "theEnteredOtpIsInvalid": MessageLookupByLibrary.simpleMessage("The entered Astral code is invalid."),
         "totalOrder": MessageLookupByLibrary.simpleMessage("Total Order"),
         "unauthorizedPendingOrder": MessageLookupByLibrary.simpleMessage("Unauthorized Pending Order"),
@@ -109,15 +110,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "usedCredit": MessageLookupByLibrary.simpleMessage("Used Credit"),
         "validatePinAndConfirmPin": MessageLookupByLibrary.simpleMessage("Pin and confirm pin must be same"),
         "validationEnterPhoneNumber": MessageLookupByLibrary.simpleMessage("Please Enter a Phone Number"),
-        "validationPhoneNumber": MessageLookupByLibrary.simpleMessage(
-            "Please Enter a Valid Phone Number"),
+        "validationPhoneNumber": MessageLookupByLibrary.simpleMessage("Please Enter a Valid Phone Number"),
         "verify": MessageLookupByLibrary.simpleMessage("Verify"),
         "verifyPin": MessageLookupByLibrary.simpleMessage("Verify Pin"),
-        "welcomeToAstral":
-            MessageLookupByLibrary.simpleMessage("Welcome To Astral"),
-        "wereDownForMaintenanceNWillBeBackSoon":
-            MessageLookupByLibrary.simpleMessage(
-                "We\'re down for maintenance \n We\'ll be back soon..."),
+        "welcomeToAstral": MessageLookupByLibrary.simpleMessage("Welcome To Astral"),
+        "wereDownForMaintenanceNWillBeBackSoon": MessageLookupByLibrary.simpleMessage("We\'re down for maintenance \n We\'ll be back soon..."),
         "yes": MessageLookupByLibrary.simpleMessage("Yes")
       };
 }

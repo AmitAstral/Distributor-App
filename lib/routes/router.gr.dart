@@ -86,6 +86,12 @@ abstract class _$AppRouter extends RootStackRouter {
         ),
       );
     },
+    PendingOrderRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const PendingOrderScreen(),
+      );
+    },
     ProfileRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -99,9 +105,10 @@ abstract class _$AppRouter extends RootStackRouter {
       );
     },
     ReportRoute.name: (routeData) {
+      final args = routeData.argsAs<ReportRouteArgs>(orElse: () => const ReportRouteArgs());
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: ReportScreen(),
+        child: ReportScreen(key: args.key),
       );
     },
     SetPinRoute.name: (routeData) {
@@ -339,6 +346,20 @@ class OtpVerificationRouteArgs {
 }
 
 /// generated route for
+/// [PendingOrderScreen]
+class PendingOrderRoute extends PageRouteInfo<void> {
+  const PendingOrderRoute({List<PageRouteInfo>? children})
+      : super(
+          PendingOrderRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'PendingOrderRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
 /// [ProfileScreen]
 class ProfileRoute extends PageRouteInfo<void> {
   const ProfileRoute({List<PageRouteInfo>? children})
@@ -368,16 +389,30 @@ class QuickOrderRoute extends PageRouteInfo<void> {
 
 /// generated route for
 /// [ReportScreen]
-class ReportRoute extends PageRouteInfo<void> {
-  const ReportRoute({List<PageRouteInfo>? children})
-      : super(
+class ReportRoute extends PageRouteInfo<ReportRouteArgs> {
+  ReportRoute({
+    Key? key,
+    List<PageRouteInfo>? children,
+  }) : super(
           ReportRoute.name,
+          args: ReportRouteArgs(key: key),
           initialChildren: children,
         );
 
   static const String name = 'ReportRoute';
 
-  static const PageInfo<void> page = PageInfo<void>(name);
+  static const PageInfo<ReportRouteArgs> page = PageInfo<ReportRouteArgs>(name);
+}
+
+class ReportRouteArgs {
+  const ReportRouteArgs({this.key});
+
+  final Key? key;
+
+  @override
+  String toString() {
+    return 'ReportRouteArgs{key: $key}';
+  }
 }
 
 /// generated route for

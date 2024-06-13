@@ -74,5 +74,9 @@
   "amountInLacs": "* amount in lacs",
   "reports": "Reports",
   "noDataFound": "No data found",
-  "sapcodeTitle": "SapCode : {name}"
+  "sapcodeTitle": "SapCode : {name}",
+  "pendingOrder": "Pending Order",
+  "orderDate": "Order Date",
+  "orderAmount": "Order Amt.",
+  "status": "Status"
 }

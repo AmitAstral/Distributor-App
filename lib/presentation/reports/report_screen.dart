@@ -1,8 +1,13 @@
 import 'package:auto_route/annotations.dart';
 import 'package:distributor_empower/constants/app_colors/app_colors.dart';
+import 'package:distributor_empower/core/di/locator.dart';
 import 'package:distributor_empower/generated/l10n.dart';
+import 'package:distributor_empower/model/report_menu_response.dart';
 import 'package:distributor_empower/presentation/reports/report_provider.dart';
+import 'package:distributor_empower/routes/router.dart';
+import 'package:distributor_empower/utils/extensions.dart';
 import 'package:distributor_empower/utils/text_styles.dart';
+import 'package:distributor_empower/utils/toast.dart';
 import 'package:distributor_empower/widgets/cache_network_image_widget.dart';
 import 'package:distributor_empower/widgets/custom_app_bar/app_bar.dart';
 import 'package:distributor_empower/widgets/no_data_found_widget.dart';
@@ -78,7 +83,7 @@ class ReportScreen extends StatelessWidget {
                               textAlign: TextAlign.center,
                             ),
                           ],
-                        );
+                        ).addGesture(() => _onPressReportMenu(item));
                       },
                     ),
                   ),
@@ -86,5 +91,16 @@ class ReportScreen extends StatelessWidget {
         }),
       ),
     );
+  }
+
+  void _onPressReportMenu(ReportMenuResponse? item) {
+    switch (item?.id) {
+      case '3':
+        //Pending Order
+        appRouter.push(const PendingOrderRoute());
+        break;
+      default:
+        errorToast(AppLocalizations.current.somethingWentWrong);
+    }
   }
 }

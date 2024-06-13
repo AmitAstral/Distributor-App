@@ -209,7 +209,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
         break;
       case '5':
         Navigator.pop(context);
-        appRouter.push(const ReportRoute());
+        appRouter.push(ReportRoute());
         break;
       case '6':
         //PRICE LIST
