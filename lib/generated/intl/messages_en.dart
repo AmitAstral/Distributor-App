@@ -29,7 +29,6 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m3(name) => "SapCode : ${name}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
-
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "SAPCode": MessageLookupByLibrary.simpleMessage("SAP Code"),
         "aboutUs": MessageLookupByLibrary.simpleMessage("About us"),
@@ -37,8 +36,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "amountInLacs": MessageLookupByLibrary.simpleMessage("* amount in lacs"),
         "amountWithPercentage": m0,
         "astralCode": MessageLookupByLibrary.simpleMessage("Astral code"),
-        "authorizedPendingOrder":
-            MessageLookupByLibrary.simpleMessage("Authorized pending Order"),
+        "authorizedPendingOrder": MessageLookupByLibrary.simpleMessage("Authorized pending Order"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "cart": MessageLookupByLibrary.simpleMessage("Cart"),
         "chooseQty": MessageLookupByLibrary.simpleMessage("Choose Quantity "),
@@ -86,8 +84,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "partyName": MessageLookupByLibrary.simpleMessage("Party Name"),
         "pin": MessageLookupByLibrary.simpleMessage("Pin"),
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
-        "rateUsOnTheAppStore":
-            MessageLookupByLibrary.simpleMessage("Rate us on the app store"),
+        "rateUsOnTheAppStore": MessageLookupByLibrary.simpleMessage("Rate us on the app store"),
         "refresh": MessageLookupByLibrary.simpleMessage("Refresh"),
         "remainingCredit": MessageLookupByLibrary.simpleMessage("Remaining Credit"),
         "reports": MessageLookupByLibrary.simpleMessage("Reports"),
@@ -105,17 +102,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "somethingWentWrong": MessageLookupByLibrary.simpleMessage("Something went wrong"),
         "somethingWentWrongPleaseConnectWithInternetToUseApplication":
             MessageLookupByLibrary.simpleMessage("Something went wrong, Please connect with Internet to use Application."),
-        "theEnteredOtpIsInvalid": MessageLookupByLibrary.simpleMessage(
-            "The entered Astral code is invalid."),
+        "theEnteredOtpIsInvalid": MessageLookupByLibrary.simpleMessage("The entered Astral code is invalid."),
         "totalOrder": MessageLookupByLibrary.simpleMessage("Total Order"),
-        "unauthorizedPendingOrder":
-            MessageLookupByLibrary.simpleMessage("Unauthorized Pending Order"),
+        "unauthorizedPendingOrder": MessageLookupByLibrary.simpleMessage("Unauthorized Pending Order"),
         "updateNow": MessageLookupByLibrary.simpleMessage("Update Now"),
         "usedCredit": MessageLookupByLibrary.simpleMessage("Used Credit"),
-        "validatePinAndConfirmPin": MessageLookupByLibrary.simpleMessage(
-            "Pin and confirm pin must be same"),
-        "validationEnterPhoneNumber":
-            MessageLookupByLibrary.simpleMessage("Please Enter a Phone Number"),
+        "validatePinAndConfirmPin": MessageLookupByLibrary.simpleMessage("Pin and confirm pin must be same"),
+        "validationEnterPhoneNumber": MessageLookupByLibrary.simpleMessage("Please Enter a Phone Number"),
         "validationPhoneNumber": MessageLookupByLibrary.simpleMessage(
             "Please Enter a Valid Phone Number"),
         "verify": MessageLookupByLibrary.simpleMessage("Verify"),

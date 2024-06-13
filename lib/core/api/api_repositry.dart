@@ -5,6 +5,7 @@ import 'package:distributor_empower/model/base/api_req_data.dart';
 import 'package:distributor_empower/model/base/base_response.dart';
 import 'package:distributor_empower/model/dashboard_response.dart';
 import 'package:distributor_empower/model/menu_response.dart';
+import 'package:distributor_empower/model/report_menu_response.dart';
 import 'package:distributor_empower/model/user_response.dart';
 
 class ApiRepository extends ApiCaller {
@@ -97,6 +98,15 @@ class ApiRepository extends ApiCaller {
       apiCall: apiService.post(endPoint: ApiConstants.getMenuList, data: request.toJson()),
       onApiError: onApiError,
       baseModel: MenuResponse(),
+    );
+    return data;
+  }
+
+  Future<BaseResponse<ReportMenuResponse?>> getReportMenuList(UserInfo request, Function(String) onApiError) async {
+    var data = await executeApiCall<ReportMenuResponse>(
+      apiCall: apiService.post(endPoint: ApiConstants.getReportMenuList, data: request.toJson()),
+      onApiError: onApiError,
+      baseModel: ReportMenuResponse(),
     );
     return data;
   }

@@ -7,12 +7,10 @@ import 'package:flutter/cupertino.dart';
 List<MenuResponse?>? menuListData;
 
 class HomeProvider extends BaseProvider {
-  bool isLoading = false;
   List<DashboardResponse?>? dashboardData;
 
   Future<void> callGetDashboardAPI() async {
-    isLoading = true;
-    notifyListeners();
+    isLoading.value = true;
     try {
       dashboardData = null;
       final response = await apiRep.getDashboard(ApiReqData.getUserDetails, onApiError);
@@ -22,7 +20,7 @@ class HomeProvider extends BaseProvider {
     } catch (e, stack) {
       debugPrintStack(stackTrace: stack);
     } finally {
-      isLoading = false;
+      isLoading.value = false;
       notifyListeners();
     }
   }

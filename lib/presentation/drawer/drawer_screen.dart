@@ -208,7 +208,8 @@ class _DrawerScreenState extends State<DrawerScreen> {
         appRouter.pushNamed(OrderHistoryRoute.name);
         break;
       case '5':
-        //REPORTS
+        Navigator.pop(context);
+        appRouter.push(const ReportRoute());
         break;
       case '6':
         //PRICE LIST
