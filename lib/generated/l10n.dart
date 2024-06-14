@@ -1010,6 +1010,76 @@ class AppLocalizations {
       args: [],
     );
   }
+
+  /// `Sales Report`
+  String get salesReport {
+    return Intl.message(
+      'Sales Report',
+      name: 'salesReport',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Invoice No.`
+  String get invoiceNo {
+    return Intl.message(
+      'Invoice No.',
+      name: 'invoiceNo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sales Details`
+  String get salesDetails {
+    return Intl.message(
+      'Sales Details',
+      name: 'salesDetails',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Product Name`
+  String get productName {
+    return Intl.message(
+      'Product Name',
+      name: 'productName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Qty.`
+  String get qty {
+    return Intl.message(
+      'Qty.',
+      name: 'qty',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Amount`
+  String get amount {
+    return Intl.message(
+      'Amount',
+      name: 'amount',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Price`
+  String get price {
+    return Intl.message(
+      'Price',
+      name: 'price',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<AppLocalizations> {

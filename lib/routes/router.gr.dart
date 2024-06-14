@@ -123,6 +123,23 @@ abstract class _$AppRouter extends RootStackRouter {
         child: ReportScreen(key: args.key),
       );
     },
+    SalesReportDetailRoute.name: (routeData) {
+      final args = routeData.argsAs<SalesReportDetailRouteArgs>();
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: SalesReportDetailScreen(
+          docId: args.docId,
+          date: args.date,
+          key: args.key,
+        ),
+      );
+    },
+    SalesReportRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const SalesReportScreen(),
+      );
+    },
     SetPinRoute.name: (routeData) {
       final args = routeData.argsAs<SetPinRouteArgs>(orElse: () => const SetPinRouteArgs());
       return AutoRoutePage<dynamic>(
@@ -459,6 +476,62 @@ class ReportRouteArgs {
   String toString() {
     return 'ReportRouteArgs{key: $key}';
   }
+}
+
+/// generated route for
+/// [SalesReportDetailScreen]
+class SalesReportDetailRoute extends PageRouteInfo<SalesReportDetailRouteArgs> {
+  SalesReportDetailRoute({
+    required String docId,
+    required String date,
+    Key? key,
+    List<PageRouteInfo>? children,
+  }) : super(
+          SalesReportDetailRoute.name,
+          args: SalesReportDetailRouteArgs(
+            docId: docId,
+            date: date,
+            key: key,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'SalesReportDetailRoute';
+
+  static const PageInfo<SalesReportDetailRouteArgs> page = PageInfo<SalesReportDetailRouteArgs>(name);
+}
+
+class SalesReportDetailRouteArgs {
+  const SalesReportDetailRouteArgs({
+    required this.docId,
+    required this.date,
+    this.key,
+  });
+
+  final String docId;
+
+  final String date;
+
+  final Key? key;
+
+  @override
+  String toString() {
+    return 'SalesReportDetailRouteArgs{docId: $docId, date: $date, key: $key}';
+  }
+}
+
+/// generated route for
+/// [SalesReportScreen]
+class SalesReportRoute extends PageRouteInfo<void> {
+  const SalesReportRoute({List<PageRouteInfo>? children})
+      : super(
+          SalesReportRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'SalesReportRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
 }
 
 /// generated route for

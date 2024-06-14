@@ -33,7 +33,7 @@ enum ReportType {
   statementOfAccount('1', StatementOfAccountRoute()),
   ageing('2', AgeingRoute()),
   pendingOrder('3', PendingOrderRoute()),
-  salesReport('4', PendingOrderRoute()),
+  salesReport('4', SalesReportRoute()),
   none('', null);
 
   final String id;

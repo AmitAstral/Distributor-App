@@ -16,6 +16,8 @@ import 'package:distributor_empower/presentation/pending_order/pending_order_pag
 import 'package:distributor_empower/presentation/profile/profile_screen.dart';
 import 'package:distributor_empower/presentation/quick_order/quick_order_screen.dart';
 import 'package:distributor_empower/presentation/reports/report_screen.dart';
+import 'package:distributor_empower/presentation/sales_report/sales_report_detail_screen.dart';
+import 'package:distributor_empower/presentation/sales_report/sales_report_screen.dart';
 import 'package:distributor_empower/presentation/splash/splash_screen.dart';
 import 'package:distributor_empower/presentation/statement_of_account/statement_of_account_screen.dart';
 import 'package:distributor_empower/presentation/webviews/common_webview.dart';
@@ -52,6 +54,8 @@ class AppRouter extends _$AppRouter {
             AutoRoute(page: PendingOrderDetailsRoute.page, path: PendingOrderDetailsRoute.name),
             AutoRoute(page: AgeingRoute.page, path: AgeingRoute.name),
             AutoRoute(page: StatementOfAccountRoute.page, path: StatementOfAccountRoute.name),
+            AutoRoute(page: SalesReportDetailRoute.page, path: SalesReportDetailRoute.name),
+            AutoRoute(page: SalesReportRoute.page, path: SalesReportRoute.name),
           ],
         ),
         AutoRoute(page: LoginRoute.page),

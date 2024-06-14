@@ -94,5 +94,12 @@
   "balance": "Balance",
   "pleaseSelectFromDate": "Please select from date",
   "pleaseSelectToDate": "Please select to date",
-  "select": "Select"
+  "select": "Select",
+  "salesReport": "Sales Report",
+  "invoiceNo": "Invoice No.",
+  "salesDetails": "Sales Details",
+  "productName": "Product Name",
+  "qty": "Qty.",
+  "amount": "Amount",
+  "price": "Price"
 }

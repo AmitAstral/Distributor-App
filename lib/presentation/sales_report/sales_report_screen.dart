@@ -1,9 +1,9 @@
 import 'package:auto_route/annotations.dart';
 import 'package:distributor_empower/constants/app_colors/app_colors.dart';
-import 'package:distributor_empower/core/di/locator.dart';
 import 'package:distributor_empower/generated/l10n.dart';
-import 'package:distributor_empower/presentation/statement_of_account/provider/statement_provider.dart';
+import 'package:distributor_empower/presentation/sales_report/provider/sales_report_provider.dart';
 import 'package:distributor_empower/utils/date_utils.dart';
+import 'package:distributor_empower/utils/extensions.dart';
 import 'package:distributor_empower/utils/text_styles.dart';
 import 'package:distributor_empower/utils/toast.dart';
 import 'package:distributor_empower/widgets/custom_app_bar/app_bar.dart';
@@ -13,22 +13,24 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 @RoutePage()
-class StatementOfAccountScreen extends StatefulWidget {
-  const StatementOfAccountScreen({super.key});
+class SalesReportScreen extends StatefulWidget {
+  const SalesReportScreen({
+    super.key,
+  });
 
   @override
-  State<StatementOfAccountScreen> createState() => _StatementOfAccountScreenState();
+  State<SalesReportScreen> createState() => _SalesReportScreenState();
 }
 
-class _StatementOfAccountScreenState extends State<StatementOfAccountScreen> {
+class _SalesReportScreenState extends State<SalesReportScreen> {
   String? fromDate = AppDateUtils.getCurrentDateStr;
   String? toDate = AppDateUtils.getCurrentDateStr;
 
-  final _ledgerProvider = StatementProvider();
+  final _salesReportProvider = SalesReportProvider();
 
   @override
   void initState() {
-    //fromDate = getSharedPreferenceUtils().getString(AppConst.keyFYStartDate).replaceAll("-", ' '); TODO
+    //_salesReportProvider.fetchData(data.outletId ?? '', fromDate, toDate);
     super.initState();
   }
 
@@ -39,22 +41,20 @@ class _StatementOfAccountScreenState extends State<StatementOfAccountScreen> {
           preferredSize: Size.fromHeight(AppBar().preferredSize.height),
           child: AppBarWidget(
             toolbarHeight: AppBar().preferredSize.height,
-            titleText: AppLocalizations.of(context).statementOfAccounts,
+            titleText: AppLocalizations.of(context).salesReport,
             centerTitle: true,
             elevation: 0,
             flexibleSpace: null,
           ),
         ),
         body: ChangeNotifierProvider.value(
-          value: _ledgerProvider,
+          value: _salesReportProvider,
           builder: (context, child) {
-            return Consumer<StatementProvider>(builder: (context, value, child) {
+            return Consumer<SalesReportProvider>(builder: (context, value, child) {
               return SingleChildScrollView(
                 child: Column(children: [
                   _upperSectionWidget(),
-                  15.verticalSpace,
-                  _buildMiddleView(),
-                  10.verticalSpace,
+                  2.verticalSpace,
                   _buildMainView(),
                 ]),
               );
@@ -63,65 +63,14 @@ class _StatementOfAccountScreenState extends State<StatementOfAccountScreen> {
         ));
   }
 
-  Padding _buildMiddleView() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 13.0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(child: _buildTextView(AppLocalizations.of(context).partyWithName(''), storage.userDetails.distributorName ?? '')),
-              2.horizontalSpace,
-              Expanded(child: _buildTextView(AppLocalizations.of(context).address, storage.userDetails.address ?? '')),
-            ],
-          ),
-          _buildTextView('SapCode', storage.userDetails.distributorSapCode ?? ''),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildTextView(String title, String value) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          '$title : ',
-          style: TextStyles.regular11.copyWith(
-            color: AppColor.textSecondary,
-            overflow: TextOverflow.ellipsis,
-          ),
-        ),
-        Expanded(
-          child: Text(
-            value,
-            maxLines: 4,
-            style: TextStyles.semiBold11.copyWith(
-              color: AppColor.textSecondary,
-              overflow: TextOverflow.ellipsis,
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
   Widget _buildMainView() {
-    return _ledgerProvider.statementList.isEmpty ? const NoDataFoundWidget() : buildTable();
+    return _salesReportProvider.salesListResponse.isEmpty ? const NoDataFoundWidget() : buildTable();
   }
 
   Widget _upperSectionWidget() {
     return Column(
       children: [
-        10.verticalSpace,
-        if (true) // checkBalance
-          Text(
-            '100100',
-            style: TextStyles.bold20.copyWith(color: AppColor.textSecondary),
-          ),
-        10.verticalSpace,
+        2.verticalSpace,
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 12),
           child: Row(
@@ -166,7 +115,7 @@ class _StatementOfAccountScreenState extends State<StatementOfAccountScreen> {
                   ),
                 ),
               ),
-              15.horizontalSpace,
+              2.horizontalSpace,
               Expanded(
                 child: GestureDetector(
                   onTap: () async {
@@ -213,30 +162,30 @@ class _StatementOfAccountScreenState extends State<StatementOfAccountScreen> {
                   ),
                 ),
               ),
-              10.horizontalSpace,
+              2.horizontalSpace,
               GestureDetector(
                 onTap: () {
                   if (fromDate == null) {
-                    errorToast(AppLocalizations.of(context).pleaseSelectFromDate);
+                    errorToast(AppLocalizations.current.pleaseSelectFromDate);
                   } else if (toDate == null) {
-                    errorToast(AppLocalizations.of(context).pleaseSelectToDate);
+                    errorToast(AppLocalizations.current.pleaseSelectToDate);
                   } else {
-                    //_ledgerProvider.fetchData(widget.marketVisitListModel?.outlet ?? '', fromDate, toDate);
+                    //_salesReportProvider.fetchData(data.outletId ?? '', fromDate, toDate);
                   }
                 },
                 child: Container(
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(5)),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(const Radius.circular(5).r),
                     color: AppColor.primaryColor,
                   ),
-                  padding: const EdgeInsets.all(4),
+                  padding: const EdgeInsets.all(4).h,
                   child: const Icon(
                     Icons.search,
                     color: AppColor.white,
                   ),
                 ),
               ),
-              10.horizontalSpace,
+              1.horizontalSpace,
             ],
           ),
         ),
@@ -246,96 +195,49 @@ class _StatementOfAccountScreenState extends State<StatementOfAccountScreen> {
 
   Widget buildTable() {
     return Table(
-        children: List.generate(_ledgerProvider.statementList.length + 1, (index) {
+        children: List.generate(_salesReportProvider.salesListResponse.length + 1, (index) {
       return index == 0 ? _buildColum() : _buildRow(index - 1);
     }));
   }
 
   TableRow _buildColum() {
     return TableRow(
-        decoration: const BoxDecoration(
-          color: AppColor.primaryColorLight,
-        ),
-        children: [
-          TableCell(
-            child: Container(
-              alignment: Alignment.centerLeft,
-              padding: const EdgeInsets.all(5).h,
-              margin: const EdgeInsets.only(left: 8).w,
-              child: Text(
-                AppLocalizations.current.date,
-                style: TextStyles.semiBold11.copyWith(
-                  color: AppColor.textSecondary,
-                ),
-              ),
-            ),
-          ),
-          TableCell(
-            child: Container(
-              alignment: Alignment.centerLeft,
-              padding: const EdgeInsets.all(5),
-              child: Text(
-                AppLocalizations.of(context).narration,
-                style: TextStyles.semiBold11.copyWith(
-                  color: AppColor.textSecondary,
-                ),
-              ),
-            ),
-          ),
-          TableCell(
-              child: Center(
-            child: Container(
-              alignment: Alignment.centerRight,
-              padding: const EdgeInsets.all(5),
-              child: Wrap(
-                direction: Axis.horizontal,
-                children: [
-                  Text(
-                    'Debit',
-                    style: TextStyles.semiBold11.copyWith(
-                      color: AppColor.textSecondary,
-                    ),
+      decoration: const BoxDecoration(
+        color: AppColor.primaryColorLight,
+      ),
+      children: [AppLocalizations.current.date, AppLocalizations.current.invoiceNo, AppLocalizations.current.orderAmount, '']
+          .map(
+            (title) => TableCell(
+              child: Container(
+                alignment: Alignment.center,
+                padding: const EdgeInsets.all(5).h,
+                margin: const EdgeInsets.only(left: 8).w,
+                child: Text(
+                  title,
+                  style: TextStyles.semiBold11.copyWith(
+                    color: AppColor.textSecondary,
                   ),
-                  Text(
-                    'Credit',
-                    style: TextStyles.semiBold11.copyWith(
-                      color: AppColor.textSecondary,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          )),
-          TableCell(
-              child: Center(
-            child: Padding(
-              padding: const EdgeInsets.all(5),
-              child: Text(
-                AppLocalizations.of(context).balance,
-                style: TextStyles.semiBold11.copyWith(
-                  color: AppColor.textSecondary,
                 ),
               ),
             ),
-          )),
-        ]);
+          )
+          .toList(),
+    );
   }
 
   TableRow _buildRow(int index) {
-    final item = _ledgerProvider.statementList[index];
+    //final item = _salesReportProvider.salesListResponse[index];
     return TableRow(
         decoration: BoxDecoration(
-          color: index % 2 == 0 ? AppColor.grey88.withOpacity(0.2) : AppColor.primaryColorLight.withOpacity(0.3),
+          color: index % 2 == 0 ? AppColor.tableEvenRowColor : AppColor.tableOddRowColor,
         ),
         children: [
           TableCell(
             child: Padding(
               padding: const EdgeInsets.all(5),
               child: Text(
-                '25/05/1999',
-                style: TextStyles.semiBold11.copyWith(
-                  color: AppColor.textSecondary,
-                ),
+                'Date',
+                style: TextStyles.regular11.copyWith(color: AppColor.black),
               ),
             ),
           ),
@@ -343,33 +245,44 @@ class _StatementOfAccountScreenState extends State<StatementOfAccountScreen> {
             child: Padding(
               padding: const EdgeInsets.all(5),
               child: Text(
-                'Narration',
-                style: TextStyles.semiBold11.copyWith(
-                  color: AppColor.textSecondary,
-                ),
+                'Date',
+                style: TextStyles.regular11.copyWith(color: AppColor.black),
               ),
+            ).addGesture(
+              () {
+                //OPEN PDF VIEWER
+              },
             ),
           ),
           TableCell(
             child: Padding(
               padding: const EdgeInsets.all(5),
               child: Text(
-                'Credit',
-                style: TextStyles.semiBold11.copyWith(
-                  color: AppColor.textSecondary,
-                ),
+                'Amount',
+                style: TextStyles.regular11.copyWith(color: AppColor.black),
               ),
+            ).addGesture(
+              () {
+                //OPEN PDF VIEWER
+              },
             ),
           ),
           TableCell(
-            child: Padding(
-              padding: const EdgeInsets.all(5),
-              child: Text(
-                'Balance',
-                style: TextStyles.semiBold11.copyWith(
-                  color: AppColor.textSecondary,
+            child: Center(
+              child: Container(
+                padding: const EdgeInsets.all(7),
+                alignment: Alignment.centerRight,
+                margin: const EdgeInsets.only(right: 10),
+                child: const Icon(
+                  Icons.chevron_right,
+                  color: AppColor.black,
+                  size: 25,
                 ),
               ),
+            ).addGesture(
+              () {
+                //navigate to sales details screen
+              },
             ),
           ),
         ]);

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 class AppColor {
   static const Color primaryColor = Color(0xFF0A04B1);
 
-
   static const Color primaryColorLight = Color(0xFF0074E9);
   static const Color primaryColorVeryLight = Color(0xffBDDEFF);
   static const Color primaryShadowColor = Color(0x3F004B97);
@@ -65,4 +64,8 @@ class AppColor {
   static const Color textPrimary = Color(0xFFFFFFFF);
   static const Color textSecondary = Color(0xFF000000);
   static const Color borderColor = Colors.white54;
+
+  static var tableEvenRowColor = grey.withOpacity(0.5);
+  static var tableOddRowColor = primaryColorLight.withOpacity(0.5);
+  static var tableBorderColor = primaryColorLight.withOpacity(0.2);
 }
