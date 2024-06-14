@@ -30,8 +30,6 @@ class OTPVerificationProvider extends CommonProvider {
     notifyListeners();
 
     try {
-      await generateJWTToken();
-
       final deviceInfo = DeviceInfo();
 
       final request = UserDeviceToken(
@@ -41,10 +39,16 @@ class OTPVerificationProvider extends CommonProvider {
         modelName: await deviceInfo.getDeviceModelName,
         osVersion: await deviceInfo.getOsVersion,
         uuid: await deviceInfo.getUuid,
+        sapCode: storage.userDetails.distributorSapCode,
+        currentAppVersion: storage.currentAppVersion,
       );
 
       final response = await apiRep.submitUserInfo(request, onApiError: onApiError);
 
+      if (response.getData != null) {
+        storage.userDetails = response.getData!;
+        await generateJWTToken();
+      }
       return response.getIsSuccess;
     } catch (e, stack) {
       debugPrintStack(stackTrace: stack);

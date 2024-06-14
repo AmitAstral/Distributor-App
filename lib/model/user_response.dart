@@ -35,6 +35,10 @@ class UserResponse extends BaseModel {
   String? otpSentMessage;
   @HiveField(13)
   String? otpResendMessage;
+  @HiveField(14)
+  String? gstNo;
+  @HiveField(15)
+  String? divisionID;
 
   UserResponse({
     this.distributorUserID,
@@ -49,6 +53,8 @@ class UserResponse extends BaseModel {
     this.isPinSet,
     this.profile,
     this.address,
+    this.gstNo,
+    this.divisionID,
   });
 
   @override
@@ -66,6 +72,8 @@ class UserResponse extends BaseModel {
     profile = json['DistributorProfile'];
     otpSentMessage = json['OtpSentMessage'];
     otpResendMessage = json['OtpResendMessage'];
+    gstNo = json['GSTNo'];
+    divisionID = json['DivisionID'];
     isPinSet = (json['IsPinSet'] is String) ? json['IsPinSet'] == '1' : json['IsPinSet'];
     return this;
   }
@@ -86,6 +94,8 @@ class UserResponse extends BaseModel {
     map['Address'] = address;
     map['OtpSentMessage'] = otpSentMessage;
     map['OtpResendMessage'] = otpResendMessage;
+    map['GSTNo'] = gstNo;
+    map['DivisionID'] = divisionID;
     return map;
   }
 

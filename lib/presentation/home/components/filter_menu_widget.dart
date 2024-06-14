@@ -1,10 +1,9 @@
 import 'package:distributor_empower/constants/all_constants.dart';
+import 'package:distributor_empower/core/di/locator.dart';
 import 'package:distributor_empower/generated/l10n.dart';
 import 'package:distributor_empower/model/dashboard_response.dart';
 import 'package:distributor_empower/utils/text_styles.dart';
 import 'package:flutter/material.dart';
-
-FilterData? selectedItem;
 
 class FilterMenuWidget extends StatefulWidget {
   final List<FilterData>? filter;
@@ -18,10 +17,15 @@ class FilterMenuWidget extends StatefulWidget {
 }
 
 class _FilterMenuWidgetState extends State<FilterMenuWidget> {
-  FilterData get getSelectedItem => selectedItem ?? widget.filter?.firstOrNull ?? FilterData();
+  FilterData get getSelectedItem =>
+      widget.filter?.firstWhere(
+        (element) => element.divisionID == storage.userDetails.divisionID,
+      ) ??
+      FilterData();
 
   @override
   Widget build(BuildContext context) {
+    if (widget.filter?.isEmpty ?? true) return const SizedBox.shrink();
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 10).w,
       margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 5).w,
@@ -78,7 +82,10 @@ class _FilterMenuWidgetState extends State<FilterMenuWidget> {
           (index) => PopupMenuItem(
             child: Text(widget.filter?[index].label ?? ''),
             onTap: () {
-              selectedItem = widget.filter?[index];
+              final userData = storage.userDetails;
+              userData.divisionID = widget.filter?[index].divisionID;
+              userData.distributorSapCode = widget.filter?[index].sapCode;
+              storage.userDetails = userData;
               widget.onChangeDivision(getSelectedItem);
             },
           ),

@@ -16,12 +16,9 @@ abstract class _$AppRouter extends RootStackRouter {
   @override
   final Map<String, PageFactory> pagesMap = {
     AgeingRoute.name: (routeData) {
-      final args = routeData.argsAs<AgeingRouteArgs>();
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: AgeingScreen(
-          key: args.key,
-        ),
+        child: const AgeingScreen(),
       );
     },
     CommonWebViewRoute.name: (routeData) {
@@ -152,34 +149,16 @@ abstract class _$AppRouter extends RootStackRouter {
 
 /// generated route for
 /// [AgeingScreen]
-class AgeingRoute extends PageRouteInfo<AgeingRouteArgs> {
-  AgeingRoute({
-    Key? key,
-    List<PageRouteInfo>? children,
-  }) : super(
+class AgeingRoute extends PageRouteInfo<void> {
+  const AgeingRoute({List<PageRouteInfo>? children})
+      : super(
           AgeingRoute.name,
-          args: AgeingRouteArgs(
-            key: key,
-          ),
           initialChildren: children,
         );
 
   static const String name = 'AgeingRoute';
 
-  static const PageInfo<AgeingRouteArgs> page = PageInfo<AgeingRouteArgs>(name);
-}
-
-class AgeingRouteArgs {
-  const AgeingRouteArgs({
-    this.key,
-  });
-
-  final Key? key;
-
-  @override
-  String toString() {
-    return 'AgeingRouteArgs{key: $key}';
-  }
+  static const PageInfo<void> page = PageInfo<void>(name);
 }
 
 /// generated route for

@@ -29,6 +29,8 @@ class UserResponseAdapter extends TypeAdapter<UserResponse> {
       isPinSet: fields[9] as bool?,
       profile: fields[10] as String?,
       address: fields[11] as String?,
+      gstNo: fields[14] as String?,
+      divisionID: fields[15] as String?,
     )
       ..otpSentMessage = fields[12] as String?
       ..otpResendMessage = fields[13] as String?;
@@ -37,7 +39,7 @@ class UserResponseAdapter extends TypeAdapter<UserResponse> {
   @override
   void write(BinaryWriter writer, UserResponse obj) {
     writer
-      ..writeByte(14)
+      ..writeByte(16)
       ..writeByte(0)
       ..write(obj.distributorUserID)
       ..writeByte(1)
@@ -65,7 +67,11 @@ class UserResponseAdapter extends TypeAdapter<UserResponse> {
       ..writeByte(12)
       ..write(obj.otpSentMessage)
       ..writeByte(13)
-      ..write(obj.otpResendMessage);
+      ..write(obj.otpResendMessage)
+      ..writeByte(14)
+      ..write(obj.gstNo)
+      ..writeByte(15)
+      ..write(obj.divisionID);
   }
 
   @override

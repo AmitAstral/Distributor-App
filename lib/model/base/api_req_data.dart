@@ -68,8 +68,19 @@ class UserDeviceToken {
   String? deviceName;
   String? modelName;
   String? fcmID;
+  String? sapCode;
+  String? currentAppVersion;
 
-  UserDeviceToken({this.uuid, this.osVersion, this.deviceType, this.deviceName, this.modelName, this.fcmID});
+  UserDeviceToken({
+    this.uuid,
+    this.osVersion,
+    this.deviceType,
+    this.deviceName,
+    this.modelName,
+    this.fcmID,
+    this.sapCode,
+    this.currentAppVersion,
+  });
 
   UserDeviceToken.fromJson(Map<String, dynamic> json) {
     uuid = json['uuid'];
@@ -78,6 +89,8 @@ class UserDeviceToken {
     deviceName = json['device_name'];
     modelName = json['model_name'];
     fcmID = json['FCM_ID'];
+    sapCode = json['Sapcode'];
+    currentAppVersion = json['CurrentAppVersion'];
   }
 
   Map<String, dynamic> toJson() {
@@ -88,7 +101,8 @@ class UserDeviceToken {
     data['device_name'] = deviceName;
     data['model_name'] = modelName;
     data['FCM_ID'] = fcmID;
-    data['UserInfo'] = getUserInfo;
+    data['Sapcode'] = sapCode;
+    data['CurrentAppVersion'] = currentAppVersion;
     return data;
   }
 }
@@ -100,9 +114,21 @@ class UserInfo {
   String? pageName;
   String? currentAppVersion;
   String? token;
+  String? gstNo;
+  String? divisionID;
   bool? withUserInfo;
 
-  UserInfo({this.distributorUserID, this.sapCode, this.mobile, this.pageName, this.currentAppVersion, this.token, this.withUserInfo = false});
+  UserInfo({
+    this.distributorUserID,
+    this.sapCode,
+    this.mobile,
+    this.pageName,
+    this.currentAppVersion,
+    this.token,
+    this.withUserInfo = false,
+    this.gstNo,
+    this.divisionID,
+  });
 
   UserInfo.fromJson(Map<String, dynamic> json) {
     distributorUserID = json['DistributorUserID'];
@@ -111,6 +137,8 @@ class UserInfo {
     pageName = json['PageName'];
     currentAppVersion = json['CurrentAppVersion'];
     token = json['Token'];
+    divisionID = json['DivisionID'];
+    gstNo = json['GSTNo'];
   }
 
   Map<String, dynamic> toJson() {
@@ -121,6 +149,8 @@ class UserInfo {
     data['PageName'] = pageName;
     data['CurrentAppVersion'] = currentAppVersion;
     data['Token'] = token;
+    data['GSTNo'] = gstNo;
+    data['DivisionID'] = divisionID;
     if (withUserInfo ?? false) {
       data['UserInfo'] = getUserInfo;
     }
@@ -137,5 +167,7 @@ UserInfo get getUserInfo {
     distributorUserID: userDetails.distributorUserID,
     currentAppVersion: storage.currentAppVersion,
     token: userDetails.token,
+    gstNo: userDetails.gstNo,
+    divisionID: userDetails.divisionID,
   );
 }
