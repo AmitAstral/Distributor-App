@@ -940,6 +940,76 @@ class AppLocalizations {
       args: [],
     );
   }
+
+  /// `Statement of Accounts`
+  String get statementOfAccounts {
+    return Intl.message(
+      'Statement of Accounts',
+      name: 'statementOfAccounts',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Party : {name}`
+  String partyWithName(Object name) {
+    return Intl.message(
+      'Party : $name',
+      name: 'partyWithName',
+      desc: '',
+      args: [name],
+    );
+  }
+
+  /// `Narration`
+  String get narration {
+    return Intl.message(
+      'Narration',
+      name: 'narration',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Balance`
+  String get balance {
+    return Intl.message(
+      'Balance',
+      name: 'balance',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please select from date`
+  String get pleaseSelectFromDate {
+    return Intl.message(
+      'Please select from date',
+      name: 'pleaseSelectFromDate',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please select to date`
+  String get pleaseSelectToDate {
+    return Intl.message(
+      'Please select to date',
+      name: 'pleaseSelectToDate',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Select`
+  String get select {
+    return Intl.message(
+      'Select',
+      name: 'select',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<AppLocalizations> {

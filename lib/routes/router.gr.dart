@@ -137,6 +137,12 @@ abstract class _$AppRouter extends RootStackRouter {
         child: SplashScreen(key: args.key),
       );
     },
+    StatementOfAccountRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const StatementOfAccountScreen(),
+      );
+    },
     VerifyPinRoute.name: (routeData) {
       final args = routeData.argsAs<VerifyPinRouteArgs>(orElse: () => const VerifyPinRouteArgs());
       return AutoRoutePage<dynamic>(
@@ -509,6 +515,20 @@ class SplashRouteArgs {
   String toString() {
     return 'SplashRouteArgs{key: $key}';
   }
+}
+
+/// generated route for
+/// [StatementOfAccountScreen]
+class StatementOfAccountRoute extends PageRouteInfo<void> {
+  const StatementOfAccountRoute({List<PageRouteInfo>? children})
+      : super(
+          StatementOfAccountRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'StatementOfAccountRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
 }
 
 /// generated route for

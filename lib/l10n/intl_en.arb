@@ -87,5 +87,12 @@
   "pendingAmt": "Pending Amt.",
   "ageing": "Ageing",
   "currentBalance": "Current Balance",
-  "availableCredit": "Available Credit"
+  "availableCredit": "Available Credit",
+  "statementOfAccounts": "Statement of Accounts",
+  "partyWithName": "Party : {name}",
+  "narration": "Narration",
+  "balance": "Balance",
+  "pleaseSelectFromDate": "Please select from date",
+  "pleaseSelectToDate": "Please select to date",
+  "select": "Select"
 }

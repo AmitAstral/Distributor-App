@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:distributor_empower/constants/all_constants.dart';
 import 'package:distributor_empower/core/di/locator.dart';
 import 'package:distributor_empower/core/storage/storage_constants.dart';
@@ -15,6 +13,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -32,6 +31,8 @@ void main() async {
   FirebaseCrashlyticsUtils().init();
 
   await getCurrentAppVersion();
+
+  initializeDateFormatting();
 
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(

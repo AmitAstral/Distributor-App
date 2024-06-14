@@ -26,9 +26,12 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m2(name) => "Hi, ${name}";
 
-  static String m3(name) => "SapCode : ${name}";
+  static String m3(name) => "Party : ${name}";
+
+  static String m4(name) => "SapCode : ${name}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
+
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "SAPCode": MessageLookupByLibrary.simpleMessage("SAP Code"),
         "aboutUs": MessageLookupByLibrary.simpleMessage("About us"),
@@ -39,6 +42,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "astralCode": MessageLookupByLibrary.simpleMessage("Astral code"),
         "authorizedPendingOrder": MessageLookupByLibrary.simpleMessage("Authorized pending Order"),
         "availableCredit": MessageLookupByLibrary.simpleMessage("Available Credit"),
+        "balance": MessageLookupByLibrary.simpleMessage("Balance"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "cart": MessageLookupByLibrary.simpleMessage("Cart"),
         "chooseQty": MessageLookupByLibrary.simpleMessage("Choose Quantity "),
@@ -67,6 +71,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "messageAreYouSureLogout": MessageLookupByLibrary.simpleMessage("Are you  sure you want to logout?"),
         "mobileNo": MessageLookupByLibrary.simpleMessage("Mobile No."),
         "myOrders": MessageLookupByLibrary.simpleMessage("My orders"),
+        "narration": MessageLookupByLibrary.simpleMessage("Narration"),
         "needHelp": MessageLookupByLibrary.simpleMessage("Need help?"),
         "newUpdateIsAvailable": MessageLookupByLibrary.simpleMessage("New update is available"),
         "no": MessageLookupByLibrary.simpleMessage("No"),
@@ -81,11 +86,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "orderQty": MessageLookupByLibrary.simpleMessage("Order Qty."),
         "orderValue": MessageLookupByLibrary.simpleMessage("Order Value"),
         "partyName": MessageLookupByLibrary.simpleMessage("Party Name"),
+        "partyWithName": m3,
         "pendingAmt": MessageLookupByLibrary.simpleMessage("Pending Amt."),
         "pendingOrder": MessageLookupByLibrary.simpleMessage("Pending Order"),
         "pendingOrderDetails": MessageLookupByLibrary.simpleMessage("Pending Order Details"),
         "pendingQty": MessageLookupByLibrary.simpleMessage("Pending Qty."),
         "pin": MessageLookupByLibrary.simpleMessage("Pin"),
+        "pleaseSelectFromDate": MessageLookupByLibrary.simpleMessage("Please select from date"),
+        "pleaseSelectToDate": MessageLookupByLibrary.simpleMessage("Please select to date"),
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
         "rateUsOnTheAppStore": MessageLookupByLibrary.simpleMessage("Rate us on the app store"),
         "refresh": MessageLookupByLibrary.simpleMessage("Refresh"),
@@ -96,15 +104,17 @@ class MessageLookup extends MessageLookupByLibrary {
         "sPMobileNumber": MessageLookupByLibrary.simpleMessage("SP Mobile Number"),
         "sales": MessageLookupByLibrary.simpleMessage("Sales"),
         "sales_person": MessageLookupByLibrary.simpleMessage("Sales Person"),
-        "sapcodeTitle": m3,
+        "sapcodeTitle": m4,
         "schemes": MessageLookupByLibrary.simpleMessage("Schemes"),
         "seeAll": MessageLookupByLibrary.simpleMessage("See all"),
+        "select": MessageLookupByLibrary.simpleMessage("Select"),
         "setPin": MessageLookupByLibrary.simpleMessage("Set Pin"),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
         "shareTheApp": MessageLookupByLibrary.simpleMessage("Share the app"),
         "somethingWentWrong": MessageLookupByLibrary.simpleMessage("Something went wrong"),
         "somethingWentWrongPleaseConnectWithInternetToUseApplication":
             MessageLookupByLibrary.simpleMessage("Something went wrong, Please connect with Internet to use Application."),
+        "statementOfAccounts": MessageLookupByLibrary.simpleMessage("Statement of Accounts"),
         "status": MessageLookupByLibrary.simpleMessage("Status"),
         "theEnteredOtpIsInvalid": MessageLookupByLibrary.simpleMessage("The entered Astral code is invalid."),
         "totalOrder": MessageLookupByLibrary.simpleMessage("Total Order"),

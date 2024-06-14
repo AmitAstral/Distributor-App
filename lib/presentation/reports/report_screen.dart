@@ -4,7 +4,6 @@ import 'package:distributor_empower/core/di/locator.dart';
 import 'package:distributor_empower/generated/l10n.dart';
 import 'package:distributor_empower/model/report_menu_response.dart';
 import 'package:distributor_empower/presentation/reports/report_provider.dart';
-import 'package:distributor_empower/routes/router.dart';
 import 'package:distributor_empower/utils/extensions.dart';
 import 'package:distributor_empower/utils/text_styles.dart';
 import 'package:distributor_empower/utils/toast.dart';
@@ -94,25 +93,10 @@ class ReportScreen extends StatelessWidget {
   }
 
   void _onPressReportMenu(ReportMenuResponse? item) {
-    switch (item?.reportType) {
-      case ReportType.pendingOrder:
-        appRouter.push(const PendingOrderRoute());
-        break;
-
-      case ReportType.statementOfAccount:
-        appRouter.push(const PendingOrderRoute());
-        break;
-
-      case ReportType.ageing:
-        appRouter.push(AgeingRoute());
-        break;
-
-      case ReportType.salesReport:
-        appRouter.push(const PendingOrderRoute());
-        break;
-
-      default:
-        errorToast(AppLocalizations.current.somethingWentWrong);
+    if (item?.reportType?.route != null) {
+      appRouter.push(item!.reportType!.route!);
+    } else {
+      errorToast(AppLocalizations.current.somethingWentWrong);
     }
   }
 }

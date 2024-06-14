@@ -1,4 +1,6 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:distributor_empower/model/base/base_model.dart';
+import 'package:distributor_empower/routes/router.dart';
 
 class ReportMenuResponse extends BaseModel {
   ReportMenuResponse({
@@ -28,24 +30,18 @@ class ReportMenuResponse extends BaseModel {
 }
 
 enum ReportType {
-  statementOfAccount,
-  ageing,
-  pendingOrder,
-  salesReport,
-  none;
+  statementOfAccount('1', StatementOfAccountRoute()),
+  ageing('2', AgeingRoute()),
+  pendingOrder('3', PendingOrderRoute()),
+  salesReport('4', PendingOrderRoute()),
+  none('', null);
 
-  static ReportType getReportType(String? id) {
-    switch (id) {
-      case '1':
-        return ReportType.statementOfAccount;
-      case '2':
-        return ReportType.ageing;
-      case '3':
-        return ReportType.pendingOrder;
-      case '4':
-        return ReportType.salesReport;
-      default:
-        return ReportType.none;
-    }
-  }
+  final String id;
+  final PageRouteInfo? route;
+
+  const ReportType(this.id, this.route);
+
+  static ReportType getReportType(String? id) => ReportType.values.firstWhere(
+        (element) => element.id == (id ?? ''),
+      );
 }

@@ -17,6 +17,7 @@ import 'package:distributor_empower/presentation/profile/profile_screen.dart';
 import 'package:distributor_empower/presentation/quick_order/quick_order_screen.dart';
 import 'package:distributor_empower/presentation/reports/report_screen.dart';
 import 'package:distributor_empower/presentation/splash/splash_screen.dart';
+import 'package:distributor_empower/presentation/statement_of_account/statement_of_account_screen.dart';
 import 'package:distributor_empower/presentation/webviews/common_webview.dart';
 import 'package:flutter/material.dart';
 
@@ -50,6 +51,7 @@ class AppRouter extends _$AppRouter {
             AutoRoute(page: PendingOrderRoute.page, path: PendingOrderRoute.name),
             AutoRoute(page: PendingOrderDetailsRoute.page, path: PendingOrderDetailsRoute.name),
             AutoRoute(page: AgeingRoute.page, path: AgeingRoute.name),
+            AutoRoute(page: StatementOfAccountRoute.page, path: StatementOfAccountRoute.name),
           ],
         ),
         AutoRoute(page: LoginRoute.page),
