@@ -35,6 +35,9 @@ class ApiConstants {
   ///Dashboard
   static const String getDashboard = '${dashboard}GetDashboard';
   static const String getMenuList = '${dashboard}GetMenuList';
+
+  ///Report
   static const String getReportMenuList = '${report}GetReportMenuList';
   static const String statementOfAccountReport = '${report}StatementOfAccountReport';
+  static const String ageingReport = '${report}AgeingReport';
 }

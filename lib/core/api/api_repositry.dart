@@ -1,6 +1,7 @@
 import 'package:distributor_empower/core/api/api_caller.dart';
 import 'package:distributor_empower/core/api/api_constants.dart';
 import 'package:distributor_empower/core/di/locator.dart';
+import 'package:distributor_empower/model/ageing_response.dart';
 import 'package:distributor_empower/model/base/api_req_data.dart';
 import 'package:distributor_empower/model/base/base_response.dart';
 import 'package:distributor_empower/model/dashboard_response.dart';
@@ -122,6 +123,15 @@ class ApiRepository extends ApiCaller {
       apiCall: apiService.post(endPoint: ApiConstants.statementOfAccountReport, data: request.toJson()),
       onApiError: onApiError,
       baseModel: StatementResponse(),
+    );
+    return data;
+  }
+
+  Future<BaseResponse<AgeingResponse?>> callAgeingReport(Function(String) onApiError) async {
+    var data = await executeApiCall<AgeingResponse>(
+      apiCall: apiService.post(endPoint: ApiConstants.ageingReport, data: ApiReqData.getUserDetails.toJson()),
+      onApiError: onApiError,
+      baseModel: AgeingResponse(),
     );
     return data;
   }

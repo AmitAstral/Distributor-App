@@ -1,6 +1,7 @@
 import 'package:auto_route/annotations.dart';
 import 'package:distributor_empower/constants/app_colors/app_colors.dart';
 import 'package:distributor_empower/generated/l10n.dart';
+import 'package:distributor_empower/model/ageing_response.dart';
 import 'package:distributor_empower/presentation/ageing/ageing_provider.dart';
 import 'package:distributor_empower/utils/text_styles.dart';
 import 'package:distributor_empower/widgets/custom_app_bar/app_bar.dart';
@@ -23,7 +24,14 @@ class _AgeingScreenState extends State<AgeingScreen> {
 
   @override
   void initState() {
+    _ageingProvider.callAgeingReport();
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _ageingProvider.dispose();
+    super.dispose();
   }
 
   @override
@@ -53,11 +61,12 @@ class _AgeingScreenState extends State<AgeingScreen> {
   }
 
   Widget _buildView() {
-    final responseData = _ageingProvider.ageingDetailsResponse; //.firstOrNull;
+    final responseData = _ageingProvider.ageingDetailsResponse;
     if (_ageingProvider.isLoading.value) {
       return const ProgressWidget(
         inAsyncCall: true,
-        child: SizedBox(),
+        opacity: 0,
+        child: SizedBox.shrink(),
       );
     } else if (responseData != null) {
       return _buildDetailsView(responseData);
@@ -66,25 +75,25 @@ class _AgeingScreenState extends State<AgeingScreen> {
     }
   }
 
-  Widget _buildDetailsView(responseData) {
+  Widget _buildDetailsView(AgeingResponse? responseData) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         8.verticalSpace,
-        _buildValueWidget(AppLocalizations.current.creditLimit, /*responseData?.creditLimit ?? */ '0'),
-        _buildValueWidget(AppLocalizations.of(context).currentBalance, /*responseData?.balance ?? */ '0'),
-        _buildValueWidget(AppLocalizations.of(context).availableCredit, /*responseData?.availableCredit ?? */ '0'),
+        _buildValueWidget(AppLocalizations.current.creditLimit, responseData?.creditLimit ?? '0'),
+        _buildValueWidget(AppLocalizations.of(context).currentBalance, responseData?.balance ?? '0'),
+        _buildValueWidget(AppLocalizations.of(context).availableCredit, responseData?.availableCredit ?? '0'),
         8.verticalSpace,
         Divider(color: AppColor.grey.withOpacity(0.5), height: 1),
         8.verticalSpace,
-        _buildRangeValues(/*responseData?.lbl1 ?? */ '', /*responseData?.lblBal1 ?? */ ''),
-        _buildRangeValues(/*responseData?.lbl2 ?? */ '', /*responseData?.lblBal2 ?? */ ''),
-        _buildRangeValues(/*responseData?.lbl3 ?? */ '', /*responseData?.lblBal3 ?? */ ''),
-        _buildRangeValues(/*responseData?.lbl4 ?? */ '', /*responseData?.lblBal4 ?? */ ''),
-        _buildRangeValues(/*responseData?.lbl5 ?? */ '', /*responseData?.lblBal5 ?? */ ''),
-        _buildRangeValues(/*responseData?.lbl6 ?? */ '', /*responseData?.lblBal6 ?? */ ''),
-        _buildRangeValues(/*responseData?.lbl7 ?? */ '', /*responseData?.lblBal7 ?? */ ''),
-        _buildRangeValues(/*responseData?.lbl8 ?? */ '', /*responseData?.lblBal8 ?? */ ''),
+        _buildRangeValues(responseData?.lbl1 ?? '', responseData?.lblBal1 ?? ''),
+        _buildRangeValues(responseData?.lbl2 ?? '', responseData?.lblBal2 ?? ''),
+        _buildRangeValues(responseData?.lbl3 ?? '', responseData?.lblBal3 ?? ''),
+        _buildRangeValues(responseData?.lbl4 ?? '', responseData?.lblBal4 ?? ''),
+        _buildRangeValues(responseData?.lbl5 ?? '', responseData?.lblBal5 ?? ''),
+        _buildRangeValues(responseData?.lbl6 ?? '', responseData?.lblBal6 ?? ''),
+        _buildRangeValues(responseData?.lbl7 ?? '', responseData?.lblBal7 ?? ''),
+        _buildRangeValues(responseData?.lbl8 ?? '', responseData?.lblBal8 ?? ''),
       ],
     );
   }
@@ -117,7 +126,7 @@ class _AgeingScreenState extends State<AgeingScreen> {
           child: Center(
             child: Text(
               value,
-              style: TextStyles.regular13,
+              style: TextStyles.regular11.copyWith(color: AppColor.textSecondary),
             ),
           ),
         ),
