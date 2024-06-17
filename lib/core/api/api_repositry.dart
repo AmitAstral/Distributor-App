@@ -6,6 +6,8 @@ import 'package:distributor_empower/model/base/api_req_data.dart';
 import 'package:distributor_empower/model/base/base_response.dart';
 import 'package:distributor_empower/model/dashboard_response.dart';
 import 'package:distributor_empower/model/menu_response.dart';
+import 'package:distributor_empower/model/order_details_response.dart';
+import 'package:distributor_empower/model/pending_order_response.dart';
 import 'package:distributor_empower/model/report_menu_response.dart';
 import 'package:distributor_empower/model/setting_response.dart';
 import 'package:distributor_empower/model/statement_response.dart';
@@ -132,6 +134,24 @@ class ApiRepository extends ApiCaller {
       apiCall: apiService.post(endPoint: ApiConstants.ageingReport, data: ApiReqData.getUserDetails.toJson()),
       onApiError: onApiError,
       baseModel: AgeingResponse(),
+    );
+    return data;
+  }
+
+  Future<BaseResponse<PendingOrderResponse?>> callPendingOrderListAPI(Function(String errorRes) onApiError) async {
+    var data = await executeApiCall<PendingOrderResponse>(
+      apiCall: apiService.post(endPoint: ApiConstants.pendingOrderReport, data: ApiReqData.getUserDetails.toJson()),
+      onApiError: onApiError,
+      baseModel: PendingOrderResponse(),
+    );
+    return data;
+  }
+
+  Future<BaseResponse<OrderDetailsResponse?>> callGetPendingOrderDetailByOrderNo(ApiReqData request, Function(String errorRes) onApiError) async {
+    var data = await executeApiCall<OrderDetailsResponse>(
+      apiCall: apiService.post(endPoint: ApiConstants.getPendingOrderDetailByOrderNo, data: request.toJson()),
+      onApiError: onApiError,
+      baseModel: OrderDetailsResponse(),
     );
     return data;
   }

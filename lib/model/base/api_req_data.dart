@@ -16,6 +16,8 @@ class ApiReqData {
   String? fcmID;
   String? fromDate;
   String? toDate;
+  int pageNumber = 1;
+  String? orderNo;
 
   ApiReqData({
     this.page,
@@ -33,6 +35,8 @@ class ApiReqData {
     this.fcmID,
     this.fromDate,
     this.toDate,
+    this.pageNumber = 0,
+    this.orderNo,
   });
 
   static UserInfo get getUserDetails => getUserInfo;
@@ -48,6 +52,8 @@ class ApiReqData {
     json['FCM_ID'] = fcmID;
     json['FromDate'] = fromDate;
     json['ToDate'] = toDate;
+    json['PageNumber'] = pageNumber.toString();
+    json['OrderNo'] = orderNo.toString();
 
     if (userDeviceToken != null) {
       json['userDeviceToken'] = userDeviceToken!.toJson();

@@ -1,17 +1,23 @@
 import 'package:auto_route/annotations.dart';
 import 'package:distributor_empower/constants/app_colors/app_colors.dart';
 import 'package:distributor_empower/generated/l10n.dart';
+import 'package:distributor_empower/model/order_details_response.dart';
+import 'package:distributor_empower/model/pending_order_response.dart';
 import 'package:distributor_empower/presentation/pending_order/provider/pending_order_provider.dart';
 import 'package:distributor_empower/utils/text_styles.dart';
 import 'package:distributor_empower/widgets/custom_app_bar/app_bar.dart';
 import 'package:distributor_empower/widgets/progress_widget.dart';
+import 'package:distributor_empower/widgets/smart_refresher_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 @RoutePage()
 class PendingOrderDetailsScreen extends StatefulWidget {
-  const PendingOrderDetailsScreen({super.key});
+  final PendingOrderResponse? orderDetails;
+
+  const PendingOrderDetailsScreen(this.orderDetails, {super.key});
 
   @override
   State<PendingOrderDetailsScreen> createState() => _PendingOrderDetailsScreenState();
@@ -19,6 +25,22 @@ class PendingOrderDetailsScreen extends StatefulWidget {
 
 class _PendingOrderDetailsScreenState extends State<PendingOrderDetailsScreen> {
   final _pendingOrderProvider = PendingOrderProvider();
+  final _refreshController = RefreshController(initialRefresh: false);
+
+  List<OrderDetailsResponse?> get getOrderDetailsListResponse => _pendingOrderProvider.orderDetailsListResponse;
+
+  @override
+  void initState() {
+    _getOrderDetails(isLoading: true);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _pendingOrderProvider.dispose();
+    _refreshController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,20 +57,26 @@ class _PendingOrderDetailsScreenState extends State<PendingOrderDetailsScreen> {
       ),
       body: ChangeNotifierProvider.value(
         value: _pendingOrderProvider,
-        child: Consumer<PendingOrderProvider>(
-          builder: (context, value, child) {
-            return ProgressWidget(
-              inAsyncCall: _pendingOrderProvider.isLoading.value,
-              child: Column(
-                children: [
-                  10.verticalSpace,
-                  _buildUpperView(),
-                  10.verticalSpace,
-                  _createDataTable(),
-                ],
-              ),
-            );
+        child: SmartRefresherWidget(
+          controller: _refreshController,
+          onRefresh: () {
+            _getOrderDetails(isLoading: false);
           },
+          child: Consumer<PendingOrderProvider>(
+            builder: (context, value, child) {
+              return ProgressWidget(
+                inAsyncCall: _pendingOrderProvider.isLoading.value,
+                child: Column(
+                  children: [
+                    10.verticalSpace,
+                    _buildUpperView(),
+                    10.verticalSpace,
+                    _createDataTable(),
+                  ],
+                ),
+              );
+            },
+          ),
         ),
       ),
     );
@@ -57,11 +85,14 @@ class _PendingOrderDetailsScreenState extends State<PendingOrderDetailsScreen> {
   Widget _createDataTable() {
     return Flexible(
       child: SingleChildScrollView(
-        child: Table(
-            columnWidths: const {0: FixedColumnWidth(140)},
-            children: List.generate(/*_pendingOrderProvider.pendingOrderDetailsResponse.length + 1*/ 10, (index) {
-              return index == 0 ? _buildColum() : _buildRow(index - 1);
-            })),
+        child: Padding(
+          padding: const EdgeInsets.only(bottom: 20).h,
+          child: Table(
+              columnWidths: const {0: FixedColumnWidth(140)},
+              children: List.generate(getOrderDetailsListResponse.length + 1, (index) {
+                return index == 0 ? _buildColum() : _buildRow(index - 1);
+              })),
+        ),
       ),
     );
   }
@@ -123,7 +154,7 @@ class _PendingOrderDetailsScreenState extends State<PendingOrderDetailsScreen> {
   }
 
   TableRow _buildRow(int index) {
-    //final item = _pendingOrderProvider.pendingOrderDetailsResponse[index];
+    final item = getOrderDetailsListResponse[index];
     return TableRow(
         decoration: BoxDecoration(
           color: index % 2 == 0 ? AppColor.grey88.withOpacity(0.2) : AppColor.primaryColorLight.withOpacity(0.3),
@@ -132,9 +163,9 @@ class _PendingOrderDetailsScreenState extends State<PendingOrderDetailsScreen> {
           TableCell(
             child: Container(
               alignment: Alignment.centerLeft,
-              padding: const EdgeInsets.all(5).h,
+              padding: const EdgeInsets.all(2).h,
               child: Text(
-                'BADCD',
+                item?.itemId ?? '',
                 style: TextStyles.regular12.copyWith(color: AppColor.textSecondary),
               ),
             ),
@@ -142,28 +173,28 @@ class _PendingOrderDetailsScreenState extends State<PendingOrderDetailsScreen> {
           TableCell(
               child: Center(
             child: Padding(
-              padding: const EdgeInsets.all(5).h,
+              padding: const EdgeInsets.all(2).h,
               child: Text(
-                'KG',
+                item?.unit ?? '',
                 style: TextStyles.regular12.copyWith(color: AppColor.textSecondary),
               ),
             ),
           )),
           TableCell(
               child: Container(
-            alignment: Alignment.centerRight,
-            padding: const EdgeInsets.all(5).h,
+                alignment: Alignment.centerRight,
+            padding: const EdgeInsets.all(2).h,
             child: Text(
-              '10',
+              item?.orderQty ?? '',
               style: TextStyles.regular12.copyWith(color: AppColor.textSecondary),
             ),
           )),
           TableCell(
             child: Container(
               alignment: Alignment.centerRight,
-              padding: const EdgeInsets.all(5).h,
+              padding: const EdgeInsets.all(2).h,
               child: Text(
-                '20',
+                item?.pendingQty ?? '',
                 style: TextStyles.regular12.copyWith(color: AppColor.textSecondary),
               ),
             ),
@@ -171,9 +202,9 @@ class _PendingOrderDetailsScreenState extends State<PendingOrderDetailsScreen> {
           TableCell(
             child: Container(
               alignment: Alignment.centerRight,
-              padding: const EdgeInsets.all(5).h,
+              padding: const EdgeInsets.all(2).h,
               child: Text(
-                '12,012',
+                item?.pendingAmt ?? '',
                 style: TextStyles.regular12.copyWith(color: AppColor.textSecondary),
               ),
             ),
@@ -185,9 +216,9 @@ class _PendingOrderDetailsScreenState extends State<PendingOrderDetailsScreen> {
     return Row(
       children: [
         10.horizontalSpace,
-        _buildTextView(AppLocalizations.current.orderNo, '1250' /*widget.pendingOrderData.orderNo ?? ''*/),
+        _buildTextView(AppLocalizations.current.orderNo, widget.orderDetails?.orderNo ?? ''),
         const Spacer(),
-        _buildTextView(AppLocalizations.current.date, '24/02/2024' /*widget.pendingOrderData.formattedDate ?? ''*/),
+        _buildTextView(AppLocalizations.current.date, widget.orderDetails?.orderDate ?? ''),
         10.horizontalSpace,
       ],
     );
@@ -201,5 +232,10 @@ class _PendingOrderDetailsScreenState extends State<PendingOrderDetailsScreen> {
         Text(value ?? ''),
       ],
     );
+  }
+
+  Future<void> _getOrderDetails({required bool isLoading}) async {
+    await _pendingOrderProvider.callGetPendingOrderDetailByOrderNo(widget.orderDetails?.orderNo, isProgress: isLoading);
+    _refreshController.refreshCompleted();
   }
 }

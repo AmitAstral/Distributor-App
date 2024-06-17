@@ -93,9 +93,13 @@ abstract class _$AppRouter extends RootStackRouter {
       );
     },
     PendingOrderDetailsRoute.name: (routeData) {
+      final args = routeData.argsAs<PendingOrderDetailsRouteArgs>();
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const PendingOrderDetailsScreen(),
+        child: PendingOrderDetailsScreen(
+          args.orderDetails,
+          key: args.key,
+        ),
       );
     },
     PendingOrderRoute.name: (routeData) {
@@ -396,16 +400,39 @@ class OtpVerificationRouteArgs {
 
 /// generated route for
 /// [PendingOrderDetailsScreen]
-class PendingOrderDetailsRoute extends PageRouteInfo<void> {
-  const PendingOrderDetailsRoute({List<PageRouteInfo>? children})
-      : super(
+class PendingOrderDetailsRoute extends PageRouteInfo<PendingOrderDetailsRouteArgs> {
+  PendingOrderDetailsRoute({
+    required PendingOrderResponse? orderDetails,
+    Key? key,
+    List<PageRouteInfo>? children,
+  }) : super(
           PendingOrderDetailsRoute.name,
+          args: PendingOrderDetailsRouteArgs(
+            orderDetails: orderDetails,
+            key: key,
+          ),
           initialChildren: children,
         );
 
   static const String name = 'PendingOrderDetailsRoute';
 
-  static const PageInfo<void> page = PageInfo<void>(name);
+  static const PageInfo<PendingOrderDetailsRouteArgs> page = PageInfo<PendingOrderDetailsRouteArgs>(name);
+}
+
+class PendingOrderDetailsRouteArgs {
+  const PendingOrderDetailsRouteArgs({
+    required this.orderDetails,
+    this.key,
+  });
+
+  final PendingOrderResponse? orderDetails;
+
+  final Key? key;
+
+  @override
+  String toString() {
+    return 'PendingOrderDetailsRouteArgs{orderDetails: $orderDetails, key: $key}';
+  }
 }
 
 /// generated route for

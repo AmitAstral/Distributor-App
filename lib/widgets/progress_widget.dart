@@ -13,7 +13,7 @@ class ProgressWidget extends StatelessWidget {
   const ProgressWidget({
     super.key,
     @required this.inAsyncCall,
-    this.opacity = 0.3,
+    this.opacity = 0,
     this.color = AppColor.grey,
     this.progressIndicator = const CircularProgressIndicator(color: AppColor.primaryColor),
     this.offset,
