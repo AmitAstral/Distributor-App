@@ -2,7 +2,7 @@ import 'package:auto_route/annotations.dart';
 import 'package:distributor_empower/constants/app_colors/app_colors.dart';
 import 'package:distributor_empower/generated/l10n.dart';
 import 'package:distributor_empower/presentation/sales_report/provider/sales_report_provider.dart';
-import 'package:distributor_empower/utils/date_utils.dart';
+import 'package:distributor_empower/utils/app_date_utils.dart';
 import 'package:distributor_empower/utils/extensions.dart';
 import 'package:distributor_empower/utils/text_styles.dart';
 import 'package:distributor_empower/utils/toast.dart';

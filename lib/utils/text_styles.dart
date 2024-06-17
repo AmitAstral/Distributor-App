@@ -6,9 +6,9 @@ import 'package:google_fonts/google_fonts.dart';
 abstract class TextStyles {
   static final TextStyle _bold = GoogleFonts.poppins(textStyle: const TextStyle(fontWeight: FontWeight.w700));
 
-  static final TextStyle _semiBold = GoogleFonts.poppins(textStyle: const TextStyle(fontWeight: FontWeight.w500));
+  static final TextStyle _semiBold = GoogleFonts.poppins(textStyle: const TextStyle(fontWeight: FontWeight.w600));
 
-  static final TextStyle _regular = GoogleFonts.poppins();
+  static final TextStyle _regular = GoogleFonts.poppins(textStyle: const TextStyle(fontWeight: FontWeight.w500));
 
   static TextStyle get regular41 => _regular.copyWith(
         fontSize: 41.sp,

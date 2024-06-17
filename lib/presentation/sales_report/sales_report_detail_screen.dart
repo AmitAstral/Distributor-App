@@ -3,7 +3,7 @@ import 'package:distributor_empower/constants/all_constants.dart';
 import 'package:distributor_empower/gen/assets.gen.dart';
 import 'package:distributor_empower/generated/l10n.dart';
 import 'package:distributor_empower/presentation/sales_report/provider/sales_report_provider.dart';
-import 'package:distributor_empower/utils/date_utils.dart';
+import 'package:distributor_empower/utils/app_date_utils.dart';
 import 'package:distributor_empower/utils/text_styles.dart';
 import 'package:distributor_empower/widgets/custom_app_bar/app_bar.dart';
 import 'package:distributor_empower/widgets/no_data_found_widget.dart';

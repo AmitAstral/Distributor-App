@@ -138,6 +138,7 @@ class CreditDetailsWidget extends StatelessWidget {
                   child: ListView.builder(
                     itemCount: creditDetails?.tiles?.length ?? 0,
                     shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
                     itemBuilder: (context, index) {
                       final item = creditDetails?.tiles?[index];
                       return Column(

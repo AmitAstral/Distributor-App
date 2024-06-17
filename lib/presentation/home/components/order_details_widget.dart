@@ -93,6 +93,7 @@ class _OrderDetailsWidgetState extends State<OrderDetailsWidget> {
                   child: ListView.builder(
                     itemCount: getOrderLabelList.length,
                     shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
                     itemBuilder: (context, index) {
                       final item = getOrderLabelList[index];
                       return Row(

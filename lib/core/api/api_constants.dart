@@ -18,6 +18,7 @@ class ApiConstants {
   static const String common = 'Common/';
   static const String user = 'User/';
   static const String dashboard = 'Dashboard/';
+  static const String report = 'Report/';
 
   ///USER
   static const String login = '${user}UserLoginProcess';
@@ -34,5 +35,6 @@ class ApiConstants {
   ///Dashboard
   static const String getDashboard = '${dashboard}GetDashboard';
   static const String getMenuList = '${dashboard}GetMenuList';
-  static const String getReportMenuList = 'Report/GetReportMenuList';
+  static const String getReportMenuList = '${report}GetReportMenuList';
+  static const String statementOfAccountReport = '${report}StatementOfAccountReport';
 }

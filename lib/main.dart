@@ -6,6 +6,7 @@ import 'package:distributor_empower/fcm/firebase_option.dart';
 import 'package:distributor_empower/fcm/push_notification_manager.dart';
 import 'package:distributor_empower/generated/l10n.dart';
 import 'package:distributor_empower/init.dart';
+import 'package:distributor_empower/model/setting_response.dart';
 import 'package:distributor_empower/model/user_response.dart';
 import 'package:distributor_empower/routes/router.dart';
 import 'package:distributor_empower/utils/device_info.dart';
@@ -20,6 +21,7 @@ void main() async {
   await Hive.initFlutter();
   await Hive.openBox(box);
   Hive.registerAdapter(UserResponseAdapter());
+  Hive.registerAdapter(SettingResponseAdapter());
   Locator.registerDi();
 
   await Future.delayed(const Duration(milliseconds: 100));

@@ -1,7 +1,7 @@
 import 'package:intl/intl.dart';
 
 class AppDateUtils {
-  static var dateFormat = 'dd MMM yyyy';
+  static var dateFormat = 'dd-MMM-yyyy';
 
   static String get getCurrentDateStr => DateFormat(dateFormat).format(DateTime.now());
 

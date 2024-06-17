@@ -4,6 +4,7 @@ import 'package:distributor_empower/core/api/api_repositry.dart';
 import 'package:distributor_empower/core/di/locator.dart';
 import 'package:distributor_empower/core/storage/storage_constants.dart';
 import 'package:distributor_empower/model/base/api_req_data.dart';
+import 'package:distributor_empower/model/setting_response.dart';
 import 'package:distributor_empower/model/user_response.dart';
 import 'package:distributor_empower/routes/router.dart';
 import 'package:flutter/material.dart';
@@ -39,6 +40,16 @@ class StorageService {
   }
 
   set userDetails(UserResponse? loginModel) => _put(userInfoKey, json.encode(loginModel?.toJson() ?? {}));
+
+  SettingResponse get settingsData {
+    try {
+      return SettingResponse().fromJson(json.decode(_get(settingInfoKey) ?? {}));
+    } catch (e) {
+      return SettingResponse();
+    }
+  }
+
+  set settingsData(SettingResponse? settingResponse) => _put(settingInfoKey, json.encode(settingResponse?.toJson() ?? {}));
 
   String get fcmToken => _get(fcmTokenKey, defaultValue: '');
 

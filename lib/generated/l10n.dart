@@ -951,13 +951,13 @@ class AppLocalizations {
     );
   }
 
-  /// `Party : {name}`
-  String partyWithName(Object name) {
+  /// `Party`
+  String get partyWithName {
     return Intl.message(
-      'Party : $name',
+      'Party',
       name: 'partyWithName',
       desc: '',
-      args: [name],
+      args: [],
     );
   }
 
@@ -1076,6 +1076,26 @@ class AppLocalizations {
     return Intl.message(
       'Price',
       name: 'price',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Debit`
+  String get debit {
+    return Intl.message(
+      'Debit',
+      name: 'debit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Credit`
+  String get credit {
+    return Intl.message(
+      'Credit',
+      name: 'credit',
       desc: '',
       args: [],
     );

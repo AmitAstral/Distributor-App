@@ -2,12 +2,15 @@ import 'package:auto_route/annotations.dart';
 import 'package:distributor_empower/constants/app_colors/app_colors.dart';
 import 'package:distributor_empower/core/di/locator.dart';
 import 'package:distributor_empower/generated/l10n.dart';
+import 'package:distributor_empower/model/statement_response.dart';
 import 'package:distributor_empower/presentation/statement_of_account/provider/statement_provider.dart';
-import 'package:distributor_empower/utils/date_utils.dart';
+import 'package:distributor_empower/utils/app_date_utils.dart';
+import 'package:distributor_empower/utils/extensions.dart';
 import 'package:distributor_empower/utils/text_styles.dart';
 import 'package:distributor_empower/utils/toast.dart';
 import 'package:distributor_empower/widgets/custom_app_bar/app_bar.dart';
 import 'package:distributor_empower/widgets/no_data_found_widget.dart';
+import 'package:distributor_empower/widgets/progress_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
@@ -21,15 +24,23 @@ class StatementOfAccountScreen extends StatefulWidget {
 }
 
 class _StatementOfAccountScreenState extends State<StatementOfAccountScreen> {
-  String? fromDate = AppDateUtils.getCurrentDateStr;
+  String? fromDate = storage.settingsData.fYStartDate ?? AppDateUtils.getCurrentDateStr;
   String? toDate = AppDateUtils.getCurrentDateStr;
 
-  final _ledgerProvider = StatementProvider();
+  final _statementProvider = StatementProvider();
+
+  List<StatementResponse?> get statementList => _statementProvider.accountStatementList;
 
   @override
   void initState() {
-    //fromDate = getSharedPreferenceUtils().getString(AppConst.keyFYStartDate).replaceAll("-", ' '); TODO
+    _getStatementOfAccount();
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _statementProvider.dispose();
+    super.dispose();
   }
 
   @override
@@ -46,7 +57,7 @@ class _StatementOfAccountScreenState extends State<StatementOfAccountScreen> {
           ),
         ),
         body: ChangeNotifierProvider.value(
-          value: _ledgerProvider,
+          value: _statementProvider,
           builder: (context, child) {
             return Consumer<StatementProvider>(builder: (context, value, child) {
               return SingleChildScrollView(
@@ -72,12 +83,12 @@ class _StatementOfAccountScreenState extends State<StatementOfAccountScreen> {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Expanded(child: _buildTextView(AppLocalizations.of(context).partyWithName(''), storage.userDetails.distributorName ?? '')),
+              Expanded(child: _buildTextView(AppLocalizations.of(context).partyWithName, storage.userDetails.distributorName ?? '')),
               2.horizontalSpace,
               Expanded(child: _buildTextView(AppLocalizations.of(context).address, storage.userDetails.address ?? '')),
             ],
           ),
-          _buildTextView('SapCode', storage.userDetails.distributorSapCode ?? ''),
+          //_buildTextView('SapCode', storage.userDetails.distributorSapCode ?? ''),
         ],
       ),
     );
@@ -89,7 +100,7 @@ class _StatementOfAccountScreenState extends State<StatementOfAccountScreen> {
       children: [
         Text(
           '$title : ',
-          style: TextStyles.regular11.copyWith(
+          style: TextStyles.semiBold11.copyWith(
             color: AppColor.textSecondary,
             overflow: TextOverflow.ellipsis,
           ),
@@ -98,7 +109,7 @@ class _StatementOfAccountScreenState extends State<StatementOfAccountScreen> {
           child: Text(
             value,
             maxLines: 4,
-            style: TextStyles.semiBold11.copyWith(
+            style: TextStyles.regular11.copyWith(
               color: AppColor.textSecondary,
               overflow: TextOverflow.ellipsis,
             ),
@@ -109,16 +120,26 @@ class _StatementOfAccountScreenState extends State<StatementOfAccountScreen> {
   }
 
   Widget _buildMainView() {
-    return _ledgerProvider.statementList.isEmpty ? const NoDataFoundWidget() : buildTable();
+    if (_statementProvider.isLoading.value) {
+      return SizedBox(
+        height: 100.h,
+        child: ProgressWidget(
+          inAsyncCall: _statementProvider.isLoading.value,
+          opacity: 0,
+          child: const SizedBox.shrink(),
+        ),
+      );
+    }
+    return statementList.isEmpty ? const SizedBox(height: 200, child: NoDataFoundWidget()) : buildTable();
   }
 
   Widget _upperSectionWidget() {
     return Column(
       children: [
         10.verticalSpace,
-        if (true) // checkBalance
+        if (statementList.lastOrNull != null)
           Text(
-            '100100',
+            statementList.lastOrNull?.balance ?? '',
             style: TextStyles.bold20.copyWith(color: AppColor.textSecondary),
           ),
         10.verticalSpace,
@@ -128,7 +149,6 @@ class _StatementOfAccountScreenState extends State<StatementOfAccountScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              2.verticalSpace,
               Expanded(
                 child: GestureDetector(
                   onTap: () async {
@@ -151,8 +171,8 @@ class _StatementOfAccountScreenState extends State<StatementOfAccountScreen> {
                       children: [
                         Text(
                           fromDate ?? AppLocalizations.current.select,
-                          style: TextStyles.regular11.copyWith(
-                            color: AppColor.primaryColor,
+                          style: TextStyles.semiBold11.copyWith(
+                            color: AppColor.textSecondary,
                           ),
                         ),
                         30.horizontalSpace,
@@ -166,7 +186,7 @@ class _StatementOfAccountScreenState extends State<StatementOfAccountScreen> {
                   ),
                 ),
               ),
-              15.horizontalSpace,
+              5.horizontalSpace,
               Expanded(
                 child: GestureDetector(
                   onTap: () async {
@@ -175,10 +195,11 @@ class _StatementOfAccountScreenState extends State<StatementOfAccountScreen> {
                       return;
                     }
                     DateTime? pickedDate = await showDatePicker(
-                        context: context,
-                        initialDate: AppDateUtils.stringToDate(toDate!),
-                        firstDate: AppDateUtils.stringToDate(fromDate!),
-                        lastDate: DateTime.now());
+                      context: context,
+                      initialDate: AppDateUtils.stringToDate(toDate!),
+                      firstDate: AppDateUtils.stringToDate(fromDate!),
+                      lastDate: DateTime.now(),
+                    );
                     toDate = AppDateUtils.dateToString(pickedDate ?? DateTime.now());
                     setState(() {});
                   },
@@ -213,7 +234,7 @@ class _StatementOfAccountScreenState extends State<StatementOfAccountScreen> {
                   ),
                 ),
               ),
-              10.horizontalSpace,
+              5.horizontalSpace,
               GestureDetector(
                 onTap: () {
                   if (fromDate == null) {
@@ -221,7 +242,7 @@ class _StatementOfAccountScreenState extends State<StatementOfAccountScreen> {
                   } else if (toDate == null) {
                     errorToast(AppLocalizations.of(context).pleaseSelectToDate);
                   } else {
-                    //_ledgerProvider.fetchData(widget.marketVisitListModel?.outlet ?? '', fromDate, toDate);
+                    _getStatementOfAccount();
                   }
                 },
                 child: Container(
@@ -236,7 +257,6 @@ class _StatementOfAccountScreenState extends State<StatementOfAccountScreen> {
                   ),
                 ),
               ),
-              10.horizontalSpace,
             ],
           ),
         ),
@@ -245,133 +265,89 @@ class _StatementOfAccountScreenState extends State<StatementOfAccountScreen> {
   }
 
   Widget buildTable() {
-    return Table(
-        children: List.generate(_ledgerProvider.statementList.length + 1, (index) {
-      return index == 0 ? _buildColum() : _buildRow(index - 1);
-    }));
+    return Column(
+      children: [
+        Table(
+            children: List.generate(_statementProvider.accountStatementList.length + 1, (index) {
+          return index == 0 ? _buildColum() : _buildRow(index - 1);
+        })),
+        20.verticalSpace,
+      ],
+    );
   }
 
   TableRow _buildColum() {
+    final columList = [
+      AppLocalizations.current.date,
+      AppLocalizations.current.narration,
+      AppLocalizations.current.debit,
+      AppLocalizations.current.balance,
+    ];
     return TableRow(
-        decoration: const BoxDecoration(
-          color: AppColor.primaryColorLight,
-        ),
-        children: [
-          TableCell(
-            child: Container(
-              alignment: Alignment.centerLeft,
-              padding: const EdgeInsets.all(5).h,
-              margin: const EdgeInsets.only(left: 8).w,
-              child: Text(
-                AppLocalizations.current.date,
-                style: TextStyles.semiBold11.copyWith(
-                  color: AppColor.textSecondary,
+      decoration: const BoxDecoration(
+        color: AppColor.primaryColorLight,
+      ),
+      children: List.generate(
+          4,
+          (index) => TableCell(
+                child: Container(
+                  alignment: Alignment.centerLeft,
+                  padding: const EdgeInsets.all(5).h,
+                  margin: const EdgeInsets.only(left: 8).w,
+                  child: index == 2
+                      ? Wrap(
+                          direction: Axis.horizontal,
+                          children: [
+                            Text(
+                              AppLocalizations.of(context).debit,
+                              style: TextStyles.semiBold11.copyWith(
+                                color: AppColor.red,
+                              ),
+                            ),
+                            5.horizontalSpace,
+                            Text(
+                              AppLocalizations.of(context).credit,
+                              style: TextStyles.semiBold11.copyWith(
+                                color: AppColor.green,
+                              ),
+                            ),
+                          ],
+                        )
+                      : Text(
+                          columList[index],
+                          style: TextStyles.semiBold11,
+                        ),
                 ),
-              ),
-            ),
-          ),
-          TableCell(
-            child: Container(
-              alignment: Alignment.centerLeft,
-              padding: const EdgeInsets.all(5),
-              child: Text(
-                AppLocalizations.of(context).narration,
-                style: TextStyles.semiBold11.copyWith(
-                  color: AppColor.textSecondary,
-                ),
-              ),
-            ),
-          ),
-          TableCell(
-              child: Center(
-            child: Container(
-              alignment: Alignment.centerRight,
-              padding: const EdgeInsets.all(5),
-              child: Wrap(
-                direction: Axis.horizontal,
-                children: [
-                  Text(
-                    'Debit',
-                    style: TextStyles.semiBold11.copyWith(
-                      color: AppColor.textSecondary,
-                    ),
-                  ),
-                  Text(
-                    'Credit',
-                    style: TextStyles.semiBold11.copyWith(
-                      color: AppColor.textSecondary,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          )),
-          TableCell(
-              child: Center(
-            child: Padding(
-              padding: const EdgeInsets.all(5),
-              child: Text(
-                AppLocalizations.of(context).balance,
-                style: TextStyles.semiBold11.copyWith(
-                  color: AppColor.textSecondary,
-                ),
-              ),
-            ),
-          )),
-        ]);
+              )),
+    );
   }
 
   TableRow _buildRow(int index) {
-    final item = _ledgerProvider.statementList[index];
+    final item = _statementProvider.accountStatementList[index];
+    final listValue = [item?.date, item?.narration, item?.debitCredit, item?.balance];
     return TableRow(
-        decoration: BoxDecoration(
-          color: index % 2 == 0 ? AppColor.grey88.withOpacity(0.2) : AppColor.primaryColorLight.withOpacity(0.3),
+      decoration: BoxDecoration(
+        color: index % 2 == 0 ? AppColor.grey88.withOpacity(0.2) : AppColor.primaryColorLight.withOpacity(0.3),
+      ),
+      children: List.generate(
+        4,
+        (index) => TableCell(
+          child: Padding(
+            padding: const EdgeInsets.all(5),
+            child: Text(
+              listValue[index] ?? '',
+              style: TextStyles.regular11.copyWith(
+                color: index == 2 ? item?.color.getColorFromString : AppColor.textSecondary,
+              ),
+              textAlign: index == 2 || index == 3 ? TextAlign.right : TextAlign.left,
+            ),
+          ),
         ),
-        children: [
-          TableCell(
-            child: Padding(
-              padding: const EdgeInsets.all(5),
-              child: Text(
-                '25/05/1999',
-                style: TextStyles.semiBold11.copyWith(
-                  color: AppColor.textSecondary,
-                ),
-              ),
-            ),
-          ),
-          TableCell(
-            child: Padding(
-              padding: const EdgeInsets.all(5),
-              child: Text(
-                'Narration',
-                style: TextStyles.semiBold11.copyWith(
-                  color: AppColor.textSecondary,
-                ),
-              ),
-            ),
-          ),
-          TableCell(
-            child: Padding(
-              padding: const EdgeInsets.all(5),
-              child: Text(
-                'Credit',
-                style: TextStyles.semiBold11.copyWith(
-                  color: AppColor.textSecondary,
-                ),
-              ),
-            ),
-          ),
-          TableCell(
-            child: Padding(
-              padding: const EdgeInsets.all(5),
-              child: Text(
-                'Balance',
-                style: TextStyles.semiBold11.copyWith(
-                  color: AppColor.textSecondary,
-                ),
-              ),
-            ),
-          ),
-        ]);
+      ),
+    );
+  }
+
+  void _getStatementOfAccount() {
+    _statementProvider.callStatementOfAccountAPI(fromDate, toDate);
   }
 }

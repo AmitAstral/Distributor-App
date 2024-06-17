@@ -14,6 +14,8 @@ class ApiReqData {
   String? pageName;
   bool? withUserInfo;
   String? fcmID;
+  String? fromDate;
+  String? toDate;
 
   ApiReqData({
     this.page,
@@ -29,6 +31,8 @@ class ApiReqData {
     this.pageName,
     this.withUserInfo,
     this.fcmID,
+    this.fromDate,
+    this.toDate,
   });
 
   static UserInfo get getUserDetails => getUserInfo;
@@ -42,6 +46,8 @@ class ApiReqData {
     json['ConfirmPin'] = confirmPin;
     json['SetPinType'] = pinType;
     json['FCM_ID'] = fcmID;
+    json['FromDate'] = fromDate;
+    json['ToDate'] = toDate;
 
     if (userDeviceToken != null) {
       json['userDeviceToken'] = userDeviceToken!.toJson();

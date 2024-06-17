@@ -209,7 +209,7 @@ class OrderDetail {
       label: json['Label'],
       value: json['Value'],
       percentageValue: double.tryParse(json['PercentageValue'] ?? '0') ?? 0,
-      colorCode: (json['ColorCode'] ?? '').toString().getColorFromColorString,
+      colorCode: (json['ColorCode'] ?? '').toString().getColorFromString,
     );
   }
 

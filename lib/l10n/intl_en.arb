@@ -89,7 +89,7 @@
   "currentBalance": "Current Balance",
   "availableCredit": "Available Credit",
   "statementOfAccounts": "Statement of Accounts",
-  "partyWithName": "Party : {name}",
+  "partyWithName": "Party",
   "narration": "Narration",
   "balance": "Balance",
   "pleaseSelectFromDate": "Please select from date",
@@ -101,5 +101,7 @@
   "productName": "Product Name",
   "qty": "Qty.",
   "amount": "Amount",
-  "price": "Price"
+  "price": "Price",
+  "debit": "Debit",
+  "credit": "Credit"
 }

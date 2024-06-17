@@ -6,6 +6,8 @@ import 'package:distributor_empower/model/base/base_response.dart';
 import 'package:distributor_empower/model/dashboard_response.dart';
 import 'package:distributor_empower/model/menu_response.dart';
 import 'package:distributor_empower/model/report_menu_response.dart';
+import 'package:distributor_empower/model/setting_response.dart';
+import 'package:distributor_empower/model/statement_response.dart';
 import 'package:distributor_empower/model/user_response.dart';
 
 class ApiRepository extends ApiCaller {
@@ -71,9 +73,12 @@ class ApiRepository extends ApiCaller {
   }
 
   Future<BaseResponse> getAllSetting() async {
-    var data = await executeApiCall(
-      apiCall: apiService.post(endPoint: ApiConstants.getAllSetting, data: ApiReqData.getUserDetails.toJson()),
-    );
+    var data = await executeApiCall<SettingResponse>(
+        apiCall: apiService.post(endPoint: ApiConstants.getAllSetting, data: ApiReqData.getUserDetails.toJson()), baseModel: SettingResponse());
+
+    if (data.getData != null) {
+      storage.settingsData = data.getData;
+    }
     return data;
   }
 
@@ -108,6 +113,15 @@ class ApiRepository extends ApiCaller {
       apiCall: apiService.post(endPoint: ApiConstants.getReportMenuList, data: request.toJson()),
       onApiError: onApiError,
       baseModel: ReportMenuResponse(),
+    );
+    return data;
+  }
+
+  Future<BaseResponse<StatementResponse?>> callStatementOfAccountAPI(ApiReqData request, Function(String) onApiError) async {
+    var data = await executeApiCall<StatementResponse>(
+      apiCall: apiService.post(endPoint: ApiConstants.statementOfAccountReport, data: request.toJson()),
+      onApiError: onApiError,
+      baseModel: StatementResponse(),
     );
     return data;
   }

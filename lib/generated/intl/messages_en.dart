@@ -26,12 +26,11 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m2(name) => "Hi, ${name}";
 
-  static String m3(name) => "Party : ${name}";
-
-  static String m4(name) => "SapCode : ${name}";
+  static String m3(name) => "SapCode : ${name}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
-  static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+  static Map<String, Function> _notInlinedMessages(_) =>
+      <String, Function>{
         "SAPCode": MessageLookupByLibrary.simpleMessage("SAP Code"),
         "aboutUs": MessageLookupByLibrary.simpleMessage("About us"),
         "address": MessageLookupByLibrary.simpleMessage("Address"),
@@ -49,10 +48,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "close": MessageLookupByLibrary.simpleMessage("Close"),
         "confirmPin": MessageLookupByLibrary.simpleMessage("Confirm Pin"),
         "continueLabel": MessageLookupByLibrary.simpleMessage("Continue"),
+        "credit": MessageLookupByLibrary.simpleMessage("Credit"),
         "creditLeftWithAmount": m1,
         "creditLimit": MessageLookupByLibrary.simpleMessage("Credit Limit"),
         "currentBalance": MessageLookupByLibrary.simpleMessage("Current Balance"),
         "date": MessageLookupByLibrary.simpleMessage("Date"),
+        "debit": MessageLookupByLibrary.simpleMessage("Debit"),
         "dispatchedOrder": MessageLookupByLibrary.simpleMessage("Dispatched Order"),
         "editYourProfile": MessageLookupByLibrary.simpleMessage("Edit your profile"),
         "enterPhoneNumber": MessageLookupByLibrary.simpleMessage("Enter Phone Number"),
@@ -87,7 +88,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "orderQty": MessageLookupByLibrary.simpleMessage("Order Qty."),
         "orderValue": MessageLookupByLibrary.simpleMessage("Order Value"),
         "partyName": MessageLookupByLibrary.simpleMessage("Party Name"),
-        "partyWithName": m3,
+        "partyWithName": MessageLookupByLibrary.simpleMessage("Party"),
         "pendingAmt": MessageLookupByLibrary.simpleMessage("Pending Amt."),
         "pendingOrder": MessageLookupByLibrary.simpleMessage("Pending Order"),
         "pendingOrderDetails": MessageLookupByLibrary.simpleMessage("Pending Order Details"),
@@ -110,7 +111,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "salesDetails": MessageLookupByLibrary.simpleMessage("Sales Details"),
         "salesReport": MessageLookupByLibrary.simpleMessage("Sales Report"),
         "sales_person": MessageLookupByLibrary.simpleMessage("Sales Person"),
-        "sapcodeTitle": m4,
+        "sapcodeTitle": m3,
         "schemes": MessageLookupByLibrary.simpleMessage("Schemes"),
         "seeAll": MessageLookupByLibrary.simpleMessage("See all"),
         "select": MessageLookupByLibrary.simpleMessage("Select"),
