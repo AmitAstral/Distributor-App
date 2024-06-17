@@ -133,7 +133,6 @@ abstract class _$AppRouter extends RootStackRouter {
         routeData: routeData,
         child: SalesReportDetailScreen(
           docId: args.docId,
-          date: args.date,
           key: args.key,
         ),
       );
@@ -510,14 +509,12 @@ class ReportRouteArgs {
 class SalesReportDetailRoute extends PageRouteInfo<SalesReportDetailRouteArgs> {
   SalesReportDetailRoute({
     required String docId,
-    required String date,
     Key? key,
     List<PageRouteInfo>? children,
   }) : super(
           SalesReportDetailRoute.name,
           args: SalesReportDetailRouteArgs(
             docId: docId,
-            date: date,
             key: key,
           ),
           initialChildren: children,
@@ -531,19 +528,16 @@ class SalesReportDetailRoute extends PageRouteInfo<SalesReportDetailRouteArgs> {
 class SalesReportDetailRouteArgs {
   const SalesReportDetailRouteArgs({
     required this.docId,
-    required this.date,
     this.key,
   });
 
   final String docId;
 
-  final String date;
-
   final Key? key;
 
   @override
   String toString() {
-    return 'SalesReportDetailRouteArgs{docId: $docId, date: $date, key: $key}';
+    return 'SalesReportDetailRouteArgs{docId: $docId, key: $key}';
   }
 }
 

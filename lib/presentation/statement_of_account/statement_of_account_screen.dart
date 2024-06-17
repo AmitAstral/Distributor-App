@@ -327,7 +327,7 @@ class _StatementOfAccountScreenState extends State<StatementOfAccountScreen> {
     final listValue = [item?.date, item?.narration, item?.debitCredit, item?.balance];
     return TableRow(
       decoration: BoxDecoration(
-        color: index % 2 == 0 ? AppColor.grey88.withOpacity(0.2) : AppColor.primaryColorLight.withOpacity(0.3),
+        color: index % 2 == 0 ? AppColor.tableEvenRowColor : AppColor.tableOddRowColor,
       ),
       children: List.generate(
         4,

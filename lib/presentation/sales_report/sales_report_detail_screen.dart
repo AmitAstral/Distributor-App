@@ -2,22 +2,21 @@ import 'package:auto_route/annotations.dart';
 import 'package:distributor_empower/constants/all_constants.dart';
 import 'package:distributor_empower/gen/assets.gen.dart';
 import 'package:distributor_empower/generated/l10n.dart';
+import 'package:distributor_empower/model/sales_report_details.dart';
 import 'package:distributor_empower/presentation/sales_report/provider/sales_report_provider.dart';
-import 'package:distributor_empower/utils/app_date_utils.dart';
 import 'package:distributor_empower/utils/text_styles.dart';
 import 'package:distributor_empower/widgets/custom_app_bar/app_bar.dart';
 import 'package:distributor_empower/widgets/no_data_found_widget.dart';
+import 'package:distributor_empower/widgets/progress_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 @RoutePage()
 class SalesReportDetailScreen extends StatefulWidget {
   final String docId;
-  final String date;
 
   const SalesReportDetailScreen({
     required this.docId,
-    required this.date,
     super.key,
   });
 
@@ -26,14 +25,13 @@ class SalesReportDetailScreen extends StatefulWidget {
 }
 
 class _SalesReportDetailScreenState extends State<SalesReportDetailScreen> {
-  String? fromDate = AppDateUtils.getCurrentDateStr;
-  String? toDate = AppDateUtils.getCurrentDateStr;
-
   final _saleInvoiceDetailProvider = SalesReportProvider();
+
+  SalesReportDetailsResponse? get getSalesReportDetails => _saleInvoiceDetailProvider.salesReportDetails;
 
   @override
   void initState() {
-    //_saleInvoiceDetailProvider.fetchDetailData(widget.docId);
+    _getSalesReportDetails();
     super.initState();
   }
 
@@ -50,7 +48,7 @@ class _SalesReportDetailScreenState extends State<SalesReportDetailScreen> {
             flexibleSpace: null,
             actions: [
               Padding(
-                padding: const EdgeInsets.only(right: 15.0).w,
+                padding: const EdgeInsets.only(right: 10.0).w,
                 child: IconButton(
                   icon: const Icon(
                     Icons.picture_as_pdf,
@@ -73,38 +71,41 @@ class _SalesReportDetailScreenState extends State<SalesReportDetailScreen> {
           value: _saleInvoiceDetailProvider,
           builder: (context, child) {
             return Consumer<SalesReportProvider>(builder: (context, value, child) {
-              return SingleChildScrollView(
-                child: Column(children: [
-                  _upperSectionWidget('value.saleDeatils'),
-                  2.verticalSpace,
-                  _buildMainView(),
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: Padding(
-                      padding: const EdgeInsetsDirectional.only(top: 7, end: 10),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Container(
-                            alignment: Alignment.topRight,
-                            width: 70,
-                            child: Assets.images.divider.image(),
-                          ),
-                          const SizedBox(
-                            height: 4,
-                          ),
-                          Text(
-                            /*value.saleDeatils?.total_amount ?? ""*/
-                            'Total Amount',
-                            style: TextStyles.regular11.copyWith(
-                              color: AppColor.textSecondary,
+              return ProgressWidget(
+                inAsyncCall: _saleInvoiceDetailProvider.isLoading.value,
+                child: SingleChildScrollView(
+                  child: Column(children: [
+                    _upperSectionWidget(),
+                    2.verticalSpace,
+                    _buildMainView(),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: Padding(
+                        padding: const EdgeInsetsDirectional.only(top: 7, end: 10),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Container(
+                              alignment: Alignment.topRight,
+                              width: 70,
+                              child: Assets.images.divider.image(),
                             ),
-                          ),
-                        ],
+                            const SizedBox(
+                              height: 4,
+                            ),
+                            Text(
+                              getSalesReportDetails?.totalAmount ?? '0',
+                              style: TextStyles.regular11.copyWith(
+                                color: AppColor.textSecondary,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                  )
-                ]),
+                    10.verticalSpace,
+                  ]),
+                ),
               );
             });
           },
@@ -112,12 +113,10 @@ class _SalesReportDetailScreenState extends State<SalesReportDetailScreen> {
   }
 
   Widget _buildMainView() {
-    return true /*(_saleInvoiceDetailProvider.saleDeatils?.invoiceItem_List?.length ?? 0) <= 0*/
-        ? const NoDataFoundWidget()
-        : buildTable();
+    return getSalesReportDetails == null ? const NoDataFoundWidget() : buildTable();
   }
 
-  Widget _upperSectionWidget(/*SaleReportDetailModel?*/ value) {
+  Widget _upperSectionWidget() {
     return Column(
       children: [
         1.verticalSpace,
@@ -125,6 +124,7 @@ class _SalesReportDetailScreenState extends State<SalesReportDetailScreen> {
           padding: EdgeInsets.symmetric(horizontal: 0.04.sw),
           child: Column(
             children: [
+              10.verticalSpace,
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
@@ -142,8 +142,7 @@ class _SalesReportDetailScreenState extends State<SalesReportDetailScreen> {
                           child: SizedBox(
                             width: 0.5.sw,
                             child: Text(
-                              /*value?.party_name ?? */
-                              "Party name",
+                              getSalesReportDetails?.distributorName ?? '',
                               style: TextStyles.semiBold11.copyWith(color: AppColor.secondaryColor),
                             ),
                           ),
@@ -163,8 +162,8 @@ class _SalesReportDetailScreenState extends State<SalesReportDetailScreen> {
                         child: Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
-                            '956631233123',
-                            style: TextStyles.semiBold11.copyWith(color: AppColor.textSecondary),
+                            getSalesReportDetails?.distributorMobile ?? '',
+                            style: TextStyles.semiBold11.copyWith(color: AppColor.secondaryColor),
                           ),
                         ),
                       ),
@@ -173,7 +172,7 @@ class _SalesReportDetailScreenState extends State<SalesReportDetailScreen> {
                   1.horizontalSpace,
                 ],
               ),
-              0.5.verticalSpace,
+              5.verticalSpace,
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
@@ -193,7 +192,7 @@ class _SalesReportDetailScreenState extends State<SalesReportDetailScreen> {
                               child: SizedBox(
                                 width: 0.86.sw,
                                 child: Text(
-                                  'value?.party_address ?? ""',
+                                  getSalesReportDetails?.distributorAddress ?? '',
                                   style: TextStyles.semiBold11.copyWith(
                                     color: AppColor.secondaryColor,
                                   ),
@@ -207,7 +206,7 @@ class _SalesReportDetailScreenState extends State<SalesReportDetailScreen> {
                   ),
                 ],
               ),
-              0.5.verticalSpace,
+              5.verticalSpace,
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
@@ -222,8 +221,8 @@ class _SalesReportDetailScreenState extends State<SalesReportDetailScreen> {
                         child: Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
-                            '25/05/2001',
-                            style: TextStyles.regular11.copyWith(color: AppColor.textSecondary),
+                            getSalesReportDetails?.invoiceDate ?? '',
+                            style: TextStyles.regular11.copyWith(color: AppColor.secondaryColor),
                           ),
                         ),
                       ),
@@ -241,9 +240,9 @@ class _SalesReportDetailScreenState extends State<SalesReportDetailScreen> {
                         child: Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
-                            '1002120',
+                            getSalesReportDetails?.invoiceNo ?? '',
                             style: TextStyles.semiBold11.copyWith(
-                              color: AppColor.textSecondary,
+                              color: AppColor.secondaryColor,
                             ),
                           ),
                         ),
@@ -253,6 +252,7 @@ class _SalesReportDetailScreenState extends State<SalesReportDetailScreen> {
                   0.5.verticalSpace,
                 ],
               ),
+              5.verticalSpace,
             ],
           ),
         ),
@@ -275,17 +275,20 @@ class _SalesReportDetailScreenState extends State<SalesReportDetailScreen> {
   }
 
   Widget buildTable() {
-    return Table(
-        columnWidths: const {
-          0: FlexColumnWidth(4),
-          1: FlexColumnWidth(1),
-          2: FlexColumnWidth(1),
-          3: FlexColumnWidth(2),
-          4: FlexColumnWidth(3),
-        },
-        children: List.generate(/*(_saleInvoiceDetailProvider.saleDeatils?.invoiceItem_List?.length ?? 0) +*/ 1, (index) {
-          return index == 0 ? _buildColum() : _buildRow(index - 1);
-        }));
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 10).h,
+      child: Table(
+          columnWidths: const {
+            0: FlexColumnWidth(4),
+            1: FlexColumnWidth(2),
+            2: FlexColumnWidth(2),
+            3: FlexColumnWidth(2),
+            4: FlexColumnWidth(3),
+          },
+          children: List.generate((getSalesReportDetails?.invoiceItemList?.length ?? 0) + 1, (index) {
+            return index == 0 ? _buildColum() : _buildRow(index - 1);
+          })),
+    );
   }
 
   TableRow _buildColum() {
@@ -309,7 +312,7 @@ class _SalesReportDetailScreenState extends State<SalesReportDetailScreen> {
                   width: 50,
                   child: Text(
                     title,
-                    style: TextStyles.regular11.copyWith(color: AppColor.textSecondary),
+                    style: TextStyles.regular11,
                   ),
                 ),
               ),
@@ -318,25 +321,32 @@ class _SalesReportDetailScreenState extends State<SalesReportDetailScreen> {
   }
 
   TableRow _buildRow(int index) {
-    //final item = _saleInvoiceDetailProvider.saleDeatils?.invoiceItem_List?[index];
+    final item = getSalesReportDetails?.invoiceItemList?[index];
+    final list = [item?.productName, item?.unit, item?.qty, item?.price, item?.amount];
     return TableRow(
         decoration: BoxDecoration(
           color: index % 2 == 0 ? AppColor.tableEvenRowColor : AppColor.tableOddRowColor,
         ),
-        children: ['Product Name', 'unit', 'qty', 'price', 'amount']
-            .map(
-              (value) => TableCell(
-                child: Padding(
-                  padding: const EdgeInsets.all(5),
-                  child: Text(
-                    value,
-                    style: TextStyles.regular11.copyWith(
-                      color: AppColor.textSecondary,
-                    ),
+        children: List.generate(
+          list.length,
+          (no) {
+            return TableCell(
+              child: Padding(
+                padding: const EdgeInsets.all(5).copyWith(right: no == 4 ? 15 : 5).w,
+                child: Text(
+                  list[no] ?? '',
+                  style: TextStyles.regular11.copyWith(
+                    color: AppColor.textSecondary,
                   ),
+                  textAlign: no == 3 || no == 4 ? TextAlign.right : TextAlign.left,
                 ),
               ),
-            )
-            .toList());
+            );
+          },
+        ));
+  }
+
+  Future<void> _getSalesReportDetails() async {
+    await _saleInvoiceDetailProvider.callSalesReportDetails(widget.docId);
   }
 }

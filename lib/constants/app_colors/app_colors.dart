@@ -65,7 +65,7 @@ class AppColor {
   static const Color textSecondary = Color(0xFF000000);
   static const Color borderColor = Colors.white54;
 
-  static var tableEvenRowColor = grey.withOpacity(0.5);
+  static var tableEvenRowColor = grey.withOpacity(0.2);
   static var tableOddRowColor = primaryColorLight.withOpacity(0.5);
   static var tableBorderColor = primaryColorLight.withOpacity(0.2);
 }

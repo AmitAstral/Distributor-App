@@ -42,4 +42,6 @@ class ApiConstants {
   static const String ageingReport = '${report}AgeingReport';
   static const String pendingOrderReport = '${report}PendingOrderReport';
   static const String getPendingOrderDetailByOrderNo = '${report}GetPendingOrderDetailByOrderNo';
+  static const String getSaleInvoiceReport = '${report}SaleInvoiceReport';
+  static const String getSaleInvoiceDetailByDocID = '${report}GetSaleInvoiceDetailByDocID';
 }

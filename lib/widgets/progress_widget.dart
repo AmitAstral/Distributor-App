@@ -38,7 +38,7 @@ class ProgressWidget extends StatelessWidget {
 
     return Stack(
       children: [
-        child!,
+        /*child!,*/
         Opacity(
           opacity: opacity!,
           child: ModalBarrier(dismissible: dismissible!, color: color),

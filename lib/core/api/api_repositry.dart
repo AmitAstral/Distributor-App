@@ -9,6 +9,8 @@ import 'package:distributor_empower/model/menu_response.dart';
 import 'package:distributor_empower/model/order_details_response.dart';
 import 'package:distributor_empower/model/pending_order_response.dart';
 import 'package:distributor_empower/model/report_menu_response.dart';
+import 'package:distributor_empower/model/sales_report_details.dart';
+import 'package:distributor_empower/model/sales_report_response.dart';
 import 'package:distributor_empower/model/setting_response.dart';
 import 'package:distributor_empower/model/statement_response.dart';
 import 'package:distributor_empower/model/user_response.dart';
@@ -152,6 +154,24 @@ class ApiRepository extends ApiCaller {
       apiCall: apiService.post(endPoint: ApiConstants.getPendingOrderDetailByOrderNo, data: request.toJson()),
       onApiError: onApiError,
       baseModel: OrderDetailsResponse(),
+    );
+    return data;
+  }
+
+  Future<BaseResponse<SalesReportResponse?>> callSaleInvoiceReportAPI(ApiReqData request, Function(String errorRes) onApiError) async {
+    var data = await executeApiCall<SalesReportResponse>(
+      apiCall: apiService.post(endPoint: ApiConstants.getSaleInvoiceReport, data: request.toJson()),
+      onApiError: onApiError,
+      baseModel: SalesReportResponse(),
+    );
+    return data;
+  }
+
+  Future<BaseResponse<SalesReportDetailsResponse?>> callSalesReportDetails(ApiReqData request, Function(String errorRes) onApiError) async {
+    var data = await executeApiCall<SalesReportDetailsResponse>(
+      apiCall: apiService.post(endPoint: ApiConstants.getSaleInvoiceDetailByDocID, data: request.toJson()),
+      onApiError: onApiError,
+      baseModel: SalesReportDetailsResponse(),
     );
     return data;
   }
