@@ -13,7 +13,7 @@ import 'package:distributor_empower/presentation/offers/offers_screen.dart';
 import 'package:distributor_empower/presentation/order_history/order_details_screen.dart';
 import 'package:distributor_empower/presentation/order_history/order_history_screen.dart';
 import 'package:distributor_empower/presentation/pending_order/pending_order_details_screen.dart';
-import 'package:distributor_empower/presentation/pending_order/pending_order_page.dart';
+import 'package:distributor_empower/presentation/pending_order/pending_order_screen.dart';
 import 'package:distributor_empower/presentation/profile/profile_screen.dart';
 import 'package:distributor_empower/presentation/quick_order/quick_order_screen.dart';
 import 'package:distributor_empower/presentation/reports/report_screen.dart';

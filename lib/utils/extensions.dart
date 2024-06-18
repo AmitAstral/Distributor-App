@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 
@@ -40,12 +40,33 @@ extension NumExtension on num {
 }
 
 extension WidgetsExtensions on Widget {
-  Widget addGesture(Function() onTap) {
-    return GestureDetector(
-      onTap: onTap,
+  Widget addGesture(VoidCallback callback) {
+    return InkWell(
+      overlayColor: WidgetStateProperty.all(Colors.transparent),
+      onTap: () {
+        if (!isRedundantClick(DateTime.now())) {
+          HapticFeedback.mediumImpact();
+          callback();
+        }
+      },
       child: this,
     );
   }
+}
+
+DateTime? firstClickTime;
+
+bool isRedundantClick(DateTime clickTime) {
+  if (firstClickTime == null) {
+    firstClickTime = clickTime;
+    return false;
+  }
+  if (clickTime.difference(firstClickTime!).inMilliseconds < 800) {
+    return true;
+  }
+
+  firstClickTime = clickTime;
+  return false;
 }
 
 extension HexColor on Color {

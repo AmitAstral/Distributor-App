@@ -11,6 +11,7 @@ import 'package:distributor_empower/utils/text_styles.dart';
 import 'package:distributor_empower/utils/toast.dart';
 import 'package:distributor_empower/widgets/custom_app_bar/app_bar.dart';
 import 'package:distributor_empower/widgets/no_data_found_widget.dart';
+import 'package:distributor_empower/widgets/pagination_loader.dart';
 import 'package:distributor_empower/widgets/progress_widget.dart';
 import 'package:distributor_empower/widgets/smart_refresher_widget.dart';
 import 'package:flutter/material.dart';
@@ -40,7 +41,7 @@ class _SalesReportScreenState extends State<SalesReportScreen> {
 
   @override
   void initState() {
-    _getSalesReport();
+    _getFreshData();
     super.initState();
   }
 
@@ -62,13 +63,15 @@ class _SalesReportScreenState extends State<SalesReportScreen> {
           builder: (context, child) {
             return SmartRefresherWidget(
               controller: _refreshController,
-              onRefresh: () {
+              onRefresh: () async {
                 if (_salesReportProvider.isLoading.value) {
                   _refreshController.refreshCompleted();
                   return;
                 }
-                _getSalesReport(isLoading: false);
+                await _getFreshData(isLoading: false);
+                _refreshController.refreshCompleted();
               },
+              loadMoreData: _loadMore,
               child: Consumer<SalesReportProvider>(builder: (context, value, child) {
                 return ProgressWidget(
                   inAsyncCall: _salesReportProvider.isLoading.value,
@@ -192,7 +195,7 @@ class _SalesReportScreenState extends State<SalesReportScreen> {
                   } else if (toDate == null) {
                     errorToast(AppLocalizations.current.pleaseSelectToDate);
                   } else {
-                    _getSalesReport(isLoading: true);
+                    _getFreshData(isLoading: true);
                   }
                 },
                 child: Container(
@@ -216,10 +219,20 @@ class _SalesReportScreenState extends State<SalesReportScreen> {
   }
 
   Widget buildTable() {
-    return Table(
-        children: List.generate(getSalesReportList.length + 1, (index) {
-      return index == 0 ? _buildColum() : _buildRow(index - 1);
-    }));
+    return Column(
+      children: [
+        Table(
+          columnWidths: const {3: IntrinsicColumnWidth()},
+          children: List.generate(
+            getSalesReportList.length + 1,
+            (index) {
+              return index == 0 ? _buildColum() : _buildRow(index - 1);
+            },
+          ),
+        ),
+        if (_salesReportProvider.isPaginationLoading) const PaginationLoader(),
+      ],
+    );
   }
 
   TableRow _buildColum() {
@@ -258,6 +271,7 @@ class _SalesReportScreenState extends State<SalesReportScreen> {
               child: Text(
                 item?.invoiceDate ?? '',
                 style: TextStyles.regular11.copyWith(color: AppColor.black),
+                textAlign: TextAlign.center,
               ),
             ),
           ),
@@ -299,7 +313,7 @@ class _SalesReportScreenState extends State<SalesReportScreen> {
                 child: const Icon(
                   Icons.chevron_right,
                   color: AppColor.black,
-                  size: 25,
+                  size: 18,
                 ),
               ),
             ).addGesture(
@@ -311,8 +325,16 @@ class _SalesReportScreenState extends State<SalesReportScreen> {
         ]);
   }
 
-  Future<void> _getSalesReport({isLoading = true}) async {
+  Future<void> _getFreshData({isLoading = true}) async {
+    _salesReportProvider.pageNo = 1;
+    _salesReportProvider.hasMore = true;
     await _salesReportProvider.callSalesReportListAPI(fromDate, toDate, isLoading);
-    _refreshController.refreshCompleted();
+  }
+
+  Future<void> _loadMore() async {
+    if (_salesReportProvider.hasMore) {
+      _salesReportProvider.pageNo += 1;
+      await _salesReportProvider.callSalesReportListAPI(fromDate, toDate, false);
+    }
   }
 }

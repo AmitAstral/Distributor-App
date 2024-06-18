@@ -46,8 +46,8 @@ class _SalesReportDetailScreenState extends State<SalesReportDetailScreen> {
             centerTitle: true,
             elevation: 0,
             flexibleSpace: null,
-            actions: [
-              Padding(
+            actions: const [
+              /*Padding(
                 padding: const EdgeInsets.only(right: 10.0).w,
                 child: IconButton(
                   icon: const Icon(
@@ -56,14 +56,14 @@ class _SalesReportDetailScreenState extends State<SalesReportDetailScreen> {
                   ),
                   onPressed: () {
                     //OPEN PDF VIEWER
-                    /*Get.to(PdfViewerPage(
+                    */ /*Get.to(PdfViewerPage(
                       text: "Invoice PDF",
                       url: _saleInvoiceDetailProvider?.saleDeatils?.invoice_URL ?? "",
                       isDownloadable: true,
-                    ));*/
+                    ));*/ /*
                   },
                 ),
-              )
+              )*/
             ],
           ),
         ),

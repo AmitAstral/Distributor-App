@@ -54,6 +54,7 @@ class _PendingOrderScreenState extends State<PendingOrderScreen> {
         child: SmartRefresherWidget(
           controller: _refreshController,
           onRefresh: () async {
+            _pendingOrderProvider.pageNo = 1;
             await _getPendingOrderList(getPendingOrderList.isEmpty);
             _refreshController.refreshCompleted();
           },

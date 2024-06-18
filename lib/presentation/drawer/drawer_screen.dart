@@ -104,65 +104,64 @@ class _DrawerScreenState extends State<DrawerScreen> {
                     itemCount: menuListData?.length ?? 0,
                     itemBuilder: (context, index) {
                       final item = menuListData?[index];
-                      return InkWell(
-                        onTap: () {
+                      return Container(
+                        width: 1.sw,
+                        padding: EdgeInsets.only(top: 5.h, bottom: 5.h, left: 8.w, right: 8.w),
+                        margin: EdgeInsets.only(top: 8.h),
+                        decoration: index == currentIndex
+                            ? BoxDecoration(
+                                gradient: LinearGradient(
+                                  begin: const Alignment(-1.00, -0.00),
+                                  end: const Alignment(1, 0),
+                                  colors: [
+                                    Colors.white.withOpacity(0),
+                                    Colors.white,
+                                  ],
+                                ),
+                              )
+                            : BoxDecoration(color: Colors.white.withOpacity(0.1)),
+                        child: Row(
+                          children: [
+                            Container(
+                              padding: EdgeInsets.only(left: 8.w, right: 25.w),
+                              child: CachedNetworkImageWidget(
+                                imageUrl: (item?.iconsUrl ?? ''),
+                                color: AppColor.white,
+                                height: 20.h,
+                                width: 20.h,
+                                errorWidget: (context, url, error) => const Icon(
+                                  Icons.error_outline,
+                                  color: AppColor.white,
+                                ),
+                                progressIndicatorBuilder: (context, url, progress) {
+                                  return Center(
+                                    child: SizedBox(
+                                      height: 20.h,
+                                      width: 20.h,
+                                      child: const CircularProgressIndicator(
+                                        color: AppColor.white,
+                                        strokeWidth: 2,
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                            Expanded(
+                              child: Text(
+                                item?.menuName ?? '',
+                                style: TextStyles.semiBold15,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ).addGesture(
+                        () {
                           setState(() {
                             currentIndex = index;
                           });
                           _drawerNavigation(item?.id);
                         },
-                        child: Container(
-                          width: 1.sw,
-                          padding: EdgeInsets.only(top: 5.h, bottom: 5.h, left: 8.w, right: 8.w),
-                          margin: EdgeInsets.only(top: 8.h),
-                          decoration: index == currentIndex
-                              ? BoxDecoration(
-                                  gradient: LinearGradient(
-                                    begin: const Alignment(-1.00, -0.00),
-                                    end: const Alignment(1, 0),
-                                    colors: [
-                                      Colors.white.withOpacity(0),
-                                      Colors.white,
-                                    ],
-                                  ),
-                                )
-                              : BoxDecoration(color: Colors.white.withOpacity(0.1)),
-                          child: Row(
-                            children: [
-                              Container(
-                                padding: EdgeInsets.only(left: 8.w, right: 25.w),
-                                child: CachedNetworkImageWidget(
-                                  imageUrl: (item?.iconsUrl ?? ''),
-                                  color: AppColor.white,
-                                  height: 20.h,
-                                  width: 20.h,
-                                  errorWidget: (context, url, error) => const Icon(
-                                    Icons.error_outline,
-                                    color: AppColor.white,
-                                  ),
-                                  progressIndicatorBuilder: (context, url, progress) {
-                                    return Center(
-                                      child: SizedBox(
-                                        height: 20.h,
-                                        width: 20.h,
-                                        child: const CircularProgressIndicator(
-                                          color: AppColor.white,
-                                          strokeWidth: 2,
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                ),
-                              ),
-                              Expanded(
-                                child: Text(
-                                  item?.menuName ?? '',
-                                  style: TextStyles.semiBold15,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
                       );
                     }),
               ),

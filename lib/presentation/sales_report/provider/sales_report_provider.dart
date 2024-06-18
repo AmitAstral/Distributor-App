@@ -9,15 +9,25 @@ class SalesReportProvider extends BaseProvider {
   SalesReportDetailsResponse? salesReportDetails;
 
   Future<void> callSalesReportListAPI(String? fromDate, String? toDate, bool loading) async {
+    isPaginationLoading = pageNo > 1;
     isLoading.value = loading;
+    notifyListeners();
     try {
-      final request = ApiReqData(fromDate: fromDate, toDate: toDate, withUserInfo: true);
+      final request = ApiReqData(fromDate: fromDate, toDate: toDate, pageNumber: pageNo.toString(), withUserInfo: true);
       final response = await apiRep.callSaleInvoiceReportAPI(request, onApiError);
-      salesListResponse = response.dataList ?? [];
+      final list = response.dataList ?? [];
+      if (pageNo == 1) {
+        salesListResponse = list;
+      } else {
+        salesListResponse.addAll(list);
+      }
+      hasMore = list.isNotEmpty;
     } catch (e, stack) {
       debugPrintStack(stackTrace: stack);
     } finally {
+      isPaginationLoading = false;
       isLoading.value = false;
+      notifyListeners();
     }
   }
 
