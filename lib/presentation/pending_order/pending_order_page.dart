@@ -8,6 +8,7 @@ import 'package:distributor_empower/routes/router.dart';
 import 'package:distributor_empower/utils/text_styles.dart';
 import 'package:distributor_empower/widgets/custom_app_bar/app_bar.dart';
 import 'package:distributor_empower/widgets/no_data_found_widget.dart';
+import 'package:distributor_empower/widgets/pagination_loader.dart';
 import 'package:distributor_empower/widgets/progress_widget.dart';
 import 'package:distributor_empower/widgets/smart_refresher_widget.dart';
 import 'package:flutter/material.dart';
@@ -52,18 +53,22 @@ class _PendingOrderScreenState extends State<PendingOrderScreen> {
         value: _pendingOrderProvider,
         child: SmartRefresherWidget(
           controller: _refreshController,
-          onRefresh: () {
-            _getPendingOrderList(getPendingOrderList.isEmpty);
+          onRefresh: () async {
+            await _getPendingOrderList(getPendingOrderList.isEmpty);
+            _refreshController.refreshCompleted();
           },
+          loadMoreData: _loadMore,
           child: Consumer<PendingOrderProvider>(
             builder: (context, value, child) {
               return ProgressWidget(
                 inAsyncCall: value.isLoading.value,
-                child: value.isLoading.value
-                    ? const SizedBox.shrink()
-                    : value.pendingOrderListResponse.isEmpty
-                        ? const NoDataFoundWidget()
-                        : _createDataTable(),
+                child: SingleChildScrollView(
+                  child: value.isLoading.value
+                      ? const SizedBox.shrink()
+                      : value.pendingOrderListResponse.isEmpty
+                          ? const NoDataFoundWidget()
+                          : buildTable(),
+                ),
               );
             },
           ),
@@ -79,23 +84,23 @@ class _PendingOrderScreenState extends State<PendingOrderScreen> {
     super.dispose();
   }
 
-  Widget _createDataTable() {
-    return SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.only(bottom: 20).h,
-        child: buildTable(),
-      ),
-    );
-  }
-
   Widget buildTable() {
-    return Table(
-      columnWidths: const <int, TableColumnWidth>{
-        4: IntrinsicColumnWidth(),
-      },
-      children: List.generate(getPendingOrderList.length + 1, (index) {
-        return index == 0 ? _buildColum() : _buildRow(index - 1);
-      }),
+    return Column(
+      children: [
+        Table(
+          columnWidths: const <int, TableColumnWidth>{
+            0: IntrinsicColumnWidth(flex: 1.3),
+            1: IntrinsicColumnWidth(flex: 1),
+            3: IntrinsicColumnWidth(flex: 1),
+            4: IntrinsicColumnWidth(),
+          },
+          children: List.generate(getPendingOrderList.length + 1, (index) {
+            return index == 0 ? _buildColum() : _buildRow(index - 1);
+          }),
+        ),
+        10.verticalSpace,
+        if (_pendingOrderProvider.isPaginationLoading) const PaginationLoader(),
+      ],
     );
   }
 
@@ -167,7 +172,7 @@ class _PendingOrderScreenState extends State<PendingOrderScreen> {
             child: Padding(
               padding: const EdgeInsets.all(2).h,
               child: Text(
-                item?.orderAmount ?? '',
+                item?.status ?? '',
                 style: TextStyles.regular12.copyWith(color: AppColor.textSecondary),
                 textAlign: TextAlign.center,
               ),
@@ -187,6 +192,12 @@ class _PendingOrderScreenState extends State<PendingOrderScreen> {
 
   Future<void> _getPendingOrderList(bool isProgress) async {
     await _pendingOrderProvider.callPendingOrderListAPI(isProgress: isProgress);
-    _refreshController.refreshCompleted();
+  }
+
+  void _loadMore() {
+    if (_pendingOrderProvider.hasMore) {
+      _pendingOrderProvider.pageNo += 1;
+      _getPendingOrderList(false);
+    }
   }
 }

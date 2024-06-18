@@ -39,7 +39,7 @@ class ApiService {
 
   Future<dio.Response<T>> post<T>({
     required String endPoint,
-    data,
+    Map<String, dynamic>? data,
     Map<String, dynamic>? queryParams,
     bool isCompleteUrl = false,
   }) async {

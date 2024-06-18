@@ -140,9 +140,9 @@ class ApiRepository extends ApiCaller {
     return data;
   }
 
-  Future<BaseResponse<PendingOrderResponse?>> callPendingOrderListAPI(Function(String errorRes) onApiError) async {
+  Future<BaseResponse<PendingOrderResponse?>> callPendingOrderListAPI(ApiReqData request, Function(String errorRes) onApiError) async {
     var data = await executeApiCall<PendingOrderResponse>(
-      apiCall: apiService.post(endPoint: ApiConstants.pendingOrderReport, data: ApiReqData.getUserDetails.toJson()),
+      apiCall: apiService.post(endPoint: ApiConstants.pendingOrderReport, data: request.toJson()),
       onApiError: onApiError,
       baseModel: PendingOrderResponse(),
     );

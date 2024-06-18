@@ -13,12 +13,13 @@ class BaseProvider extends ChangeNotifier {
   ValueNotifier<bool> isLoading = ValueNotifier(false);
   final apiRep = GetIt.I<ApiRepository>();
 
+  //PAGINATION
+  bool isPaginationLoading = false;
+  bool hasMore = true;
+  int pageNo = 1;
+
   BaseProvider() {
-    isLoading.addListener(
-      () {
-        notifyListeners();
-      },
-    );
+    isLoading.addListener(notifyListeners);
 
     onApiError = (error) {
       var message = '';
@@ -33,5 +34,11 @@ class BaseProvider extends ChangeNotifier {
         isShowErrorMessage = true;
       }
     };
+  }
+
+  @override
+  void dispose() {
+    isLoading.dispose();
+    super.dispose();
   }
 }

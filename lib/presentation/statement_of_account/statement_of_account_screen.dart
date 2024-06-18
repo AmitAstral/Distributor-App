@@ -237,6 +237,7 @@ class _StatementOfAccountScreenState extends State<StatementOfAccountScreen> {
               5.horizontalSpace,
               GestureDetector(
                 onTap: () {
+                  if (_statementProvider.isLoading.value) return;
                   if (fromDate == null) {
                     errorToast(AppLocalizations.of(context).pleaseSelectFromDate);
                   } else if (toDate == null) {

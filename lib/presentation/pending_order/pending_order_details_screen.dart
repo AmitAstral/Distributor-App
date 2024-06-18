@@ -88,7 +88,7 @@ class _PendingOrderDetailsScreenState extends State<PendingOrderDetailsScreen> {
         child: Padding(
           padding: const EdgeInsets.only(bottom: 20).h,
           child: Table(
-              columnWidths: const {0: FixedColumnWidth(140)},
+              columnWidths: const {0: FixedColumnWidth(130)},
               children: List.generate(getOrderDetailsListResponse.length + 1, (index) {
                 return index == 0 ? _buildColum() : _buildRow(index - 1);
               })),
@@ -171,13 +171,11 @@ class _PendingOrderDetailsScreenState extends State<PendingOrderDetailsScreen> {
             ),
           ),
           TableCell(
-              child: Center(
-            child: Padding(
-              padding: const EdgeInsets.all(2).h,
-              child: Text(
-                item?.unit ?? '',
-                style: TextStyles.regular12.copyWith(color: AppColor.textSecondary),
-              ),
+              child: Padding(
+            padding: const EdgeInsets.all(2).h,
+            child: Text(
+              item?.unit ?? '',
+              style: TextStyles.regular12.copyWith(color: AppColor.textSecondary),
             ),
           )),
           TableCell(
@@ -227,9 +225,14 @@ class _PendingOrderDetailsScreenState extends State<PendingOrderDetailsScreen> {
   Widget _buildTextView(String title, String? value) {
     return Row(
       children: [
-        Text(title),
-        const Text(' : '),
-        Text(value ?? ''),
+        Text(
+          title,
+          style: TextStyles.semiBold11.copyWith(color: AppColor.textSecondary),
+        ),
+        Text(
+          ' : ${value ?? ''}',
+          style: TextStyles.regular11.copyWith(color: AppColor.textSecondary),
+        ),
       ],
     );
   }

@@ -9,13 +9,23 @@ class PendingOrderProvider extends BaseProvider {
   List<OrderDetailsResponse?> orderDetailsListResponse = [];
 
   Future<void> callPendingOrderListAPI({required bool isProgress}) async {
+    isPaginationLoading = pageNo > 1;
     isLoading.value = isProgress;
+    notifyListeners();
     try {
-      final response = await apiRep.callPendingOrderListAPI(onApiError);
-      pendingOrderListResponse = response.dataList ?? [];
+      final request = ApiReqData(pageNumber: pageNo.toString(), withUserInfo: true);
+      final response = await apiRep.callPendingOrderListAPI(request, onApiError);
+      final list = response.dataList ?? [];
+      if (pageNo == 1) {
+        pendingOrderListResponse = list;
+      } else {
+        pendingOrderListResponse.addAll(list);
+      }
+      hasMore = list.isNotEmpty;
     } catch (e, stack) {
       debugPrintStack(stackTrace: stack);
     } finally {
+      isPaginationLoading = false;
       isLoading.value = false;
       notifyListeners();
     }

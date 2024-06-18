@@ -16,7 +16,7 @@ class ApiReqData {
   String? fcmID;
   String? fromDate;
   String? toDate;
-  int? pageNumber;
+  String? pageNumber;
   String? orderNo;
   String? docID;
 
