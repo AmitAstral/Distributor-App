@@ -1,12 +1,12 @@
+import 'dart:io';
+
 import 'package:distributor_empower/constants/all_constants.dart';
+import 'package:distributor_empower/core/api/api_constants.dart';
 import 'package:distributor_empower/core/di/locator.dart';
 import 'package:distributor_empower/generated/l10n.dart';
-import 'package:distributor_empower/utils/device_info.dart';
 import 'package:distributor_empower/utils/text_styles.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'dart:io';
-
 import 'package:url_launcher/url_launcher_string.dart';
 
 class CommonDialog {
@@ -91,14 +91,8 @@ class CommonDialog {
       positiveTitle: AppLocalizations.current.updateNow,
       negativeTitle: AppLocalizations.current.cancel,
       onPositivePressed: () async {
-        if (Platform.isAndroid) {
-          final appId = await getAppPackageName();
-          await launchUrlString('https://play.google.com/store/apps/details?id=$appId');
-          exit(0);
-        } else if (Platform.isIOS) {
-          await launchUrlString('https://apps.apple.com/app/id6467756019'); //Change App ID TODO
-          exit(0);
-        }
+        await launchUrlString(await ApiConstants.getAppURL);
+        exit(0);
       },
       onNegativePressed: () => exit(0),
     );

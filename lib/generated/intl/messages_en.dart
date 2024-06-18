@@ -29,8 +29,7 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m3(name) => "SapCode : ${name}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
-  static Map<String, Function> _notInlinedMessages(_) =>
-      <String, Function>{
+  static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "SAPCode": MessageLookupByLibrary.simpleMessage("SAP Code"),
         "aboutUs": MessageLookupByLibrary.simpleMessage("About us"),
         "address": MessageLookupByLibrary.simpleMessage("Address"),
@@ -55,6 +54,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "date": MessageLookupByLibrary.simpleMessage("Date"),
         "debit": MessageLookupByLibrary.simpleMessage("Debit"),
         "dispatchedOrder": MessageLookupByLibrary.simpleMessage("Dispatched Order"),
+        "division": MessageLookupByLibrary.simpleMessage("Division"),
         "editYourProfile": MessageLookupByLibrary.simpleMessage("Edit your profile"),
         "enterPhoneNumber": MessageLookupByLibrary.simpleMessage("Enter Phone Number"),
         "enterSAPCode": MessageLookupByLibrary.simpleMessage("Enter SAP Code"),
@@ -62,6 +62,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "faqs": MessageLookupByLibrary.simpleMessage("FAQs"),
         "favourite": MessageLookupByLibrary.simpleMessage("Favourite"),
         "forgotPin": MessageLookupByLibrary.simpleMessage("Forgot pin?"),
+        "gstNo": MessageLookupByLibrary.simpleMessage("GSTNo"),
         "hello": MessageLookupByLibrary.simpleMessage("Hello,"),
         "hiWithName": m2,
         "home": MessageLookupByLibrary.simpleMessage("Home"),
@@ -72,6 +73,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "logout": MessageLookupByLibrary.simpleMessage("Log Out"),
         "messageAreYouSureLogout": MessageLookupByLibrary.simpleMessage("Are you  sure you want to logout?"),
         "mobileNo": MessageLookupByLibrary.simpleMessage("Mobile No."),
+        "myInvoices": MessageLookupByLibrary.simpleMessage("My Invoices"),
         "myOrders": MessageLookupByLibrary.simpleMessage("My orders"),
         "narration": MessageLookupByLibrary.simpleMessage("Narration"),
         "needHelp": MessageLookupByLibrary.simpleMessage("Need help?"),
@@ -106,11 +108,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "reports": MessageLookupByLibrary.simpleMessage("Reports"),
         "resendOtp": MessageLookupByLibrary.simpleMessage("Resend Astral code"),
         "rupees": MessageLookupByLibrary.simpleMessage("₹"),
-        "sPMobileNumber": MessageLookupByLibrary.simpleMessage("SP Mobile Number"),
         "sales": MessageLookupByLibrary.simpleMessage("Sales"),
         "salesDetails": MessageLookupByLibrary.simpleMessage("Sales Details"),
         "salesReport": MessageLookupByLibrary.simpleMessage("Sales Report"),
-        "sales_person": MessageLookupByLibrary.simpleMessage("Sales Person"),
+        "sapCode": MessageLookupByLibrary.simpleMessage("SAPCode"),
         "sapcodeTitle": m3,
         "schemes": MessageLookupByLibrary.simpleMessage("Schemes"),
         "seeAll": MessageLookupByLibrary.simpleMessage("See all"),

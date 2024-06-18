@@ -1,5 +1,6 @@
 import 'package:auto_route/annotations.dart';
 import 'package:distributor_empower/constants/app_colors/app_colors.dart';
+import 'package:distributor_empower/core/api/api_constants.dart';
 import 'package:distributor_empower/core/di/locator.dart';
 import 'package:distributor_empower/gen/assets.gen.dart';
 import 'package:distributor_empower/generated/l10n.dart';
@@ -12,6 +13,8 @@ import 'package:distributor_empower/widgets/custom_app_bar/app_bar.dart';
 import 'package:distributor_empower/widgets/profile_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:share_plus/share_plus.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 @RoutePage()
 class ProfileScreen extends StatelessWidget {
@@ -63,65 +66,32 @@ class ProfileScreen extends StatelessWidget {
                                 overflow: TextOverflow.ellipsis,
                               ),
                             ),
+                            Text(
+                              storage.userDetails.address ?? '',
+                              style: TextStyles.semiBold10.copyWith(
+                                color: AppColor.hintTextColor,
+                              ),
+                            ),
                           ],
                         ),
                       ),
                     ],
                   ),
                   15.verticalSpace,
-                  Container(
-                      padding: EdgeInsets.symmetric(vertical: 7.h, horizontal: 10.w),
-                      decoration: ShapeDecoration(
-                        color: const Color(0xFFF8FAFB),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.r),
-                        ),
-                      ),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            flex: 35,
-                            child: Text(
-                              "${AppLocalizations.current.sales_person} :",
-                              style: TextStyles.regular10.copyWith(color: AppColor.textSecondary),
-                            ),
-                          ),
-                          Expanded(
-                            flex: 65,
-                            child: Text(
-                              'Hiren Nakum',
-                              style: TextStyles.regular10.copyWith(color: AppColor.textSecondary),
-                            ),
-                          ),
-                        ],
-                      )),
-                  5.verticalSpace,
-                  Container(
-                      padding: EdgeInsets.symmetric(vertical: 7.h, horizontal: 10.w),
-                      decoration: ShapeDecoration(
-                        color: const Color(0xFFF8FAFB),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.r),
-                        ),
-                      ),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            flex: 35,
-                            child: Text(
-                              "${AppLocalizations.current.sPMobileNumber} :",
-                              style: TextStyles.regular10.copyWith(color: AppColor.textSecondary),
-                            ),
-                          ),
-                          Expanded(
-                            flex: 65,
-                            child: Text(
-                              '+91 96547 83210',
-                              style: TextStyles.regular10.copyWith(color: AppColor.textSecondary),
-                            ),
-                          ),
-                        ],
-                      )),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(child: _buildInfoView(AppLocalizations.current.division, storage.userDetails.divisionID)),
+                      Expanded(child: _buildInfoView(AppLocalizations.current.sapCode, storage.userDetails.distributorSapCode)),
+                    ],
+                  ),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(child: _buildInfoView(AppLocalizations.current.gstNo, storage.userDetails.gstNo)),
+                      Expanded(child: _buildInfoView(AppLocalizations.current.mobileNo, storage.userDetails.distributorMobileNumber)),
+                    ],
+                  ),
                   15.verticalSpace,
                   Row(
                     children: [
@@ -147,6 +117,10 @@ class ProfileScreen extends StatelessWidget {
                               10.verticalSpace
                             ],
                           ),
+                        ).addGesture(
+                          () {
+                            appRouter.push(const OrderHistoryRoute());
+                          },
                         ),
                       ),
                       15.horizontalSpace,
@@ -165,7 +139,7 @@ class ProfileScreen extends StatelessWidget {
                               Assets.icons.cart.svg(color: AppColor.black),
                               10.verticalSpace,
                               Text(
-                                'My Invoices',
+                                AppLocalizations.of(context).myInvoices,
                                 textAlign: TextAlign.center,
                                 style: TextStyles.semiBold11.copyWith(color: AppColor.textSecondary),
                               ),
@@ -175,7 +149,7 @@ class ProfileScreen extends StatelessWidget {
                         ),
                       ),
                       15.horizontalSpace,
-                      Expanded(
+                      /*Expanded(
                         flex: 3,
                         child: Container(
                           decoration: ShapeDecoration(
@@ -198,7 +172,7 @@ class ProfileScreen extends StatelessWidget {
                             ],
                           ),
                         ),
-                      ),
+                      ),*/
                     ],
                   ),
                   15.verticalSpace,
@@ -323,6 +297,10 @@ class ProfileScreen extends StatelessWidget {
                               )
                             ],
                           ),
+                        ).addGesture(
+                          () async {
+                            await Share.share('Please checkout distributor app');
+                          },
                         ),
                         Container(
                           width: 1.sw,
@@ -351,6 +329,10 @@ class ProfileScreen extends StatelessWidget {
                               )
                             ],
                           ),
+                        ).addGesture(
+                          () async {
+                            await launchUrlString(await ApiConstants.getAppURL);
+                          },
                         ),
                       ],
                     ),
@@ -408,5 +390,34 @@ class ProfileScreen extends StatelessWidget {
             ),
           )),
     );
+  }
+
+  Widget _buildInfoView(String? title, String? value) {
+    return Container(
+        padding: EdgeInsets.symmetric(vertical: 5.h, horizontal: 5.w),
+        margin: const EdgeInsets.only(bottom: 5, right: 5).h,
+        decoration: ShapeDecoration(
+          color: const Color(0xFFF8FAFB),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(5.r),
+          ),
+        ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "$title : ",
+              style: TextStyles.regular10.copyWith(color: AppColor.hintTextColor),
+            ),
+            const Spacer(),
+            Expanded(
+              flex: 60,
+              child: Text(
+                value ?? '',
+                style: TextStyles.semiBold10.copyWith(color: AppColor.textSecondary),
+              ),
+            ),
+          ],
+        ));
   }
 }

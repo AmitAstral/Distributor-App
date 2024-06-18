@@ -161,16 +161,6 @@ class AppLocalizations {
     );
   }
 
-  /// `Sales Person`
-  String get sales_person {
-    return Intl.message(
-      'Sales Person',
-      name: 'sales_person',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `My orders`
   String get myOrders {
     return Intl.message(
@@ -486,16 +476,6 @@ class AppLocalizations {
     return Intl.message(
       'Pin and confirm pin must be same',
       name: 'validatePinAndConfirmPin',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `SP Mobile Number`
-  String get sPMobileNumber {
-    return Intl.message(
-      'SP Mobile Number',
-      name: 'sPMobileNumber',
       desc: '',
       args: [],
     );
@@ -1096,6 +1076,46 @@ class AppLocalizations {
     return Intl.message(
       'Credit',
       name: 'credit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Division`
+  String get division {
+    return Intl.message(
+      'Division',
+      name: 'division',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `SAPCode`
+  String get sapCode {
+    return Intl.message(
+      'SAPCode',
+      name: 'sapCode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `GSTNo`
+  String get gstNo {
+    return Intl.message(
+      'GSTNo',
+      name: 'gstNo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `My Invoices`
+  String get myInvoices {
+    return Intl.message(
+      'My Invoices',
+      name: 'myInvoices',
       desc: '',
       args: [],
     );

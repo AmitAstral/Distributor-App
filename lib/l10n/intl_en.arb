@@ -10,7 +10,6 @@
   "logout": "Log Out",
   "chooseQty": "Choose Quantity ",
   "rupees": "₹",
-  "sales_person": "Sales Person",
   "myOrders": "My orders",
   "aboutUs": "About us",
   "faqs": "FAQs",
@@ -43,7 +42,6 @@
   "astralCode": "Astral code",
   "messageAreYouSureLogout": "Are you  sure you want to logout?",
   "validatePinAndConfirmPin": "Pin and confirm pin must be same",
-  "sPMobileNumber": "SP Mobile Number",
   "forgotPin": "Forgot pin?",
   "verify": "Verify",
   "somethingWentWrongPleaseConnectWithInternetToUseApplication": "Something went wrong, Please connect with Internet to use Application.",
@@ -103,5 +101,9 @@
   "amount": "Amount",
   "price": "Price",
   "debit": "Debit",
-  "credit": "Credit"
+  "credit": "Credit",
+  "division": "Division",
+  "sapCode": "SAPCode",
+  "gstNo": "GSTNo",
+  "myInvoices": "My Invoices"
 }

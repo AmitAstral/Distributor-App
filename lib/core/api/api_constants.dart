@@ -1,5 +1,9 @@
 library api;
 
+import 'dart:io';
+
+import '../../utils/device_info.dart';
+
 enum Environment {
   debug('http://sfauat.astralpipes.com:8087/api/'),
   staging('http://sfauat.astralpipes.com:8087/api/'),
@@ -45,4 +49,9 @@ class ApiConstants {
   static const String getPendingOrderDetailByOrderNo = '${report}GetPendingOrderDetailByOrderNo';
   static const String getSaleInvoiceReport = '${report}SaleInvoiceReport';
   static const String getSaleInvoiceDetailByDocID = '${report}GetSaleInvoiceDetailByDocID';
+
+  static Future<String> get getAppURL async {
+    final appId = await getAppPackageName();
+    return Platform.isAndroid ? 'https://play.google.com/store/apps/details?id=$appId' : 'https://apps.apple.com/app/id6467756019';
+  }
 }
