@@ -22,6 +22,7 @@ class ApiConstants {
 
   ///USER
   static const String login = '${user}UserLoginProcess';
+  static const String getUserDetail = '${user}GetUserDetail';
   static const String userSetPin = '${user}UserSetPin';
   static const String generateJWToken = '${authentication}GenerateJWTToken';
   static const String logout = '${user}Logout';

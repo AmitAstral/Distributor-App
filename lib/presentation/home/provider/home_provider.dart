@@ -1,3 +1,4 @@
+import 'package:distributor_empower/core/di/locator.dart';
 import 'package:distributor_empower/core/provider/base_provider.dart';
 import 'package:distributor_empower/model/base/api_req_data.dart';
 import 'package:distributor_empower/model/dashboard_response.dart';
@@ -21,6 +22,19 @@ class HomeProvider extends BaseProvider {
       debugPrintStack(stackTrace: stack);
     } finally {
       isLoading.value = false;
+      notifyListeners();
+    }
+  }
+
+  Future<void> callGetUserDetails() async {
+    try {
+      final response = await apiRep.getUserDetails(onApiError: onApiError);
+      if (response.getIsSuccess && response.getData != null) {
+        storage.userDetails = response.getData;
+      }
+    } catch (e, stack) {
+      debugPrintStack(stackTrace: stack);
+    } finally {
       notifyListeners();
     }
   }

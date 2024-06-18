@@ -82,6 +82,7 @@ class _FilterMenuWidgetState extends State<FilterMenuWidget> {
           (index) => PopupMenuItem(
             child: Text(widget.filter?[index].label ?? ''),
             onTap: () {
+              if (storage.userDetails.distributorSapCode == widget.filter?[index].sapCode) return;
               final userData = storage.userDetails;
               userData.divisionID = widget.filter?[index].divisionID;
               userData.distributorSapCode = widget.filter?[index].sapCode;

@@ -42,18 +42,16 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(AppBar().preferredSize.height + 5.h),
-        child: _buildAppBar(),
-      ),
-      body: ChangeNotifierProvider.value(
-        value: _homeProvider,
-        builder: (context, _) {
-          return Consumer<HomeProvider>(builder: (context, provider, child) {
-            return _homeProvider.isLoading.value ? const HomeShimmerEffectWidget() : _buildHomeGraphs();
-          });
-        },
+    return ChangeNotifierProvider.value(
+      value: _homeProvider,
+      child: Scaffold(
+        appBar: PreferredSize(
+          preferredSize: Size.fromHeight(AppBar().preferredSize.height + 5.h),
+          child: Consumer<HomeProvider>(builder: (context, provider, child) => _buildAppBar()),
+        ),
+        body: Consumer<HomeProvider>(builder: (context, provider, child) {
+          return _homeProvider.isLoading.value ? const HomeShimmerEffectWidget() : _buildHomeGraphs();
+        }),
       ),
     );
   }
@@ -152,6 +150,7 @@ class _HomeScreenState extends State<HomeScreen> {
           dashboardData?.filter,
           dashboardData?.title ?? '',
           (FilterData filterData) {
+            _homeProvider.callGetUserDetails();
             _onRefresh();
           },
         );

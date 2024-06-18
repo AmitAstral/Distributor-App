@@ -28,6 +28,17 @@ class ApiRepository extends ApiCaller {
     return data;
   }
 
+  Future<BaseResponse<UserResponse?>> getUserDetails({
+    Function(String)? onApiError,
+  }) async {
+    var data = await executeApiCall<UserResponse>(
+      apiCall: apiService.post(endPoint: ApiConstants.getUserDetail, data: ApiReqData.getUserDetails.toJson()),
+      baseModel: UserResponse(),
+      onApiError: onApiError,
+    );
+    return data;
+  }
+
   Future<BaseResponse> setUserPin(
     ApiReqData req, {
     Function(String)? onApiError,
