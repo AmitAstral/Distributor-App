@@ -1,6 +1,5 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:distributor_empower/model/base/base_model.dart';
-import 'package:distributor_empower/routes/router.dart';
+import 'package:distributor_empower/utils/enum_classes.dart';
 
 class ReportMenuResponse extends BaseModel {
   ReportMenuResponse({
@@ -27,21 +26,4 @@ class ReportMenuResponse extends BaseModel {
       iconsUrl: json['IconsUrl'],
     );
   }
-}
-
-enum ReportType {
-  statementOfAccount('1', StatementOfAccountRoute()),
-  ageing('2', AgeingRoute()),
-  pendingOrder('3', PendingOrderRoute()),
-  salesReport('4', SalesReportRoute()),
-  none('', null);
-
-  final String id;
-  final PageRouteInfo? route;
-
-  const ReportType(this.id, this.route);
-
-  static ReportType getReportType(String? id) => ReportType.values.firstWhere(
-        (element) => element.id == (id ?? ''),
-      );
 }

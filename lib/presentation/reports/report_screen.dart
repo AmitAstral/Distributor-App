@@ -40,7 +40,6 @@ class ReportScreen extends StatelessWidget {
         value: _reportProvider,
         child: Consumer<ReportProvider>(builder: (context, provider, child) {
           return ProgressWidget(
-            opacity: 0,
             inAsyncCall: provider.isLoading.value,
             child: reportMenuList.isEmpty && !provider.isLoading.value
                 ? const NoDataFoundWidget()

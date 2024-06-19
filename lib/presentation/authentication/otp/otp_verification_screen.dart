@@ -1,9 +1,12 @@
+import 'dart:async';
+
 import 'package:auto_route/annotations.dart';
 import 'package:distributor_empower/constants/all_constants.dart';
 import 'package:distributor_empower/core/di/locator.dart';
 import 'package:distributor_empower/generated/l10n.dart';
 import 'package:distributor_empower/presentation/authentication/otp/provider/otp_verification_provider.dart';
 import 'package:distributor_empower/routes/router.dart';
+import 'package:distributor_empower/utils/enum_classes.dart';
 import 'package:distributor_empower/utils/extensions.dart';
 import 'package:distributor_empower/utils/text_styles.dart';
 import 'package:distributor_empower/utils/toast.dart';
@@ -12,12 +15,20 @@ import 'package:distributor_empower/widgets/auth_top_logo_widget.dart';
 import 'package:distributor_empower/widgets/pin_put_widget.dart';
 import 'package:distributor_empower/widgets/progress_widget.dart';
 import 'package:flutter/material.dart';
-import 'dart:async';
-
 import 'package:provider/provider.dart';
 
 @RoutePage()
-class OtpVerificationScreen extends StatelessWidget {
+class OtpVerificationScreen extends StatefulWidget {
+  OTPVerificationType? screenType = OTPVerificationType.login;
+  String sentOTP = '';
+
+  OtpVerificationScreen({this.screenType, required this.sentOTP, super.key});
+
+  @override
+  State<OtpVerificationScreen> createState() => _OtpVerificationScreenState();
+}
+
+class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
   String _otp = '';
 
   final ValueNotifier<int> _secondsRemaining = ValueNotifier(0);
@@ -26,13 +37,20 @@ class OtpVerificationScreen extends StatelessWidget {
 
   Timer? _timer;
 
-  OTPVerificationType? screenType = OTPVerificationType.login;
-  String sentOTP = '';
-
-  OtpVerificationScreen({this.screenType, required this.sentOTP, super.key}) {
-    if (screenType == OTPVerificationType.forgotPin) {
-      _sendOTP(false);
+  @override
+  void initState() {
+    if (widget.screenType == OTPVerificationType.forgotPin) {
+      _sendOTP(isShowMessage: false);
     }
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _timer = null;
+    _secondsRemaining.dispose();
+    _otpVerificationProvider.dispose();
+    super.dispose();
   }
 
   @override
@@ -145,14 +163,14 @@ class OtpVerificationScreen extends StatelessWidget {
             style: TextStyles.regular12.copyWith(color: AppColor.primaryColor, decoration: TextDecoration.underline),
           ).addGesture(
             () async {
-              await _sendOTP(true);
+              await _sendOTP(isShowMessage: true);
               _startTimer();
             },
           );
   }
 
-  Future<void> _sendOTP(bool isShowMessage) async {
-    sentOTP = await _otpVerificationProvider.sendOTP(isShowMessage: isShowMessage);
+  Future<void> _sendOTP({required bool isShowMessage}) async {
+    widget.sentOTP = await _otpVerificationProvider.sendOTP(isShowMessage: isShowMessage);
   }
 
   void _startTimer() {
@@ -171,8 +189,8 @@ class OtpVerificationScreen extends StatelessWidget {
   }
 
   Future<void> _onPressVerifyOTP() async {
-    if (_otp == sentOTP) {
-      if (screenType == OTPVerificationType.forgotPin) {
+    if (_otp == widget.sentOTP) {
+      if (widget.screenType == OTPVerificationType.forgotPin) {
         appRouter.replace(SetPinRoute());
       } else {
         final result = await _otpVerificationProvider.callSubmitUserInfo();
@@ -193,5 +211,3 @@ class OtpVerificationScreen extends StatelessWidget {
     }
   }
 }
-
-enum OTPVerificationType { login, forgotPin }

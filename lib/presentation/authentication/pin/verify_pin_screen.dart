@@ -4,11 +4,10 @@ import 'package:distributor_empower/constants/all_constants.dart';
 import 'package:distributor_empower/core/di/locator.dart';
 import 'package:distributor_empower/generated/l10n.dart';
 import 'package:distributor_empower/model/base/api_req_data.dart';
-import 'package:distributor_empower/presentation/authentication/otp/otp_verification_screen.dart';
-import 'package:distributor_empower/presentation/authentication/pin/provider/set_pin_type.dart';
 import 'package:distributor_empower/presentation/authentication/pin/provider/user_pin_provider.dart';
 import 'package:distributor_empower/routes/router.dart';
 import 'package:distributor_empower/utils/common_dialog.dart';
+import 'package:distributor_empower/utils/enum_classes.dart';
 import 'package:distributor_empower/utils/extensions.dart';
 import 'package:distributor_empower/utils/text_styles.dart';
 import 'package:distributor_empower/utils/toast.dart';
@@ -20,12 +19,26 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 @RoutePage()
-class VerifyPinScreen extends StatelessWidget {
+class VerifyPinScreen extends StatefulWidget {
+  const VerifyPinScreen({super.key});
+
+  @override
+  State<VerifyPinScreen> createState() => _VerifyPinScreenState();
+}
+
+class _VerifyPinScreenState extends State<VerifyPinScreen> {
   final ValueNotifier<bool> _isDisable = ValueNotifier(true);
+
   String _pin = '';
+
   final _userPinProvider = UserPinProvider();
 
-  VerifyPinScreen({super.key});
+  @override
+  void dispose() {
+    _isDisable.dispose();
+    _userPinProvider.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {

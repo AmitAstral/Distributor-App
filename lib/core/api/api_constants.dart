@@ -2,17 +2,9 @@ library api;
 
 import 'dart:io';
 
+import 'package:distributor_empower/utils/enum_classes.dart';
+
 import '../../utils/device_info.dart';
-
-enum Environment {
-  debug('http://sfauat.astralpipes.com:8087/api/'),
-  staging('http://sfauat.astralpipes.com:8087/api/'),
-  live('http://sfauat.astralpipes.com:8087/api/');
-
-  final String value;
-
-  const Environment(this.value);
-}
 
 String baseUrl = Environment.debug.value;
 
@@ -24,6 +16,7 @@ class ApiConstants {
   static const String dashboard = 'Dashboard/';
   static const String report = 'Report/';
   static const String entity = 'Entity/';
+  static const String order = 'Order/';
 
   ///USER
   static const String login = '${user}UserLoginProcess';
@@ -37,6 +30,7 @@ class ApiConstants {
   ///COMMON
   static const String checkServerStatus = '${common}CheckServerStatus';
   static const String getAllSetting = '${common}GetAllSetting';
+  static const String getDropDownList = '${common}GetDropDownList';
 
   ///Dashboard
   static const String getDashboard = '${dashboard}GetDashboard';
@@ -53,6 +47,9 @@ class ApiConstants {
 
   ///Entity
   static const String getEntityRecordList = '${entity}GetEntityRecordList';
+
+  ///Order
+  static const String getOrderList = '${order}GetOrderList';
 
   static Future<String> get getAppURL async {
     final appId = await getAppPackageName();

@@ -1,6 +1,6 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:distributor_empower/core/di/locator.dart';
 import 'package:distributor_empower/routes/router.dart';
+import 'package:distributor_empower/utils/enum_classes.dart';
 import 'package:flutter/material.dart';
 
 class BottomBarNavigationProvider with ChangeNotifier {
@@ -44,21 +44,4 @@ class BottomBarNavigationProvider with ChangeNotifier {
       }
     });
   }
-}
-
-enum BottomNavigationEnum {
-  home(route: HomeRoute(), icon: Icons.home, label: 'Home'),
-  cart(route: QuickOrderRoute(), icon: Icons.shopping_bag_sharp, label: 'Quick Order'),
-  offers(route: SchemesRoute(), icon: Icons.local_offer_rounded, label: 'Offers'),
-  profile(route: ProfileRoute(), icon: Icons.person, label: 'Settings');
-
-  final PageRouteInfo route;
-  final IconData icon;
-  final String label;
-
-  const BottomNavigationEnum({
-    required this.route,
-    required this.icon,
-    required this.label,
-  });
 }

@@ -281,16 +281,6 @@ class AppLocalizations {
     );
   }
 
-  /// `Order History`
-  String get orderHistory {
-    return Intl.message(
-      'Order History',
-      name: 'orderHistory',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Order Details`
   String get orderDetails {
     return Intl.message(
@@ -1116,6 +1106,26 @@ class AppLocalizations {
     return Intl.message(
       'My Invoices',
       name: 'myInvoices',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Total SKU`
+  String get totalSku {
+    return Intl.message(
+      'Total SKU',
+      name: 'totalSku',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `My Order`
+  String get myOrder {
+    return Intl.message(
+      'My Order',
+      name: 'myOrder',
       desc: '',
       args: [],
     );

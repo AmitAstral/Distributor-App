@@ -22,7 +22,6 @@
   "date": "Date",
   "orderNo": "Order No",
   "orderValue": "Order Value",
-  "orderHistory": "Order History",
   "orderDetails": "Order Details",
   "welcomeToAstral": "Welcome To Astral",
   "enterYourPhoneNumber": "Enter Your Phone Number",
@@ -105,5 +104,7 @@
   "division": "Division",
   "sapCode": "SAPCode",
   "gstNo": "GSTNo",
-  "myInvoices": "My Invoices"
+  "myInvoices": "My Invoices",
+  "totalSku": "Total SKU",
+  "myOrder": "My Order"
 }

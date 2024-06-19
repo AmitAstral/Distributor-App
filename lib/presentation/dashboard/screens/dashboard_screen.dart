@@ -5,6 +5,7 @@ import 'package:distributor_empower/core/di/locator.dart';
 import 'package:distributor_empower/presentation/dashboard/provider/bottombar_navigation_provider.dart';
 import 'package:distributor_empower/presentation/drawer/drawer_screen.dart';
 import 'package:distributor_empower/utils/common_dialog.dart';
+import 'package:distributor_empower/utils/enum_classes.dart';
 import 'package:distributor_empower/widgets/bottom_tab_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

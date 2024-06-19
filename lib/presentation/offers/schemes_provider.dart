@@ -1,6 +1,7 @@
 import 'package:distributor_empower/core/provider/base_provider.dart';
 import 'package:distributor_empower/model/base/api_req_data.dart';
 import 'package:distributor_empower/model/entity_response.dart';
+import 'package:distributor_empower/utils/enum_classes.dart';
 import 'package:flutter/material.dart';
 
 class SchemesProvider extends BaseProvider {
@@ -23,5 +24,3 @@ class SchemesProvider extends BaseProvider {
     }
   }
 }
-
-enum EntityType { schemes, priceList }

@@ -2,8 +2,8 @@ import 'package:auto_route/annotations.dart';
 import 'package:distributor_empower/core/di/locator.dart';
 import 'package:distributor_empower/generated/l10n.dart';
 import 'package:distributor_empower/presentation/authentication/login/login_provider.dart';
-import 'package:distributor_empower/presentation/authentication/otp/otp_verification_screen.dart';
 import 'package:distributor_empower/routes/router.dart';
+import 'package:distributor_empower/utils/enum_classes.dart';
 import 'package:distributor_empower/widgets/app_button.dart';
 import 'package:distributor_empower/widgets/app_text_form_field.dart';
 import 'package:distributor_empower/widgets/auth_top_logo_widget.dart';
@@ -13,14 +13,26 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 @RoutePage()
-class LoginScreen extends StatelessWidget {
-  LoginScreen({super.key});
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
 
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   final TextEditingController _sapCodeController = TextEditingController();
 
   final _loginProvider = LoginProvider();
+
+  @override
+  void dispose() {
+    _sapCodeController.dispose();
+    _loginProvider.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {

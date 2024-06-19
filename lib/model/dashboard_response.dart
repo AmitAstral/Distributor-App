@@ -1,4 +1,5 @@
 import 'package:distributor_empower/model/base/base_model.dart';
+import 'package:distributor_empower/utils/enum_classes.dart';
 import 'package:distributor_empower/utils/extensions.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -95,16 +96,6 @@ class DashboardResponse extends BaseModel {
     }
     return obj;
   }
-}
-
-enum DashboardViewType {
-  sales,
-  creditDetails,
-  orderDetails,
-  focusProduct,
-  creditAging,
-  filter,
-  none;
 }
 
 class Sales {

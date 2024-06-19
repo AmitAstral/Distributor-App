@@ -9,9 +9,9 @@ import 'package:distributor_empower/presentation/dashboard/screens/dashboard_scr
 import 'package:distributor_empower/presentation/home/screen/home_screen.dart';
 import 'package:distributor_empower/presentation/maintainance/maintenance_screen.dart';
 import 'package:distributor_empower/presentation/maintainance/no_internet_screen.dart';
+import 'package:distributor_empower/presentation/my_orders/order_details_screen.dart';
+import 'package:distributor_empower/presentation/my_orders/order_history_screen.dart';
 import 'package:distributor_empower/presentation/offers/schemes_screen.dart';
-import 'package:distributor_empower/presentation/order_history/order_details_screen.dart';
-import 'package:distributor_empower/presentation/order_history/order_history_screen.dart';
 import 'package:distributor_empower/presentation/pending_order/pending_order_details_screen.dart';
 import 'package:distributor_empower/presentation/pending_order/pending_order_screen.dart';
 import 'package:distributor_empower/presentation/profile/profile_screen.dart';
@@ -23,6 +23,7 @@ import 'package:distributor_empower/presentation/splash/splash_screen.dart';
 import 'package:distributor_empower/presentation/statement_of_account/statement_of_account_screen.dart';
 import 'package:distributor_empower/presentation/viewer/common_webview.dart';
 import 'package:distributor_empower/presentation/viewer/pdf_viewer_screen.dart';
+import 'package:distributor_empower/utils/enum_classes.dart';
 import 'package:flutter/material.dart';
 
 part 'router.gr.dart';

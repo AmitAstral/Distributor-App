@@ -38,12 +38,13 @@ class ProgressWidget extends StatelessWidget {
 
     return Stack(
       children: [
-        /*child!,*/
-        Opacity(
-          opacity: opacity!,
-          child: ModalBarrier(dismissible: dismissible!, color: color),
-        ),
-        layOutProgressIndicator,
+        if (opacity != 0) child!,
+        if (opacity != 0)
+          Opacity(
+            opacity: opacity!,
+            child: ModalBarrier(dismissible: dismissible!, color: color),
+          ),
+        Center(child: layOutProgressIndicator),
       ],
     );
   }
