@@ -23,6 +23,7 @@ class ApiConstants {
   static const String user = 'User/';
   static const String dashboard = 'Dashboard/';
   static const String report = 'Report/';
+  static const String entity = 'Entity/';
 
   ///USER
   static const String login = '${user}UserLoginProcess';
@@ -49,6 +50,9 @@ class ApiConstants {
   static const String getPendingOrderDetailByOrderNo = '${report}GetPendingOrderDetailByOrderNo';
   static const String getSaleInvoiceReport = '${report}SaleInvoiceReport';
   static const String getSaleInvoiceDetailByDocID = '${report}GetSaleInvoiceDetailByDocID';
+
+  ///Entity
+  static const String getEntityRecordList = '${entity}GetEntityRecordList';
 
   static Future<String> get getAppURL async {
     final appId = await getAppPackageName();

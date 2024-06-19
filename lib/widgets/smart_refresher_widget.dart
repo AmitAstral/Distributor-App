@@ -42,7 +42,6 @@ class _SmartRefresherWidgetState extends State<SmartRefresherWidget> {
     return SmartRefresher(
         controller: widget.controller!,
         onRefresh: widget.onRefresh,
-        primary: false,
         scrollController: scrollController,
         enablePullDown: true,
         header: const WaterDropHeader(

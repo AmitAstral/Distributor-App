@@ -63,12 +63,6 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const NoInternetScreen(),
       );
     },
-    OffersRoute.name: (routeData) {
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: const OffersScreen(),
-      );
-    },
     OrderDetailsRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -89,6 +83,17 @@ abstract class _$AppRouter extends RootStackRouter {
           screenType: args.screenType,
           sentOTP: args.sentOTP,
           key: args.key,
+        ),
+      );
+    },
+    PDFViewerRoute.name: (routeData) {
+      final args = routeData.argsAs<PDFViewerRouteArgs>();
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: PDFViewerScreen(
+          key: args.key,
+          url: args.url,
+          title: args.title,
         ),
       );
     },
@@ -141,6 +146,12 @@ abstract class _$AppRouter extends RootStackRouter {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const SalesReportScreen(),
+      );
+    },
+    SchemesRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const SchemesScreen(),
       );
     },
     SetPinRoute.name: (routeData) {
@@ -314,20 +325,6 @@ class NoInternetRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [OffersScreen]
-class OffersRoute extends PageRouteInfo<void> {
-  const OffersRoute({List<PageRouteInfo>? children})
-      : super(
-          OffersRoute.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'OffersRoute';
-
-  static const PageInfo<void> page = PageInfo<void>(name);
-}
-
-/// generated route for
 /// [OrderDetailsScreen]
 class OrderDetailsRoute extends PageRouteInfo<void> {
   const OrderDetailsRoute({List<PageRouteInfo>? children})
@@ -394,6 +391,48 @@ class OtpVerificationRouteArgs {
   @override
   String toString() {
     return 'OtpVerificationRouteArgs{screenType: $screenType, sentOTP: $sentOTP, key: $key}';
+  }
+}
+
+/// generated route for
+/// [PDFViewerScreen]
+class PDFViewerRoute extends PageRouteInfo<PDFViewerRouteArgs> {
+  PDFViewerRoute({
+    Key? key,
+    required String url,
+    required String title,
+    List<PageRouteInfo>? children,
+  }) : super(
+          PDFViewerRoute.name,
+          args: PDFViewerRouteArgs(
+            key: key,
+            url: url,
+            title: title,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'PDFViewerRoute';
+
+  static const PageInfo<PDFViewerRouteArgs> page = PageInfo<PDFViewerRouteArgs>(name);
+}
+
+class PDFViewerRouteArgs {
+  const PDFViewerRouteArgs({
+    this.key,
+    required this.url,
+    required this.title,
+  });
+
+  final Key? key;
+
+  final String url;
+
+  final String title;
+
+  @override
+  String toString() {
+    return 'PDFViewerRouteArgs{key: $key, url: $url, title: $title}';
   }
 }
 
@@ -551,6 +590,20 @@ class SalesReportRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'SalesReportRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [SchemesScreen]
+class SchemesRoute extends PageRouteInfo<void> {
+  const SchemesRoute({List<PageRouteInfo>? children})
+      : super(
+          SchemesRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'SchemesRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }

@@ -9,7 +9,7 @@ import 'package:distributor_empower/presentation/dashboard/screens/dashboard_scr
 import 'package:distributor_empower/presentation/home/screen/home_screen.dart';
 import 'package:distributor_empower/presentation/maintainance/maintenance_screen.dart';
 import 'package:distributor_empower/presentation/maintainance/no_internet_screen.dart';
-import 'package:distributor_empower/presentation/offers/offers_screen.dart';
+import 'package:distributor_empower/presentation/offers/schemes_screen.dart';
 import 'package:distributor_empower/presentation/order_history/order_details_screen.dart';
 import 'package:distributor_empower/presentation/order_history/order_history_screen.dart';
 import 'package:distributor_empower/presentation/pending_order/pending_order_details_screen.dart';
@@ -21,7 +21,8 @@ import 'package:distributor_empower/presentation/sales_report/sales_report_detai
 import 'package:distributor_empower/presentation/sales_report/sales_report_screen.dart';
 import 'package:distributor_empower/presentation/splash/splash_screen.dart';
 import 'package:distributor_empower/presentation/statement_of_account/statement_of_account_screen.dart';
-import 'package:distributor_empower/presentation/webviews/common_webview.dart';
+import 'package:distributor_empower/presentation/viewer/common_webview.dart';
+import 'package:distributor_empower/presentation/viewer/pdf_viewer_screen.dart';
 import 'package:flutter/material.dart';
 
 part 'router.gr.dart';
@@ -44,7 +45,7 @@ class AppRouter extends _$AppRouter {
           path: "/${DashboardRoute.name}",
           children: [
             AutoRoute(page: HomeRoute.page, path: HomeRoute.name, initial: true),
-            AutoRoute(page: OffersRoute.page, path: OffersRoute.name),
+            AutoRoute(page: SchemesRoute.page, path: SchemesRoute.name),
             AutoRoute(page: QuickOrderRoute.page, path: QuickOrderRoute.name),
             AutoRoute(page: ProfileRoute.page, path: ProfileRoute.name),
             AutoRoute(page: OrderDetailsRoute.page, path: OrderDetailsRoute.name),
@@ -57,6 +58,7 @@ class AppRouter extends _$AppRouter {
             AutoRoute(page: StatementOfAccountRoute.page, path: StatementOfAccountRoute.name),
             AutoRoute(page: SalesReportDetailRoute.page, path: SalesReportDetailRoute.name),
             AutoRoute(page: SalesReportRoute.page, path: SalesReportRoute.name),
+            AutoRoute(page: PDFViewerRoute.page, path: PDFViewerRoute.name),
           ],
         ),
         AutoRoute(page: LoginRoute.page),

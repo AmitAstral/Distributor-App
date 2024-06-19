@@ -5,6 +5,7 @@ import 'package:distributor_empower/model/ageing_response.dart';
 import 'package:distributor_empower/model/base/api_req_data.dart';
 import 'package:distributor_empower/model/base/base_response.dart';
 import 'package:distributor_empower/model/dashboard_response.dart';
+import 'package:distributor_empower/model/entity_response.dart';
 import 'package:distributor_empower/model/menu_response.dart';
 import 'package:distributor_empower/model/order_details_response.dart';
 import 'package:distributor_empower/model/pending_order_response.dart';
@@ -183,6 +184,15 @@ class ApiRepository extends ApiCaller {
       apiCall: apiService.post(endPoint: ApiConstants.getSaleInvoiceDetailByDocID, data: request.toJson()),
       onApiError: onApiError,
       baseModel: SalesReportDetailsResponse(),
+    );
+    return data;
+  }
+
+  Future<BaseResponse<EntityResponse?>> callGetEntityListAPI(ApiReqData request, Function(String errorRes) onApiError) async {
+    var data = await executeApiCall<EntityResponse>(
+      apiCall: apiService.post(endPoint: ApiConstants.getEntityRecordList, data: request.toJson()),
+      onApiError: onApiError,
+      baseModel: EntityResponse(),
     );
     return data;
   }

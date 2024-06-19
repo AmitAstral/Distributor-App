@@ -1,4 +1,5 @@
 import 'package:distributor_empower/core/di/locator.dart';
+import 'package:distributor_empower/presentation/offers/schemes_provider.dart';
 
 class ApiReqData {
   int? page;
@@ -19,6 +20,7 @@ class ApiReqData {
   String? pageNumber;
   String? orderNo;
   String? docID;
+  EntityType? entityType;
 
   ApiReqData({
     this.page,
@@ -39,6 +41,7 @@ class ApiReqData {
     this.pageNumber,
     this.orderNo,
     this.docID,
+    this.entityType,
   });
 
   static UserInfo get getUserDetails => getUserInfo;
@@ -71,6 +74,7 @@ class ApiReqData {
     json['PageName'] = pageName;
 
     json['Sapcode'] = sapCode;
+    json['EntityType'] = entityType?.index ?? 0;
     json.removeWhere((key, value) => value == null);
     return json;
   }

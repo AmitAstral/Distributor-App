@@ -40,6 +40,7 @@ class ProfileScreen extends StatelessWidget {
               centerTitle: true,
               elevation: 0,
               flexibleSpace: null,
+              leading: const SizedBox.shrink(),
             ),
           ),
           body: SingleChildScrollView(
