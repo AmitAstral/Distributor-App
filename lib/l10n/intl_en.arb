@@ -16,7 +16,7 @@
   "needHelp": "Need help?",
   "shareTheApp": "Share the app",
   "schemes": "Schemes",
-  "partyName": "Party Name",
+  "distributorName": "Distributor Name",
   "mobileNo": "Mobile No.",
   "address": "Address",
   "date": "Date",
@@ -106,5 +106,9 @@
   "gstNo": "GSTNo",
   "myInvoices": "My Invoices",
   "totalSku": "Total SKU",
-  "myOrder": "My Order"
+  "myOrder": "My Order",
+  "addToCart": "Add to cart",
+  "quickOrder": "Quick Order",
+  "chooseQuantity": "Choose quantity",
+  "checkout": "Checkout"
 }

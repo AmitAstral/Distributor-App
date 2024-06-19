@@ -221,11 +221,11 @@ class AppLocalizations {
     );
   }
 
-  /// `Party Name`
-  String get partyName {
+  /// `Distributor Name`
+  String get distributorName {
     return Intl.message(
-      'Party Name',
-      name: 'partyName',
+      'Distributor Name',
+      name: 'distributorName',
       desc: '',
       args: [],
     );
@@ -1126,6 +1126,46 @@ class AppLocalizations {
     return Intl.message(
       'My Order',
       name: 'myOrder',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add to cart`
+  String get addToCart {
+    return Intl.message(
+      'Add to cart',
+      name: 'addToCart',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Quick Order`
+  String get quickOrder {
+    return Intl.message(
+      'Quick Order',
+      name: 'quickOrder',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Choose quantity`
+  String get chooseQuantity {
+    return Intl.message(
+      'Choose quantity',
+      name: 'chooseQuantity',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Checkout`
+  String get checkout {
+    return Intl.message(
+      'Checkout',
+      name: 'checkout',
       desc: '',
       args: [],
     );

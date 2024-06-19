@@ -11,6 +11,7 @@ import 'package:distributor_empower/model/menu_response.dart';
 import 'package:distributor_empower/model/order_details_response.dart';
 import 'package:distributor_empower/model/order_response.dart';
 import 'package:distributor_empower/model/pending_order_response.dart';
+import 'package:distributor_empower/model/product_details_response.dart';
 import 'package:distributor_empower/model/report_menu_response.dart';
 import 'package:distributor_empower/model/sales_report_details.dart';
 import 'package:distributor_empower/model/sales_report_response.dart';
@@ -163,11 +164,11 @@ class ApiRepository extends ApiCaller {
     return data;
   }
 
-  Future<BaseResponse<OrderDetailsResponse?>> callGetPendingOrderDetailByOrderNo(ApiReqData request, Function(String errorRes) onApiError) async {
-    var data = await executeApiCall<OrderDetailsResponse>(
+  Future<BaseResponse<ProductDetailsResponse?>> callGetPendingOrderDetailByOrderNo(ApiReqData request, Function(String errorRes) onApiError) async {
+    var data = await executeApiCall<ProductDetailsResponse>(
       apiCall: apiService.post(endPoint: ApiConstants.getPendingOrderDetailByOrderNo, data: request.toJson()),
       onApiError: onApiError,
-      baseModel: OrderDetailsResponse(),
+      baseModel: ProductDetailsResponse(),
     );
     return data;
   }
@@ -213,6 +214,15 @@ class ApiRepository extends ApiCaller {
       apiCall: apiService.post(endPoint: ApiConstants.getDropDownList, data: request.toJson()),
       onApiError: onApiError,
       baseModel: DropDownResponse(),
+    );
+    return data;
+  }
+
+  Future<BaseResponse<OrderDetailsResponse?>> getOrderDetailsAPI(ApiReqData request, Function(String errorRes) onApiError) async {
+    var data = await executeApiCall<OrderDetailsResponse>(
+      apiCall: apiService.post(endPoint: ApiConstants.getOrderDetails, data: request.toJson()),
+      onApiError: onApiError,
+      baseModel: OrderDetailsResponse(),
     );
     return data;
   }

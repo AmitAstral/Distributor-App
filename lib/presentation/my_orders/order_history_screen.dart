@@ -174,7 +174,7 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen> {
           ),
         ).addGesture(
           () {
-            appRouter.pushNamed(OrderDetailsRoute.name);
+            appRouter.push(OrderDetailsRoute(orderItem: item));
           },
         );
       },

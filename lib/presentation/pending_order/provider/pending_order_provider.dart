@@ -1,12 +1,12 @@
 import 'package:distributor_empower/core/provider/base_provider.dart';
 import 'package:distributor_empower/model/base/api_req_data.dart';
-import 'package:distributor_empower/model/order_details_response.dart';
 import 'package:distributor_empower/model/pending_order_response.dart';
+import 'package:distributor_empower/model/product_details_response.dart';
 import 'package:flutter/material.dart';
 
 class PendingOrderProvider extends BaseProvider {
   List<PendingOrderResponse?> pendingOrderListResponse = [];
-  List<OrderDetailsResponse?> orderDetailsListResponse = [];
+  List<ProductDetailsResponse?> orderDetailsListResponse = [];
 
   Future<void> callPendingOrderListAPI({required bool isProgress}) async {
     isPaginationLoading = pageNo > 1;

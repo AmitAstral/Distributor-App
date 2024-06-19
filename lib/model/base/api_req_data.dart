@@ -22,6 +22,7 @@ class ApiReqData {
   String? docID;
   EntityType? entityType;
   String? timePeriod;
+  String? orderId;
 
   ApiReqData({
     this.page,
@@ -44,6 +45,7 @@ class ApiReqData {
     this.docID,
     this.entityType,
     this.timePeriod,
+    this.orderId,
   });
 
   static UserInfo get getUserDetails => getUserInfo;
@@ -78,6 +80,7 @@ class ApiReqData {
     json['Sapcode'] = sapCode;
     json['EntityType'] = entityType?.index;
     json['TimePeriod'] = timePeriod;
+    json['order_id'] = orderId;
     json.removeWhere((key, value) => value == null);
     return json;
   }

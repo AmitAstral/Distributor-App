@@ -1,8 +1,8 @@
 import 'package:auto_route/annotations.dart';
 import 'package:distributor_empower/constants/app_colors/app_colors.dart';
 import 'package:distributor_empower/generated/l10n.dart';
-import 'package:distributor_empower/model/order_details_response.dart';
 import 'package:distributor_empower/model/pending_order_response.dart';
+import 'package:distributor_empower/model/product_details_response.dart';
 import 'package:distributor_empower/presentation/pending_order/provider/pending_order_provider.dart';
 import 'package:distributor_empower/utils/text_styles.dart';
 import 'package:distributor_empower/widgets/custom_app_bar/app_bar.dart';
@@ -27,7 +27,7 @@ class _PendingOrderDetailsScreenState extends State<PendingOrderDetailsScreen> {
   final _pendingOrderProvider = PendingOrderProvider();
   final _refreshController = RefreshController(initialRefresh: false);
 
-  List<OrderDetailsResponse?> get getOrderDetailsListResponse => _pendingOrderProvider.orderDetailsListResponse;
+  List<ProductDetailsResponse?> get getOrderDetailsListResponse => _pendingOrderProvider.orderDetailsListResponse;
 
   @override
   void initState() {

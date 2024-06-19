@@ -45,10 +45,9 @@ abstract class _$AppRouter extends RootStackRouter {
       );
     },
     LoginRoute.name: (routeData) {
-      final args = routeData.argsAs<LoginRouteArgs>(orElse: () => const LoginRouteArgs());
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: LoginScreen(key: args.key),
+        child: const LoginScreen(),
       );
     },
     MaintenanceRoute.name: (routeData) {
@@ -64,9 +63,13 @@ abstract class _$AppRouter extends RootStackRouter {
       );
     },
     OrderDetailsRoute.name: (routeData) {
+      final args = routeData.argsAs<OrderDetailsRouteArgs>();
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const OrderDetailsScreen(),
+        child: OrderDetailsScreen(
+          orderItem: args.orderItem,
+          key: args.key,
+        ),
       );
     },
     OrderHistoryRoute.name: (routeData) {
@@ -175,10 +178,9 @@ abstract class _$AppRouter extends RootStackRouter {
       );
     },
     VerifyPinRoute.name: (routeData) {
-      final args = routeData.argsAs<VerifyPinRouteArgs>(orElse: () => const VerifyPinRouteArgs());
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: VerifyPinScreen(key: args.key),
+        child: const VerifyPinScreen(),
       );
     },
   };
@@ -270,30 +272,16 @@ class HomeRoute extends PageRouteInfo<void> {
 
 /// generated route for
 /// [LoginScreen]
-class LoginRoute extends PageRouteInfo<LoginRouteArgs> {
-  LoginRoute({
-    Key? key,
-    List<PageRouteInfo>? children,
-  }) : super(
+class LoginRoute extends PageRouteInfo<void> {
+  const LoginRoute({List<PageRouteInfo>? children})
+      : super(
           LoginRoute.name,
-          args: LoginRouteArgs(key: key),
           initialChildren: children,
         );
 
   static const String name = 'LoginRoute';
 
-  static const PageInfo<LoginRouteArgs> page = PageInfo<LoginRouteArgs>(name);
-}
-
-class LoginRouteArgs {
-  const LoginRouteArgs({this.key});
-
-  final Key? key;
-
-  @override
-  String toString() {
-    return 'LoginRouteArgs{key: $key}';
-  }
+  static const PageInfo<void> page = PageInfo<void>(name);
 }
 
 /// generated route for
@@ -326,16 +314,39 @@ class NoInternetRoute extends PageRouteInfo<void> {
 
 /// generated route for
 /// [OrderDetailsScreen]
-class OrderDetailsRoute extends PageRouteInfo<void> {
-  const OrderDetailsRoute({List<PageRouteInfo>? children})
-      : super(
+class OrderDetailsRoute extends PageRouteInfo<OrderDetailsRouteArgs> {
+  OrderDetailsRoute({
+    required OrderResponse? orderItem,
+    Key? key,
+    List<PageRouteInfo>? children,
+  }) : super(
           OrderDetailsRoute.name,
+          args: OrderDetailsRouteArgs(
+            orderItem: orderItem,
+            key: key,
+          ),
           initialChildren: children,
         );
 
   static const String name = 'OrderDetailsRoute';
 
-  static const PageInfo<void> page = PageInfo<void>(name);
+  static const PageInfo<OrderDetailsRouteArgs> page = PageInfo<OrderDetailsRouteArgs>(name);
+}
+
+class OrderDetailsRouteArgs {
+  const OrderDetailsRouteArgs({
+    required this.orderItem,
+    this.key,
+  });
+
+  final OrderResponse? orderItem;
+
+  final Key? key;
+
+  @override
+  String toString() {
+    return 'OrderDetailsRouteArgs{orderItem: $orderItem, key: $key}';
+  }
 }
 
 /// generated route for
@@ -680,28 +691,14 @@ class StatementOfAccountRoute extends PageRouteInfo<void> {
 
 /// generated route for
 /// [VerifyPinScreen]
-class VerifyPinRoute extends PageRouteInfo<VerifyPinRouteArgs> {
-  VerifyPinRoute({
-    Key? key,
-    List<PageRouteInfo>? children,
-  }) : super(
+class VerifyPinRoute extends PageRouteInfo<void> {
+  const VerifyPinRoute({List<PageRouteInfo>? children})
+      : super(
           VerifyPinRoute.name,
-          args: VerifyPinRouteArgs(key: key),
           initialChildren: children,
         );
 
   static const String name = 'VerifyPinRoute';
 
-  static const PageInfo<VerifyPinRouteArgs> page = PageInfo<VerifyPinRouteArgs>(name);
-}
-
-class VerifyPinRouteArgs {
-  const VerifyPinRouteArgs({this.key});
-
-  final Key? key;
-
-  @override
-  String toString() {
-    return 'VerifyPinRouteArgs{key: $key}';
-  }
+  static const PageInfo<void> page = PageInfo<void>(name);
 }

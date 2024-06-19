@@ -132,7 +132,7 @@ class _SalesReportDetailScreenState extends State<SalesReportDetailScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        AppLocalizations.current.partyName,
+                        AppLocalizations.current.distributorName,
                         style: TextStyles.regular11.copyWith(color: AppColor.textSecondary),
                       ),
                       borderedContainer(

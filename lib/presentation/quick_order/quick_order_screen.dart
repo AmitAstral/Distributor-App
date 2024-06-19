@@ -1,9 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:distributor_empower/constants/app_colors/app_colors.dart';
-import 'package:distributor_empower/constants/app_statics_text/app_labels.dart';
 import 'package:distributor_empower/gen/assets.gen.dart';
+import 'package:distributor_empower/generated/l10n.dart';
 import 'package:distributor_empower/presentation/dashboard/provider/bottombar_navigation_provider.dart';
-import 'package:distributor_empower/presentation/home/components/order_details_widget.dart';
 import 'package:distributor_empower/presentation/quick_order/checkout_bottom_sheet.dart';
 import 'package:distributor_empower/utils/text_styles.dart';
 import 'package:distributor_empower/widgets/custom_app_bar/app_bar.dart';
@@ -27,7 +26,7 @@ class QuickOrderScreen extends StatelessWidget {
           child: AppBarWidget(
             toolbarHeight: AppBar().preferredSize.height,
             title: Text(
-              AppConst.quickOrder,
+              AppLocalizations.of(context).quickOrder,
               maxLines: 1,
               style: TextStyles.semiBold16,
             ),
@@ -106,7 +105,7 @@ class QuickOrderScreen extends StatelessWidget {
                             Padding(
                               padding: EdgeInsets.only(top: 2.w),
                               child: Text(
-                                '${AppConst.rupees}10',
+                                'Rs 10',
                                 style: TextStyles.semiBold11.copyWith(color: AppColor.textSecondary),
                               ),
                             ),
@@ -195,7 +194,7 @@ class QuickOrderScreen extends StatelessWidget {
                           Padding(
                             padding: EdgeInsets.only(top: 0.w),
                             child: Text(
-                              '${AppConst.rupees}500',
+                              'Rs 500',
                               style: TextStyles.semiBold13.copyWith(color: AppColor.textSecondary),
                             ),
                           ),
@@ -216,7 +215,8 @@ class QuickOrderScreen extends StatelessWidget {
             )),
           ),
           onPressed: () {
-            CheckoutBottomSheet.checkoutBottomSheetWidget(context, AppConst.choose_quantity, AppConst.add_to_cart);
+            CheckoutBottomSheet.checkoutBottomSheetWidget(
+                context, AppLocalizations.of(context).chooseQuantity, AppLocalizations.of(context).addToCart);
           },
           child: Row(
             mainAxisSize: MainAxisSize.min,
@@ -227,7 +227,7 @@ class QuickOrderScreen extends StatelessWidget {
                 child: Assets.icons.cart.svg(),
               ),
               Text(
-                AppConst.checkout,
+                AppLocalizations.of(context).checkout,
                 textAlign: TextAlign.justify,
                 style: TextStyles.semiBold13.copyWith(),
               )

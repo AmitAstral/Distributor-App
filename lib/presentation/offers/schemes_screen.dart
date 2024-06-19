@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:distributor_empower/constants/all_constants.dart';
 import 'package:distributor_empower/core/di/locator.dart';
+import 'package:distributor_empower/generated/l10n.dart';
 import 'package:distributor_empower/presentation/dashboard/provider/bottombar_navigation_provider.dart';
 import 'package:distributor_empower/presentation/offers/schemes_provider.dart';
 import 'package:distributor_empower/routes/router.dart';
@@ -52,7 +53,7 @@ class _SchemesScreenState extends State<SchemesScreen> {
             toolbarHeight: AppBar().preferredSize.height,
             leading: Container(),
             title: Text(
-              AppConst.schemes,
+              AppLocalizations.current.schemes,
               maxLines: 1,
               style: TextStyles.semiBold16,
             ),
