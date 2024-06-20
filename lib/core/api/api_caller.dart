@@ -4,7 +4,6 @@ import 'package:dio/dio.dart';
 import 'package:distributor_empower/generated/l10n.dart';
 import 'package:distributor_empower/model/base/base_model.dart';
 import 'package:distributor_empower/model/base/base_response.dart';
-import 'package:distributor_empower/utils/extensions.dart';
 import 'package:flutter/cupertino.dart';
 
 mixin class ApiCaller {

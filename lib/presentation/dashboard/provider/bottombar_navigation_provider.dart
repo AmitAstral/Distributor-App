@@ -44,4 +44,8 @@ class BottomBarNavigationProvider with ChangeNotifier {
       }
     });
   }
+
+  void closeDrawer() {
+    BottomBarNavigationProvider().dashboardKey.currentState?.closeDrawer();
+  }
 }

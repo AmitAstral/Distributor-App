@@ -4,34 +4,42 @@ class MenuResponse extends BaseModel {
   MenuResponse({
     this.id,
     this.menuName,
-    this.menuShortName,
-    this.redirectUrl,
-    this.iconsUrl,
+    this.redirectURL,
+    this.uRLType,
+    this.menuIconURL,
+    this.isMenuHorizontal,
+    this.entityType,
   });
 
   @override
   MenuResponse fromJson(dynamic json) {
     return MenuResponse(
-        id: json['id'],
-        menuName: json['menu_name'],
-        menuShortName: json['menu_short_name'],
-        redirectUrl: json['Redirect_Url'],
-        iconsUrl: json['icons_url']);
+        id: json['Id'],
+        menuName: json['MenuName'],
+        redirectURL: json['Redirect_URL'],
+        uRLType: json['URL_Type'],
+        menuIconURL: json['Menu_Icon_URL'],
+        isMenuHorizontal: json['IsMenuHorizontal'],
+        entityType: json['EntityType']);
   }
 
   String? id;
   String? menuName;
-  String? menuShortName;
-  String? redirectUrl;
-  String? iconsUrl;
+  String? redirectURL;
+  String? uRLType;
+  String? menuIconURL;
+  String? isMenuHorizontal;
+  String? entityType;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
-    map['id'] = id;
-    map['menu_name'] = menuName;
-    map['menu_short_name'] = menuShortName;
-    map['Redirect_Url'] = redirectUrl;
-    map['icons_url'] = iconsUrl;
+    map['Id'] = id;
+    map['MenuName'] = menuName;
+    map['Redirect_URL'] = redirectURL;
+    map['URL_Type'] = uRLType;
+    map['Menu_Icon_URL'] = menuIconURL;
+    map['IsMenuHorizontal'] = isMenuHorizontal;
+    map['EntityType'] = entityType;
     return map;
   }
 }

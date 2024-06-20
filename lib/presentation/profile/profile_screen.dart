@@ -4,21 +4,46 @@ import 'package:distributor_empower/core/api/api_constants.dart';
 import 'package:distributor_empower/core/di/locator.dart';
 import 'package:distributor_empower/gen/assets.gen.dart';
 import 'package:distributor_empower/generated/l10n.dart';
+import 'package:distributor_empower/model/menu_response.dart';
 import 'package:distributor_empower/presentation/dashboard/provider/bottombar_navigation_provider.dart';
+import 'package:distributor_empower/presentation/home/provider/home_provider.dart';
 import 'package:distributor_empower/routes/router.dart';
 import 'package:distributor_empower/utils/common_dialog.dart';
 import 'package:distributor_empower/utils/extensions.dart';
+import 'package:distributor_empower/utils/providers/common_provider.dart';
 import 'package:distributor_empower/utils/text_styles.dart';
 import 'package:distributor_empower/widgets/custom_app_bar/app_bar.dart';
 import 'package:distributor_empower/widgets/profile_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 @RoutePage()
-class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({super.key});
+class ProfileScreen extends StatefulWidget {
+  ProfileScreen({super.key});
+
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  final _commonProvider = CommonProvider();
+
+  final List<MenuResponse?> horizontalOption = profileMenuListData
+          ?.where(
+            (e) => e?.isMenuHorizontal?.toLowerCase() == 'true',
+          )
+          .toList() ??
+      [];
+
+  final List<MenuResponse?> verticalOption = profileMenuListData
+          ?.where(
+            (e) => e?.isMenuHorizontal?.toLowerCase() != 'true',
+          )
+          .toList() ??
+      [];
 
   @override
   Widget build(BuildContext context) {
@@ -93,252 +118,11 @@ class ProfileScreen extends StatelessWidget {
                       Expanded(child: _buildInfoView(AppLocalizations.current.mobileNo, storage.userDetails.distributorMobileNumber)),
                     ],
                   ),
+                  10.verticalSpace,
+                  _buildHorizontalOptions(),
                   15.verticalSpace,
-                  Row(
-                    children: [
-                      Expanded(
-                        flex: 3,
-                        child: Container(
-                          decoration: ShapeDecoration(
-                            color: const Color(0xFFF8FAFB),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10.r),
-                            ),
-                          ),
-                          child: Column(
-                            children: [
-                              10.verticalSpace,
-                              Assets.icons.cart.svg(color: AppColor.black),
-                              10.verticalSpace,
-                              Text(
-                                AppLocalizations.current.myOrders,
-                                textAlign: TextAlign.center,
-                                style: TextStyles.semiBold11.copyWith(color: AppColor.textSecondary),
-                              ),
-                              10.verticalSpace
-                            ],
-                          ),
-                        ).addGesture(
-                          () {
-                            appRouter.push(const OrderHistoryRoute());
-                          },
-                        ),
-                      ),
-                      15.horizontalSpace,
-                      Expanded(
-                        flex: 3,
-                        child: Container(
-                          decoration: ShapeDecoration(
-                            color: const Color(0xFFF8FAFB),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10.r),
-                            ),
-                          ),
-                          child: Column(
-                            children: [
-                              10.verticalSpace,
-                              Assets.icons.cart.svg(color: AppColor.black),
-                              10.verticalSpace,
-                              Text(
-                                AppLocalizations.of(context).myInvoices,
-                                textAlign: TextAlign.center,
-                                style: TextStyles.semiBold11.copyWith(color: AppColor.textSecondary),
-                              ),
-                              10.verticalSpace
-                            ],
-                          ),
-                        ),
-                      ),
-                      15.horizontalSpace,
-                      /*Expanded(
-                        flex: 3,
-                        child: Container(
-                          decoration: ShapeDecoration(
-                            color: const Color(0xFFF8FAFB),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10.r),
-                            ),
-                          ),
-                          child: Column(
-                            children: [
-                              10.verticalSpace,
-                              Assets.icons.cart.svg(color: AppColor.black),
-                              10.verticalSpace,
-                              Text(
-                                AppLocalizations.current.settings,
-                                textAlign: TextAlign.center,
-                                style: TextStyles.semiBold11.copyWith(color: AppColor.textSecondary),
-                              ),
-                              10.verticalSpace
-                            ],
-                          ),
-                        ),
-                      ),*/
-                    ],
-                  ),
-                  15.verticalSpace,
-                  Container(
-                    decoration: ShapeDecoration(
-                      color: const Color(0xFFF8FAFB),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.r),
-                      ),
-                    ),
-                    child: ListView(
-                      physics: const NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.symmetric(vertical: 7.h, horizontal: 15.w),
-                          child: Row(
-                            children: [
-                              Assets.icons.aboutUs.svg(
-                                height: 15.w,
-                                width: 15.w,
-                              ),
-                              15.horizontalSpace,
-                              Expanded(
-                                child: Text(
-                                  AppLocalizations.current.aboutUs,
-                                  style: TextStyles.semiBold14.copyWith(color: AppColor.textSecondary),
-                                ),
-                              ),
-                              Icon(
-                                Icons.arrow_forward_ios_rounded,
-                                color: const Color(0xFFB4B6C2),
-                                size: 18.sp,
-                              )
-                            ],
-                          ),
-                        ).addGesture(
-                          () {
-                            appRouter.push(CommonWebViewRoute(url: 'https://www.astralpipes.com/'));
-                          },
-                        ),
-                        Container(
-                          width: 1.sw,
-                          height: 1,
-                          decoration: const BoxDecoration(color: Color(0xFFEAF0F3)),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.symmetric(vertical: 9.h, horizontal: 15.w),
-                          child: Row(
-                            children: [
-                              Assets.icons.faq.svg(
-                                height: 15.w,
-                                width: 15.w,
-                              ),
-                              15.horizontalSpace,
-                              Expanded(
-                                child: Text(
-                                  AppLocalizations.current.faqs,
-                                  style: TextStyles.semiBold14.copyWith(color: AppColor.textSecondary),
-                                ),
-                              ),
-                              Icon(
-                                Icons.arrow_forward_ios_rounded,
-                                color: const Color(0xFFB4B6C2),
-                                size: 18.sp,
-                              )
-                            ],
-                          ),
-                        ),
-                        Container(
-                          width: 1.sw,
-                          height: 1,
-                          decoration: const BoxDecoration(color: Color(0xFFEAF0F3)),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.symmetric(vertical: 9.h, horizontal: 15.w),
-                          child: Row(
-                            children: [
-                              Assets.icons.needHelp.svg(
-                                height: 15.w,
-                                width: 15.w,
-                              ),
-                              15.horizontalSpace,
-                              Expanded(
-                                child: Text(
-                                  AppLocalizations.current.needHelp,
-                                  style: TextStyles.semiBold14.copyWith(color: AppColor.textSecondary),
-                                ),
-                              ),
-                              Icon(
-                                Icons.arrow_forward_ios_rounded,
-                                color: const Color(0xFFB4B6C2),
-                                size: 18.sp,
-                              )
-                            ],
-                          ),
-                        ),
-                        Container(
-                          width: 1.sw,
-                          height: 1,
-                          decoration: const BoxDecoration(color: Color(0xFFEAF0F3)),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.symmetric(vertical: 9.h, horizontal: 15.w),
-                          child: Row(
-                            children: [
-                              Assets.icons.share.svg(
-                                height: 15.w,
-                                width: 15.w,
-                              ),
-                              15.horizontalSpace,
-                              Expanded(
-                                child: Text(
-                                  AppLocalizations.current.shareTheApp,
-                                  style: TextStyles.semiBold14.copyWith(color: AppColor.textSecondary),
-                                ),
-                              ),
-                              Icon(
-                                Icons.arrow_forward_ios_rounded,
-                                color: const Color(0xFFB4B6C2),
-                                size: 18.sp,
-                              )
-                            ],
-                          ),
-                        ).addGesture(
-                          () async {
-                            await Share.share('Please checkout distributor app');
-                          },
-                        ),
-                        Container(
-                          width: 1.sw,
-                          height: 1,
-                          decoration: const BoxDecoration(color: Color(0xFFEAF0F3)),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.symmetric(vertical: 9.h, horizontal: 15.w),
-                          child: Row(
-                            children: [
-                              Assets.icons.rateUs.svg(
-                                height: 15.w,
-                                width: 15.w,
-                              ),
-                              15.horizontalSpace,
-                              Expanded(
-                                child: Text(
-                                  AppLocalizations.current.rateUsOnTheAppStore,
-                                  style: TextStyles.semiBold14.copyWith(color: AppColor.textSecondary),
-                                ),
-                              ),
-                              Icon(
-                                Icons.arrow_forward_ios_rounded,
-                                color: const Color(0xFFB4B6C2),
-                                size: 18.sp,
-                              )
-                            ],
-                          ),
-                        ).addGesture(
-                          () async {
-                            await launchUrlString(await ApiConstants.getAppURL);
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                  25.verticalSpace,
+                  _buildVerticalOptions(),
+                  20.verticalSpace,
                   Container(
                     decoration: ShapeDecoration(
                       color: const Color(0xFFF8FAFB),
@@ -383,13 +167,67 @@ class ProfileScreen extends StatelessWidget {
                   ),
                   50.verticalSpace,
                   Text(
-                    'Version : v${storage.currentAppVersion}',
+                    AppLocalizations.of(context).versionWithversion(storage.currentAppVersion),
                     style: TextStyles.regular11.copyWith(color: AppColor.textSecondary),
                   ),
                 ],
               ),
             ),
           )),
+    );
+  }
+
+  Widget _buildVerticalOptions() {
+    return Container(
+      decoration: ShapeDecoration(
+        color: const Color(0xFFF8FAFB),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.r),
+        ),
+      ),
+      child: ListView.builder(
+        physics: const NeverScrollableScrollPhysics(),
+        itemCount: verticalOption.length,
+        shrinkWrap: true,
+        itemBuilder: (context, index) {
+          final item = verticalOption[index];
+          return Column(
+            children: [
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 7.h, horizontal: 15.w),
+                child: Row(
+                  children: [
+                    SvgPicture.network(
+                      item?.menuIconURL ?? '',
+                      height: 15.w,
+                      width: 15.w,
+                    ),
+                    15.horizontalSpace,
+                    Expanded(
+                      child: Text(
+                        item?.menuName ?? '',
+                        style: TextStyles.semiBold14.copyWith(color: AppColor.textSecondary),
+                      ),
+                    ),
+                    Icon(
+                      Icons.arrow_forward_ios_rounded,
+                      color: const Color(0xFFB4B6C2),
+                      size: 18.sp,
+                    )
+                  ],
+                ),
+              ),
+              Container(
+                width: 1.sw,
+                height: 1,
+                decoration: const BoxDecoration(color: Color(0xFFEAF0F3)),
+              ),
+            ],
+          ).addGesture(
+            () => _navigation(item),
+          );
+        },
+      ),
     );
   }
 
@@ -420,5 +258,78 @@ class ProfileScreen extends StatelessWidget {
             ),
           ],
         ));
+  }
+
+  Widget _buildHorizontalOptions() {
+    return SizedBox(
+      height: 65.h,
+      child: ListView.builder(
+        shrinkWrap: true,
+        itemCount: horizontalOption.length,
+        scrollDirection: Axis.horizontal,
+        itemBuilder: (context, index) {
+          final item = horizontalOption[index];
+          return Container(
+            padding: EdgeInsets.symmetric(
+              horizontal: 14.w,
+            ),
+            margin: EdgeInsets.only(right: 20.h),
+            alignment: Alignment.center,
+            decoration: ShapeDecoration(
+              color: const Color(0xFFF8FAFB),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.r),
+              ),
+            ),
+            child: Column(
+              children: [
+                const Spacer(),
+                SvgPicture.network(
+                  item?.menuIconURL ?? '',
+                  height: 18.h,
+                  width: 18.h,
+                ),
+                10.verticalSpace,
+                Text(
+                  item?.menuName ?? '',
+                  textAlign: TextAlign.center,
+                  style: TextStyles.semiBold11.copyWith(color: AppColor.textSecondary),
+                ),
+                const Spacer(),
+              ],
+            ),
+          ).addGesture(
+            () => _navigation(item),
+          );
+        },
+      ),
+    );
+  }
+
+  Future<void> _navigation(MenuResponse? item) async {
+    if (item?.entityType?.ifBlank != null) {
+      ///ABOUT US, FAQ, Need help?
+      final webViewMenuResponse = await _commonProvider.getWebViewMenuDetails(type: item?.entityType);
+      if (webViewMenuResponse?.menuRedairectURLIsPDF == '1') {
+        appRouter.push(
+          PDFViewerRoute(url: webViewMenuResponse?.menuRedairectURL ?? '', title: item?.menuName ?? ''),
+        );
+      } else if (webViewMenuResponse?.menuRedairectURLIsPDF == '0') {
+        appRouter.push(
+          CommonWebViewRoute(url: webViewMenuResponse?.menuRedairectURL ?? '', title: item?.menuName ?? ''),
+        );
+      }
+    } else if (item?.id == '15') {
+      ///Share App
+      await Share.share('Please checkout distributor app');
+    } else if (item?.id == '16') {
+      ///Rate US
+      await launchUrlString(await ApiConstants.getAppURL);
+    } else if (item?.id == '11') {
+      ///Settings
+    } else if (item?.id == '10') {
+      ///MY ORDER
+      appRouter.push(const OrderHistoryRoute());
+    }
   }
 }

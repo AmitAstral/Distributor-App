@@ -11,10 +11,6 @@
   "chooseQty": "Choose Quantity ",
   "rupees": "₹",
   "myOrders": "My orders",
-  "aboutUs": "About us",
-  "faqs": "FAQs",
-  "needHelp": "Need help?",
-  "shareTheApp": "Share the app",
   "schemes": "Schemes",
   "distributorName": "Distributor Name",
   "mobileNo": "Mobile No.",
@@ -110,5 +106,6 @@
   "addToCart": "Add to cart",
   "quickOrder": "Quick Order",
   "chooseQuantity": "Choose quantity",
-  "checkout": "Checkout"
+  "checkout": "Checkout",
+  "versionWithversion": "Version : v{name}"
 }

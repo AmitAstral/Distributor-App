@@ -28,10 +28,12 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m3(name) => "SapCode : ${name}";
 
+  static String m4(name) => "Version : v${name}";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
+
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "SAPCode": MessageLookupByLibrary.simpleMessage("SAP Code"),
-        "aboutUs": MessageLookupByLibrary.simpleMessage("About us"),
         "addToCart": MessageLookupByLibrary.simpleMessage("Add to cart"),
         "address": MessageLookupByLibrary.simpleMessage("Address"),
         "ageing": MessageLookupByLibrary.simpleMessage("Ageing"),
@@ -63,7 +65,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "enterPhoneNumber": MessageLookupByLibrary.simpleMessage("Enter Phone Number"),
         "enterSAPCode": MessageLookupByLibrary.simpleMessage("Enter SAP Code"),
         "enterYourPhoneNumber": MessageLookupByLibrary.simpleMessage("Enter Your Phone Number"),
-        "faqs": MessageLookupByLibrary.simpleMessage("FAQs"),
         "favourite": MessageLookupByLibrary.simpleMessage("Favourite"),
         "forgotPin": MessageLookupByLibrary.simpleMessage("Forgot pin?"),
         "gstNo": MessageLookupByLibrary.simpleMessage("GSTNo"),
@@ -81,7 +82,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "myOrder": MessageLookupByLibrary.simpleMessage("My Order"),
         "myOrders": MessageLookupByLibrary.simpleMessage("My orders"),
         "narration": MessageLookupByLibrary.simpleMessage("Narration"),
-        "needHelp": MessageLookupByLibrary.simpleMessage("Need help?"),
         "newUpdateIsAvailable": MessageLookupByLibrary.simpleMessage("New update is available"),
         "no": MessageLookupByLibrary.simpleMessage("No"),
         "noDataFound": MessageLookupByLibrary.simpleMessage("No data found"),
@@ -122,7 +122,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "select": MessageLookupByLibrary.simpleMessage("Select"),
         "setPin": MessageLookupByLibrary.simpleMessage("Set Pin"),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
-        "shareTheApp": MessageLookupByLibrary.simpleMessage("Share the app"),
         "somethingWentWrong": MessageLookupByLibrary.simpleMessage("Something went wrong"),
         "somethingWentWrongPleaseConnectWithInternetToUseApplication":
             MessageLookupByLibrary.simpleMessage("Something went wrong, Please connect with Internet to use Application."),
@@ -140,6 +139,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "validationPhoneNumber": MessageLookupByLibrary.simpleMessage("Please Enter a Valid Phone Number"),
         "verify": MessageLookupByLibrary.simpleMessage("Verify"),
         "verifyPin": MessageLookupByLibrary.simpleMessage("Verify Pin"),
+        "versionWithversion": m4,
         "welcomeToAstral": MessageLookupByLibrary.simpleMessage("Welcome To Astral"),
         "wereDownForMaintenanceNWillBeBackSoon": MessageLookupByLibrary.simpleMessage("We\'re down for maintenance \n We\'ll be back soon..."),
         "yes": MessageLookupByLibrary.simpleMessage("Yes")

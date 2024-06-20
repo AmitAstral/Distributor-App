@@ -171,46 +171,6 @@ class AppLocalizations {
     );
   }
 
-  /// `About us`
-  String get aboutUs {
-    return Intl.message(
-      'About us',
-      name: 'aboutUs',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `FAQs`
-  String get faqs {
-    return Intl.message(
-      'FAQs',
-      name: 'faqs',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Need help?`
-  String get needHelp {
-    return Intl.message(
-      'Need help?',
-      name: 'needHelp',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Share the app`
-  String get shareTheApp {
-    return Intl.message(
-      'Share the app',
-      name: 'shareTheApp',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Schemes`
   String get schemes {
     return Intl.message(
@@ -1168,6 +1128,16 @@ class AppLocalizations {
       name: 'checkout',
       desc: '',
       args: [],
+    );
+  }
+
+  /// `Version : v{name}`
+  String versionWithversion(Object name) {
+    return Intl.message(
+      'Version : v$name',
+      name: 'versionWithversion',
+      desc: '',
+      args: [name],
     );
   }
 }

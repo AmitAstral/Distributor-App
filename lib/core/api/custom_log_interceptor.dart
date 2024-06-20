@@ -166,7 +166,7 @@ class CustomLogInterceptor extends Interceptor {
 
 void _debugPrint(Object? object) {
   assert(() {
-    debugPrint(object.toString(), wrapWidth: 320);
+    debugPrint(object.toString());
     return true;
   }());
 }

@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 
 enum DropdownTypeEnum { MyOrderList, Schemes }
 
+enum MenuType { mainMenu, profileMenu }
+
 enum Environment {
   debug('http://sfauat.astralpipes.com:8087/api/'),
   staging('http://sfauat.astralpipes.com:8087/api/'),

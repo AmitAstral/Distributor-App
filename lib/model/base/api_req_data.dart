@@ -1,5 +1,4 @@
 import 'package:distributor_empower/core/di/locator.dart';
-import 'package:distributor_empower/utils/enum_classes.dart';
 
 class ApiReqData {
   int? page;
@@ -20,9 +19,10 @@ class ApiReqData {
   String? pageNumber;
   String? orderNo;
   String? docID;
-  EntityType? entityType;
+  String? entityType;
   String? timePeriod;
   String? orderId;
+  int? menuType;
 
   ApiReqData({
     this.page,
@@ -46,6 +46,7 @@ class ApiReqData {
     this.entityType,
     this.timePeriod,
     this.orderId,
+    this.menuType,
   });
 
   static UserInfo get getUserDetails => getUserInfo;
@@ -78,9 +79,10 @@ class ApiReqData {
     json['PageName'] = pageName;
 
     json['Sapcode'] = sapCode;
-    json['EntityType'] = entityType?.index;
+    json['EntityType'] = entityType;
     json['TimePeriod'] = timePeriod;
     json['order_id'] = orderId;
+    json['MenuType'] = menuType;
     json.removeWhere((key, value) => value == null);
     return json;
   }

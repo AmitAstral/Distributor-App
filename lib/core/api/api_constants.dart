@@ -31,6 +31,7 @@ class ApiConstants {
   static const String checkServerStatus = '${common}CheckServerStatus';
   static const String getAllSetting = '${common}GetAllSetting';
   static const String getDropDownList = '${common}GetDropDownList';
+  static const String getWebViewMenuDetails = '${common}GetWebViewMenuDetails';
 
   ///Dashboard
   static const String getDashboard = '${dashboard}GetDashboard';
@@ -54,6 +55,7 @@ class ApiConstants {
 
   static Future<String> get getAppURL async {
     final appId = await getAppPackageName();
+    //TODO
     return Platform.isAndroid ? 'https://play.google.com/store/apps/details?id=$appId' : 'https://apps.apple.com/app/id6467756019';
   }
 }

@@ -18,6 +18,7 @@ import 'package:distributor_empower/model/sales_report_response.dart';
 import 'package:distributor_empower/model/setting_response.dart';
 import 'package:distributor_empower/model/statement_response.dart';
 import 'package:distributor_empower/model/user_response.dart';
+import 'package:distributor_empower/model/web_view_menu_response.dart';
 
 class ApiRepository extends ApiCaller {
   Future<BaseResponse<UserResponse?>> loginApi(
@@ -119,7 +120,7 @@ class ApiRepository extends ApiCaller {
     return data;
   }
 
-  Future<BaseResponse<MenuResponse?>> getMenuList(UserInfo request, Function(String) onApiError) async {
+  Future<BaseResponse<MenuResponse?>> getMenuList(ApiReqData request, Function(String) onApiError) async {
     var data = await executeApiCall<MenuResponse>(
       apiCall: apiService.post(endPoint: ApiConstants.getMenuList, data: request.toJson()),
       onApiError: onApiError,
@@ -223,6 +224,15 @@ class ApiRepository extends ApiCaller {
       apiCall: apiService.post(endPoint: ApiConstants.getOrderDetails, data: request.toJson()),
       onApiError: onApiError,
       baseModel: OrderDetailsResponse(),
+    );
+    return data;
+  }
+
+  Future<BaseResponse<WebViewMenuResponse?>> getWebViewMenuDetails(ApiReqData request, {required Function(String errorRes) onApiError}) async {
+    var data = await executeApiCall<WebViewMenuResponse>(
+      apiCall: apiService.post(endPoint: ApiConstants.getWebViewMenuDetails, data: request.toJson()),
+      onApiError: onApiError,
+      baseModel: WebViewMenuResponse(),
     );
     return data;
   }

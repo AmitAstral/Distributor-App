@@ -6,11 +6,24 @@ import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
 @RoutePage()
-class PDFViewerScreen extends StatelessWidget {
+class PDFViewerScreen extends StatefulWidget {
   final String url;
   final String title;
 
   const PDFViewerScreen({super.key, required this.url, required this.title});
+
+  @override
+  State<PDFViewerScreen> createState() => _PDFViewerScreenState();
+}
+
+class _PDFViewerScreenState extends State<PDFViewerScreen> {
+  final _pdfViewerKey = PdfViewerController();
+
+  @override
+  void dispose() {
+    _pdfViewerKey.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +34,7 @@ class PDFViewerScreen extends StatelessWidget {
         child: AppBarWidget(
           toolbarHeight: AppBar().preferredSize.height,
           title: Text(
-            title,
+            widget.title,
             maxLines: 1,
             style: TextStyles.semiBold15,
           ),
@@ -31,7 +44,8 @@ class PDFViewerScreen extends StatelessWidget {
         ),
       ),
       body: SfPdfViewer.network(
-        url,
+        widget.url,
+        controller: _pdfViewerKey,
       ),
     );
   }

@@ -3,9 +3,11 @@ import 'package:distributor_empower/core/provider/base_provider.dart';
 import 'package:distributor_empower/model/base/api_req_data.dart';
 import 'package:distributor_empower/model/dashboard_response.dart';
 import 'package:distributor_empower/model/menu_response.dart';
+import 'package:distributor_empower/utils/enum_classes.dart';
 import 'package:flutter/cupertino.dart';
 
-List<MenuResponse?>? menuListData;
+List<MenuResponse?>? mainMenuListData;
+List<MenuResponse?>? profileMenuListData;
 
 class HomeProvider extends BaseProvider {
   List<DashboardResponse?>? dashboardData;
@@ -41,11 +43,16 @@ class HomeProvider extends BaseProvider {
 
   Future<void> callGetMenuList() async {
     try {
-      if (menuListData?.isNotEmpty ?? false) return;
+      if (mainMenuListData?.isNotEmpty ?? false) return;
 
-      final response = await apiRep.getMenuList(ApiReqData.getUserDetails, onApiError);
-      if (response.getIsSuccess && response.getData != null) {
-        menuListData = response.dataList;
+      final mainMenuResponse = await apiRep.getMenuList(ApiReqData(withUserInfo: true, menuType: MenuType.mainMenu.index), onApiError);
+      if (mainMenuResponse.getIsSuccess && mainMenuResponse.getData != null) {
+        mainMenuListData = mainMenuResponse.dataList;
+      }
+
+      final profileMenuResponse = await apiRep.getMenuList(ApiReqData(withUserInfo: true, menuType: MenuType.profileMenu.index), onApiError);
+      if (profileMenuResponse.getIsSuccess && profileMenuResponse.getData != null) {
+        profileMenuListData = profileMenuResponse.dataList;
       }
     } catch (e, stack) {
       debugPrintStack(stackTrace: stack);

@@ -2,17 +2,19 @@ import 'package:distributor_empower/constants/app_colors/app_colors.dart';
 import 'package:distributor_empower/core/di/locator.dart';
 import 'package:distributor_empower/gen/assets.gen.dart';
 import 'package:distributor_empower/generated/l10n.dart';
+import 'package:distributor_empower/model/menu_response.dart';
 import 'package:distributor_empower/presentation/dashboard/provider/bottombar_navigation_provider.dart';
 import 'package:distributor_empower/presentation/home/provider/home_provider.dart';
 import 'package:distributor_empower/routes/router.dart';
 import 'package:distributor_empower/utils/common_dialog.dart';
 import 'package:distributor_empower/utils/enum_classes.dart';
 import 'package:distributor_empower/utils/extensions.dart';
+import 'package:distributor_empower/utils/providers/common_provider.dart';
 import 'package:distributor_empower/utils/text_styles.dart';
-import 'package:distributor_empower/widgets/cache_network_image_widget.dart';
 import 'package:distributor_empower/widgets/profile_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 
 class DrawerScreen extends StatefulWidget {
   const DrawerScreen({super.key});
@@ -102,9 +104,9 @@ class _DrawerScreenState extends State<DrawerScreen> {
               Expanded(
                 child: ListView.builder(
                     shrinkWrap: true,
-                    itemCount: menuListData?.length ?? 0,
+                    itemCount: mainMenuListData?.length ?? 0,
                     itemBuilder: (context, index) {
-                      final item = menuListData?[index];
+                      final item = mainMenuListData?[index];
                       return Container(
                         width: 1.sw,
                         padding: EdgeInsets.only(top: 5.h, bottom: 5.h, left: 8.w, right: 8.w),
@@ -125,27 +127,10 @@ class _DrawerScreenState extends State<DrawerScreen> {
                           children: [
                             Container(
                               padding: EdgeInsets.only(left: 8.w, right: 25.w),
-                              child: CachedNetworkImageWidget(
-                                imageUrl: (item?.iconsUrl ?? ''),
-                                color: AppColor.white,
-                                height: 20.h,
-                                width: 20.h,
-                                errorWidget: (context, url, error) => const Icon(
-                                  Icons.error_outline,
-                                  color: AppColor.white,
-                                ),
-                                progressIndicatorBuilder: (context, url, progress) {
-                                  return Center(
-                                    child: SizedBox(
-                                      height: 20.h,
-                                      width: 20.h,
-                                      child: const CircularProgressIndicator(
-                                        color: AppColor.white,
-                                        strokeWidth: 2,
-                                      ),
-                                    ),
-                                  );
-                                },
+                              child: SvgPicture.network(
+                                item?.menuIconURL ?? '',
+                                height: 14.h,
+                                width: 14.w,
                               ),
                             ),
                             Expanded(
@@ -161,7 +146,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                           setState(() {
                             currentIndex = index;
                           });
-                          _drawerNavigation(item?.id);
+                          _drawerNavigation(item);
                         },
                       );
                     }),
@@ -208,29 +193,30 @@ class _DrawerScreenState extends State<DrawerScreen> {
     );
   }
 
-  void _drawerNavigation(String? id) {
-    switch (id) {
+  Future<void> _drawerNavigation(MenuResponse? item) async {
+    switch (item?.id) {
       case '1':
-        Navigator.pop(context);
+        BottomBarNavigationProvider().closeDrawer();
         break;
       case '2':
-        Navigator.pop(context);
+        BottomBarNavigationProvider().closeDrawer();
         BottomBarNavigationProvider().setCurrentBottomItem(BottomNavigationEnum.profile);
         break;
       case '3':
-        Navigator.pop(context);
+        BottomBarNavigationProvider().closeDrawer();
         BottomBarNavigationProvider().setCurrentBottomItem(BottomNavigationEnum.offers);
         break;
       case '4':
-        Navigator.pop(context);
+        BottomBarNavigationProvider().closeDrawer();
         appRouter.pushNamed(OrderHistoryRoute.name);
         break;
       case '5':
-        Navigator.pop(context);
+        BottomBarNavigationProvider().closeDrawer();
         appRouter.push(ReportRoute());
         break;
       case '6':
-        //PRICE LIST
+        //Price List
+        _redirectToPDF(item);
         break;
       case '7':
         //Knowledge Gallery
@@ -240,7 +226,24 @@ class _DrawerScreenState extends State<DrawerScreen> {
         break;
       case '9':
         //We CARE
+        _redirectToPDF(item);
         break;
+    }
+  }
+
+  Future<void> _redirectToPDF(MenuResponse? item) async {
+    if (item?.entityType.ifBlank != null) {
+      BottomBarNavigationProvider().closeDrawer();
+      final webViewMenuResponse = await CommonProvider().getWebViewMenuDetails(type: item?.entityType);
+      if (webViewMenuResponse?.menuRedairectURLIsPDF == '1') {
+        appRouter.push(
+          PDFViewerRoute(url: webViewMenuResponse?.menuRedairectURL ?? '', title: webViewMenuResponse?.name ?? ''),
+        );
+      } else if (webViewMenuResponse?.menuRedairectURLIsPDF == '0') {
+        appRouter.push(
+          CommonWebViewRoute(url: webViewMenuResponse?.menuRedairectURL ?? '', title: webViewMenuResponse?.name ?? ''),
+        );
+      }
     }
   }
 }
