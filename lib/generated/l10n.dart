@@ -1140,6 +1140,16 @@ class AppLocalizations {
       args: [name],
     );
   }
+
+  /// `per piece`
+  String get perPiece {
+    return Intl.message(
+      'per piece',
+      name: 'perPiece',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<AppLocalizations> {

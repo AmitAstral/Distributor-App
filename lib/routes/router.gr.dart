@@ -38,6 +38,16 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const DashboardScreen(),
       );
     },
+    FocusProductRoute.name: (routeData) {
+      final args = routeData.argsAs<FocusProductRouteArgs>();
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: FocusProductScreen(
+          key: args.key,
+          title: args.title,
+        ),
+      );
+    },
     HomeRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -119,7 +129,7 @@ abstract class _$AppRouter extends RootStackRouter {
     ProfileRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: ProfileScreen(),
+        child: const ProfileScreen(),
       );
     },
     QuickOrderRoute.name: (routeData) {
@@ -254,6 +264,43 @@ class DashboardRoute extends PageRouteInfo<void> {
   static const String name = 'DashboardRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [FocusProductScreen]
+class FocusProductRoute extends PageRouteInfo<FocusProductRouteArgs> {
+  FocusProductRoute({
+    Key? key,
+    required String? title,
+    List<PageRouteInfo>? children,
+  }) : super(
+          FocusProductRoute.name,
+          args: FocusProductRouteArgs(
+            key: key,
+            title: title,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'FocusProductRoute';
+
+  static const PageInfo<FocusProductRouteArgs> page = PageInfo<FocusProductRouteArgs>(name);
+}
+
+class FocusProductRouteArgs {
+  const FocusProductRouteArgs({
+    this.key,
+    required this.title,
+  });
+
+  final Key? key;
+
+  final String? title;
+
+  @override
+  String toString() {
+    return 'FocusProductRouteArgs{key: $key, title: $title}';
+  }
 }
 
 /// generated route for

@@ -31,7 +31,6 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m4(name) => "Version : v${name}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
-
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "SAPCode": MessageLookupByLibrary.simpleMessage("SAP Code"),
         "addToCart": MessageLookupByLibrary.simpleMessage("Add to cart"),
@@ -98,6 +97,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "pendingOrder": MessageLookupByLibrary.simpleMessage("Pending Order"),
         "pendingOrderDetails": MessageLookupByLibrary.simpleMessage("Pending Order Details"),
         "pendingQty": MessageLookupByLibrary.simpleMessage("Pending Qty."),
+        "perPiece": MessageLookupByLibrary.simpleMessage("per piece"),
         "pin": MessageLookupByLibrary.simpleMessage("Pin"),
         "pleaseSelectFromDate": MessageLookupByLibrary.simpleMessage("Please select from date"),
         "pleaseSelectToDate": MessageLookupByLibrary.simpleMessage("Please select to date"),

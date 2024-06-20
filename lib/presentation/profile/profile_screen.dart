@@ -22,7 +22,7 @@ import 'package:url_launcher/url_launcher_string.dart';
 
 @RoutePage()
 class ProfileScreen extends StatefulWidget {
-  ProfileScreen({super.key});
+  const ProfileScreen({super.key});
 
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();

@@ -7,6 +7,7 @@ import 'package:distributor_empower/presentation/authentication/otp/otp_verifica
 import 'package:distributor_empower/presentation/authentication/pin/set_pin_screen.dart';
 import 'package:distributor_empower/presentation/authentication/pin/verify_pin_screen.dart';
 import 'package:distributor_empower/presentation/dashboard/screens/dashboard_screen.dart';
+import 'package:distributor_empower/presentation/focus_products/focus_product_screen.dart';
 import 'package:distributor_empower/presentation/home/screen/home_screen.dart';
 import 'package:distributor_empower/presentation/maintainance/maintenance_screen.dart';
 import 'package:distributor_empower/presentation/maintainance/no_internet_screen.dart';
@@ -61,6 +62,7 @@ class AppRouter extends _$AppRouter {
             AutoRoute(page: SalesReportDetailRoute.page, path: SalesReportDetailRoute.name),
             AutoRoute(page: SalesReportRoute.page, path: SalesReportRoute.name),
             AutoRoute(page: PDFViewerRoute.page, path: PDFViewerRoute.name),
+            AutoRoute(page: FocusProductRoute.page, path: FocusProductRoute.name),
           ],
         ),
         AutoRoute(page: LoginRoute.page),

@@ -236,4 +236,13 @@ class ApiRepository extends ApiCaller {
     );
     return data;
   }
+
+  Future<BaseResponse<FocusProduct?>> getFocusProductsList(UserInfo request, Function(String errorRes) onApiError) async {
+    var data = await executeApiCall<FocusProduct>(
+      apiCall: apiService.post(endPoint: ApiConstants.getFocusProductList, data: request.toJson()),
+      onApiError: onApiError,
+      baseModel: FocusProduct(),
+    );
+    return data;
+  }
 }

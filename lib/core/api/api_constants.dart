@@ -36,6 +36,7 @@ class ApiConstants {
   ///Dashboard
   static const String getDashboard = '${dashboard}GetDashboard';
   static const String getMenuList = '${dashboard}GetMenuList';
+  static const String getFocusProductList = '${dashboard}GetFocusProductList';
 
   ///Report
   static const String getReportMenuList = '${report}GetReportMenuList';

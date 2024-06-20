@@ -107,5 +107,6 @@
   "quickOrder": "Quick Order",
   "chooseQuantity": "Choose quantity",
   "checkout": "Checkout",
-  "versionWithversion": "Version : v{name}"
+  "versionWithversion": "Version : v{name}",
+  "perPiece": "per piece"
 }

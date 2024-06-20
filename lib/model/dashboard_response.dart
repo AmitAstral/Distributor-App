@@ -82,7 +82,7 @@ class DashboardResponse extends BaseModel {
         case DashboardViewType.orderDetails:
           obj.data = List<OrderDetail>.from(data.map((x) => OrderDetail.fromJson(x)));
         case DashboardViewType.focusProduct:
-          obj.data = List<FocusProduct>.from(data.map((x) => FocusProduct.fromJson(x)));
+          obj.data = List<FocusProduct>.from(data.map((x) => FocusProduct().fromJson(x)));
         case DashboardViewType.creditAging:
           obj.data = CreditAgingData.fromJson(data);
         case DashboardViewType.filter:
@@ -214,30 +214,31 @@ class OrderDetail {
   }
 }
 
-class FocusProduct {
-  String id;
-  String title;
-  String rate;
-  String productImage;
-  String gst;
-  String sapcode;
-  String unit;
-  String packSize;
-  String cartonQty;
+class FocusProduct extends BaseModel {
+  String? id;
+  String? title;
+  String? rate;
+  String? productImage;
+  String? gst;
+  String? sapcode;
+  String? unit;
+  String? packSize;
+  String? cartonQty;
 
   FocusProduct({
-    required this.id,
-    required this.title,
-    required this.rate,
-    required this.productImage,
-    required this.gst,
-    required this.sapcode,
-    required this.unit,
-    required this.packSize,
-    required this.cartonQty,
+    this.id,
+    this.title,
+    this.rate,
+    this.productImage,
+    this.gst,
+    this.sapcode,
+    this.unit,
+    this.packSize,
+    this.cartonQty,
   });
 
-  factory FocusProduct.fromJson(Map<String, dynamic> json) {
+  @override
+  FocusProduct fromJson(Map<dynamic, dynamic> json) {
     return FocusProduct(
       id: json['Id'],
       title: json['Title'],
