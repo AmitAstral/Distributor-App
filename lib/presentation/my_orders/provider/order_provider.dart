@@ -20,7 +20,6 @@ class OrderProvider extends BaseProvider {
       final request = ApiReqData(
         timePeriod: selectedMenu?.value,
         pageNumber: pageNo.toString(),
-        withUserInfo: true,
       );
       final response = await apiRep.callGetOrderListAPI(request, onApiError);
       final list = response.dataList ?? [];
@@ -44,7 +43,6 @@ class OrderProvider extends BaseProvider {
       isLoading.value = true;
       final request = ApiReqData(
         timePeriod: DropdownTypeEnum.MyOrderList.name,
-        withUserInfo: true,
       );
       final response = await apiRep.getDropDownList(request, onApiError);
       if (response.getIsSuccess) {
@@ -69,7 +67,6 @@ class OrderProvider extends BaseProvider {
       isLoading.value = loading;
       final request = ApiReqData(
         orderId: orderId,
-        withUserInfo: true,
       );
       final response = await apiRep.getOrderDetailsAPI(request, onApiError);
       if (response.getIsSuccess) {

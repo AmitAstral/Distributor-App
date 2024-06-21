@@ -45,15 +45,31 @@ class HomeProvider extends BaseProvider {
     try {
       if (mainMenuListData?.isNotEmpty ?? false) return;
 
-      final mainMenuResponse = await apiRep.getMenuList(ApiReqData(withUserInfo: true, menuType: MenuType.mainMenu.index), onApiError);
+      final mainMenuResponse = await apiRep.getMenuList(ApiReqData(menuType: MenuType.mainMenu.index), onApiError);
       if (mainMenuResponse.getIsSuccess && mainMenuResponse.getData != null) {
         mainMenuListData = mainMenuResponse.dataList;
       }
 
-      final profileMenuResponse = await apiRep.getMenuList(ApiReqData(withUserInfo: true, menuType: MenuType.profileMenu.index), onApiError);
+      final profileMenuResponse = await apiRep.getMenuList(ApiReqData(menuType: MenuType.profileMenu.index), onApiError);
       if (profileMenuResponse.getIsSuccess && profileMenuResponse.getData != null) {
         profileMenuListData = profileMenuResponse.dataList;
       }
+    } catch (e, stack) {
+      debugPrintStack(stackTrace: stack);
+    }
+  }
+
+  void updateFavItem(FocusProduct? item) {
+    try {
+      dashboardData
+          ?.firstWhere(
+            (element) => element?.getViewType == DashboardViewType.focusProduct,
+          )
+          ?.focusProduct
+          .firstWhere((element) => element?.id == item?.id)
+          ?.isFavorite = item?.isFavorite ?? false;
+
+      notifyListeners();
     } catch (e, stack) {
       debugPrintStack(stackTrace: stack);
     }

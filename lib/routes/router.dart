@@ -8,6 +8,7 @@ import 'package:distributor_empower/presentation/authentication/pin/set_pin_scre
 import 'package:distributor_empower/presentation/authentication/pin/verify_pin_screen.dart';
 import 'package:distributor_empower/presentation/dashboard/screens/dashboard_screen.dart';
 import 'package:distributor_empower/presentation/focus_products/focus_product_screen.dart';
+import 'package:distributor_empower/presentation/home/provider/home_provider.dart';
 import 'package:distributor_empower/presentation/home/screen/home_screen.dart';
 import 'package:distributor_empower/presentation/maintainance/maintenance_screen.dart';
 import 'package:distributor_empower/presentation/maintainance/no_internet_screen.dart';

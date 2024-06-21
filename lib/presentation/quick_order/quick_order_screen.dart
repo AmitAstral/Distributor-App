@@ -75,7 +75,7 @@ class QuickOrderScreen extends StatelessWidget {
                             // (index % 2 == 0) ? Icons.bookmark_border_rounded :
                             Icons.bookmark_rounded,
                             size: 20.sp,
-                            color: const Color(0xFFF1A1A2),
+                            color: AppColor.leavePendingColor,
                           ),
                         ],
                       ),
@@ -209,8 +209,8 @@ class QuickOrderScreen extends StatelessWidget {
         floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
         floatingActionButton: ElevatedButton(
           style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all(AppColor.primaryColor),
-            shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
+            backgroundColor: WidgetStateProperty.all(AppColor.primaryColor),
+            shape: WidgetStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20.r),
             )),
           ),

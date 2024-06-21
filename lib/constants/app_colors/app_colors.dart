@@ -31,7 +31,7 @@ class AppColor {
   static const Color lightGrey1 = Color(0xFFD9D9D9);
   static const Color lightGrey2 = Color(0xFFF4F4F4);
   static const Color datatableRowColor = Color(0xFFF1F1F1);
-  static const Color leavePendingColor = Color(0xffFF8730);
+  static const Color leavePendingColor = Color(0xbbfca05b);
   static const Color leaveApproveColor = Color(0xff00A410);
   static const Color leaveRejectColor = Color(0xffFF0000);
   static const Color secondaryColor = Color(0xff004B97);

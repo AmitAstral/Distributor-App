@@ -111,7 +111,6 @@ class SetPinScreen extends StatelessWidget {
         pin: _pin,
         confirmPin: _confirmPin,
         pinType: ((storage.userDetails.isPinSet ?? false) ? SetPinType.resetPin : SetPinType.newPin).index,
-        withUserInfo: true,
       ));
 
       if (result) {

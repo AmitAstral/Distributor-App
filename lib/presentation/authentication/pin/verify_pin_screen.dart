@@ -163,7 +163,6 @@ class _VerifyPinScreenState extends State<VerifyPinScreen> {
     if (!_isDisable.value) {
       final result = await _userPinProvider.verifyUserPin(ApiReqData(
         pin: _pin,
-        withUserInfo: true,
         pinType: SetPinType.verifyPin.index,
       ));
 

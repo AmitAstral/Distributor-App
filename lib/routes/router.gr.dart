@@ -45,6 +45,7 @@ abstract class _$AppRouter extends RootStackRouter {
         child: FocusProductScreen(
           key: args.key,
           title: args.title,
+          homeProvider: args.homeProvider,
         ),
       );
     },
@@ -272,12 +273,14 @@ class FocusProductRoute extends PageRouteInfo<FocusProductRouteArgs> {
   FocusProductRoute({
     Key? key,
     required String? title,
+    required HomeProvider homeProvider,
     List<PageRouteInfo>? children,
   }) : super(
           FocusProductRoute.name,
           args: FocusProductRouteArgs(
             key: key,
             title: title,
+            homeProvider: homeProvider,
           ),
           initialChildren: children,
         );
@@ -291,15 +294,18 @@ class FocusProductRouteArgs {
   const FocusProductRouteArgs({
     this.key,
     required this.title,
+    required this.homeProvider,
   });
 
   final Key? key;
 
   final String? title;
 
+  final HomeProvider homeProvider;
+
   @override
   String toString() {
-    return 'FocusProductRouteArgs{key: $key, title: $title}';
+    return 'FocusProductRouteArgs{key: $key, title: $title, homeProvider: $homeProvider}';
   }
 }
 

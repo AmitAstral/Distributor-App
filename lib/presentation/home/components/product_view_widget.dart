@@ -1,6 +1,7 @@
 import 'package:distributor_empower/constants/app_colors/app_colors.dart';
 import 'package:distributor_empower/generated/l10n.dart';
 import 'package:distributor_empower/model/dashboard_response.dart';
+import 'package:distributor_empower/utils/extensions.dart';
 import 'package:distributor_empower/utils/text_styles.dart';
 import 'package:distributor_empower/widgets/cache_network_image_widget.dart';
 import 'package:flutter/material.dart';
@@ -8,19 +9,44 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ProductViewWidget extends StatelessWidget {
   final FocusProduct? item;
+  final double? height;
+  final VoidCallback onChangeFav;
 
-  const ProductViewWidget({super.key, required this.item});
+  const ProductViewWidget({
+    super.key,
+    required this.item,
+    required this.onChangeFav,
+    this.height,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
+        StatefulBuilder(builder: (context, state) {
+          return Container(
+            alignment: Alignment.centerLeft,
+            padding: const EdgeInsets.symmetric(horizontal: 8).copyWith(top: 5).w,
+            child: Icon(
+              Icons.bookmark_rounded,
+              size: 20.sp,
+              color: (item?.isFavorite ?? false) ? AppColor.leavePendingColor : AppColor.grey,
+            ),
+          ).addGesture(
+            () {
+              item?.isFavorite = !(item?.isFavorite ?? false);
+              state(() {});
+              onChangeFav();
+            },
+          );
+        }),
+        const Spacer(),
         Container(
-          margin: EdgeInsets.only(top: 16.h, bottom: 8.h),
-          width: 112.w,
-          height: 35.h,
+          margin: const EdgeInsets.only(top: 5, bottom: 5).h,
+          height: height ?? 70.h,
           child: CachedNetworkImageWidget(
             imageUrl: item?.productImage ?? '',
+            fit: BoxFit.contain,
             errorListener: (value) {
               debugPrint('Image load to failed $value');
             },

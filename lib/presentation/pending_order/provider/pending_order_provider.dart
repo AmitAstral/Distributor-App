@@ -13,7 +13,9 @@ class PendingOrderProvider extends BaseProvider {
     isLoading.value = isProgress;
     notifyListeners();
     try {
-      final request = ApiReqData(pageNumber: pageNo.toString(), withUserInfo: true);
+      final request = ApiReqData(
+        pageNumber: pageNo.toString(),
+      );
       final response = await apiRep.callPendingOrderListAPI(request, onApiError);
       final list = response.dataList ?? [];
       if (pageNo == 1) {
@@ -34,7 +36,7 @@ class PendingOrderProvider extends BaseProvider {
   Future<void> callGetPendingOrderDetailByOrderNo(String? orderNo, {bool isProgress = true}) async {
     isLoading.value = isProgress;
     try {
-      final request = ApiReqData(orderNo: orderNo, withUserInfo: true);
+      final request = ApiReqData(orderNo: orderNo);
       final response = await apiRep.callGetPendingOrderDetailByOrderNo(request, onApiError);
       orderDetailsListResponse = response.dataList ?? [];
     } catch (e, stack) {

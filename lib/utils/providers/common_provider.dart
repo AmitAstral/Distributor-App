@@ -36,7 +36,7 @@ class CommonProvider extends BaseProvider {
 
   Future<WebViewMenuResponse?> getWebViewMenuDetails({required String? type}) async {
     try {
-      final request = ApiReqData(withUserInfo: true, entityType: type);
+      final request = ApiReqData(entityType: type);
       final response = await apiRep.getWebViewMenuDetails(request, onApiError: onApiError);
       if (response.getIsSuccess) {
         return response.getData;

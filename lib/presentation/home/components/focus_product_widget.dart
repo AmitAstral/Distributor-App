@@ -2,23 +2,33 @@ import 'package:distributor_empower/constants/all_constants.dart';
 import 'package:distributor_empower/core/di/locator.dart';
 import 'package:distributor_empower/generated/l10n.dart';
 import 'package:distributor_empower/model/dashboard_response.dart';
+import 'package:distributor_empower/presentation/focus_products/provider/product_provider.dart';
 import 'package:distributor_empower/presentation/home/components/product_view_widget.dart';
+import 'package:distributor_empower/presentation/home/provider/home_provider.dart';
 import 'package:distributor_empower/routes/router.dart';
 import 'package:distributor_empower/utils/extensions.dart';
 import 'package:distributor_empower/utils/text_styles.dart';
 import 'package:flutter/material.dart';
 
-class FocusProductWidget extends StatelessWidget {
-  final List<FocusProduct>? focusProductList;
+class FocusProductWidget extends StatefulWidget {
+  final List<FocusProduct?>? focusProductList;
   final String title;
+  final HomeProvider homeProvider;
 
-  const FocusProductWidget(this.focusProductList, {required this.title, super.key});
+  const FocusProductWidget(this.focusProductList, {required this.title, required this.homeProvider, super.key});
+
+  @override
+  State<FocusProductWidget> createState() => _FocusProductWidgetState();
+}
+
+class _FocusProductWidgetState extends State<FocusProductWidget> {
+  final _productProvider = ProductProvider();
 
   @override
   Widget build(BuildContext context) {
-    if (focusProductList?.isEmpty ?? true) return const SizedBox.shrink();
+    if (widget.focusProductList?.isEmpty ?? true) return const SizedBox.shrink();
     return Container(
-      height: 180.h,
+      height: 190.h,
       width: 1.sw,
       margin: const EdgeInsets.only(bottom: 6).h,
       child: Column(
@@ -31,7 +41,7 @@ class FocusProductWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Text(
-                  title,
+                  widget.title,
                   style: TextStyles.semiBold14.copyWith(color: AppColor.textSecondary),
                 ),
                 Text(
@@ -39,7 +49,9 @@ class FocusProductWidget extends StatelessWidget {
                   textAlign: TextAlign.center,
                   style: TextStyles.semiBold11.copyWith(color: AppColor.primaryColor),
                 ).addGesture(
-                  () => appRouter.push(FocusProductRoute(title: title)),
+                  () => appRouter.push(
+                    FocusProductRoute(title: widget.title, homeProvider: widget.homeProvider),
+                  ),
                 ),
               ],
             ),
@@ -47,10 +59,10 @@ class FocusProductWidget extends StatelessWidget {
           Flexible(
             child: ListView.builder(
                 shrinkWrap: true,
-                itemCount: focusProductList?.length ?? 0,
+                itemCount: widget.focusProductList?.length ?? 0,
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) {
-                  final item = focusProductList?[index];
+                  final item = widget.focusProductList?[index];
                   return Container(
                     width: 140.w,
                     margin: EdgeInsets.only(left: index == 0 ? 10 : 0, right: 10).w,
@@ -63,6 +75,10 @@ class FocusProductWidget extends StatelessWidget {
                     ),
                     child: ProductViewWidget(
                       item: item,
+                      height: 35.h,
+                      onChangeFav: () {
+                        _productProvider.addRemoveFromFav(item);
+                      },
                     ),
                   );
                 }),

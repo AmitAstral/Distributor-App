@@ -68,7 +68,7 @@ class StorageService {
   Future<void> remove(String key) async => await _box.delete(key);
 
   void logout() {
-    GetIt.I<ApiRepository>().logoutUser(req: ApiReqData(withUserInfo: true, fcmID: storage.fcmToken));
+    GetIt.I<ApiRepository>().logoutUser(req: ApiReqData(fcmID: storage.fcmToken));
     isLogin = false;
     authToken = '';
     userDetails = null;

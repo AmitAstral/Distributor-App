@@ -38,7 +38,7 @@ class DashboardResponse extends BaseModel {
     }
   }
 
-  List<FocusProduct> get focusProduct {
+  List<FocusProduct?> get focusProduct {
     try {
       return data ?? [];
     } catch (e) {
@@ -224,6 +224,7 @@ class FocusProduct extends BaseModel {
   String? unit;
   String? packSize;
   String? cartonQty;
+  bool isFavorite;
 
   FocusProduct({
     this.id,
@@ -235,7 +236,10 @@ class FocusProduct extends BaseModel {
     this.unit,
     this.packSize,
     this.cartonQty,
+    this.isFavorite = false,
   });
+
+  String get getRequireAction => (isFavorite) ? 'ADD' : 'DELETE';
 
   @override
   FocusProduct fromJson(Map<dynamic, dynamic> json) {
@@ -249,6 +253,7 @@ class FocusProduct extends BaseModel {
       unit: json['unit'],
       packSize: json['pack_size'],
       cartonQty: json['CartonQty'],
+      isFavorite: json['IsFavorite'] == '1',
     );
   }
 
@@ -262,7 +267,7 @@ class FocusProduct extends BaseModel {
       'sapcode': sapcode,
       'unit': unit,
       'pack_size': packSize,
-      'CartonQty': cartonQty,
+      'IsFavorite': isFavorite,
     };
   }
 }

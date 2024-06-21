@@ -9,7 +9,7 @@ class StatementProvider extends BaseProvider {
   Future<void> callStatementOfAccountAPI(String? fromDate, String? toDate) async {
     isLoading.value = true;
     try {
-      final request = ApiReqData(fromDate: fromDate, toDate: toDate, withUserInfo: true);
+      final request = ApiReqData(fromDate: fromDate, toDate: toDate);
       final response = await apiRep.callStatementOfAccountAPI(request, onApiError);
       accountStatementList = response.dataList ?? [];
     } catch (e, stack) {

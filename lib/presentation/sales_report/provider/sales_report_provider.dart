@@ -13,7 +13,11 @@ class SalesReportProvider extends BaseProvider {
     isLoading.value = loading;
     notifyListeners();
     try {
-      final request = ApiReqData(fromDate: fromDate, toDate: toDate, pageNumber: pageNo.toString(), withUserInfo: true);
+      final request = ApiReqData(
+        fromDate: fromDate,
+        toDate: toDate,
+        pageNumber: pageNo.toString(),
+      );
       final response = await apiRep.callSaleInvoiceReportAPI(request, onApiError);
       final list = response.dataList ?? [];
       if (pageNo == 1) {
@@ -34,7 +38,9 @@ class SalesReportProvider extends BaseProvider {
   Future<void> callSalesReportDetails(String? invoiceNo) async {
     isLoading.value = true;
     try {
-      final request = ApiReqData(docID: invoiceNo, withUserInfo: true);
+      final request = ApiReqData(
+        docID: invoiceNo,
+      );
       final response = await apiRep.callSalesReportDetails(request, onApiError);
       salesReportDetails = response.getData;
     } catch (e, stack) {

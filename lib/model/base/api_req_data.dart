@@ -22,6 +22,8 @@ class ApiReqData {
   String? entityType;
   String? timePeriod;
   String? orderId;
+  String? itemId;
+  String? action;
   int? menuType;
 
   ApiReqData({
@@ -47,6 +49,8 @@ class ApiReqData {
     this.timePeriod,
     this.orderId,
     this.menuType,
+    this.itemId,
+    this.action,
   });
 
   static UserInfo get getUserDetails => getUserInfo;
@@ -65,12 +69,14 @@ class ApiReqData {
     json['PageNumber'] = pageNumber;
     json['OrderNo'] = orderNo;
     json['DocID'] = docID;
+    json['ItemId'] = itemId;
+    json['Action'] = action;
 
     if (userDeviceToken != null) {
       json['userDeviceToken'] = userDeviceToken!.toJson();
     }
 
-    if (withUserInfo ?? false) {
+    if (withUserInfo ?? true) {
       json['UserInfo'] = getUserInfo;
     }
 

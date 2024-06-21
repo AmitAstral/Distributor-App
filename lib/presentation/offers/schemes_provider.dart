@@ -11,7 +11,6 @@ class SchemesProvider extends BaseProvider {
     try {
       final request = ApiReqData(
         entityType: 'schemes',
-        withUserInfo: true,
       );
       final response = await apiRep.callGetEntityListAPI(request, onApiError);
       schemeListResponse = response.dataList ?? [];

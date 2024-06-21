@@ -1,7 +1,8 @@
 import 'package:auto_route/annotations.dart';
 import 'package:distributor_empower/constants/app_colors/app_colors.dart';
-import 'package:distributor_empower/presentation/focus_products/provider/focus_product_provider.dart';
+import 'package:distributor_empower/presentation/focus_products/provider/product_provider.dart';
 import 'package:distributor_empower/presentation/home/components/product_view_widget.dart';
+import 'package:distributor_empower/presentation/home/provider/home_provider.dart';
 import 'package:distributor_empower/utils/text_styles.dart';
 import 'package:distributor_empower/widgets/custom_app_bar/app_bar.dart';
 import 'package:distributor_empower/widgets/no_data_found_widget.dart';
@@ -15,15 +16,20 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 @RoutePage()
 class FocusProductScreen extends StatefulWidget {
   final String? title;
+  final HomeProvider homeProvider;
 
-  const FocusProductScreen({super.key, required this.title});
+  const FocusProductScreen({
+    super.key,
+    required this.title,
+    required this.homeProvider,
+  });
 
   @override
   State<FocusProductScreen> createState() => _FocusProductScreenState();
 }
 
 class _FocusProductScreenState extends State<FocusProductScreen> {
-  final _focusProductProvider = FocusProductProvider();
+  final _focusProductProvider = ProductProvider();
   final _refreshController = RefreshController(initialRefresh: false);
 
   @override
@@ -52,12 +58,12 @@ class _FocusProductScreenState extends State<FocusProductScreen> {
       ),
       body: ChangeNotifierProvider.value(
         value: _focusProductProvider,
-        child: Consumer<FocusProductProvider>(builder: (context, provider, child) {
+        child: Consumer<ProductProvider>(builder: (context, provider, child) {
           return SmartRefresherWidget(
             controller: _refreshController,
             onRefresh: () async {
               await _focusProductProvider.getFocusProductsList(
-                loading: _focusProductProvider.focusProductList.isEmpty,
+                loading: false,
               );
               _refreshController.refreshCompleted();
             },
@@ -71,12 +77,11 @@ class _FocusProductScreenState extends State<FocusProductScreen> {
                           shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
                           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2, mainAxisSpacing: 10, crossAxisSpacing: 10, childAspectRatio: 4 / 5),
+                              crossAxisCount: 2, mainAxisSpacing: 10, crossAxisSpacing: 10, childAspectRatio: 5 / 7),
                           itemCount: _focusProductProvider.focusProductList.length,
                           itemBuilder: (context, index) {
                             final item = _focusProductProvider.focusProductList[index];
                             return Container(
-                              height: 250.h,
                               width: 0.5.sw,
                               padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5).h,
                               decoration: ShapeDecoration(
@@ -88,6 +93,10 @@ class _FocusProductScreenState extends State<FocusProductScreen> {
                               ),
                               child: ProductViewWidget(
                                 item: item,
+                                onChangeFav: () {
+                                  widget.homeProvider.updateFavItem(item);
+                                  _focusProductProvider.addRemoveFromFav(item);
+                                },
                               ),
                             );
                           }),

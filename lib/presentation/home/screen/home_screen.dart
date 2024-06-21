@@ -14,6 +14,7 @@ import 'package:distributor_empower/presentation/home/components/order_details_w
 import 'package:distributor_empower/presentation/home/components/sales_chart_widget.dart';
 import 'package:distributor_empower/presentation/home/provider/home_provider.dart';
 import 'package:distributor_empower/utils/enum_classes.dart';
+import 'package:distributor_empower/utils/extensions.dart';
 import 'package:distributor_empower/utils/text_styles.dart';
 import 'package:distributor_empower/widgets/cache_network_image_widget.dart';
 import 'package:distributor_empower/widgets/custom_app_bar/app_bar.dart';
@@ -72,24 +73,26 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget _buildAppBar() {
     return AppBarWidget(
       titleSpacing: 10.w,
-      leading: GestureDetector(
-          onTap: () {},
-          child: FittedBox(
-            child: Container(
-              width: 40.w,
-              height: 40.w,
-              margin: EdgeInsets.only(left: 10.w),
-              child: ClipRRect(
-                borderRadius: BorderRadius.all(Radius.circular(40.w)),
-                child: CachedNetworkImageWidget(
-                  imageUrl: storage.userDetails.getUserProfile,
-                  fit: BoxFit.cover,
-                  loaderColor: AppColor.white,
-                  errorIconColor: AppColor.white,
-                ),
-              ),
+      leading: FittedBox(
+        child: Container(
+          width: 40.w,
+          height: 40.w,
+          margin: EdgeInsets.only(left: 10.w),
+          child: ClipRRect(
+            borderRadius: BorderRadius.all(Radius.circular(40.w)),
+            child: CachedNetworkImageWidget(
+              imageUrl: storage.userDetails.getUserProfile,
+              fit: BoxFit.cover,
+              loaderColor: AppColor.white,
+              errorIconColor: AppColor.white,
             ),
-          )),
+          ),
+        ),
+      ).addGesture(
+        () {
+          BottomBarNavigationProvider().setCurrentBottomItem(BottomNavigationEnum.profile);
+        },
+      ),
       title: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -176,6 +179,7 @@ class _HomeScreenState extends State<HomeScreen> {
         return FocusProductWidget(
           dashboardData?.focusProduct,
           title: dashboardData?.title ?? '',
+          homeProvider: _homeProvider,
         );
 
       case DashboardViewType.creditAging:
