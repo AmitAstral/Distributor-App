@@ -12,6 +12,7 @@ import 'package:distributor_empower/model/order_details_response.dart';
 import 'package:distributor_empower/model/order_response.dart';
 import 'package:distributor_empower/model/pending_order_response.dart';
 import 'package:distributor_empower/model/product_details_response.dart';
+import 'package:distributor_empower/model/product_response.dart';
 import 'package:distributor_empower/model/report_menu_response.dart';
 import 'package:distributor_empower/model/sales_report_details.dart';
 import 'package:distributor_empower/model/sales_report_response.dart';
@@ -247,10 +248,18 @@ class ApiRepository extends ApiCaller {
   }
 
   Future<BaseResponse> addRemoveFromFav(ApiReqData request, Function(String errorRes) onApiError) async {
-    var data = await executeApiCall<FocusProduct>(
+    var data = await executeApiCall(
       apiCall: apiService.post(endPoint: ApiConstants.addRemoveProductToFav, data: request.toJson()),
       onApiError: onApiError,
-      /*baseModel: FocusProduct(),*/
+    );
+    return data;
+  }
+
+  Future<BaseResponse<ProductResponse?>> getFavProductList(UserInfo request, Function(String errorRes) onApiError) async {
+    var data = await executeApiCall<ProductResponse>(
+      apiCall: apiService.post(endPoint: ApiConstants.getFavProductList, data: request.toJson()),
+      onApiError: onApiError,
+      baseModel: ProductResponse(),
     );
     return data;
   }

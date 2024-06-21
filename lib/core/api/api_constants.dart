@@ -54,6 +54,7 @@ class ApiConstants {
   static const String getOrderList = '${order}GetOrderList';
   static const String getOrderDetails = '${order}GetOrderDetails';
   static const String addRemoveProductToFav = '${order}AddRemoveProductToFavorite';
+  static const String getFavProductList = '${order}GetFavoriteProductList';
 
   static Future<String> get getAppURL async {
     final appId = await getAppPackageName();

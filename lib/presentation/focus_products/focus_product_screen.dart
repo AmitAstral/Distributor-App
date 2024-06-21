@@ -95,7 +95,7 @@ class _FocusProductScreenState extends State<FocusProductScreen> {
                                 item: item,
                                 onChangeFav: () {
                                   widget.homeProvider.updateFavItem(item);
-                                  _focusProductProvider.addRemoveFromFav(item);
+                                  _focusProductProvider.addRemoveFromFav(item?.id, item?.getRequireAction);
                                 },
                               ),
                             );
