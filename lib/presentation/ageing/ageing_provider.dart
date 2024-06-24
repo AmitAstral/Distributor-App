@@ -1,5 +1,5 @@
 import 'package:distributor_empower/core/provider/base_provider.dart';
-import 'package:distributor_empower/model/ageing_response.dart';
+import 'package:distributor_empower/model/ageing_model.dart';
 import 'package:flutter/material.dart';
 
 class AgeingProvider extends BaseProvider {

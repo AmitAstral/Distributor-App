@@ -1,12 +1,13 @@
 import 'package:distributor_empower/core/api/api_caller.dart';
 import 'package:distributor_empower/core/api/api_constants.dart';
 import 'package:distributor_empower/core/di/locator.dart';
-import 'package:distributor_empower/model/ageing_response.dart';
+import 'package:distributor_empower/model/ageing_model.dart';
 import 'package:distributor_empower/model/base/api_req_data.dart';
 import 'package:distributor_empower/model/base/base_response.dart';
 import 'package:distributor_empower/model/dashboard_response.dart';
 import 'package:distributor_empower/model/drop_down_response.dart';
 import 'package:distributor_empower/model/entity_response.dart';
+import 'package:distributor_empower/model/knowledge_gallery_model.dart';
 import 'package:distributor_empower/model/menu_response.dart';
 import 'package:distributor_empower/model/order_details_response.dart';
 import 'package:distributor_empower/model/order_response.dart';
@@ -260,6 +261,15 @@ class ApiRepository extends ApiCaller {
       apiCall: apiService.post(endPoint: ApiConstants.getFavProductList, data: request.toJson()),
       onApiError: onApiError,
       baseModel: ProductResponse(),
+    );
+    return data;
+  }
+
+  Future<BaseResponse<KnowledgeGalleryModel?>> getKnowledgeGalleryList(UserInfo request, Function(String errorRes) onApiError) async {
+    var data = await executeApiCall<KnowledgeGalleryModel>(
+      apiCall: apiService.post(endPoint: ApiConstants.getKnowledgeGalleryList, data: request.toJson()),
+      onApiError: onApiError,
+      baseModel: KnowledgeGalleryModel(),
     );
     return data;
   }

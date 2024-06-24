@@ -1,0 +1,68 @@
+import 'package:auto_route/annotations.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:youtube_player_iframe/youtube_player_iframe.dart';
+
+@RoutePage()
+class YoutubePlayerScreen extends StatefulWidget {
+  final String productArguments;
+
+  const YoutubePlayerScreen({super.key, required this.productArguments});
+
+  @override
+  State<YoutubePlayerScreen> createState() => _YoutubePlayerScreenState();
+}
+
+class _YoutubePlayerScreenState extends State<YoutubePlayerScreen> {
+  late final YoutubePlayerController? _ytbPlayerController;
+
+  @override
+  void initState() {
+    super.initState();
+    debugPrint("YOUTUBE URL----------------${widget.productArguments}");
+
+    _setOrientation([
+      DeviceOrientation.landscapeRight,
+      DeviceOrientation.landscapeLeft,
+    ]);
+
+    _ytbPlayerController = YoutubePlayerController.fromVideoId(
+      videoId: widget.productArguments.split("=").last,
+      autoPlay: false,
+      params: const YoutubePlayerParams(showFullscreenButton: true),
+    );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+
+    _setOrientation([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
+
+    _ytbPlayerController?.close();
+  }
+
+  _setOrientation(List<DeviceOrientation> orientations) {
+    SystemChrome.setPreferredOrientations(orientations);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return _buildYtbView();
+  }
+
+  _buildYtbView() {
+    return AspectRatio(
+      aspectRatio: 16 / 9,
+      child: _ytbPlayerController != null
+          ? YoutubePlayer(
+              controller: _ytbPlayerController,
+              aspectRatio: 16 / 9,
+            )
+          : const Center(child: CircularProgressIndicator()),
+    );
+  }
+}

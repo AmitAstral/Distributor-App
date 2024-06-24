@@ -1150,6 +1150,16 @@ class AppLocalizations {
       args: [],
     );
   }
+
+  /// `Knowledge Gallery`
+  String get knowledgeGallery {
+    return Intl.message(
+      'Knowledge Gallery',
+      name: 'knowledgeGallery',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<AppLocalizations> {

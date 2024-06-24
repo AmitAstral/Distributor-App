@@ -10,6 +10,7 @@ import 'package:distributor_empower/presentation/dashboard/screens/dashboard_scr
 import 'package:distributor_empower/presentation/focus_products/focus_product_screen.dart';
 import 'package:distributor_empower/presentation/home/provider/home_provider.dart';
 import 'package:distributor_empower/presentation/home/screen/home_screen.dart';
+import 'package:distributor_empower/presentation/knowledge_gallery/knowledge_gallery_screen.dart';
 import 'package:distributor_empower/presentation/maintainance/maintenance_screen.dart';
 import 'package:distributor_empower/presentation/maintainance/no_internet_screen.dart';
 import 'package:distributor_empower/presentation/my_orders/order_details_screen.dart';
@@ -26,6 +27,9 @@ import 'package:distributor_empower/presentation/splash/splash_screen.dart';
 import 'package:distributor_empower/presentation/statement_of_account/statement_of_account_screen.dart';
 import 'package:distributor_empower/presentation/viewer/common_webview.dart';
 import 'package:distributor_empower/presentation/viewer/pdf_viewer_screen.dart';
+import 'package:distributor_empower/presentation/viewer/video_player_screen.dart';
+import 'package:distributor_empower/presentation/viewer/view_image_screen.dart';
+import 'package:distributor_empower/presentation/viewer/youtube_player_screen.dart';
 import 'package:distributor_empower/utils/enum_classes.dart';
 import 'package:flutter/material.dart';
 
@@ -64,6 +68,8 @@ class AppRouter extends _$AppRouter {
             AutoRoute(page: SalesReportRoute.page, path: SalesReportRoute.name),
             AutoRoute(page: PDFViewerRoute.page, path: PDFViewerRoute.name),
             AutoRoute(page: FocusProductRoute.page, path: FocusProductRoute.name),
+            AutoRoute(page: KnowledgeGalleryRoute.page, path: KnowledgeGalleryRoute.name),
+            AutoRoute(page: ViewImageRoute.page, path: ViewImageRoute.name),
           ],
         ),
         AutoRoute(page: LoginRoute.page),
@@ -72,6 +78,8 @@ class AppRouter extends _$AppRouter {
         AutoRoute(page: VerifyPinRoute.page),
         AutoRoute(page: MaintenanceRoute.page),
         AutoRoute(page: NoInternetRoute.page),
+        AutoRoute(page: YoutubePlayerRoute.page),
+        AutoRoute(page: VideoPlayerRoute.page),
       ];
 
   void pushAndRemoveAll(PageRouteInfo route) {

@@ -194,38 +194,36 @@ class _DrawerScreenState extends State<DrawerScreen> {
   }
 
   Future<void> _drawerNavigation(MenuResponse? item) async {
+    BottomBarNavigationProvider().closeDrawer();
     switch (item?.id) {
       case '1':
-        BottomBarNavigationProvider().closeDrawer();
+        //
         break;
       case '2':
-        BottomBarNavigationProvider().closeDrawer();
         BottomBarNavigationProvider().setCurrentBottomItem(BottomNavigationEnum.profile);
         break;
       case '3':
-        BottomBarNavigationProvider().closeDrawer();
         BottomBarNavigationProvider().setCurrentBottomItem(BottomNavigationEnum.offers);
         break;
       case '4':
-        BottomBarNavigationProvider().closeDrawer();
         appRouter.pushNamed(OrderHistoryRoute.name);
         break;
       case '5':
-        BottomBarNavigationProvider().closeDrawer();
         appRouter.push(ReportRoute());
         break;
       case '6':
-        //Price List
+      //Price List
         _redirectToPDF(item);
         break;
       case '7':
-        //Knowledge Gallery
+      //Knowledge Gallery
+        appRouter.push(const KnowledgeGalleryRoute());
         break;
       case '8':
-        //NEWS
+      //NEWS
         break;
       case '9':
-        //We CARE
+      //We CARE
         _redirectToPDF(item);
         break;
     }

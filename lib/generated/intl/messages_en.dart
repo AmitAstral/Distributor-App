@@ -73,6 +73,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "internetIsNotConnected": MessageLookupByLibrary.simpleMessage("Internet is not connected"),
         "invoiceNo": MessageLookupByLibrary.simpleMessage("Invoice No."),
         "itemName": MessageLookupByLibrary.simpleMessage("Item Name"),
+        "knowledgeGallery": MessageLookupByLibrary.simpleMessage("Knowledge Gallery"),
         "login": MessageLookupByLibrary.simpleMessage("Login"),
         "logout": MessageLookupByLibrary.simpleMessage("Log Out"),
         "messageAreYouSureLogout": MessageLookupByLibrary.simpleMessage("Are you  sure you want to logout?"),

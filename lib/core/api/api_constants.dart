@@ -32,6 +32,7 @@ class ApiConstants {
   static const String getAllSetting = '${common}GetAllSetting';
   static const String getDropDownList = '${common}GetDropDownList';
   static const String getWebViewMenuDetails = '${common}GetWebViewMenuDetails';
+  static const String getKnowledgeGalleryList = '${common}GetKnowledgeGalleryList';
 
   ///Dashboard
   static const String getDashboard = '${dashboard}GetDashboard';

@@ -55,6 +55,12 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const HomeScreen(),
       );
     },
+    KnowledgeGalleryRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const KnowledgeGalleryScreen(),
+      );
+    },
     LoginRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -194,6 +200,38 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const VerifyPinScreen(),
       );
     },
+    VideoPlayerRoute.name: (routeData) {
+      final args = routeData.argsAs<VideoPlayerRouteArgs>();
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: VideoPlayerScreen(
+          key: args.key,
+          productArguments: args.productArguments,
+          title: args.title,
+        ),
+      );
+    },
+    ViewImageRoute.name: (routeData) {
+      final args = routeData.argsAs<ViewImageRouteArgs>();
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: ViewImageScreen(
+          key: args.key,
+          title: args.title,
+          productArguments: args.productArguments,
+        ),
+      );
+    },
+    YoutubePlayerRoute.name: (routeData) {
+      final args = routeData.argsAs<YoutubePlayerRouteArgs>();
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: YoutubePlayerScreen(
+          key: args.key,
+          productArguments: args.productArguments,
+        ),
+      );
+    },
   };
 }
 
@@ -319,6 +357,20 @@ class HomeRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'HomeRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [KnowledgeGalleryScreen]
+class KnowledgeGalleryRoute extends PageRouteInfo<void> {
+  const KnowledgeGalleryRoute({List<PageRouteInfo>? children})
+      : super(
+          KnowledgeGalleryRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'KnowledgeGalleryRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }
@@ -754,4 +806,125 @@ class VerifyPinRoute extends PageRouteInfo<void> {
   static const String name = 'VerifyPinRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [VideoPlayerScreen]
+class VideoPlayerRoute extends PageRouteInfo<VideoPlayerRouteArgs> {
+  VideoPlayerRoute({
+    Key? key,
+    required String productArguments,
+    required String title,
+    List<PageRouteInfo>? children,
+  }) : super(
+          VideoPlayerRoute.name,
+          args: VideoPlayerRouteArgs(
+            key: key,
+            productArguments: productArguments,
+            title: title,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'VideoPlayerRoute';
+
+  static const PageInfo<VideoPlayerRouteArgs> page = PageInfo<VideoPlayerRouteArgs>(name);
+}
+
+class VideoPlayerRouteArgs {
+  const VideoPlayerRouteArgs({
+    this.key,
+    required this.productArguments,
+    required this.title,
+  });
+
+  final Key? key;
+
+  final String productArguments;
+
+  final String title;
+
+  @override
+  String toString() {
+    return 'VideoPlayerRouteArgs{key: $key, productArguments: $productArguments, title: $title}';
+  }
+}
+
+/// generated route for
+/// [ViewImageScreen]
+class ViewImageRoute extends PageRouteInfo<ViewImageRouteArgs> {
+  ViewImageRoute({
+    Key? key,
+    required String title,
+    required String? productArguments,
+    List<PageRouteInfo>? children,
+  }) : super(
+          ViewImageRoute.name,
+          args: ViewImageRouteArgs(
+            key: key,
+            title: title,
+            productArguments: productArguments,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'ViewImageRoute';
+
+  static const PageInfo<ViewImageRouteArgs> page = PageInfo<ViewImageRouteArgs>(name);
+}
+
+class ViewImageRouteArgs {
+  const ViewImageRouteArgs({
+    this.key,
+    required this.title,
+    required this.productArguments,
+  });
+
+  final Key? key;
+
+  final String title;
+
+  final String? productArguments;
+
+  @override
+  String toString() {
+    return 'ViewImageRouteArgs{key: $key, title: $title, productArguments: $productArguments}';
+  }
+}
+
+/// generated route for
+/// [YoutubePlayerScreen]
+class YoutubePlayerRoute extends PageRouteInfo<YoutubePlayerRouteArgs> {
+  YoutubePlayerRoute({
+    Key? key,
+    required String productArguments,
+    List<PageRouteInfo>? children,
+  }) : super(
+          YoutubePlayerRoute.name,
+          args: YoutubePlayerRouteArgs(
+            key: key,
+            productArguments: productArguments,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'YoutubePlayerRoute';
+
+  static const PageInfo<YoutubePlayerRouteArgs> page = PageInfo<YoutubePlayerRouteArgs>(name);
+}
+
+class YoutubePlayerRouteArgs {
+  const YoutubePlayerRouteArgs({
+    this.key,
+    required this.productArguments,
+  });
+
+  final Key? key;
+
+  final String productArguments;
+
+  @override
+  String toString() {
+    return 'YoutubePlayerRouteArgs{key: $key, productArguments: $productArguments}';
+  }
 }
