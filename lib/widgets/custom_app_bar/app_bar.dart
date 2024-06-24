@@ -1,7 +1,10 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:distributor_empower/constants/all_constants.dart';
+import 'package:distributor_empower/constants/app_colors/app_colors.dart';
+import 'package:distributor_empower/constants/fonts/font_family.dart';
+import 'package:distributor_empower/constants/fonts/font_weight.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AppBarWidget extends StatelessWidget {
   final String? titleText;
@@ -71,8 +74,10 @@ class AppBarWidget extends StatelessWidget {
             color: AppColor.white,
           ),
       title: title ??
-          Text(titleText ?? "",
-              style: textStyle ?? googleFontMontserrat.copyWith(color: AppColor.white, fontSize: 17.sp, fontWeight: GoogleFontWeight.extraBold)),
+          Text(
+            titleText ?? '',
+            style: textStyle ?? googleFontMontserrat.copyWith(color: AppColor.white, fontSize: 17.sp, fontWeight: GoogleFontWeight.extraBold),
+          ),
       actions: actions,
       flexibleSpace: flexibleSpace,
       // ??

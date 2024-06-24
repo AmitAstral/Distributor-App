@@ -31,6 +31,7 @@ class BottomBarNavigationProvider with ChangeNotifier {
   void _onTap() {
     appRouter.pushAndPopUntil(currentNavigationEnum.route, predicate: (Route<dynamic> route) {
       return currentNavigationEnum.route == const HomeRoute() ? false : route.isFirst;
+    // ignore: require_trailing_commas
     });
   }
 

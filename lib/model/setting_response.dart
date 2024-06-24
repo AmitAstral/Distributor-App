@@ -12,7 +12,7 @@ class SettingResponse extends BaseModel {
   });
 
   @override
-  SettingResponse fromJson(dynamic json) {
+  SettingResponse fromJson(json) {
     return SettingResponse(currencySymbol: json['CurrencySymbol'], fYEndDate: json['FY_EndDate'], fYStartDate: json['FY_StartDate']);
   }
 

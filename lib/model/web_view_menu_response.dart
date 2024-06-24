@@ -9,7 +9,7 @@ class WebViewMenuResponse extends BaseModel {
   });
 
   @override
-  WebViewMenuResponse fromJson(dynamic json) {
+  WebViewMenuResponse fromJson(json) {
     return WebViewMenuResponse(
       name: json['Name'],
       menuImagePath: json['MenuImagePath'],

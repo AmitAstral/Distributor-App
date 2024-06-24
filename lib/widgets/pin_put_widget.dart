@@ -14,7 +14,7 @@ class PinPutWidget extends StatelessWidget {
     ),
   );
 
-  get focusedPinTheme => _defaultPinTheme.copyDecorationWith(
+  PinTheme get focusedPinTheme => _defaultPinTheme.copyDecorationWith(
         border: Border.all(color: AppColor.primaryColor),
         borderRadius: BorderRadius.circular(8),
       );
@@ -23,8 +23,8 @@ class PinPutWidget extends StatelessWidget {
   final bool isObscureText;
 
   PinPutWidget({
-    super.key,
     required this.onChange,
+    super.key,
     this.isObscureText = false,
   });
 

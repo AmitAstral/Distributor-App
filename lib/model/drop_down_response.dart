@@ -9,7 +9,7 @@ class DropDownResponse extends BaseModel {
   });
 
   @override
-  DropDownResponse fromJson(dynamic json) {
+  DropDownResponse fromJson(json) {
     return DropDownResponse(id: json['Id'], displayName: json['DisplayName'], value: json['value'], status: json['Status']);
   }
 

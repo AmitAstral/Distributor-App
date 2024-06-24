@@ -74,17 +74,18 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen> {
           child: Consumer<OrderProvider>(builder: (context, provider, child) {
             return ProgressWidget(
               inAsyncCall: provider.isLoading.value,
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    _buildPopupMenu,
-                    _buildOrderList,
-                    if (provider.isPaginationLoading) const PaginationLoader(),
-                  ],
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      _buildPopupMenu,
+                      _buildOrderList,
+                      if (provider.isPaginationLoading) const PaginationLoader(),
+                    ],
+                  ),
                 ),
-              ),
-            );
-          }),
+              );
+            },
+          ),
         ),
       ),
     );
@@ -108,7 +109,9 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen> {
           decoration: ShapeDecoration(
             color: Colors.white,
             shape: RoundedRectangleBorder(
-                side: const BorderSide(width: 1.50, color: AppColor.primaryColorLight), borderRadius: BorderRadius.circular(10.r)),
+              side: const BorderSide(width: 1.50, color: AppColor.primaryColorLight),
+              borderRadius: BorderRadius.circular(10.r),
+            ),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -212,7 +215,7 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen> {
                       Icons.arrow_drop_down_sharp,
                       size: 20.h,
                       color: AppColor.textSecondary,
-                    )
+                    ),
                   ],
                 );
               },

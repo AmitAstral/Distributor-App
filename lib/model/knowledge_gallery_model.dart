@@ -12,15 +12,16 @@ class KnowledgeGalleryModel extends BaseModel {
   });
 
   @override
-  KnowledgeGalleryModel fromJson(dynamic json) {
+  KnowledgeGalleryModel fromJson(json) {
     return KnowledgeGalleryModel(
-        id: json['Id'],
-        knowledgeName: json['Knowledge_Name'],
-        imgUrl: json['Img_url'],
-        urlType: json['Url_Type'],
-        titleImageUrl: json['Title_Image_url'],
-        shortDescription: json['Short_Description'],
-        thumbnailImgUrl: json['thumbnail_Img_Url']);
+      id: json['Id'],
+      knowledgeName: json['Knowledge_Name'],
+      imgUrl: json['Img_url'],
+      urlType: json['Url_Type'],
+      titleImageUrl: json['Title_Image_url'],
+      shortDescription: json['Short_Description'],
+      thumbnailImgUrl: json['thumbnail_Img_Url'],
+    );
   }
 
   String? id;
@@ -31,7 +32,7 @@ class KnowledgeGalleryModel extends BaseModel {
   String? shortDescription;
   String? thumbnailImgUrl;
 
-  String get getImageURL => (urlType == "youtube" ? "https://img.youtube.com/vi/${imgUrl.toString().split("=").last}/0.jpg" : thumbnailImgUrl ?? '');
+  String get getImageURL => (urlType == 'youtube' ? "https://img.youtube.com/vi/${imgUrl.toString().split("=").last}/0.jpg" : thumbnailImgUrl ?? '');
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};

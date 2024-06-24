@@ -1,8 +1,9 @@
-import 'package:distributor_empower/constants/all_constants.dart';
+import 'package:distributor_empower/constants/app_colors/app_colors.dart';
 import 'package:distributor_empower/generated/l10n.dart';
 import 'package:distributor_empower/model/dashboard_response.dart';
 import 'package:distributor_empower/utils/text_styles.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class SalesChartWidget extends StatefulWidget {
@@ -34,39 +35,41 @@ class _SalesChartWidgetState extends State<SalesChartWidget> with AutomaticKeepA
             ),
           ),
           SfCartesianChart(
-              plotAreaBorderWidth: 0,
-              primaryXAxis: const CategoryAxis(
-                  majorGridLines: MajorGridLines(
-                    width: 0,
-                  ),
-                  axisLine: AxisLine(width: 0),
-                  labelAlignment: LabelAlignment.center),
-              primaryYAxis: const NumericAxis(isVisible: false, majorGridLines: MajorGridLines(width: 0), axisLine: AxisLine(width: 0)),
-              tooltipBehavior: _tooltip,
-              borderWidth: 0,
-              margin: const EdgeInsets.all(0),
-              series: <CartesianSeries>[
-                SplineAreaSeries<Sales, String>(
-                  enableTooltip: true,
-                  splineType: SplineType.cardinal,
-                  cardinalSplineTension: 1,
-                  dataSource: widget.sales,
-                  xValueMapper: (Sales data, _) => data.monthName,
+            plotAreaBorderWidth: 0,
+            primaryXAxis: const CategoryAxis(
+              majorGridLines: MajorGridLines(
+                width: 0,
+              ),
+              axisLine: AxisLine(width: 0),
+              labelAlignment: LabelAlignment.center,
+            ),
+            primaryYAxis: const NumericAxis(isVisible: false, majorGridLines: MajorGridLines(width: 0), axisLine: AxisLine(width: 0)),
+            tooltipBehavior: _tooltip,
+            borderWidth: 0,
+            margin: const EdgeInsets.all(0),
+            series: <CartesianSeries>[
+              SplineAreaSeries<Sales, String>(
+                enableTooltip: true,
+                splineType: SplineType.cardinal,
+                cardinalSplineTension: 1,
+                dataSource: widget.sales,
+                xValueMapper: (Sales data, _) => data.monthName,
                   yValueMapper: (Sales data, _) => data.netTotalSales,
                   borderColor: const Color(0xFFC3C1FF),
                   name: AppLocalizations.of(context).sales,
                   borderWidth: 1.5,
-                  color: const Color(0xFF0A04B1),
-                  gradient: LinearGradient(
-                    colors: [
-                      const Color(0xFF0A04B1).withOpacity(0.5),
-                      AppColor.white,
-                    ],
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                  ),
+                color: const Color(0xFF0A04B1),
+                gradient: LinearGradient(
+                  colors: [
+                    const Color(0xFF0A04B1).withOpacity(0.5),
+                    AppColor.white,
+                  ],
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
                 ),
-              ]),
+              ),
+            ],
+          ),
         ],
       ),
     );

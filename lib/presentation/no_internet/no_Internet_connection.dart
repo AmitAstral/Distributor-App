@@ -1,7 +1,8 @@
-import 'package:distributor_empower/constants/all_constants.dart';
+import 'package:distributor_empower/constants/app_colors/app_colors.dart';
 import 'package:distributor_empower/generated/l10n.dart';
 import 'package:distributor_empower/utils/text_styles.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class NoInternetScreen extends StatelessWidget {
   const NoInternetScreen({super.key});
@@ -28,21 +29,23 @@ class NoInternetScreen extends StatelessWidget {
             height: 30.h,
           ),
           Container(
-              alignment: Alignment.center,
-              child: Text(
-                AppLocalizations.current.noInternetConnection,
-                style: TextStyles.bold20.copyWith(color: Colors.red),
-              )),
+            alignment: Alignment.center,
+            child: Text(
+              AppLocalizations.current.noInternetConnection,
+              style: TextStyles.bold20.copyWith(color: Colors.red),
+            ),
+          ),
           SizedBox(
             height: 20.h,
           ),
           Container(
-              //    margin: EdgeInsets.only(left: 2.h, right: 2.h),
-              alignment: Alignment.center,
-              child: Text(
-                AppLocalizations.current.somethingWentWrongPleaseConnectWithInternetToUseApplication,
-                style: TextStyles.semiBold18.copyWith(color: AppColor.red),
-              )),
+            //    margin: EdgeInsets.only(left: 2.h, right: 2.h),
+            alignment: Alignment.center,
+            child: Text(
+              AppLocalizations.current.somethingWentWrongPleaseConnectWithInternetToUseApplication,
+              style: TextStyles.semiBold18.copyWith(color: AppColor.red),
+            ),
+          ),
         ],
       ),
     );

@@ -183,18 +183,18 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                                 decoration: ShapeDecoration(
                                   color: Colors.white,
                                   shape: RoundedRectangleBorder(
-                                    side: const BorderSide(width: 1, color: AppColor.primaryColor),
-                                    borderRadius: BorderRadius.circular(5.r),
+                                      side: const BorderSide(width: 1, color: AppColor.primaryColor),
+                                      borderRadius: BorderRadius.circular(5.r),
+                                    ),
+                                  ),
+                                  child: Text(
+                                    orderItem?.date ?? '',
+                                    style: TextStyles.semiBold11.copyWith(
+                                      color: AppColor.textSecondary,
+                                    ),
                                   ),
                                 ),
-                                child: Text(
-                                  orderItem?.date ?? '',
-                                  style: TextStyles.semiBold11.copyWith(
-                                    color: AppColor.textSecondary,
-                                  ),
-                                ),
-                              )
-                            ],
+                              ],
                           ),
                           Expanded(child: 0.horizontalSpace),
                           Column(
@@ -237,24 +237,28 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                               height: 1,
                               decoration: const ShapeDecoration(
                                 color: AppColor.hintTextColor,
-                                shape: OvalBorder(),
+                                  shape: OvalBorder(),
+                                ),
                               ),
-                            ),
-                          ],
-                        ),
-                        Container(
+                            ],
+                          ),
+                          Container(
                             width: 1.sw,
                             padding: EdgeInsets.only(top: 3.h),
                             alignment: Alignment.centerRight,
-                            child: Text(_orderProvider.orderDetailsResponse?.amount ?? '0',
-                                style: TextStyles.semiBold11.copyWith(color: AppColor.textSecondary)))
-                      ]
-                    ],
+                            child: Text(
+                              _orderProvider.orderDetailsResponse?.amount ?? '0',
+                              style: TextStyles.semiBold11.copyWith(color: AppColor.textSecondary),
+                            ),
+                          ),
+                        ],
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            );
-          }),
+              );
+            },
+          ),
         ),
       ),
     );
@@ -325,14 +329,15 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
           ),
           TableCell(
             child: Center(
-                child: Padding(
+            child: Padding(
               padding: const EdgeInsets.all(5),
               child: Text(
                 item?.weight ?? '',
                 style: TextStyles.regular11.copyWith(color: AppColor.black),
               ),
-            )),
+            ),
           ),
+        ),
           TableCell(
             child: Padding(
               padding: const EdgeInsets.all(5),
@@ -353,16 +358,17 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
               ),
             ),
           ),
-          TableCell(
-            child: Padding(
-              padding: const EdgeInsets.all(5),
-              child: Text(
-                item?.netAmount ?? '',
-                style: TextStyles.regular11.copyWith(color: AppColor.black),
-                textAlign: TextAlign.right,
-              ),
+        TableCell(
+          child: Padding(
+            padding: const EdgeInsets.all(5),
+            child: Text(
+              item?.netAmount ?? '',
+              style: TextStyles.regular11.copyWith(color: AppColor.black),
+              textAlign: TextAlign.right,
             ),
           ),
-        ]);
+        ),
+      ],
+    );
   }
 }

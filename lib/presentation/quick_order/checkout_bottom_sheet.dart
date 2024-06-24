@@ -8,7 +8,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
 class CheckoutBottomSheet {
-  static checkoutBottomSheetWidget(
+  static void checkoutBottomSheetWidget(
     BuildContext context,
     text1,
     text2,
@@ -42,13 +42,13 @@ class CheckoutBottomSheet {
                       ),
                     ),
                     shadows: [
-                      BoxShadow(
-                        color: const Color(0x14000000),
-                        blurRadius: 30.r,
-                        offset: const Offset(0, -4),
-                        spreadRadius: 0,
-                      )
-                    ],
+                        BoxShadow(
+                          color: const Color(0x14000000),
+                          blurRadius: 30.r,
+                          offset: const Offset(0, -4),
+                          spreadRadius: 0,
+                        ),
+                      ],
                   ),
                   child: Column(
                     children: [
@@ -83,23 +83,24 @@ class CheckoutBottomSheet {
                                   ),
                                 ),
                               ),
-                            ),
-                            Align(
-                              alignment: Alignment.bottomRight,
-                              child: IconButton(
+                              ),
+                              Align(
+                                alignment: Alignment.bottomRight,
+                                child: IconButton(
                                   onPressed: () {
                                     Navigator.pop(context);
                                   },
                                   icon: const Icon(
                                     Icons.close,
                                     color: Color(0xFF7F7F7F),
-                                  )),
-                            )
-                          ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                      const Divider(height: 1)
-                    ],
+                        const Divider(height: 1),
+                      ],
                   ),
                 ),
                 Flexible(
@@ -137,17 +138,18 @@ class CheckoutBottomSheet {
                                           alignment: Alignment.topLeft,
                                           children: [
                                             Container(
-                                                alignment: Alignment.bottomCenter,
-                                                margin: EdgeInsets.only(top: 21.w),
-                                                width: 105.w,
-                                                height: 80.w,
-                                                decoration: const BoxDecoration(
-                                                  image: DecorationImage(
-                                                    image: AssetImage("assets/static_images/product_image.png"),
-                                                    // image: NetworkImage("https://via.placeholder.com/120x84"),
-                                                    // fit: BoxFit.scaleDown,
-                                                  ),
-                                                )),
+                                              alignment: Alignment.bottomCenter,
+                                              margin: EdgeInsets.only(top: 21.w),
+                                              width: 105.w,
+                                              height: 80.w,
+                                              decoration: const BoxDecoration(
+                                                image: DecorationImage(
+                                                  image: AssetImage('assets/static_images/product_image.png'),
+                                                  // image: NetworkImage("https://via.placeholder.com/120x84"),
+                                                  // fit: BoxFit.scaleDown,
+                                                ),
+                                              ),
+                                            ),
                                             Icon(
                                               // (index % 2 == 0) ? Icons.bookmark_border_rounded :
                                               Icons.bookmark_rounded,
@@ -219,9 +221,10 @@ class CheckoutBottomSheet {
                                                       child: Container(
                                                         padding: EdgeInsets.all(5.w),
                                                         decoration: BoxDecoration(
-                                                            color: AppColor.white,
-                                                            borderRadius:
-                                                                BorderRadius.only(topLeft: Radius.circular(20.r), bottomLeft: Radius.circular(20.r))),
+                                                          color: AppColor.white,
+                                                          borderRadius:
+                                                              BorderRadius.only(topLeft: Radius.circular(20.r), bottomLeft: Radius.circular(20.r)),
+                                                        ),
                                                         child: Icon(
                                                           Icons.remove,
                                                           size: 16.sp,
@@ -234,45 +237,52 @@ class CheckoutBottomSheet {
                                                       width: 42,
                                                       child: TextFormField(
                                                         maxLength: 3,
-                                                        style: TextStyle(fontSize: 11.sp),
-                                                        textAlign: TextAlign.center,
-                                                        controller: TextEditingController()..text = "50",
-                                                        cursorColor: AppColor.black,
-                                                        decoration: InputDecoration(
-                                                            counterText: "",
-                                                            hintStyle: TextStyle(fontSize: 12.sp),
-                                                            isDense: true,
-                                                            contentPadding: EdgeInsets.all(5.r)),
-                                                        keyboardType: TextInputType.phone,
-                                                        inputFormatters: [
-                                                          FilteringTextInputFormatter.allow(RegExp('[0-9]')),
-                                                        ],
-                                                      )),
+                                                      style: TextStyle(fontSize: 11.sp),
+                                                      textAlign: TextAlign.center,
+                                                      controller: TextEditingController()..text = '50',
+                                                      cursorColor: AppColor.black,
+                                                      decoration: InputDecoration(
+                                                        counterText: '',
+                                                        hintStyle: TextStyle(fontSize: 12.sp),
+                                                        isDense: true,
+                                                        contentPadding: EdgeInsets.all(5.r),
+                                                      ),
+                                                      keyboardType: TextInputType.phone,
+                                                      inputFormatters: [
+                                                        FilteringTextInputFormatter.allow(RegExp('[0-9]')),
+                                                      ],
+                                                    ),
+                                                  ),
                                                   Padding(
                                                     padding: const EdgeInsets.symmetric(horizontal: 0.0),
                                                     child: GestureDetector(
                                                       onTap: () {},
                                                       child: Container(
-                                                          padding: EdgeInsets.all(5.w),
-                                                          decoration: BoxDecoration(
-                                                              color: AppColor.white,
-                                                              borderRadius: BorderRadius.only(
-                                                                  topRight: Radius.circular(20.r), bottomRight: Radius.circular(20.r))),
-                                                          child: Icon(
-                                                            Icons.add,
-                                                            size: 16.sp,
-                                                          )),
+                                                        padding: EdgeInsets.all(5.w),
+                                                        decoration: BoxDecoration(
+                                                          color: AppColor.white,
+                                                          borderRadius: BorderRadius.only(
+                                                            topRight: Radius.circular(20.r),
+                                                            bottomRight: Radius.circular(20.r),
+                                                          ),
+                                                        ),
+                                                        child: Icon(
+                                                          Icons.add,
+                                                          size: 16.sp,
+                                                        ),
+                                                      ),
                                                     ),
-                                                  )
+                                                  ),
                                                 ],
                                               ),
                                             ),
                                             Padding(
-                                                padding: EdgeInsets.only(top: 5.w),
-                                                child: Text(
-                                                  '50x₹10',
-                                                  style: TextStyles.regular9.copyWith(color: AppColor.textSecondary),
-                                                )),
+                                              padding: EdgeInsets.only(top: 5.w),
+                                              child: Text(
+                                                '50x₹10',
+                                                style: TextStyles.regular9.copyWith(color: AppColor.textSecondary),
+                                              ),
+                                            ),
                                             Padding(
                                               padding: EdgeInsets.only(top: 0.w),
                                               child: Text(
@@ -290,8 +300,9 @@ class CheckoutBottomSheet {
                               ),
                             ),
                           );
-                        }),
-                  ),
+                        },
+                      ),
+                    ),
                 ),
                 Container(
                   padding: EdgeInsets.all(8.w),
@@ -306,51 +317,54 @@ class CheckoutBottomSheet {
                           children: [
                             Text(
                               'Total',
-                              style: TextStyles.semiBold13.copyWith(color: AppColor.textSecondary),
-                            ),
-                            3.verticalSpace,
-                            Text(
-                              '1x1.7kg | 10x3gm',
-                              style: TextStyles.regular11.copyWith(color: AppColor.borderColor),
-                            ),
-                            Text(
-                              '16,055',
-                              style: TextStyles.semiBold16.copyWith(color: AppColor.textSecondary),
-                            )
-                          ],
+                                style: TextStyles.semiBold13.copyWith(color: AppColor.textSecondary),
+                              ),
+                              3.verticalSpace,
+                              Text(
+                                '1x1.7kg | 10x3gm',
+                                style: TextStyles.regular11.copyWith(color: AppColor.borderColor),
+                              ),
+                              Text(
+                                '16,055',
+                                style: TextStyles.semiBold16.copyWith(color: AppColor.textSecondary),
+                              ),
+                            ],
                         ),
                       ),
                       ElevatedButton(
                         style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all(AppColor.primaryColor),
-                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20.r),
-                          )),
-                        ),
+                            backgroundColor: WidgetStateProperty.all(AppColor.primaryColor),
+                            shape: WidgetStateProperty.all<RoundedRectangleBorder>(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20.r),
+                              ),
+                            ),
+                          ),
                         onPressed: () {},
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Padding(
-                              padding: EdgeInsets.only(right: 10.w),
-                              child: Assets.icons.cart.svg(),
-                            ),
-                            Text(
-                              AppLocalizations.of(context).addToCart,
-                              textAlign: TextAlign.justify,
-                              style: TextStyles.semiBold13,
-                            )
-                          ],
+                              Padding(
+                                padding: EdgeInsets.only(right: 10.w),
+                                child: Assets.icons.cart.svg(),
+                              ),
+                              Text(
+                                AppLocalizations.of(context).addToCart,
+                                textAlign: TextAlign.justify,
+                                style: TextStyles.semiBold13,
+                              ),
+                            ],
+                          ),
                         ),
-                      )
-                    ],
+                      ],
+                    ),
                   ),
-                )
-              ],
-            ),
-          );
-        });
+                ],
+              ),
+            );
+          },
+        );
       },
     );
   }

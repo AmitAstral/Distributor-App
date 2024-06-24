@@ -15,7 +15,7 @@ class BaseResponse<T extends BaseModel?> {
 
   T? get getData => dataList?.firstOrNull;
 
-  get getIsSuccess => isSuccess ?? false;
+  bool get getIsSuccess => isSuccess ?? false;
 
   BaseResponse({
     this.message,

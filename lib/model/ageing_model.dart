@@ -29,7 +29,7 @@ class AgeingResponse extends BaseModel {
   });
 
   @override
-  AgeingResponse fromJson(dynamic json) {
+  AgeingResponse fromJson(json) {
     return AgeingResponse(
       distributorUserID: json['DistributorUserID'],
       sapcode: json['Sapcode'],

@@ -9,7 +9,7 @@ class OrderDetailsResponse extends BaseModel {
   });
 
   @override
-  OrderDetailsResponse fromJson(dynamic json) {
+  OrderDetailsResponse fromJson(json) {
     if (json['orderDetails'] != null) {
       orderDetails = [];
       json['orderDetails'].forEach((v) {
@@ -52,7 +52,7 @@ class OrderDetails {
     this.netAmount,
   });
 
-  OrderDetails.fromJson(dynamic json) {
+  OrderDetails.fromJson(json) {
     id = json['Id'];
     itemId = json['Item_Id'];
     itemName = json['Item_Name'];

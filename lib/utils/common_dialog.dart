@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:distributor_empower/constants/all_constants.dart';
+import 'package:distributor_empower/constants/app_colors/app_colors.dart';
 import 'package:distributor_empower/core/api/api_constants.dart';
 import 'package:distributor_empower/core/di/locator.dart';
 import 'package:distributor_empower/generated/l10n.dart';

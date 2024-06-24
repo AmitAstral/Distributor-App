@@ -1,6 +1,5 @@
-
 import 'package:auto_route/auto_route.dart';
-import 'package:distributor_empower/constants/all_constants.dart';
+import 'package:distributor_empower/constants/app_colors/app_colors.dart';
 import 'package:distributor_empower/core/api/custom_log_interceptor.dart';
 import 'package:distributor_empower/core/di/locator.dart';
 import 'package:distributor_empower/gen/assets.gen.dart';
@@ -10,6 +9,7 @@ import 'package:distributor_empower/utils/common_dialog.dart';
 import 'package:distributor_empower/utils/providers/common_provider.dart';
 import 'package:distributor_empower/utils/text_styles.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 @RoutePage()
 class SplashScreen extends StatelessWidget {
@@ -33,7 +33,7 @@ class SplashScreen extends StatelessWidget {
                 style: TextStyles.semiBold16,
               ),
               SizedBox(height: 10.h),
-              Hero(tag: "SplashLogo", transitionOnUserGestures: true, child: Center(child: Assets.images.splashLogo.image(height: 80.h))),
+              Hero(tag: 'SplashLogo', transitionOnUserGestures: true, child: Center(child: Assets.images.splashLogo.image(height: 80.h))),
             ],
           ),
         ),
@@ -56,9 +56,9 @@ class SplashScreen extends StatelessWidget {
         if (result) {
           if (storage.isLogin) {
             await commonProvider.getAllSetting();
-            appRouter.replace(VerifyPinRoute());
+            appRouter.replace(const VerifyPinRoute());
           } else {
-            appRouter.replace(LoginRoute());
+            appRouter.replace(const LoginRoute());
           }
         } else {
           appRouter.replace(const MaintenanceRoute());

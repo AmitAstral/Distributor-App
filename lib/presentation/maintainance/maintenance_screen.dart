@@ -1,6 +1,7 @@
 import 'dart:io';
+
 import 'package:auto_route/annotations.dart';
-import 'package:distributor_empower/constants/all_constants.dart';
+import 'package:distributor_empower/constants/app_colors/app_colors.dart';
 import 'package:distributor_empower/core/di/locator.dart';
 import 'package:distributor_empower/gen/assets.gen.dart';
 import 'package:distributor_empower/generated/l10n.dart';
@@ -9,6 +10,7 @@ import 'package:distributor_empower/utils/text_styles.dart';
 import 'package:distributor_empower/widgets/app_button.dart';
 import 'package:distributor_empower/widgets/custom_app_bar/app_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
 
 @RoutePage()
@@ -31,7 +33,7 @@ class MaintenanceScreen extends StatelessWidget {
                 AppLocalizations.current.wereDownForMaintenanceNWillBeBackSoon,
                 style: TextStyles.semiBold16.copyWith(color: AppColor.primaryColor),
                 textAlign: TextAlign.center,
-              )
+              ),
             ],
           ),
           const Spacer(),
@@ -46,11 +48,12 @@ class MaintenanceScreen extends StatelessWidget {
                 text: AppLocalizations.current.refresh,
               ),
               AppButton(
-                  width: 0.4.sw,
-                  onPressed: () {
-                    exit(0);
-                  },
-                  text: AppLocalizations.current.close),
+                width: 0.4.sw,
+                onPressed: () {
+                  exit(0);
+                },
+                text: AppLocalizations.current.close,
+              ),
             ],
           ),
           10.verticalSpace,

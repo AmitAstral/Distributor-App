@@ -1,17 +1,20 @@
 import 'dart:math';
 
-import 'package:distributor_empower/constants/all_constants.dart';
+import 'package:distributor_empower/constants/app_colors/app_colors.dart';
+import 'package:distributor_empower/constants/fonts/font_family.dart';
+import 'package:distributor_empower/constants/fonts/font_weight.dart';
 import 'package:distributor_empower/model/dashboard_response.dart';
 import 'package:distributor_empower/utils/extensions.dart';
 import 'package:distributor_empower/utils/text_styles.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CreditAgingWidget extends StatefulWidget {
   final CreditAgingData? creditAging;
   final String title;
 
-  const CreditAgingWidget(this.creditAging, {super.key, required this.title});
+  const CreditAgingWidget(this.creditAging, {required this.title, super.key});
 
   @override
   State<CreditAgingWidget> createState() => _CreditAgingWidgetState();
@@ -35,7 +38,7 @@ class _CreditAgingWidgetState extends State<CreditAgingWidget> {
           Container(
             alignment: Alignment.centerLeft,
             child: Text(
-              widget.title ?? '',
+              widget.title,
               style: TextStyles.semiBold14.copyWith(color: const Color(0xFF333333)),
             ),
           ),
@@ -55,7 +58,7 @@ class _CreditAgingWidgetState extends State<CreditAgingWidget> {
                   blurRadius: 10.r,
                   offset: const Offset(0, 4),
                   spreadRadius: 1,
-                )
+                ),
               ],
             ),
             child: Column(
@@ -82,7 +85,7 @@ class _CreditAgingWidgetState extends State<CreditAgingWidget> {
                 ),
               ],
             ),
-          )
+          ),
         ],
       ),
     );
@@ -130,7 +133,7 @@ class _CreditAgingWidgetState extends State<CreditAgingWidget> {
 
   Widget getTitles(double value, TitleMeta meta) {
     final style = TextStyles.regular10.copyWith(color: AppColor.textSecondary);
-    final text = getCreditAging[value.toInt()].label ?? '';
+    final text = getCreditAging[value.toInt()].label;
     return SideTitleWidget(
       axisSide: meta.axisSide,
       space: 4,
@@ -170,7 +173,7 @@ class _CreditAgingWidgetState extends State<CreditAgingWidget> {
             BarChartRodData(
               color: AppColor.primaryColor,
               toY: e.value.parseToNum.toDouble(),
-            )
+            ),
           ],
           showingTooltipIndicators: [0],
         ),

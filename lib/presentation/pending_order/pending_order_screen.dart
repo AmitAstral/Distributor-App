@@ -107,28 +107,30 @@ class _PendingOrderScreenState extends State<PendingOrderScreen> {
 
   TableRow _buildColum() {
     return TableRow(
-        decoration: const BoxDecoration(
-          color: AppColor.primaryColorLight,
-        ),
-        children: [
-          _buildTitle(AppLocalizations.of(context).orderNo),
-          _buildTitle(AppLocalizations.of(context).orderDate),
-          _buildTitle(AppLocalizations.of(context).orderAmount),
-          _buildTitle(AppLocalizations.of(context).status),
-          const SizedBox.shrink(),
-        ]);
+      decoration: const BoxDecoration(
+        color: AppColor.primaryColorLight,
+      ),
+      children: [
+        _buildTitle(AppLocalizations.of(context).orderNo),
+        _buildTitle(AppLocalizations.of(context).orderDate),
+        _buildTitle(AppLocalizations.of(context).orderAmount),
+        _buildTitle(AppLocalizations.of(context).status),
+        const SizedBox.shrink(),
+      ],
+    );
   }
 
   TableCell _buildTitle(String title) {
     return TableCell(
-        child: Padding(
-      padding: const EdgeInsets.all(5).h,
-      child: Text(
-        title,
-        style: TextStyles.semiBold12,
-        textAlign: TextAlign.center,
+      child: Padding(
+        padding: const EdgeInsets.all(5).h,
+        child: Text(
+          title,
+          style: TextStyles.semiBold12,
+          textAlign: TextAlign.center,
+        ),
       ),
-    ));
+    );
   }
 
   TableRow _buildRow(int index) {
@@ -148,43 +150,47 @@ class _PendingOrderScreenState extends State<PendingOrderScreen> {
                 ),
               ),
             ),
-          ),
-          TableCell(
-              child: Container(
-                alignment: Alignment.centerLeft,
+        ),
+        TableCell(
+          child: Container(
+            alignment: Alignment.centerLeft,
             padding: const EdgeInsets.all(2).h,
             child: Text(
               item?.orderDate ?? '',
               style: TextStyles.regular12.copyWith(color: AppColor.textSecondary),
               textAlign: TextAlign.center,
             ),
-          )),
-          TableCell(
-              child: Container(
-                alignment: Alignment.centerRight,
+          ),
+        ),
+        TableCell(
+          child: Container(
+            alignment: Alignment.centerRight,
             padding: const EdgeInsets.all(2).h,
             child: Text(
               item?.orderAmount ?? '',
               style: TextStyles.regular12.copyWith(color: AppColor.textSecondary),
               textAlign: TextAlign.right,
             ),
-          )),
-          TableCell(
-            child: Padding(
-              padding: const EdgeInsets.all(2).h,
-              child: Text(
-                item?.status ?? '',
-                style: TextStyles.regular12.copyWith(color: AppColor.textSecondary),
-                textAlign: TextAlign.center,
-              ),
+          ),
+        ),
+        TableCell(
+          child: Padding(
+            padding: const EdgeInsets.all(2).h,
+            child: Text(
+              item?.status ?? '',
+              style: TextStyles.regular12.copyWith(color: AppColor.textSecondary),
+              textAlign: TextAlign.center,
             ),
           ),
-          GestureDetector(
-              onTap: () {
-                navigateToDetailsPage(item);
-              },
-              child: const Icon(Icons.keyboard_arrow_right_outlined)),
-        ]);
+        ),
+        GestureDetector(
+          onTap: () {
+            navigateToDetailsPage(item);
+          },
+          child: const Icon(Icons.keyboard_arrow_right_outlined),
+        ),
+      ],
+    );
   }
 
   void navigateToDetailsPage(PendingOrderResponse? item) {

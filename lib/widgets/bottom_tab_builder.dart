@@ -23,7 +23,7 @@ class BottomTabBuilder extends DelegateBuilder {
                   ),
                 ),
                 Text(
-                  BottomNavigationEnum.values[index].label ?? '',
+                  BottomNavigationEnum.values[index].label,
                   style: TextStyles.semiBold12.copyWith(color: active ? AppColor.primaryColor : AppColor.grey),
                 ),
               ],

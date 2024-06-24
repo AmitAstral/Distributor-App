@@ -117,18 +117,19 @@ class _QuickOrderScreenState extends State<QuickOrderScreen> {
                                       ),
                                       StatefulBuilder(builder: (context, state) {
                                         return Icon(
-                                          Icons.bookmark_rounded,
-                                          size: 20.sp,
-                                          color: (item?.isFav ?? false) ? AppColor.leavePendingColor : AppColor.grey,
-                                        ).addGesture(
-                                          () {
-                                            item?.isFav = !item.isFav;
-                                            _productProvider.addRemoveFromFav(item?.itemId, item?.getRequireAction);
-                                            state(() {});
+                                              Icons.bookmark_rounded,
+                                              size: 20.sp,
+                                              color: (item?.isFav ?? false) ? AppColor.leavePendingColor : AppColor.grey,
+                                            ).addGesture(
+                                              () {
+                                                item?.isFav = !item.isFav;
+                                                _productProvider.addRemoveFromFav(item?.itemId, item?.getRequireAction);
+                                                state(() {});
+                                              },
+                                            );
                                           },
-                                        );
-                                      }),
-                                    ],
+                                        ),
+                                      ],
                                   ),
                                 ),
                                 Expanded(
@@ -192,15 +193,16 @@ class _QuickOrderScreenState extends State<QuickOrderScreen> {
                                                 onTap: () {},
                                                 child: Container(
                                                   padding: EdgeInsets.all(5.w),
-                                                  decoration: BoxDecoration(
+                                                    decoration: BoxDecoration(
                                                       color: AppColor.white,
                                                       borderRadius:
-                                                          BorderRadius.only(topLeft: Radius.circular(20.r), bottomLeft: Radius.circular(20.r))),
-                                                  child: Icon(
-                                                    Icons.remove,
-                                                    size: 16.sp,
+                                                          BorderRadius.only(topLeft: Radius.circular(20.r), bottomLeft: Radius.circular(20.r)),
+                                                    ),
+                                                    child: Icon(
+                                                      Icons.remove,
+                                                      size: 16.sp,
+                                                    ),
                                                   ),
-                                                ),
                                               ),
                                             ),
                                             Container(
@@ -213,32 +215,36 @@ class _QuickOrderScreenState extends State<QuickOrderScreen> {
                                                   controller: TextEditingController()..text = item?.cartonQty ?? '0',
                                                   cursorColor: AppColor.black,
                                                   decoration: InputDecoration(
-                                                      counterText: "",
-                                                      hintStyle: TextStyle(fontSize: 12.sp),
-                                                      isDense: true,
-                                                      contentPadding: EdgeInsets.all(5.r)),
+                                                    counterText: '',
+                                                    hintStyle: TextStyle(fontSize: 12.sp),
+                                                    isDense: true,
+                                                    contentPadding: EdgeInsets.all(5.r),
+                                                  ),
                                                   keyboardType: TextInputType.phone,
                                                   inputFormatters: [
                                                     FilteringTextInputFormatter.allow(RegExp('[0-9]')),
                                                   ],
-                                                )),
-                                            Padding(
-                                              padding: const EdgeInsets.symmetric(horizontal: 0.0),
-                                              child: GestureDetector(
-                                                onTap: () {},
-                                                child: Container(
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: const EdgeInsets.symmetric(horizontal: 0.0),
+                                                child: GestureDetector(
+                                                  onTap: () {},
+                                                  child: Container(
                                                     padding: EdgeInsets.all(5.w),
                                                     decoration: BoxDecoration(
-                                                        color: AppColor.white,
-                                                        borderRadius:
-                                                            BorderRadius.only(topRight: Radius.circular(20.r), bottomRight: Radius.circular(20.r))),
+                                                      color: AppColor.white,
+                                                      borderRadius:
+                                                          BorderRadius.only(topRight: Radius.circular(20.r), bottomRight: Radius.circular(20.r)),
+                                                    ),
                                                     child: Icon(
                                                       Icons.add,
                                                       size: 16.sp,
-                                                    )),
+                                                    ),
+                                                  ),
+                                                ),
                                               ),
-                                            )
-                                          ],
+                                            ],
                                         ),
                                       ),
                                       /* Padding(
@@ -251,32 +257,39 @@ class _QuickOrderScreenState extends State<QuickOrderScreen> {
                                         padding: EdgeInsets.only(top: 10.w),
                                         child: Text(
                                           item?.getTotalPrice ?? '',
-                                          style: TextStyles.semiBold13.copyWith(color: AppColor.textSecondary),
+                                            style: TextStyles.semiBold13.copyWith(color: AppColor.textSecondary),
+                                          ),
                                         ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
-                                ),
-                                5.horizontalSpace,
-                              ],
-                            ),
-                          );
-                        }),
-              ),
-            );
-          }),
+                                  5.horizontalSpace,
+                                ],
+                              ),
+                            );
+                          },
+                        ),
+                ),
+              );
+            },
+          ),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
         floatingActionButton: ElevatedButton(
           style: ButtonStyle(
             backgroundColor: WidgetStateProperty.all(AppColor.primaryColor),
-            shape: WidgetStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20.r),
-            )),
+            shape: WidgetStateProperty.all<RoundedRectangleBorder>(
+              RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20.r),
+              ),
+            ),
           ),
           onPressed: () {
             CheckoutBottomSheet.checkoutBottomSheetWidget(
-                context, AppLocalizations.of(context).chooseQuantity, AppLocalizations.of(context).addToCart);
+              context,
+              AppLocalizations.of(context).chooseQuantity,
+              AppLocalizations.of(context).addToCart,
+            );
           },
           child: Row(
             mainAxisSize: MainAxisSize.min,
@@ -290,7 +303,7 @@ class _QuickOrderScreenState extends State<QuickOrderScreen> {
                 AppLocalizations.of(context).checkout,
                 textAlign: TextAlign.justify,
                 style: TextStyles.semiBold13.copyWith(),
-              )
+              ),
             ],
           ),
         ),

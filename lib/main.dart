@@ -1,4 +1,4 @@
-import 'package:distributor_empower/constants/all_constants.dart';
+import 'package:distributor_empower/constants/app_colors/app_colors.dart';
 import 'package:distributor_empower/core/di/locator.dart';
 import 'package:distributor_empower/core/storage/storage_constants.dart';
 import 'package:distributor_empower/fcm/firebase_crashlytics.dart';
@@ -13,6 +13,7 @@ import 'package:distributor_empower/utils/device_info.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
@@ -81,16 +82,17 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
           return MaterialApp.router(
             scaffoldMessengerKey: Init().scaffoldMessengerKey,
             routerDelegate: AppRouter().delegate(),
-            routeInformationParser: AppRouter().defaultRouteParser(),
-            debugShowCheckedModeBanner: false,
-            theme: ThemeData(
-              colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-              useMaterial3: true,
-            ),
-            localizationsDelegates: const [AppLocalizationDelegate()],
-            supportedLocales: const AppLocalizationDelegate().supportedLocales,
-            locale: const Locale('en'),
-          );
-        });
+          routeInformationParser: AppRouter().defaultRouteParser(),
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+            colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+            useMaterial3: true,
+          ),
+          localizationsDelegates: const [AppLocalizationDelegate()],
+          supportedLocales: const AppLocalizationDelegate().supportedLocales,
+          locale: const Locale('en'),
+        );
+      },
+    );
   }
 }

@@ -7,7 +7,7 @@ import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 class YoutubePlayerScreen extends StatefulWidget {
   final String productArguments;
 
-  const YoutubePlayerScreen({super.key, required this.productArguments});
+  const YoutubePlayerScreen({required this.productArguments, super.key});
 
   @override
   State<YoutubePlayerScreen> createState() => _YoutubePlayerScreenState();
@@ -19,7 +19,7 @@ class _YoutubePlayerScreenState extends State<YoutubePlayerScreen> {
   @override
   void initState() {
     super.initState();
-    debugPrint("YOUTUBE URL----------------${widget.productArguments}");
+    debugPrint('YOUTUBE URL----------------${widget.productArguments}');
 
     _setOrientation([
       DeviceOrientation.landscapeRight,
@@ -27,7 +27,7 @@ class _YoutubePlayerScreenState extends State<YoutubePlayerScreen> {
     ]);
 
     _ytbPlayerController = YoutubePlayerController.fromVideoId(
-      videoId: widget.productArguments.split("=").last,
+      videoId: widget.productArguments.split('=').last,
       autoPlay: false,
       params: const YoutubePlayerParams(showFullscreenButton: true),
     );
@@ -45,7 +45,7 @@ class _YoutubePlayerScreenState extends State<YoutubePlayerScreen> {
     _ytbPlayerController?.close();
   }
 
-  _setOrientation(List<DeviceOrientation> orientations) {
+  void _setOrientation(List<DeviceOrientation> orientations) {
     SystemChrome.setPreferredOrientations(orientations);
   }
 
@@ -54,7 +54,7 @@ class _YoutubePlayerScreenState extends State<YoutubePlayerScreen> {
     return _buildYtbView();
   }
 
-  _buildYtbView() {
+  Widget _buildYtbView() {
     return AspectRatio(
       aspectRatio: 16 / 9,
       child: _ytbPlayerController != null

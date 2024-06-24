@@ -18,7 +18,10 @@ final internetCheckInterceptor = InterceptorsWrapper(
         return handler.next(options);
       } else {
         throw DioException.connectionError(
-            requestOptions: RequestOptions(), reason: AppLocalizations.current.internetIsNotConnected, error: 'Internet is not connected');
+          requestOptions: RequestOptions(),
+          reason: AppLocalizations.current.internetIsNotConnected,
+          error: 'Internet is not connected',
+        );
       }
     } on DioException catch (e) {
       return handler.reject(e);
@@ -105,16 +108,6 @@ class CustomLogInterceptor extends Interceptor {
     handler.next(options);
   }
 
-  void _printRequestData(dynamic data) {
-    if (data is FormData) {
-      logPrint('Form Data:');
-      for (var field in data.fields) {
-        logPrint('${field.key}: ${field.value}');
-      }
-    } else {
-      _printAll(data);
-    }
-  }
 
   @override
   void onResponse(Response response, ResponseInterceptorHandler handler) async {

@@ -73,7 +73,7 @@ class StorageService {
     authToken = '';
     userDetails = null;
     appRouter.pushAndPopUntil(
-      LoginRoute(),
+      const LoginRoute(),
       predicate: (route) => false,
     );
   }

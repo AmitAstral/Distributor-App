@@ -11,7 +11,7 @@ class SalesReportResponse extends BaseModel {
   });
 
   @override
-  SalesReportResponse fromJson(dynamic json) {
+  SalesReportResponse fromJson(json) {
     return SalesReportResponse(
       invoiceNo: json['InvoiceNo'],
       invoiceDate: json['InvoiceDate'],

@@ -14,7 +14,7 @@ class ProductResponse extends BaseModel {
   });
 
   @override
-  ProductResponse fromJson(dynamic json) {
+  ProductResponse fromJson(json) {
     return ProductResponse(
       id: json['Id'],
       itemId: json['ItemId'],

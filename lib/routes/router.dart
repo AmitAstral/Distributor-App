@@ -50,7 +50,7 @@ class AppRouter extends _$AppRouter {
         AutoRoute(page: SplashRoute.page, initial: true),
         AutoRoute(
           page: DashboardRoute.page,
-          path: "/${DashboardRoute.name}",
+          path: '/${DashboardRoute.name}',
           children: [
             AutoRoute(page: HomeRoute.page, path: HomeRoute.name, initial: true),
             AutoRoute(page: SchemesRoute.page, path: SchemesRoute.name),

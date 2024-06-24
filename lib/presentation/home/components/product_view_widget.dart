@@ -13,9 +13,9 @@ class ProductViewWidget extends StatelessWidget {
   final VoidCallback onChangeFav;
 
   const ProductViewWidget({
-    super.key,
     required this.item,
     required this.onChangeFav,
+    super.key,
     this.height,
   });
 
@@ -29,17 +29,18 @@ class ProductViewWidget extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 8).copyWith(top: 5).w,
             child: Icon(
               Icons.bookmark_rounded,
-              size: 20.sp,
-              color: (item?.isFavorite ?? false) ? AppColor.leavePendingColor : AppColor.grey,
-            ),
-          ).addGesture(
-            () {
-              item?.isFavorite = !(item?.isFavorite ?? false);
-              state(() {});
-              onChangeFav();
-            },
-          );
-        }),
+                size: 20.sp,
+                color: (item?.isFavorite ?? false) ? AppColor.leavePendingColor : AppColor.grey,
+              ),
+            ).addGesture(
+              () {
+                item?.isFavorite = !(item?.isFavorite ?? false);
+                state(() {});
+                onChangeFav();
+              },
+            );
+          },
+        ),
         const Spacer(),
         Container(
           margin: const EdgeInsets.only(top: 5, bottom: 5).h,
@@ -124,7 +125,7 @@ class ProductViewWidget extends StatelessWidget {
               ),
             ],
           ),
-        )
+        ),
       ],
     );
   }

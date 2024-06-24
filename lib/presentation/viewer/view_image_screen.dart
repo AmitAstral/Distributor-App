@@ -10,7 +10,7 @@ class ViewImageScreen extends StatefulWidget {
   final String? productArguments;
   final String title;
 
-  const ViewImageScreen({super.key, required this.title, required this.productArguments});
+  const ViewImageScreen({required this.title, required this.productArguments, super.key});
 
   @override
   State<ViewImageScreen> createState() => _ViewImageScreenState();

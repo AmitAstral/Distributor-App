@@ -77,17 +77,18 @@ class ReportScreen extends StatelessWidget {
                       ),
                       10.verticalSpace,
                       Text(
-                        item?.name ?? '',
-                        style: TextStyles.semiBold12.copyWith(color: AppColor.textSecondary),
-                        textAlign: TextAlign.center,
+                                item?.name ?? '',
+                                style: TextStyles.semiBold12.copyWith(color: AppColor.textSecondary),
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
+                          ).addGesture(() => _onPressReportMenu(item));
+                        },
                       ),
-                    ],
-                  ).addGesture(() => _onPressReportMenu(item));
-                },
-              ),
-            ),
-          );
-        }),
+                    ),
+            );
+          },
+        ),
       ),
     );
   }

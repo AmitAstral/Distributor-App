@@ -7,13 +7,14 @@
 
 # The following line activates a set of recommended lints for Flutter apps,
 # packages, and plugins designed to encourage good coding practices.
-include: package:flutter_lints/flutter.yaml
+#include: package:flutter_lints/flutter.yaml
 
 linter:
   # The lint rules applied to this project can be customized in the
   # section below to disable rules from the `package:flutter_lints/flutter.yaml`
   # included above or to enable additional rules. A list of all available lints
-  # and their documentation is published at https://dart.dev/lints.
+  # and their documentation is published at
+  # https://dart-lang.github.io/linter/lints/index.html.
   #
   # Instead of disabling a lint rule for the entire project in the
   # section below, it can also be suppressed for a single line of code
@@ -21,8 +22,45 @@ linter:
   # `// ignore_for_file: name_of_lint` syntax on the line or in the file
   # producing the lint.
   rules:
-    # avoid_print: false  # Uncomment to disable the `avoid_print` rule
-    # prefer_single_quotes: true  # Uncomment to enable the `prefer_single_quotes` rule
+    avoid_print: true
+    prefer_single_quotes: true
+    void_checks: true
+    always_use_package_imports: true
+    close_sinks: true
+    always_put_required_named_parameters_first: true
+    avoid_annotating_with_dynamic: true
+    use_key_in_widget_constructors: true
+    camel_case_extensions: true
+    cancel_subscriptions: true
+    use_super_parameters: true
+    require_trailing_commas: true
+    prefer_const_constructors: true
+    prefer_const_constructors_in_immutables: true
+    prefer_final_fields: true
+    always_declare_return_types: true
 
-# Additional information about this file can be found at
-# https://dart.dev/guides/language/analysis-options
+  # Additional information about this file can be found at
+  # https://dart.dev/guides/language/analysis-options
+
+analyzer:
+  exclude:
+    - "**/generated/**"
+    #    - "**/*.g.dart"
+    - "**/*.gr.dart"
+    - "**/*.freezed.dart"
+    - lib/res.dart
+    - lib/generated/*
+
+  errors:
+    todo: ignore
+    always_use_package_imports: warning
+    avoid_print: error
+    require_trailing_commas: warning
+    prefer_const_declarations: warning
+    prefer_const_constructors_in_immutables: info
+    prefer_const_constructors: warning
+    always_declare_return_types: warning
+
+  strong-mode:
+    implicit-casts: true
+    implicit-dynamic: true

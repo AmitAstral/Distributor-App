@@ -88,10 +88,11 @@ class _PendingOrderDetailsScreenState extends State<PendingOrderDetailsScreen> {
         child: Padding(
           padding: const EdgeInsets.only(bottom: 20).h,
           child: Table(
-              columnWidths: const {0: FixedColumnWidth(130)},
-              children: List.generate(getOrderDetailsListResponse.length + 1, (index) {
-                return index == 0 ? _buildColum() : _buildRow(index - 1);
-              })),
+            columnWidths: const {0: FixedColumnWidth(130)},
+            children: List.generate(getOrderDetailsListResponse.length + 1, (index) {
+              return index == 0 ? _buildColum() : _buildRow(index - 1);
+            }),
+          ),
         ),
       ),
     );
@@ -120,37 +121,40 @@ class _PendingOrderDetailsScreenState extends State<PendingOrderDetailsScreen> {
               child: Text(
                 AppLocalizations.of(context).unit,
                 style: TextStyles.semiBold12,
-              ),
             ),
           ),
-          TableCell(
-              child: Padding(
+        ),
+        TableCell(
+          child: Padding(
             padding: const EdgeInsets.all(5),
             child: Text(
               AppLocalizations.of(context).orderQty,
               style: TextStyles.semiBold12,
             ),
-          )),
-          TableCell(
-            child: Container(
-              padding: const EdgeInsets.all(5),
-              alignment: Alignment.centerRight,
-              child: Text(
-                AppLocalizations.of(context).pendingQty,
-                style: TextStyles.semiBold12,
-              ),
+          ),
+        ),
+        TableCell(
+          child: Container(
+            padding: const EdgeInsets.all(5),
+            alignment: Alignment.centerRight,
+            child: Text(
+              AppLocalizations.of(context).pendingQty,
+              style: TextStyles.semiBold12,
             ),
           ),
-          TableCell(
-              child: Container(
+        ),
+        TableCell(
+          child: Container(
             alignment: Alignment.centerRight,
             padding: const EdgeInsets.all(5),
             child: Text(
               AppLocalizations.of(context).pendingAmt,
               style: TextStyles.semiBold12,
             ),
-          )),
-        ]);
+          ),
+        ),
+      ],
+    );
   }
 
   TableRow _buildRow(int index) {
@@ -167,37 +171,39 @@ class _PendingOrderDetailsScreenState extends State<PendingOrderDetailsScreen> {
               child: Text(
                 item?.itemId ?? '',
                 style: TextStyles.regular12.copyWith(color: AppColor.textSecondary),
-              ),
             ),
           ),
-          TableCell(
-              child: Padding(
+        ),
+        TableCell(
+          child: Padding(
             padding: const EdgeInsets.all(2).h,
             child: Text(
               item?.unit ?? '',
               style: TextStyles.regular12.copyWith(color: AppColor.textSecondary),
             ),
-          )),
-          TableCell(
-              child: Container(
-                alignment: Alignment.centerRight,
+          ),
+        ),
+        TableCell(
+          child: Container(
+            alignment: Alignment.centerRight,
             padding: const EdgeInsets.all(2).h,
             child: Text(
               item?.orderQty ?? '',
               style: TextStyles.regular12.copyWith(color: AppColor.textSecondary),
             ),
-          )),
-          TableCell(
-            child: Container(
-              alignment: Alignment.centerRight,
-              padding: const EdgeInsets.all(2).h,
-              child: Text(
-                item?.pendingQty ?? '',
-                style: TextStyles.regular12.copyWith(color: AppColor.textSecondary),
-              ),
+          ),
+        ),
+        TableCell(
+          child: Container(
+            alignment: Alignment.centerRight,
+            padding: const EdgeInsets.all(2).h,
+            child: Text(
+              item?.pendingQty ?? '',
+              style: TextStyles.regular12.copyWith(color: AppColor.textSecondary),
             ),
           ),
-          TableCell(
+        ),
+        TableCell(
             child: Container(
               alignment: Alignment.centerRight,
               padding: const EdgeInsets.all(2).h,
@@ -207,7 +213,7 @@ class _PendingOrderDetailsScreenState extends State<PendingOrderDetailsScreen> {
               ),
             ),
           ),
-        ]);
+        ],);
   }
 
   Widget _buildUpperView() {

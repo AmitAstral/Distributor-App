@@ -1,5 +1,5 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:distributor_empower/constants/all_constants.dart';
+import 'package:distributor_empower/constants/app_colors/app_colors.dart';
 import 'package:distributor_empower/core/di/locator.dart';
 import 'package:distributor_empower/gen/assets.gen.dart';
 import 'package:distributor_empower/generated/l10n.dart';
@@ -20,6 +20,7 @@ import 'package:distributor_empower/widgets/cache_network_image_widget.dart';
 import 'package:distributor_empower/widgets/custom_app_bar/app_bar.dart';
 import 'package:distributor_empower/widgets/smart_refresher_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
@@ -51,9 +52,11 @@ class _HomeScreenState extends State<HomeScreen> {
           preferredSize: Size.fromHeight(AppBar().preferredSize.height + 5.h),
           child: Consumer<HomeProvider>(builder: (context, provider, child) => _buildAppBar()),
         ),
-        body: Consumer<HomeProvider>(builder: (context, provider, child) {
-          return _homeProvider.isLoading.value ? const HomeShimmerEffectWidget() : _buildHomeGraphs();
-        }),
+        body: Consumer<HomeProvider>(
+          builder: (context, provider, child) {
+            return _homeProvider.isLoading.value ? const HomeShimmerEffectWidget() : _buildHomeGraphs();
+          },
+        ),
       ),
     );
   }
@@ -112,11 +115,12 @@ class _HomeScreenState extends State<HomeScreen> {
         Padding(
           padding: EdgeInsets.only(right: 5.w),
           child: IconButton(
-              onPressed: () {
-                BottomBarNavigationProvider().dashboardKey.currentState?.openDrawer();
-              },
-              icon: Assets.icons.menu.svg()),
-        )
+            onPressed: () {
+              BottomBarNavigationProvider().dashboardKey.currentState?.openDrawer();
+            },
+            icon: Assets.icons.menu.svg(),
+          ),
+        ),
       ],
       centerTitle: false,
       elevation: 0,

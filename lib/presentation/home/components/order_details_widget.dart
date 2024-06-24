@@ -1,16 +1,19 @@
-import 'package:distributor_empower/constants/all_constants.dart';
+import 'package:distributor_empower/constants/app_colors/app_colors.dart';
+import 'package:distributor_empower/constants/fonts/font_family.dart';
+import 'package:distributor_empower/constants/fonts/font_weight.dart';
 import 'package:distributor_empower/generated/l10n.dart';
 import 'package:distributor_empower/model/dashboard_response.dart';
 import 'package:distributor_empower/utils/text_styles.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class OrderDetailsWidget extends StatefulWidget {
   final String? title;
 
   final List<OrderDetail>? orderDetails;
 
-  const OrderDetailsWidget(this.orderDetails, {super.key, required this.title});
+  const OrderDetailsWidget(this.orderDetails, {required this.title, super.key});
 
   @override
   State<OrderDetailsWidget> createState() => _OrderDetailsWidgetState();
@@ -38,6 +41,7 @@ class _OrderDetailsWidgetState extends State<OrderDetailsWidget> {
             offset: const Offset(0, 2),
             spreadRadius: 1,
           )
+          // ignore: require_trailing_commas
         ],
       ),
       child: Column(

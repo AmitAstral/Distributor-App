@@ -1,6 +1,6 @@
 import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
-import 'package:distributor_empower/constants/all_constants.dart';
+import 'package:distributor_empower/constants/app_colors/app_colors.dart';
 import 'package:distributor_empower/core/di/locator.dart';
 import 'package:distributor_empower/generated/l10n.dart';
 import 'package:distributor_empower/model/base/api_req_data.dart';
@@ -16,6 +16,7 @@ import 'package:distributor_empower/widgets/auth_top_logo_widget.dart';
 import 'package:distributor_empower/widgets/pin_put_widget.dart';
 import 'package:distributor_empower/widgets/progress_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 @RoutePage()
@@ -54,7 +55,7 @@ class _VerifyPinScreenState extends State<VerifyPinScreen> {
                   Align(
                     alignment: Alignment.centerRight,
                     child: _buildLogoutButton(),
-                  )
+                  ),
                 ],
               ),
               SizedBox(
@@ -113,17 +114,18 @@ class _VerifyPinScreenState extends State<VerifyPinScreen> {
                             return ChangeNotifierProvider.value(
                               value: _userPinProvider,
                               child: Consumer<UserPinProvider>(
-                                builder: (context, provider, child) {
-                                  return AppButton(
-                                    onPressed: _validateAndContinue,
-                                    text: AppLocalizations.current.verifyPin,
-                                    isDisable: _isDisable.value,
-                                    isLoading: provider.isButtonLoading,
-                                  );
-                                },
-                              ),
-                            );
-                          }),
+                              builder: (context, provider, child) {
+                                return AppButton(
+                                  onPressed: _validateAndContinue,
+                                  text: AppLocalizations.current.verifyPin,
+                                  isDisable: _isDisable.value,
+                                  isLoading: provider.isButtonLoading,
+                                );
+                              },
+                            ),
+                          );
+                        },
+                      ),
                       const Spacer(),
                     ],
                   ),
@@ -161,10 +163,12 @@ class _VerifyPinScreenState extends State<VerifyPinScreen> {
 
   Future<void> _validateAndContinue() async {
     if (!_isDisable.value) {
-      final result = await _userPinProvider.verifyUserPin(ApiReqData(
-        pin: _pin,
-        pinType: SetPinType.verifyPin.index,
-      ));
+      final result = await _userPinProvider.verifyUserPin(
+        ApiReqData(
+          pin: _pin,
+          pinType: SetPinType.verifyPin.index,
+        ),
+      );
 
       if (result) {
         appRouter.pushAndPopUntil(

@@ -1,4 +1,4 @@
-import 'package:distributor_empower/constants/all_constants.dart';
+import 'package:distributor_empower/constants/app_colors/app_colors.dart';
 import 'package:distributor_empower/core/di/locator.dart';
 import 'package:distributor_empower/utils/text_styles.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +21,7 @@ void successToast(String toastMessage) {
   );
 }
 
-errorToast(String toastMessage) {
+void errorToast(String toastMessage) {
   ScaffoldMessenger.of(appContext).showSnackBar(
     SnackBar(
       content: Text(
@@ -39,7 +39,7 @@ errorToast(String toastMessage) {
   );
 }
 
-warningToast(String toastMessage) {
+void warningToast(String toastMessage) {
   ScaffoldMessenger.of(appContext).showSnackBar(
     SnackBar(
       content: Text(

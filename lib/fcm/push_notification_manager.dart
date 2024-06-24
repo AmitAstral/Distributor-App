@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:cached_network_image/cached_network_image.dart';
+
 import 'package:distributor_empower/core/di/locator.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -78,7 +78,6 @@ class PushNotificationsManager {
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       RemoteNotification? notification = message.notification;
       AndroidNotification? android = message.notification?.android;
-      AppleNotification? apple = message.notification?.apple;
       if (notification != null && android != null) {
         if (storage.fcmToken.isEmpty) return;
         _showNotificationWithDefaultSound(message);
@@ -140,7 +139,6 @@ class PushNotificationsManager {
     );
     var iOSPlatformChannelSpecifics = const DarwinNotificationDetails();
     var platformChannelSpecifics = NotificationDetails(android: androidPlatformChannelSpecifics, iOS: iOSPlatformChannelSpecifics);
-    var data = payload.data;
     debugPrint('====================_showNotificationWithDefaultSound=======================');
     printRemoteMessage(payload);
     await flutterLocalNotificationsPlugin.show(

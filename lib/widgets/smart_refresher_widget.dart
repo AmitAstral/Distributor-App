@@ -1,4 +1,4 @@
-import 'package:distributor_empower/constants/all_constants.dart';
+import 'package:distributor_empower/constants/app_colors/app_colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
@@ -9,10 +9,10 @@ class SmartRefresherWidget extends StatefulWidget {
   final RefreshController? controller;
 
   const SmartRefresherWidget({
-    super.key,
     required this.child,
     required this.onRefresh,
     required this.controller,
+    super.key,
     this.loadMoreData,
   });
 
@@ -40,16 +40,17 @@ class _SmartRefresherWidgetState extends State<SmartRefresherWidget> {
   @override
   Widget build(BuildContext context) {
     return SmartRefresher(
-        controller: widget.controller!,
-        onRefresh: widget.onRefresh,
-        scrollController: scrollController,
-        enablePullDown: true,
-        header: const WaterDropHeader(
-          waterDropColor: AppColor.primaryColor,
-          complete: SizedBox(),
-          refresh: CupertinoActivityIndicator(color: AppColor.primaryColor),
-          completeDuration: Duration(seconds: 0),
-        ),
-        child: widget.child);
+      controller: widget.controller!,
+      onRefresh: widget.onRefresh,
+      scrollController: scrollController,
+      enablePullDown: true,
+      header: const WaterDropHeader(
+        waterDropColor: AppColor.primaryColor,
+        complete: SizedBox(),
+        refresh: CupertinoActivityIndicator(color: AppColor.primaryColor),
+        completeDuration: Duration(seconds: 0),
+      ),
+      child: widget.child,
+    );
   }
 }

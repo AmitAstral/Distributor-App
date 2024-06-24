@@ -97,7 +97,9 @@ class ApiRepository extends ApiCaller {
 
   Future<BaseResponse> getAllSetting() async {
     var data = await executeApiCall<SettingResponse>(
-        apiCall: apiService.post(endPoint: ApiConstants.getAllSetting, data: ApiReqData.getUserDetails.toJson()), baseModel: SettingResponse());
+      apiCall: apiService.post(endPoint: ApiConstants.getAllSetting, data: ApiReqData.getUserDetails.toJson()),
+      baseModel: SettingResponse(),
+    );
 
     if (data.getData != null) {
       storage.settingsData = data.getData;
@@ -116,9 +118,10 @@ class ApiRepository extends ApiCaller {
 
   Future<BaseResponse<DashboardResponse?>> getDashboard(UserInfo request, Function(String) onApiError) async {
     var data = await executeApiCall<DashboardResponse>(
-        apiCall: apiService.post(endPoint: ApiConstants.getDashboard, data: request.toJson()),
-        onApiError: onApiError,
-        baseModel: DashboardResponse());
+      apiCall: apiService.post(endPoint: ApiConstants.getDashboard, data: request.toJson()),
+      onApiError: onApiError,
+      baseModel: DashboardResponse(),
+    );
     return data;
   }
 

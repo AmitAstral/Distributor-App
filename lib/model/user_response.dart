@@ -99,9 +99,9 @@ class UserResponse extends BaseModel {
     return map;
   }
 
-  get secureNumber => (distributorMobileNumber ?? '').replaceAllMapped(RegExp(r'.(?=.{4})'), (match) => '*');
+  String get secureNumber => (distributorMobileNumber ?? '').replaceAllMapped(RegExp(r'.(?=.{4})'), (match) => '*');
 
-  get isUpdateAvailable => storage.isLogin && allowAppVersion != storage.currentAppVersion;
+  bool get isUpdateAvailable => storage.isLogin && allowAppVersion != storage.currentAppVersion;
 
   String get getUserProfile => profile.ifBlank ?? 'https://www.vhv.rs/dpng/d/505-5058560_person-placeholder-image-free-hd-png-download.png';
 }

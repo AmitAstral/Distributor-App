@@ -1,5 +1,5 @@
 import 'package:auto_route/annotations.dart';
-import 'package:distributor_empower/constants/all_constants.dart';
+import 'package:distributor_empower/constants/app_colors/app_colors.dart';
 import 'package:distributor_empower/gen/assets.gen.dart';
 import 'package:distributor_empower/generated/l10n.dart';
 import 'package:distributor_empower/model/sales_report_details.dart';
@@ -9,6 +9,7 @@ import 'package:distributor_empower/widgets/custom_app_bar/app_bar.dart';
 import 'package:distributor_empower/widgets/no_data_found_widget.dart';
 import 'package:distributor_empower/widgets/progress_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 @RoutePage()
@@ -94,22 +95,25 @@ class _SalesReportDetailScreenState extends State<SalesReportDetailScreen> {
                               height: 4,
                             ),
                             Text(
-                              getSalesReportDetails?.totalAmount ?? '0',
-                              style: TextStyles.regular11.copyWith(
-                                color: AppColor.textSecondary,
+                                getSalesReportDetails?.totalAmount ?? '0',
+                                style: TextStyles.regular11.copyWith(
+                                  color: AppColor.textSecondary,
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                    10.verticalSpace,
-                  ]),
+                      10.verticalSpace,
+                    ],
+                  ),
                 ),
               );
-            });
-          },
-        ));
+            },
+          );
+        },
+      ),
+    );
   }
 
   Widget _buildMainView() {
@@ -278,16 +282,17 @@ class _SalesReportDetailScreenState extends State<SalesReportDetailScreen> {
     return Padding(
       padding: const EdgeInsets.only(bottom: 10).h,
       child: Table(
-          columnWidths: const {
-            0: FlexColumnWidth(4),
-            1: FlexColumnWidth(2),
-            2: FlexColumnWidth(2),
-            3: FlexColumnWidth(2),
-            4: FlexColumnWidth(3),
-          },
-          children: List.generate((getSalesReportDetails?.invoiceItemList?.length ?? 0) + 1, (index) {
-            return index == 0 ? _buildColum() : _buildRow(index - 1);
-          })),
+        columnWidths: const {
+          0: FlexColumnWidth(4),
+          1: FlexColumnWidth(2),
+          2: FlexColumnWidth(2),
+          3: FlexColumnWidth(2),
+          4: FlexColumnWidth(3),
+        },
+        children: List.generate((getSalesReportDetails?.invoiceItemList?.length ?? 0) + 1, (index) {
+          return index == 0 ? _buildColum() : _buildRow(index - 1);
+        }),
+      ),
     );
   }
 
@@ -297,27 +302,28 @@ class _SalesReportDetailScreenState extends State<SalesReportDetailScreen> {
           color: AppColor.primaryColorLight,
         ),
         children: [
-          AppLocalizations.of(context).productName,
-          AppLocalizations.of(context).unit,
-          AppLocalizations.of(context).qty,
-          AppLocalizations.of(context).price,
-          AppLocalizations.of(context).amount
-        ]
-            .map(
+        AppLocalizations.of(context).productName,
+        AppLocalizations.of(context).unit,
+        AppLocalizations.of(context).qty,
+        AppLocalizations.of(context).price,
+        AppLocalizations.of(context).amount,
+      ]
+          .map(
               (title) => TableCell(
                 child: Container(
                   alignment: Alignment.centerLeft,
-                  padding: const EdgeInsets.all(5).h,
-                  margin: const EdgeInsets.only(left: 2).w,
-                  width: 50,
-                  child: Text(
-                    title,
-                    style: TextStyles.regular11,
-                  ),
+                padding: const EdgeInsets.all(5).h,
+                margin: const EdgeInsets.only(left: 2).w,
+                width: 50,
+                child: Text(
+                  title,
+                  style: TextStyles.regular11,
                 ),
               ),
-            )
-            .toList());
+            ),
+          )
+          .toList(),
+    );
   }
 
   TableRow _buildRow(int index) {
@@ -333,17 +339,18 @@ class _SalesReportDetailScreenState extends State<SalesReportDetailScreen> {
             return TableCell(
               child: Padding(
                 padding: const EdgeInsets.all(5).copyWith(right: no == 4 ? 15 : 5).w,
-                child: Text(
-                  list[no] ?? '',
-                  style: TextStyles.regular11.copyWith(
-                    color: AppColor.textSecondary,
-                  ),
-                  textAlign: no == 3 || no == 4 ? TextAlign.right : TextAlign.left,
+              child: Text(
+                list[no] ?? '',
+                style: TextStyles.regular11.copyWith(
+                  color: AppColor.textSecondary,
                 ),
+                textAlign: no == 3 || no == 4 ? TextAlign.right : TextAlign.left,
               ),
-            );
-          },
-        ));
+            ),
+          );
+        },
+      ),
+    );
   }
 
   Future<void> _getSalesReportDetails() async {

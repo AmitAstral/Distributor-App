@@ -19,9 +19,9 @@ class FocusProductScreen extends StatefulWidget {
   final HomeProvider homeProvider;
 
   const FocusProductScreen({
-    super.key,
     required this.title,
     required this.homeProvider,
+    super.key,
   });
 
   @override
@@ -74,10 +74,14 @@ class _FocusProductScreenState extends State<FocusProductScreen> {
                   : Container(
                       margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10).w,
                       child: GridView.builder(
-                          shrinkWrap: true,
+                        shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
                           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2, mainAxisSpacing: 10, crossAxisSpacing: 10, childAspectRatio: 5 / 7),
+                            crossAxisCount: 2,
+                            mainAxisSpacing: 10,
+                            crossAxisSpacing: 10,
+                            childAspectRatio: 5 / 7,
+                          ),
                           itemCount: _focusProductProvider.focusProductList.length,
                           itemBuilder: (context, index) {
                             final item = _focusProductProvider.focusProductList[index];
@@ -99,11 +103,13 @@ class _FocusProductScreenState extends State<FocusProductScreen> {
                                 },
                               ),
                             );
-                          }),
-                    ),
-            ),
-          );
-        }),
+                          },
+                        ),
+                      ),
+              ),
+            );
+          },
+        ),
       ),
     );
   }

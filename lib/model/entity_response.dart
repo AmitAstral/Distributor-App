@@ -16,7 +16,7 @@ class EntityResponse extends BaseModel {
   });
 
   @override
-  EntityResponse fromJson(dynamic json) {
+  EntityResponse fromJson(json) {
     return EntityResponse(
       id: json['Id'],
       menuName: json['Menu_Name'],

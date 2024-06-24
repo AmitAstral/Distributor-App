@@ -76,17 +76,21 @@ class _SalesReportScreenState extends State<SalesReportScreen> {
                 return ProgressWidget(
                   inAsyncCall: _salesReportProvider.isLoading.value,
                   child: SingleChildScrollView(
-                    child: Column(children: [
-                      _upperSectionWidget(),
-                      2.verticalSpace,
-                      if (!_salesReportProvider.isLoading.value) _buildMainView(),
-                    ]),
+                    child: Column(
+                      children: [
+                        _upperSectionWidget(),
+                        2.verticalSpace,
+                        if (!_salesReportProvider.isLoading.value) _buildMainView(),
+                      ],
+                    ),
                   ),
                 );
-              }),
-            );
-          },
-        ));
+              },
+            ),
+          );
+        },
+      ),
+    );
   }
 
   Widget _buildMainView() {
@@ -107,7 +111,11 @@ class _SalesReportScreenState extends State<SalesReportScreen> {
                 child: GestureDetector(
                   onTap: () async {
                     DateTime? pickedDate = await showDatePicker(
-                        context: context, initialDate: AppDateUtils.stringToDate(fromDate), firstDate: DateTime(1950), lastDate: DateTime.now());
+                      context: context,
+                      initialDate: AppDateUtils.stringToDate(fromDate),
+                      firstDate: DateTime(1950),
+                      lastDate: DateTime.now(),
+                    );
                     fromDate = AppDateUtils.dateToString(pickedDate ?? DateTime.now());
                     setState(() {});
                   },
@@ -149,10 +157,11 @@ class _SalesReportScreenState extends State<SalesReportScreen> {
                       return;
                     }
                     DateTime? pickedDate = await showDatePicker(
-                        context: context,
-                        initialDate: AppDateUtils.stringToDate(toDate!),
-                        firstDate: AppDateUtils.stringToDate(fromDate!),
-                        lastDate: DateTime.now());
+                      context: context,
+                      initialDate: AppDateUtils.stringToDate(toDate!),
+                      firstDate: AppDateUtils.stringToDate(fromDate!),
+                      lastDate: DateTime.now(),
+                    );
                     toDate = AppDateUtils.dateToString(pickedDate ?? DateTime.now());
                     setState(() {});
                   },
@@ -181,7 +190,7 @@ class _SalesReportScreenState extends State<SalesReportScreen> {
                           Icons.calendar_month,
                           size: 18,
                           color: AppColor.primaryColor,
-                        )
+                        ),
                       ],
                     ),
                   ),
@@ -312,17 +321,18 @@ class _SalesReportScreenState extends State<SalesReportScreen> {
                 margin: const EdgeInsets.only(right: 10),
                 child: const Icon(
                   Icons.chevron_right,
-                  color: AppColor.black,
-                  size: 18,
-                ),
+                color: AppColor.black,
+                size: 18,
               ),
-            ).addGesture(
-              () {
-                appRouter.push(SalesReportDetailRoute(docId: item?.invoiceNo ?? ''));
-              },
             ),
+          ).addGesture(
+            () {
+              appRouter.push(SalesReportDetailRoute(docId: item?.invoiceNo ?? ''));
+            },
           ),
-        ]);
+        ),
+      ],
+    );
   }
 
   Future<void> _getFreshData({isLoading = true}) async {

@@ -24,7 +24,7 @@ class AuthTopLogoWidget extends StatelessWidget {
             style: TextStyles.semiBold16,
           ),
           SizedBox(height: 10.h),
-          Hero(tag: "SplashLogo", transitionOnUserGestures: true, child: Center(child: Assets.images.splashLogo.image(height: 70.h))),
+          Hero(tag: 'SplashLogo', transitionOnUserGestures: true, child: Center(child: Assets.images.splashLogo.image(height: 70.h))),
         ],
       ),
     );

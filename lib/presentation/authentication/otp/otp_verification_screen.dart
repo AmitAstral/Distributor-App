@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:auto_route/annotations.dart';
-import 'package:distributor_empower/constants/all_constants.dart';
+import 'package:distributor_empower/constants/app_colors/app_colors.dart';
 import 'package:distributor_empower/core/di/locator.dart';
 import 'package:distributor_empower/generated/l10n.dart';
 import 'package:distributor_empower/presentation/authentication/otp/provider/otp_verification_provider.dart';
@@ -15,14 +15,16 @@ import 'package:distributor_empower/widgets/auth_top_logo_widget.dart';
 import 'package:distributor_empower/widgets/pin_put_widget.dart';
 import 'package:distributor_empower/widgets/progress_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 @RoutePage()
+// ignore: must_be_immutable
 class OtpVerificationScreen extends StatefulWidget {
   OTPVerificationType? screenType = OTPVerificationType.login;
   String sentOTP = '';
 
-  OtpVerificationScreen({this.screenType, required this.sentOTP, super.key});
+  OtpVerificationScreen({required this.sentOTP, this.screenType, super.key});
 
   @override
   State<OtpVerificationScreen> createState() => _OtpVerificationScreenState();
@@ -124,20 +126,23 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                                           )),
                                     10.verticalSpace,
                                     ValueListenableBuilder(
-                                        valueListenable: _otpVerificationProvider.isDisable,
-                                        builder: (context, _, __) {
-                                          return AppButton(
-                                            onPressed: _onPressVerifyOTP,
-                                            text: AppLocalizations.current.verify,
-                                            isDisable: _otpVerificationProvider.isDisable.value,
-                                            isLoading: _otpVerificationProvider.isButtonLoading,
-                                          );
-                                        }),
+                                      valueListenable: _otpVerificationProvider.isDisable,
+                                      builder: (context, _, __) {
+                                        return AppButton(
+                                          onPressed: _onPressVerifyOTP,
+                                          text: AppLocalizations.current.verify,
+                                          isDisable: _otpVerificationProvider.isDisable.value,
+                                          isLoading: _otpVerificationProvider.isButtonLoading,
+                                        );
+                                      },
+                                    ),
                                   ],
                                 );
-                              }),
-                            );
-                          }),
+                              },
+                            ),
+                          );
+                        },
+                      ),
                       const Spacer(),
                     ],
                   ),
@@ -157,7 +162,8 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
             width: 20,
             child: CircularProgressIndicator(
               strokeWidth: 2,
-            ))
+            ),
+          )
         : Text(
             storage.userDetails.otpResendMessage ?? AppLocalizations.current.resendOtp,
             style: TextStyles.regular12.copyWith(color: AppColor.primaryColor, decoration: TextDecoration.underline),
@@ -198,7 +204,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
           if (storage.userDetails.isPinSet ?? false) {
             storage.isLogin = true;
             appRouter.pushAndPopUntil(
-              VerifyPinRoute(),
+              const VerifyPinRoute(),
               predicate: (route) => false,
             );
           } else {

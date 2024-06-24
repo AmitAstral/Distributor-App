@@ -1,5 +1,5 @@
 import 'package:auto_route/annotations.dart';
-import 'package:distributor_empower/constants/all_constants.dart';
+import 'package:distributor_empower/constants/app_colors/app_colors.dart';
 import 'package:distributor_empower/core/di/locator.dart';
 import 'package:distributor_empower/generated/l10n.dart';
 import 'package:distributor_empower/model/base/api_req_data.dart';
@@ -13,16 +13,32 @@ import 'package:distributor_empower/widgets/auth_top_logo_widget.dart';
 import 'package:distributor_empower/widgets/pin_put_widget.dart';
 import 'package:distributor_empower/widgets/progress_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 @RoutePage()
-class SetPinScreen extends StatelessWidget {
+class SetPinScreen extends StatefulWidget {
+  const SetPinScreen({super.key});
+
+  @override
+  State<SetPinScreen> createState() => _SetPinScreenState();
+}
+
+class _SetPinScreenState extends State<SetPinScreen> {
   final ValueNotifier<bool> _isDisable = ValueNotifier(true);
+
   final _userPinProvider = UserPinProvider();
+
   String _pin = '';
+
   String _confirmPin = '';
 
-  SetPinScreen({super.key});
+  @override
+  void dispose() {
+    _isDisable.dispose();
+    _userPinProvider.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -82,17 +98,20 @@ class SetPinScreen extends StatelessWidget {
                           valueListenable: _isDisable,
                           builder: (context, _, __) {
                             return ChangeNotifierProvider.value(
-                              value: _userPinProvider,
-                              child: Consumer<UserPinProvider>(builder: (context, provider, child) {
+                            value: _userPinProvider,
+                            child: Consumer<UserPinProvider>(
+                              builder: (context, provider, child) {
                                 return AppButton(
                                   onPressed: _validateAndContinue,
                                   text: AppLocalizations.current.setPin,
                                   isDisable: _isDisable.value,
                                   isLoading: provider.isButtonLoading,
                                 );
-                              }),
-                            );
-                          }),
+                              },
+                            ),
+                          );
+                        },
+                      ),
                       const Spacer(),
                     ],
                   ),
@@ -107,11 +126,13 @@ class SetPinScreen extends StatelessWidget {
 
   Future<void> _validateAndContinue() async {
     if (!_isDisable.value && _pin == _confirmPin) {
-      final result = await _userPinProvider.setUserPin(ApiReqData(
-        pin: _pin,
-        confirmPin: _confirmPin,
-        pinType: ((storage.userDetails.isPinSet ?? false) ? SetPinType.resetPin : SetPinType.newPin).index,
-      ));
+      final result = await _userPinProvider.setUserPin(
+        ApiReqData(
+          pin: _pin,
+          confirmPin: _confirmPin,
+          pinType: ((storage.userDetails.isPinSet ?? false) ? SetPinType.resetPin : SetPinType.newPin).index,
+        ),
+      );
 
       if (result) {
         storage.isLogin = true;

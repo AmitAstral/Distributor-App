@@ -1,6 +1,7 @@
-import 'package:distributor_empower/constants/all_constants.dart';
+import 'package:distributor_empower/constants/app_colors/app_colors.dart';
 import 'package:distributor_empower/utils/text_styles.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AppButton extends StatelessWidget {
   final Function()? onPressed;
@@ -14,18 +15,17 @@ class AppButton extends StatelessWidget {
   final Color bgColor;
   final double? width;
 
-  const AppButton(
-      {super.key,
-      this.textStyle,
-      this.onPressed,
-      this.duration = 100,
-      this.isDisable = false,
-      this.text,
-      this.isLoading = false,
-      this.width,
-      this.bgColor = AppColor.primaryColor,
-      this.horizontalPadding,
-      this.verticalPadding});
+  const AppButton({super.key,
+    this.textStyle,
+    this.onPressed,
+    this.duration = 100,
+    this.isDisable = false,
+    this.text,
+    this.isLoading = false,
+    this.width,
+    this.bgColor = AppColor.primaryColor,
+    this.horizontalPadding,
+    this.verticalPadding,});
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +44,8 @@ class AppButton extends StatelessWidget {
                   child: CircularProgressIndicator(
                     color: AppColor.white,
                     strokeWidth: 2,
-                  ))
+                  ),
+                )
               : Text(
                   text ?? '',
                   style: textStyle ?? TextStyles.semiBold16,

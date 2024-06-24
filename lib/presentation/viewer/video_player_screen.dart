@@ -10,7 +10,7 @@ class VideoPlayerScreen extends StatefulWidget {
   final String productArguments;
   final String title;
 
-  const VideoPlayerScreen({super.key, required this.productArguments, required this.title});
+  const VideoPlayerScreen({required this.productArguments, required this.title, super.key});
 
   @override
   State<VideoPlayerScreen> createState() => _VideoPlayerScreenState();
@@ -36,7 +36,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
     _controller.setLooping(true);
   }
 
-  _setOrientation(List<DeviceOrientation> orientations) {
+  void _setOrientation(List<DeviceOrientation> orientations) {
     SystemChrome.setPreferredOrientations(orientations);
   }
 
@@ -91,17 +91,19 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
                       setState(() {
                         _controller.value.isPlaying ? _controller.pause() : _controller.play();
                       });
-                    },
-                    child: _controller.value.isPlaying
-                        ? Container()
-                        : Container(
-                            padding: EdgeInsets.all(70.w),
-                            child: Icon(
-                              Icons.play_arrow_rounded,
-                              size: 50.w,
-                              color: AppColor.white.withOpacity(0.8),
-                            ),
-                          ))),
+                },
+                child: _controller.value.isPlaying
+                    ? Container()
+                    : Container(
+                        padding: EdgeInsets.all(70.w),
+                        child: Icon(
+                          Icons.play_arrow_rounded,
+                          size: 50.w,
+                          color: AppColor.white.withOpacity(0.8),
+                        ),
+                      ),
+              ),
+            ),
           ],
         ),
       ),

@@ -1,10 +1,13 @@
-import 'package:distributor_empower/constants/all_constants.dart';
+import 'package:distributor_empower/constants/app_colors/app_colors.dart';
+import 'package:distributor_empower/constants/fonts/font_family.dart';
+import 'package:distributor_empower/constants/fonts/font_weight.dart';
 import 'package:distributor_empower/generated/l10n.dart';
 import 'package:distributor_empower/model/dashboard_response.dart';
 import 'package:distributor_empower/utils/text_styles.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 
 class CreditDetailsWidget extends StatelessWidget {
@@ -30,7 +33,7 @@ class CreditDetailsWidget extends StatelessWidget {
             blurRadius: 20.r,
             offset: const Offset(0, 2),
             spreadRadius: 1,
-          )
+          ),
         ],
       ),
       child: Column(
@@ -75,17 +78,18 @@ class CreditDetailsWidget extends StatelessWidget {
                             pointers: <GaugePointer>[
                               RangePointer(
                                   value: creditDetails?.remainingPercentage ?? 0,
-                                  cornerStyle: CornerStyle.startCurve,
-                                  enableAnimation: true,
-                                  animationDuration: 2000,
-                                  width: 8.sp,
-                                  color: AppColor.primaryColor,
-                                  gradient: const SweepGradient(
-                                    colors: <Color>[
-                                      AppColor.primaryColor,
-                                      AppColor.primaryColor,
-                                    ],
-                                  )),
+                                cornerStyle: CornerStyle.startCurve,
+                                enableAnimation: true,
+                                animationDuration: 2000,
+                                width: 8.sp,
+                                color: AppColor.primaryColor,
+                                gradient: const SweepGradient(
+                                  colors: <Color>[
+                                    AppColor.primaryColor,
+                                    AppColor.primaryColor,
+                                  ],
+                                ),
+                              ),
                               MarkerPointer(
                                 value: creditDetails?.remainingPercentage ?? 0,
                                 enableAnimation: true,
@@ -126,7 +130,7 @@ class CreditDetailsWidget extends StatelessWidget {
                             ),
                           ],
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ),

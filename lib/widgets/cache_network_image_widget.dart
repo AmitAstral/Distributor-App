@@ -1,14 +1,15 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:distributor_empower/constants/all_constants.dart';
+import 'package:distributor_empower/constants/app_colors/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CachedNetworkImageWidget extends CachedNetworkImage {
-  Color? loaderColor;
-  Color? errorIconColor;
+  final Color? loaderColor;
+  final Color? errorIconColor;
 
   CachedNetworkImageWidget({
-    super.key,
     required super.imageUrl,
+    super.key,
     super.httpHeaders,
     super.imageBuilder,
     super.placeholder,

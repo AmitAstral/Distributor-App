@@ -13,7 +13,7 @@ class SalesReportDetailsResponse extends BaseModel {
   });
 
   @override
-  SalesReportDetailsResponse fromJson(dynamic json) {
+  SalesReportDetailsResponse fromJson(json) {
     distributorName = json['DistributorName'];
     distributorMobile = json['DistributorMobile'];
     distributorAddress = json['DistributorAddress'];
@@ -66,7 +66,7 @@ class InvoiceItemList {
     this.amount,
   });
 
-  InvoiceItemList.fromJson(dynamic json) {
+  InvoiceItemList.fromJson(json) {
     invoiceDetialId = json['invoiceDetial_id'];
     productId = json['Product_id'];
     productName = json['Product_name'];

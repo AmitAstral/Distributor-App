@@ -2,9 +2,8 @@ library api;
 
 import 'dart:io';
 
+import 'package:distributor_empower/utils/device_info.dart';
 import 'package:distributor_empower/utils/enum_classes.dart';
-
-import '../../utils/device_info.dart';
 
 String baseUrl = Environment.debug.value;
 

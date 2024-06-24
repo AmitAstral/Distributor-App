@@ -9,7 +9,7 @@ class PendingOrderResponse extends BaseModel {
   });
 
   @override
-  PendingOrderResponse fromJson(dynamic json) {
+  PendingOrderResponse fromJson(json) {
     return PendingOrderResponse(
       orderNo: json['OrderNo'],
       orderDate: json['OrderDate'],

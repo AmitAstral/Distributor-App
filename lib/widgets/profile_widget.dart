@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ProfileWidget extends StatelessWidget {
-  double? height;
-  double? width;
+  final double? height;
+  final double? width;
 
-  ProfileWidget({super.key, this.height, this.width});
+  const ProfileWidget({super.key, this.height, this.width});
 
   @override
   Widget build(BuildContext context) {

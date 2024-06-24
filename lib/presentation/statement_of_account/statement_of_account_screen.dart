@@ -59,19 +59,24 @@ class _StatementOfAccountScreenState extends State<StatementOfAccountScreen> {
         body: ChangeNotifierProvider.value(
           value: _statementProvider,
           builder: (context, child) {
-            return Consumer<StatementProvider>(builder: (context, value, child) {
+            return Consumer<StatementProvider>(
+            builder: (context, value, child) {
               return SingleChildScrollView(
-                child: Column(children: [
-                  _upperSectionWidget(),
-                  15.verticalSpace,
-                  _buildMiddleView(),
-                  10.verticalSpace,
-                  _buildMainView(),
-                ]),
+                child: Column(
+                  children: [
+                    _upperSectionWidget(),
+                    15.verticalSpace,
+                    _buildMiddleView(),
+                    10.verticalSpace,
+                    _buildMainView(),
+                  ],
+                ),
               );
-            });
-          },
-        ));
+            },
+          );
+        },
+      ),
+    );
   }
 
   Padding _buildMiddleView() {
@@ -153,7 +158,11 @@ class _StatementOfAccountScreenState extends State<StatementOfAccountScreen> {
                 child: GestureDetector(
                   onTap: () async {
                     DateTime? pickedDate = await showDatePicker(
-                        context: context, initialDate: AppDateUtils.stringToDate(fromDate), firstDate: DateTime(1950), lastDate: DateTime.now());
+                      context: context,
+                      initialDate: AppDateUtils.stringToDate(fromDate),
+                      firstDate: DateTime(1950),
+                      lastDate: DateTime.now(),
+                    );
                     fromDate = AppDateUtils.dateToString(pickedDate ?? DateTime.now());
                     setState(() {});
                   },
@@ -228,7 +237,7 @@ class _StatementOfAccountScreenState extends State<StatementOfAccountScreen> {
                           Icons.calendar_month,
                           size: 18,
                           color: AppColor.primaryColor,
-                        )
+                        ),
                       ],
                     ),
                   ),
@@ -269,9 +278,10 @@ class _StatementOfAccountScreenState extends State<StatementOfAccountScreen> {
     return Column(
       children: [
         Table(
-            children: List.generate(_statementProvider.accountStatementList.length + 1, (index) {
-          return index == 0 ? _buildColum() : _buildRow(index - 1);
-        })),
+          children: List.generate(_statementProvider.accountStatementList.length + 1, (index) {
+            return index == 0 ? _buildColum() : _buildRow(index - 1);
+          }),
+        ),
         20.verticalSpace,
       ],
     );
@@ -309,17 +319,18 @@ class _StatementOfAccountScreenState extends State<StatementOfAccountScreen> {
                             Text(
                               AppLocalizations.of(context).credit,
                               style: TextStyles.semiBold11.copyWith(
-                                color: AppColor.green,
-                              ),
-                            ),
-                          ],
-                        )
-                      : Text(
-                          columList[index],
-                          style: TextStyles.semiBold11,
+                          color: AppColor.green,
                         ),
-                ),
-              )),
+                      ),
+                    ],
+                  )
+                : Text(
+                    columList[index],
+                    style: TextStyles.semiBold11,
+                  ),
+          ),
+        ),
+      ),
     );
   }
 

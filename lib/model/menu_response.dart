@@ -12,15 +12,16 @@ class MenuResponse extends BaseModel {
   });
 
   @override
-  MenuResponse fromJson(dynamic json) {
+  MenuResponse fromJson(json) {
     return MenuResponse(
-        id: json['Id'],
-        menuName: json['MenuName'],
-        redirectURL: json['Redirect_URL'],
-        uRLType: json['URL_Type'],
-        menuIconURL: json['Menu_Icon_URL'],
-        isMenuHorizontal: json['IsMenuHorizontal'],
-        entityType: json['EntityType']);
+      id: json['Id'],
+      menuName: json['MenuName'],
+      redirectURL: json['Redirect_URL'],
+      uRLType: json['URL_Type'],
+      menuIconURL: json['Menu_Icon_URL'],
+      isMenuHorizontal: json['IsMenuHorizontal'],
+      entityType: json['EntityType'],
+    );
   }
 
   String? id;

@@ -46,7 +46,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      ProfileWidget(),
+                      const ProfileWidget(),
                       Expanded(
                         child: Padding(
                           padding: const EdgeInsets.only(left: 8).w,
@@ -74,7 +74,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                             ],
                           ),
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ),
@@ -139,17 +139,18 @@ class _DrawerScreenState extends State<DrawerScreen> {
                                 style: TextStyles.semiBold15,
                               ),
                             ),
-                          ],
-                        ),
-                      ).addGesture(
-                        () {
-                          setState(() {
-                            currentIndex = index;
-                          });
-                          _drawerNavigation(item);
-                        },
-                      );
-                    }),
+                        ],
+                      ),
+                    ).addGesture(
+                      () {
+                        setState(() {
+                          currentIndex = index;
+                        });
+                        _drawerNavigation(item);
+                      },
+                    );
+                  },
+                ),
               ),
               Padding(
                 padding: EdgeInsets.only(left: 8.w, right: 8.w, bottom: 8.h),
@@ -197,7 +198,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
     BottomBarNavigationProvider().closeDrawer();
     switch (item?.id) {
       case '1':
-        //
+      //HOME
         break;
       case '2':
         BottomBarNavigationProvider().setCurrentBottomItem(BottomNavigationEnum.profile);
@@ -212,24 +213,25 @@ class _DrawerScreenState extends State<DrawerScreen> {
         appRouter.push(ReportRoute());
         break;
       case '6':
-      //Price List
-        _redirectToPDF(item);
+        //Price List
+        _redirectToWeb(item);
         break;
       case '7':
-      //Knowledge Gallery
+        //Knowledge Gallery
         appRouter.push(const KnowledgeGalleryRoute());
         break;
       case '8':
-      //NEWS
+        //NEWS
+        _redirectToWeb(item);
         break;
       case '9':
-      //We CARE
-        _redirectToPDF(item);
+        //We CARE
+        _redirectToWeb(item);
         break;
     }
   }
 
-  Future<void> _redirectToPDF(MenuResponse? item) async {
+  Future<void> _redirectToWeb(MenuResponse? item) async {
     if (item?.entityType.ifBlank != null) {
       BottomBarNavigationProvider().closeDrawer();
       final webViewMenuResponse = await CommonProvider().getWebViewMenuDetails(type: item?.entityType);

@@ -139,18 +139,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             width: 15.w,
                           ),
                           15.horizontalSpace,
-                          Expanded(
-                            child: Text(
-                              AppLocalizations.current.logout,
-                              style: TextStyles.regular14.copyWith(color: AppColor.textSecondary),
-                            ),
+                        Expanded(
+                          child: Text(
+                            AppLocalizations.current.logout,
+                            style: TextStyles.regular14.copyWith(color: AppColor.textSecondary),
                           ),
-                          Icon(
-                            Icons.arrow_forward_ios_rounded,
-                            color: const Color(0xFFB4B6C2),
-                            size: 18.sp,
-                          )
-                        ],
+                        ),
+                        Icon(
+                          Icons.arrow_forward_ios_rounded,
+                          color: const Color(0xFFB4B6C2),
+                          size: 18.sp,
+                        ),
+                      ],
                       ),
                     ),
                   ).addGesture(
@@ -163,17 +163,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           storage.logout();
                         },
                       );
-                    },
-                  ),
-                  50.verticalSpace,
-                  Text(
-                    AppLocalizations.of(context).versionWithversion(storage.currentAppVersion),
-                    style: TextStyles.regular11.copyWith(color: AppColor.textSecondary),
-                  ),
-                ],
-              ),
+                  },
+                ),
+                50.verticalSpace,
+                Text(
+                  AppLocalizations.of(context).versionWithversion(storage.currentAppVersion),
+                  style: TextStyles.regular11.copyWith(color: AppColor.textSecondary),
+                ),
+              ],
             ),
-          )),
+          ),
+        ),
+      ),
     );
   }
 
@@ -213,7 +214,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       Icons.arrow_forward_ios_rounded,
                       color: const Color(0xFFB4B6C2),
                       size: 18.sp,
-                    )
+                    ),
                   ],
                 ),
               ),
@@ -245,9 +246,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "$title : ",
-              style: TextStyles.regular10.copyWith(color: AppColor.hintTextColor),
-            ),
+              '$title : ',
+            style: TextStyles.regular10.copyWith(color: AppColor.hintTextColor),
+          ),
             const Spacer(),
             Expanded(
               flex: 60,
@@ -257,7 +258,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
             ),
           ],
-        ));
+        ),);
   }
 
   Widget _buildHorizontalOptions() {

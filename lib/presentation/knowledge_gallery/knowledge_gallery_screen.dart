@@ -80,15 +80,15 @@ class _KnowledgeGalleryScreenState extends State<KnowledgeGalleryScreen> {
                           final item = value.knowledgeGalleryList[index];
                           return GestureDetector(
                             onTap: () {
-                              if (item?.urlType == "images") {
+                              if (item?.urlType == 'images') {
                                 appRouter.push(
                                   ViewImageRoute(title: item?.knowledgeName ?? '', productArguments: item?.getImageURL),
                                 );
-                              } else if (item?.urlType == "youtube") {
+                              } else if (item?.urlType == 'youtube') {
                                 appRouter.push(
                                   YoutubePlayerRoute(productArguments: item?.imgUrl ?? ''),
                                 );
-                              } else if (item?.urlType == "video") {
+                              } else if (item?.urlType == 'video') {
                                 appRouter.push(
                                   VideoPlayerRoute(productArguments: item?.imgUrl ?? '', title: item?.knowledgeName ?? ''),
                                 );
@@ -154,6 +154,7 @@ class _KnowledgeGalleryScreenState extends State<KnowledgeGalleryScreen> {
                                       ),
                                     ),
                                   )
+                                  // ignore: require_trailing_commas
                                 ],
                               ),
                             ),

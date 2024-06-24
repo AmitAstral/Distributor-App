@@ -1,5 +1,5 @@
 import 'package:auto_route/annotations.dart';
-import 'package:distributor_empower/constants/all_constants.dart';
+import 'package:distributor_empower/constants/app_colors/app_colors.dart';
 import 'package:distributor_empower/utils/text_styles.dart';
 import 'package:distributor_empower/widgets/custom_app_bar/app_bar.dart';
 import 'package:distributor_empower/widgets/progress_widget.dart';
@@ -11,7 +11,7 @@ class CommonWebViewScreen extends StatefulWidget {
   final String url;
   final String? title;
 
-  const CommonWebViewScreen({super.key, required this.url, this.title});
+  const CommonWebViewScreen({required this.url, super.key, this.title});
 
   @override
   State<CommonWebViewScreen> createState() => _CommonWebViewScreenState();

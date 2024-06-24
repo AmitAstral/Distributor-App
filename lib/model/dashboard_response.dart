@@ -317,7 +317,7 @@ class FilterData {
     this.sapCode,
   });
 
-  FilterData.fromJson(dynamic json) {
+  FilterData.fromJson(json) {
     divisionID = json['DivisionID'];
     label = json['Label'];
     sapCode = json['SapCode'];

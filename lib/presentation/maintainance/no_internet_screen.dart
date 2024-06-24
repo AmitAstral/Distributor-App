@@ -32,7 +32,7 @@ class NoInternetScreen extends StatelessWidget {
               Text(
                 AppLocalizations.current.noInternetConnection,
                 style: TextStyles.semiBold16.copyWith(color: AppColor.primaryColor),
-              )
+              ),
             ],
           ),
           const Spacer(),
@@ -47,11 +47,12 @@ class NoInternetScreen extends StatelessWidget {
                 text: AppLocalizations.current.refresh,
               ),
               AppButton(
-                  width: 0.4.sw,
-                  onPressed: () {
-                    exit(0);
-                  },
-                  text: AppLocalizations.current.close),
+                width: 0.4.sw,
+                onPressed: () {
+                  exit(0);
+                },
+                text: AppLocalizations.current.close,
+              ),
             ],
           ),
           10.verticalSpace,

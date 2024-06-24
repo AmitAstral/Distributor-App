@@ -53,9 +53,11 @@ class _AgeingScreenState extends State<AgeingScreen> {
       ),
       body: ChangeNotifierProvider.value(
         value: _ageingProvider,
-        child: Consumer<AgeingProvider>(builder: (context, value, child) {
-          return _buildView();
-        }),
+        child: Consumer<AgeingProvider>(
+          builder: (context, value, child) {
+            return _buildView();
+          },
+        ),
       ),
     );
   }
@@ -104,10 +106,11 @@ class _AgeingScreenState extends State<AgeingScreen> {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Container(
-            padding: const EdgeInsets.all(6),
-            margin: const EdgeInsets.only(bottom: 8),
-            constraints: const BoxConstraints(minWidth: 100),
-            child: Text(displayName, style: TextStyles.semiBold11.copyWith(color: AppColor.textSecondary))),
+          padding: const EdgeInsets.all(6),
+          margin: const EdgeInsets.only(bottom: 8),
+          constraints: const BoxConstraints(minWidth: 100),
+          child: Text(displayName, style: TextStyles.semiBold11.copyWith(color: AppColor.textSecondary)),
+        ),
         Container(
           padding: const EdgeInsets.all(6),
           margin: const EdgeInsets.only(bottom: 8),

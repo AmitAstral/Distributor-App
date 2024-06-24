@@ -13,7 +13,7 @@ class OrderResponse extends BaseModel {
   });
 
   @override
-  OrderResponse fromJson(dynamic json) {
+  OrderResponse fromJson(json) {
     return OrderResponse(
       date: json['Date'],
       orderNo: json['Order_No'],
