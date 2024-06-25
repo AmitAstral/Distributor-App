@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:distributor_empower/constants/app_colors/app_colors.dart';
 import 'package:distributor_empower/core/di/locator.dart';
+import 'package:distributor_empower/presentation/base_statefull_widget.dart';
 import 'package:distributor_empower/presentation/dashboard/provider/bottombar_navigation_provider.dart';
 import 'package:distributor_empower/presentation/drawer/drawer_screen.dart';
 import 'package:distributor_empower/utils/common_dialog.dart';
@@ -11,14 +12,14 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 @RoutePage()
-class DashboardScreen extends StatefulWidget {
+class DashboardScreen extends BaseStatefulWidget {
   const DashboardScreen({super.key});
 
   @override
-  State<DashboardScreen> createState() => _DashboardScreenState();
+  BaseState<DashboardScreen> createState() => _DashboardScreenState();
 }
 
-class _DashboardScreenState extends State<DashboardScreen> with TickerProviderStateMixin {
+class _DashboardScreenState extends BaseState<DashboardScreen> with TickerProviderStateMixin {
   @override
   void initState() {
     BottomBarNavigationProvider().navigationController ??= TabController(length: BottomNavigationEnum.values.length, vsync: this);

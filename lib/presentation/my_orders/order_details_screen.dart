@@ -1,8 +1,10 @@
 import 'package:auto_route/annotations.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:distributor_empower/constants/app_colors/app_colors.dart';
 import 'package:distributor_empower/core/di/locator.dart';
 import 'package:distributor_empower/generated/l10n.dart';
 import 'package:distributor_empower/model/order_response.dart';
+import 'package:distributor_empower/presentation/base_statefull_widget.dart';
 import 'package:distributor_empower/presentation/my_orders/provider/order_provider.dart';
 import 'package:distributor_empower/utils/text_styles.dart';
 import 'package:distributor_empower/widgets/custom_app_bar/app_bar.dart';
@@ -14,16 +16,16 @@ import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 @RoutePage()
-class OrderDetailsScreen extends StatefulWidget {
+class OrderDetailsScreen extends BaseStatefulWidget {
   final OrderResponse? orderItem;
 
   const OrderDetailsScreen({required this.orderItem, super.key});
 
   @override
-  State<OrderDetailsScreen> createState() => _OrderDetailsScreenState();
+  BaseState<OrderDetailsScreen> createState() => _OrderDetailsScreenState();
 }
 
-class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
+class _OrderDetailsScreenState extends BaseState<OrderDetailsScreen> {
   final _orderProvider = OrderProvider();
   final _refreshController = RefreshController(initialRefresh: false);
 
@@ -68,121 +70,122 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
         },
         child: ChangeNotifierProvider.value(
           value: _orderProvider,
-          child: Consumer<OrderProvider>(builder: (context, value, child) {
-            return ProgressWidget(
-              inAsyncCall: value.isLoading.value,
-              child: SingleChildScrollView(
-                child: Container(
-                  margin: EdgeInsets.symmetric(vertical: 10.h, horizontal: 12.w),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          Expanded(
-                            flex: 7,
-                            child: Text(
-                              AppLocalizations.current.distributorName,
-                              style: TextStyles.regular10.copyWith(color: AppColor.textSecondary),
-                            ),
-                          ),
-                          8.horizontalSpace,
-                          Expanded(
-                            flex: 3,
-                            child: Text(
-                              AppLocalizations.current.mobileNo,
-                              style: TextStyles.regular10.copyWith(
-                                color: AppColor.textSecondary,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      3.verticalSpace,
-                      Row(
-                        children: [
-                          Expanded(
-                            flex: 7,
-                            child: Container(
-                              padding: EdgeInsets.only(left: 8.w, right: 8.w, top: 8.h, bottom: 8.w),
-                              decoration: ShapeDecoration(
-                                color: Colors.white,
-                                shape: RoundedRectangleBorder(
-                                  side: const BorderSide(width: 1, color: AppColor.primaryColor),
-                                  borderRadius: BorderRadius.circular(5.r),
-                                ),
-                              ),
+          child: Consumer<OrderProvider>(
+            builder: (context, value, child) {
+              return ProgressWidget(
+                inAsyncCall: value.isLoading.value,
+                child: SingleChildScrollView(
+                  child: Container(
+                    margin: EdgeInsets.symmetric(vertical: 10.h, horizontal: 12.w),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            Expanded(
+                              flex: 7,
                               child: Text(
-                                orderItem?.distName ?? '',
-                                maxLines: 2,
-                                style: TextStyles.semiBold11.copyWith(color: AppColor.textSecondary),
-                              ),
-                            ),
-                          ),
-                          8.horizontalSpace,
-                          Expanded(
-                            flex: 3,
-                            child: Container(
-                              alignment: Alignment.center,
-                              padding: EdgeInsets.only(left: 8.w, right: 8.w, top: 8.h, bottom: 8.w),
-                              decoration: ShapeDecoration(
-                                color: Colors.white,
-                                shape: RoundedRectangleBorder(
-                                  side: const BorderSide(width: 1, color: AppColor.primaryColor),
-                                  borderRadius: BorderRadius.circular(5.r),
-                                ),
-                              ),
-                              child: Text(
-                                storage.userDetails.distributorMobileNumber ?? '',
-                                maxLines: 2,
-                                style: TextStyles.semiBold11.copyWith(color: AppColor.textSecondary),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      8.verticalSpace,
-                      Text(
-                        AppLocalizations.current.address,
-                        textAlign: TextAlign.start,
-                        style: TextStyles.regular10.copyWith(color: AppColor.textSecondary),
-                      ),
-                      3.verticalSpace,
-                      Container(
-                        width: 1.sw,
-                        padding: EdgeInsets.only(left: 8.w, right: 8.w, top: 8.h, bottom: 8.w),
-                        decoration: ShapeDecoration(
-                          color: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            side: const BorderSide(width: 1, color: AppColor.primaryColor),
-                            borderRadius: BorderRadius.circular(5.r),
-                          ),
-                        ),
-                        child: Text(
-                          storage.userDetails.address ?? '',
-                          maxLines: 3,
-                          style: TextStyles.semiBold11.copyWith(color: AppColor.textSecondary),
-                        ),
-                      ),
-                      8.verticalSpace,
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Text(
-                                AppLocalizations.current.date,
+                                AppLocalizations.current.distributorName,
                                 style: TextStyles.regular10.copyWith(color: AppColor.textSecondary),
                               ),
-                              3.verticalSpace,
-                              Container(
+                            ),
+                            8.horizontalSpace,
+                            Expanded(
+                              flex: 3,
+                              child: Text(
+                                AppLocalizations.current.mobileNo,
+                                style: TextStyles.regular10.copyWith(
+                                  color: AppColor.textSecondary,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        3.verticalSpace,
+                        Row(
+                          children: [
+                            Expanded(
+                              flex: 7,
+                              child: Container(
                                 padding: EdgeInsets.only(left: 8.w, right: 8.w, top: 8.h, bottom: 8.w),
                                 decoration: ShapeDecoration(
                                   color: Colors.white,
                                   shape: RoundedRectangleBorder(
+                                    side: const BorderSide(width: 1, color: AppColor.primaryColor),
+                                    borderRadius: BorderRadius.circular(5.r),
+                                  ),
+                                ),
+                                child: Text(
+                                  orderItem?.distName ?? '',
+                                  maxLines: 2,
+                                  style: TextStyles.semiBold11.copyWith(color: AppColor.textSecondary),
+                                ),
+                              ),
+                            ),
+                            8.horizontalSpace,
+                            Expanded(
+                              flex: 3,
+                              child: Container(
+                                alignment: Alignment.center,
+                                padding: EdgeInsets.only(left: 8.w, right: 8.w, top: 8.h, bottom: 8.w),
+                                decoration: ShapeDecoration(
+                                  color: Colors.white,
+                                  shape: RoundedRectangleBorder(
+                                    side: const BorderSide(width: 1, color: AppColor.primaryColor),
+                                    borderRadius: BorderRadius.circular(5.r),
+                                  ),
+                                ),
+                                child: Text(
+                                  storage.userDetails.distributorMobileNumber ?? '',
+                                  maxLines: 2,
+                                  style: TextStyles.semiBold11.copyWith(color: AppColor.textSecondary),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        8.verticalSpace,
+                        Text(
+                          AppLocalizations.current.address,
+                          textAlign: TextAlign.start,
+                          style: TextStyles.regular10.copyWith(color: AppColor.textSecondary),
+                        ),
+                        3.verticalSpace,
+                        Container(
+                          width: 1.sw,
+                          padding: EdgeInsets.only(left: 8.w, right: 8.w, top: 8.h, bottom: 8.w),
+                          decoration: ShapeDecoration(
+                            color: Colors.white,
+                            shape: RoundedRectangleBorder(
+                              side: const BorderSide(width: 1, color: AppColor.primaryColor),
+                              borderRadius: BorderRadius.circular(5.r),
+                            ),
+                          ),
+                          child: Text(
+                            storage.userDetails.address ?? '',
+                            maxLines: 3,
+                            style: TextStyles.semiBold11.copyWith(color: AppColor.textSecondary),
+                          ),
+                        ),
+                        8.verticalSpace,
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Text(
+                                  AppLocalizations.current.date,
+                                  style: TextStyles.regular10.copyWith(color: AppColor.textSecondary),
+                                ),
+                                3.verticalSpace,
+                                Container(
+                                  padding: EdgeInsets.only(left: 8.w, right: 8.w, top: 8.h, bottom: 8.w),
+                                  decoration: ShapeDecoration(
+                                    color: Colors.white,
+                                    shape: RoundedRectangleBorder(
                                       side: const BorderSide(width: 1, color: AppColor.primaryColor),
                                       borderRadius: BorderRadius.circular(5.r),
                                     ),
@@ -195,48 +198,48 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                                   ),
                                 ),
                               ],
-                          ),
-                          Expanded(child: 0.horizontalSpace),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Text(
-                                AppLocalizations.current.orderNo,
-                                style: TextStyles.regular10.copyWith(color: AppColor.textSecondary),
-                              ),
-                              3.verticalSpace,
-                              Container(
-                                alignment: Alignment.center,
-                                padding: EdgeInsets.only(left: 8.w, right: 8.w, top: 8.h, bottom: 8.w),
-                                decoration: ShapeDecoration(
-                                  color: Colors.white,
-                                  shape: RoundedRectangleBorder(
-                                    side: const BorderSide(width: 1, color: AppColor.primaryColor),
-                                    borderRadius: BorderRadius.circular(5.r),
+                            ),
+                            Expanded(child: 0.horizontalSpace),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Text(
+                                  AppLocalizations.current.orderNo,
+                                  style: TextStyles.regular10.copyWith(color: AppColor.textSecondary),
+                                ),
+                                3.verticalSpace,
+                                Container(
+                                  alignment: Alignment.center,
+                                  padding: EdgeInsets.only(left: 8.w, right: 8.w, top: 8.h, bottom: 8.w),
+                                  decoration: ShapeDecoration(
+                                    color: Colors.white,
+                                    shape: RoundedRectangleBorder(
+                                      side: const BorderSide(width: 1, color: AppColor.primaryColor),
+                                      borderRadius: BorderRadius.circular(5.r),
+                                    ),
+                                  ),
+                                  child: Text(
+                                    orderItem?.orderNo ?? '',
+                                    style: TextStyles.semiBold11.copyWith(color: AppColor.textSecondary),
                                   ),
                                 ),
-                                child: Text(
-                                  orderItem?.orderNo ?? '',
-                                  style: TextStyles.semiBold11.copyWith(color: AppColor.textSecondary),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                      5.verticalSpace,
-                      if (_orderProvider.orderDetailsResponse?.orderDetails?.isNotEmpty ?? false) ...[
-                        buildTable(),
+                              ],
+                            ),
+                          ],
+                        ),
                         5.verticalSpace,
-                        Row(
-                          children: [
-                            Expanded(child: 0.horizontalSpace),
-                            Container(
-                              width: 63.w,
-                              height: 1,
-                              decoration: const ShapeDecoration(
-                                color: AppColor.hintTextColor,
+                        if (_orderProvider.orderDetailsResponse?.orderDetails?.isNotEmpty ?? false) ...[
+                          buildTable(),
+                          5.verticalSpace,
+                          Row(
+                            children: [
+                              Expanded(child: 0.horizontalSpace),
+                              Container(
+                                width: 63.w,
+                                height: 1,
+                                decoration: const ShapeDecoration(
+                                  color: AppColor.hintTextColor,
                                   shape: OvalBorder(),
                                 ),
                               ),
@@ -314,21 +317,21 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
   TableRow _buildRow(int index) {
     final item = _orderProvider.orderDetailsResponse?.orderDetails?[index];
     return TableRow(
-        decoration: BoxDecoration(
-          color: index % 2 == 0 ? AppColor.tableEvenRowColor : AppColor.tableOddRowColor,
-        ),
-        children: [
-          TableCell(
-            child: Padding(
-              padding: const EdgeInsets.all(5),
-              child: Text(
-                item?.itemName ?? '',
-                style: TextStyles.regular11.copyWith(color: AppColor.black),
-              ),
+      decoration: BoxDecoration(
+        color: index % 2 == 0 ? AppColor.tableEvenRowColor : AppColor.tableOddRowColor,
+      ),
+      children: [
+        TableCell(
+          child: Padding(
+            padding: const EdgeInsets.all(5),
+            child: Text(
+              item?.itemName ?? '',
+              style: TextStyles.regular11.copyWith(color: AppColor.black),
             ),
           ),
-          TableCell(
-            child: Center(
+        ),
+        TableCell(
+          child: Center(
             child: Padding(
               padding: const EdgeInsets.all(5),
               child: Text(
@@ -338,26 +341,26 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
             ),
           ),
         ),
-          TableCell(
-            child: Padding(
-              padding: const EdgeInsets.all(5),
-              child: Text(
-                item?.qty ?? '',
-                style: TextStyles.regular11.copyWith(color: AppColor.black),
-                textAlign: TextAlign.right,
-              ),
+        TableCell(
+          child: Padding(
+            padding: const EdgeInsets.all(5),
+            child: Text(
+              item?.qty ?? '',
+              style: TextStyles.regular11.copyWith(color: AppColor.black),
+              textAlign: TextAlign.right,
             ),
           ),
-          TableCell(
-            child: Padding(
-              padding: const EdgeInsets.all(5),
-              child: Text(
-                item?.rate ?? '',
-                style: TextStyles.regular11.copyWith(color: AppColor.black),
-                textAlign: TextAlign.right,
-              ),
+        ),
+        TableCell(
+          child: Padding(
+            padding: const EdgeInsets.all(5),
+            child: Text(
+              item?.rate ?? '',
+              style: TextStyles.regular11.copyWith(color: AppColor.black),
+              textAlign: TextAlign.right,
             ),
           ),
+        ),
         TableCell(
           child: Padding(
             padding: const EdgeInsets.all(5),

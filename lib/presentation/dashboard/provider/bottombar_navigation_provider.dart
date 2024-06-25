@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:distributor_empower/core/di/locator.dart';
 import 'package:distributor_empower/routes/router.dart';
 import 'package:distributor_empower/utils/enum_classes.dart';
@@ -6,7 +7,11 @@ import 'package:flutter/material.dart';
 class BottomBarNavigationProvider with ChangeNotifier {
   int currentIndex = 0;
 
+  late BuildContext currentContext;
+
   final GlobalKey<ScaffoldState> dashboardKey = GlobalKey();
+
+  StackRouter get appRouter => AutoRouter.of(currentContext);
 
   TabController? navigationController;
 
@@ -20,8 +25,19 @@ class BottomBarNavigationProvider with ChangeNotifier {
 
   BottomNavigationEnum get currentNavigationEnum => BottomNavigationEnum.values[currentIndex];
 
-  void setCurrentBottomItem(BottomNavigationEnum bottomNavigationEnum) {
+  Future<void> setCurrentBottomItem(BottomNavigationEnum bottomNavigationEnum) async {
     if (appRouter.childControllers.firstOrNull?.topPage?.name == bottomNavigationEnum.route.routeName) return;
+
+    if (bottomNavigationEnum == BottomNavigationEnum.home) {
+      if (currentIndex != bottomNavigationEnum.index) {
+        selectHomePage();
+      }
+      appRouter.popUntil(
+        (route) => route.isFirst,
+      );
+      return;
+    }
+
     currentIndex = bottomNavigationEnum.index;
     navigationController?.index = currentIndex;
     _onTap();
@@ -29,15 +45,17 @@ class BottomBarNavigationProvider with ChangeNotifier {
   }
 
   void _onTap() {
-    appRouter.pushAndPopUntil(currentNavigationEnum.route, predicate: (Route<dynamic> route) {
-      return currentNavigationEnum.route == const HomeRoute() ? false : route.isFirst;
-    // ignore: require_trailing_commas
-    });
+    AutoRouter.of(currentContext).pushAndPopUntil(
+      currentNavigationEnum.route,
+      predicate: (Route<dynamic> route) {
+        return currentNavigationEnum.route == const HomeRoute() ? false : route.isFirst;
+      },
+    );
   }
 
   void selectHomePage() {
     Future.delayed(const Duration(milliseconds: 100), () {
-      if (appRouter.childControllers.firstOrNull?.topPage?.name == BottomNavigationEnum.home.route.routeName &&
+      if (AutoRouter.of(appContext).childControllers.firstOrNull?.topPage?.name == BottomNavigationEnum.home.route.routeName &&
           currentIndex != BottomNavigationEnum.home.index) {
         currentIndex = BottomNavigationEnum.home.index;
         navigationController?.index = currentIndex;

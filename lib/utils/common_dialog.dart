@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:auto_route/auto_route.dart';
 import 'package:distributor_empower/constants/app_colors/app_colors.dart';
 import 'package:distributor_empower/core/api/api_constants.dart';
 import 'package:distributor_empower/core/di/locator.dart';
@@ -35,7 +36,7 @@ class CommonDialog {
                       style: TextStyles.regular14.copyWith(color: AppColor.primaryColor),
                     ),
                     onPressed: () {
-                      appRouter.maybePop();
+                      AutoRouter.of(appContext).maybePop();
                       if (onNegativePressed != null) onNegativePressed();
                     },
                   ),
@@ -45,7 +46,7 @@ class CommonDialog {
                       style: TextStyles.regular14.copyWith(color: AppColor.primaryColor),
                     ),
                     onPressed: () {
-                      appRouter.maybePop();
+                      AutoRouter.of(appContext).maybePop();
                       onPositivePressed();
                     },
                   ),
@@ -65,7 +66,7 @@ class CommonDialog {
                       style: TextStyles.regular14.copyWith(color: AppColor.primaryColor),
                     ),
                     onPressed: () {
-                      appRouter.maybePop();
+                      AutoRouter.of(appContext).maybePop();
                       if (onNegativePressed != null) onNegativePressed();
                     },
                   ),
@@ -75,7 +76,7 @@ class CommonDialog {
                       style: TextStyles.regular14.copyWith(color: AppColor.primaryColor),
                     ),
                     onPressed: () {
-                      appRouter.maybePop();
+                      AutoRouter.of(appContext).maybePop();
                       onPositivePressed();
                     },
                   ),

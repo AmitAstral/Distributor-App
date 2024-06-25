@@ -3,6 +3,7 @@ import 'package:distributor_empower/core/di/locator.dart';
 import 'package:distributor_empower/gen/assets.gen.dart';
 import 'package:distributor_empower/generated/l10n.dart';
 import 'package:distributor_empower/model/menu_response.dart';
+import 'package:distributor_empower/presentation/base_statefull_widget.dart';
 import 'package:distributor_empower/presentation/dashboard/provider/bottombar_navigation_provider.dart';
 import 'package:distributor_empower/presentation/home/provider/home_provider.dart';
 import 'package:distributor_empower/routes/router.dart';
@@ -16,14 +17,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
-class DrawerScreen extends StatefulWidget {
+class DrawerScreen extends BaseStatefulWidget {
   const DrawerScreen({super.key});
 
   @override
-  State<DrawerScreen> createState() => _DrawerScreenState();
+  BaseState<DrawerScreen> createState() => _DrawerScreenState();
 }
 
-class _DrawerScreenState extends State<DrawerScreen> {
+class _DrawerScreenState extends BaseState<DrawerScreen> {
   int currentIndex = 0;
 
   @override
@@ -103,42 +104,42 @@ class _DrawerScreenState extends State<DrawerScreen> {
               ),
               Expanded(
                 child: ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: mainMenuListData?.length ?? 0,
-                    itemBuilder: (context, index) {
-                      final item = mainMenuListData?[index];
-                      return Container(
-                        width: 1.sw,
-                        padding: EdgeInsets.only(top: 5.h, bottom: 5.h, left: 8.w, right: 8.w),
-                        margin: EdgeInsets.only(top: 8.h),
-                        decoration: index == currentIndex
-                            ? BoxDecoration(
-                                gradient: LinearGradient(
-                                  begin: const Alignment(-1.00, -0.00),
-                                  end: const Alignment(1, 0),
-                                  colors: [
-                                    Colors.white.withOpacity(0),
-                                    Colors.white,
-                                  ],
-                                ),
-                              )
-                            : BoxDecoration(color: Colors.white.withOpacity(0.1)),
-                        child: Row(
-                          children: [
-                            Container(
-                              padding: EdgeInsets.only(left: 8.w, right: 25.w),
-                              child: SvgPicture.network(
-                                item?.menuIconURL ?? '',
-                                height: 14.h,
-                                width: 14.w,
+                  shrinkWrap: true,
+                  itemCount: mainMenuListData?.length ?? 0,
+                  itemBuilder: (context, index) {
+                    final item = mainMenuListData?[index];
+                    return Container(
+                      width: 1.sw,
+                      padding: EdgeInsets.only(top: 5.h, bottom: 5.h, left: 8.w, right: 8.w),
+                      margin: EdgeInsets.only(top: 8.h),
+                      decoration: index == currentIndex
+                          ? BoxDecoration(
+                              gradient: LinearGradient(
+                                begin: const Alignment(-1.00, -0.00),
+                                end: const Alignment(1, 0),
+                                colors: [
+                                  Colors.white.withOpacity(0),
+                                  Colors.white,
+                                ],
                               ),
+                            )
+                          : BoxDecoration(color: Colors.white.withOpacity(0.1)),
+                      child: Row(
+                        children: [
+                          Container(
+                            padding: EdgeInsets.only(left: 8.w, right: 25.w),
+                            child: SvgPicture.network(
+                              item?.menuIconURL ?? '',
+                              height: 14.h,
+                              width: 14.w,
                             ),
-                            Expanded(
-                              child: Text(
-                                item?.menuName ?? '',
-                                style: TextStyles.semiBold15,
-                              ),
+                          ),
+                          Expanded(
+                            child: Text(
+                              item?.menuName ?? '',
+                              style: TextStyles.semiBold15,
                             ),
+                          ),
                         ],
                       ),
                     ).addGesture(
@@ -207,9 +208,11 @@ class _DrawerScreenState extends State<DrawerScreen> {
         BottomBarNavigationProvider().setCurrentBottomItem(BottomNavigationEnum.offers);
         break;
       case '4':
-        appRouter.pushNamed(OrderHistoryRoute.name);
+        //ORDER HISTORY
+        appRouter.push(const OrderHistoryRoute());
         break;
       case '5':
+        //REPORTS
         appRouter.push(ReportRoute());
         break;
       case '6':

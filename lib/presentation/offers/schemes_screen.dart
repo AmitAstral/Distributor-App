@@ -2,8 +2,8 @@ import 'package:auto_route/auto_route.dart';
 import 'package:distributor_empower/constants/app_colors/app_colors.dart';
 import 'package:distributor_empower/constants/fonts/font_family.dart';
 import 'package:distributor_empower/constants/fonts/font_weight.dart';
-import 'package:distributor_empower/core/di/locator.dart';
 import 'package:distributor_empower/generated/l10n.dart';
+import 'package:distributor_empower/presentation/base_statefull_widget.dart';
 import 'package:distributor_empower/presentation/dashboard/provider/bottombar_navigation_provider.dart';
 import 'package:distributor_empower/presentation/offers/schemes_provider.dart';
 import 'package:distributor_empower/routes/router.dart';
@@ -19,14 +19,14 @@ import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 @RoutePage()
-class SchemesScreen extends StatefulWidget {
+class SchemesScreen extends BaseStatefulWidget {
   const SchemesScreen({super.key});
 
   @override
-  State<SchemesScreen> createState() => _SchemesScreenState();
+  BaseState<SchemesScreen> createState() => _SchemesScreenState();
 }
 
-class _SchemesScreenState extends State<SchemesScreen> {
+class _SchemesScreenState extends BaseState<SchemesScreen> {
   final _schemesProvider = SchemesProvider();
   final _refreshController = RefreshController(initialRefresh: false);
 

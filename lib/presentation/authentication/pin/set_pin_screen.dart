@@ -4,6 +4,7 @@ import 'package:distributor_empower/core/di/locator.dart';
 import 'package:distributor_empower/generated/l10n.dart';
 import 'package:distributor_empower/model/base/api_req_data.dart';
 import 'package:distributor_empower/presentation/authentication/pin/provider/user_pin_provider.dart';
+import 'package:distributor_empower/presentation/base_statefull_widget.dart';
 import 'package:distributor_empower/routes/router.dart';
 import 'package:distributor_empower/utils/enum_classes.dart';
 import 'package:distributor_empower/utils/text_styles.dart';
@@ -17,14 +18,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 @RoutePage()
-class SetPinScreen extends StatefulWidget {
+class SetPinScreen extends BaseStatefulWidget {
   const SetPinScreen({super.key});
 
   @override
-  State<SetPinScreen> createState() => _SetPinScreenState();
+  BaseState<SetPinScreen> createState() => _SetPinScreenState();
 }
 
-class _SetPinScreenState extends State<SetPinScreen> {
+class _SetPinScreenState extends BaseState<SetPinScreen> {
   final ValueNotifier<bool> _isDisable = ValueNotifier(true);
 
   final _userPinProvider = UserPinProvider();

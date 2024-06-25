@@ -1,22 +1,23 @@
 import 'package:auto_route/annotations.dart';
 import 'package:distributor_empower/constants/app_colors/app_colors.dart';
+import 'package:distributor_empower/presentation/base_statefull_widget.dart';
 import 'package:distributor_empower/utils/text_styles.dart';
 import 'package:distributor_empower/widgets/custom_app_bar/app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
 @RoutePage()
-class PDFViewerScreen extends StatefulWidget {
+class PDFViewerScreen extends BaseStatefulWidget {
   final String url;
   final String title;
 
   const PDFViewerScreen({required this.url, required this.title, super.key});
 
   @override
-  State<PDFViewerScreen> createState() => _PDFViewerScreenState();
+  BaseState<PDFViewerScreen> createState() => _PDFViewerScreenState();
 }
 
-class _PDFViewerScreenState extends State<PDFViewerScreen> {
+class _PDFViewerScreenState extends BaseState<PDFViewerScreen> {
   final _pdfViewerKey = PdfViewerController();
 
   @override

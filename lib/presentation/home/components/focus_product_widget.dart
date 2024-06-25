@@ -1,7 +1,7 @@
 import 'package:distributor_empower/constants/app_colors/app_colors.dart';
-import 'package:distributor_empower/core/di/locator.dart';
 import 'package:distributor_empower/generated/l10n.dart';
 import 'package:distributor_empower/model/dashboard_response.dart';
+import 'package:distributor_empower/presentation/base_statefull_widget.dart';
 import 'package:distributor_empower/presentation/focus_products/provider/product_provider.dart';
 import 'package:distributor_empower/presentation/home/components/product_view_widget.dart';
 import 'package:distributor_empower/presentation/home/provider/home_provider.dart';
@@ -11,7 +11,7 @@ import 'package:distributor_empower/utils/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class FocusProductWidget extends StatefulWidget {
+class FocusProductWidget extends BaseStatefulWidget {
   final List<FocusProduct?>? focusProductList;
   final String title;
   final HomeProvider homeProvider;
@@ -19,10 +19,10 @@ class FocusProductWidget extends StatefulWidget {
   const FocusProductWidget(this.focusProductList, {required this.title, required this.homeProvider, super.key});
 
   @override
-  State<FocusProductWidget> createState() => _FocusProductWidgetState();
+  BaseState<FocusProductWidget> createState() => _FocusProductWidgetState();
 }
 
-class _FocusProductWidgetState extends State<FocusProductWidget> {
+class _FocusProductWidgetState extends BaseState<FocusProductWidget> {
   final _productProvider = ProductProvider();
 
   @override

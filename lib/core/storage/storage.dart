@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:auto_route/auto_route.dart';
 import 'package:distributor_empower/core/api/api_repositry.dart';
 import 'package:distributor_empower/core/di/locator.dart';
 import 'package:distributor_empower/core/storage/storage_constants.dart';
@@ -72,7 +73,7 @@ class StorageService {
     isLogin = false;
     authToken = '';
     userDetails = null;
-    appRouter.pushAndPopUntil(
+    AutoRouter.of(appContext).pushAndPopUntil(
       const LoginRoute(),
       predicate: (route) => false,
     );

@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:distributor_empower/core/di/locator.dart';
 
 class ApiReqData {
@@ -194,7 +195,7 @@ class UserInfo {
 UserInfo get getUserInfo {
   final userDetails = storage.userDetails;
   return UserInfo(
-    pageName: appRouter.current.name,
+    pageName: AutoRouter.of(appContext).current.name,
     mobile: userDetails.distributorMobileNumber,
     sapCode: userDetails.distributorSapCode,
     distributorUserID: userDetails.distributorUserID,

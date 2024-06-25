@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:auto_route/annotations.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:distributor_empower/constants/app_colors/app_colors.dart';
 import 'package:distributor_empower/core/di/locator.dart';
 import 'package:distributor_empower/gen/assets.gen.dart';
@@ -43,7 +43,7 @@ class MaintenanceScreen extends StatelessWidget {
               AppButton(
                 width: 0.4.sw,
                 onPressed: () {
-                  appRouter.replace(SplashRoute());
+                  AutoRouter.of(appContext).replace(SplashRoute());
                 },
                 text: AppLocalizations.current.refresh,
               ),

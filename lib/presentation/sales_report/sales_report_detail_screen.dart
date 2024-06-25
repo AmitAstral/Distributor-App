@@ -3,6 +3,7 @@ import 'package:distributor_empower/constants/app_colors/app_colors.dart';
 import 'package:distributor_empower/gen/assets.gen.dart';
 import 'package:distributor_empower/generated/l10n.dart';
 import 'package:distributor_empower/model/sales_report_details.dart';
+import 'package:distributor_empower/presentation/base_statefull_widget.dart';
 import 'package:distributor_empower/presentation/sales_report/provider/sales_report_provider.dart';
 import 'package:distributor_empower/utils/text_styles.dart';
 import 'package:distributor_empower/widgets/custom_app_bar/app_bar.dart';
@@ -13,7 +14,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 @RoutePage()
-class SalesReportDetailScreen extends StatefulWidget {
+class SalesReportDetailScreen extends BaseStatefulWidget {
   final String docId;
 
   const SalesReportDetailScreen({
@@ -22,10 +23,10 @@ class SalesReportDetailScreen extends StatefulWidget {
   });
 
   @override
-  State<SalesReportDetailScreen> createState() => _SalesReportDetailScreenState();
+  BaseState<SalesReportDetailScreen> createState() => _SalesReportDetailScreenState();
 }
 
-class _SalesReportDetailScreenState extends State<SalesReportDetailScreen> {
+class _SalesReportDetailScreenState extends BaseState<SalesReportDetailScreen> {
   final _saleInvoiceDetailProvider = SalesReportProvider();
 
   SalesReportDetailsResponse? get getSalesReportDetails => _saleInvoiceDetailProvider.salesReportDetails;

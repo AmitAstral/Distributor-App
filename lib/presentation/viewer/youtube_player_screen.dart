@@ -1,19 +1,20 @@
 import 'package:auto_route/annotations.dart';
+import 'package:distributor_empower/presentation/base_statefull_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
 @RoutePage()
-class YoutubePlayerScreen extends StatefulWidget {
+class YoutubePlayerScreen extends BaseStatefulWidget {
   final String productArguments;
 
   const YoutubePlayerScreen({required this.productArguments, super.key});
 
   @override
-  State<YoutubePlayerScreen> createState() => _YoutubePlayerScreenState();
+  BaseState<YoutubePlayerScreen> createState() => _YoutubePlayerScreenState();
 }
 
-class _YoutubePlayerScreenState extends State<YoutubePlayerScreen> {
+class _YoutubePlayerScreenState extends BaseState<YoutubePlayerScreen> {
   late final YoutubePlayerController? _ytbPlayerController;
 
   @override

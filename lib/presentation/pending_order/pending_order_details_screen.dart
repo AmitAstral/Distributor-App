@@ -3,6 +3,7 @@ import 'package:distributor_empower/constants/app_colors/app_colors.dart';
 import 'package:distributor_empower/generated/l10n.dart';
 import 'package:distributor_empower/model/pending_order_response.dart';
 import 'package:distributor_empower/model/product_details_response.dart';
+import 'package:distributor_empower/presentation/base_statefull_widget.dart';
 import 'package:distributor_empower/presentation/pending_order/provider/pending_order_provider.dart';
 import 'package:distributor_empower/utils/text_styles.dart';
 import 'package:distributor_empower/widgets/custom_app_bar/app_bar.dart';
@@ -14,16 +15,16 @@ import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 @RoutePage()
-class PendingOrderDetailsScreen extends StatefulWidget {
+class PendingOrderDetailsScreen extends BaseStatefulWidget {
   final PendingOrderResponse? orderDetails;
 
   const PendingOrderDetailsScreen(this.orderDetails, {super.key});
 
   @override
-  State<PendingOrderDetailsScreen> createState() => _PendingOrderDetailsScreenState();
+  BaseState<PendingOrderDetailsScreen> createState() => _PendingOrderDetailsScreenState();
 }
 
-class _PendingOrderDetailsScreenState extends State<PendingOrderDetailsScreen> {
+class _PendingOrderDetailsScreenState extends BaseState<PendingOrderDetailsScreen> {
   final _pendingOrderProvider = PendingOrderProvider();
   final _refreshController = RefreshController(initialRefresh: false);
 

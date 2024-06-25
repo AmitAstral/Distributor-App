@@ -1,22 +1,23 @@
 import 'package:auto_route/annotations.dart';
 import 'package:distributor_empower/constants/app_colors/app_colors.dart';
+import 'package:distributor_empower/presentation/base_statefull_widget.dart';
 import 'package:distributor_empower/utils/text_styles.dart';
 import 'package:distributor_empower/widgets/cache_network_image_widget.dart';
 import 'package:distributor_empower/widgets/custom_app_bar/app_bar.dart';
 import 'package:flutter/material.dart';
 
 @RoutePage()
-class ViewImageScreen extends StatefulWidget {
+class ViewImageScreen extends BaseStatefulWidget {
   final String? productArguments;
   final String title;
 
   const ViewImageScreen({required this.title, required this.productArguments, super.key});
 
   @override
-  State<ViewImageScreen> createState() => _ViewImageScreenState();
+  BaseState<ViewImageScreen> createState() => _ViewImageScreenState();
 }
 
-class _ViewImageScreenState extends State<ViewImageScreen> {
+class _ViewImageScreenState extends BaseState<ViewImageScreen> {
   final viewTransformationController = TransformationController();
 
   @override

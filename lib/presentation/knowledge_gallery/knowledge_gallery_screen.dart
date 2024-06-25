@@ -1,7 +1,7 @@
 import 'package:auto_route/annotations.dart';
 import 'package:distributor_empower/constants/app_colors/app_colors.dart';
-import 'package:distributor_empower/core/di/locator.dart';
 import 'package:distributor_empower/generated/l10n.dart';
+import 'package:distributor_empower/presentation/base_statefull_widget.dart';
 import 'package:distributor_empower/presentation/knowledge_gallery/knowledge_gallery_provider.dart';
 import 'package:distributor_empower/routes/router.dart';
 import 'package:distributor_empower/utils/text_styles.dart';
@@ -16,14 +16,14 @@ import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 @RoutePage()
-class KnowledgeGalleryScreen extends StatefulWidget {
+class KnowledgeGalleryScreen extends BaseStatefulWidget {
   const KnowledgeGalleryScreen({super.key});
 
   @override
-  State<KnowledgeGalleryScreen> createState() => _KnowledgeGalleryScreenState();
+  BaseState<KnowledgeGalleryScreen> createState() => _KnowledgeGalleryScreenState();
 }
 
-class _KnowledgeGalleryScreenState extends State<KnowledgeGalleryScreen> {
+class _KnowledgeGalleryScreenState extends BaseState<KnowledgeGalleryScreen> {
   final _refreshController = RefreshController(initialRefresh: false);
   final _knowledgeGalleryProvider = KnowledgeGalleryProvider();
 

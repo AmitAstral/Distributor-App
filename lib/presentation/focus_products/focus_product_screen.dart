@@ -1,5 +1,6 @@
 import 'package:auto_route/annotations.dart';
 import 'package:distributor_empower/constants/app_colors/app_colors.dart';
+import 'package:distributor_empower/presentation/base_statefull_widget.dart';
 import 'package:distributor_empower/presentation/focus_products/provider/product_provider.dart';
 import 'package:distributor_empower/presentation/home/components/product_view_widget.dart';
 import 'package:distributor_empower/presentation/home/provider/home_provider.dart';
@@ -14,7 +15,7 @@ import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 @RoutePage()
-class FocusProductScreen extends StatefulWidget {
+class FocusProductScreen extends BaseStatefulWidget {
   final String? title;
   final HomeProvider homeProvider;
 
@@ -25,10 +26,10 @@ class FocusProductScreen extends StatefulWidget {
   });
 
   @override
-  State<FocusProductScreen> createState() => _FocusProductScreenState();
+  BaseState<FocusProductScreen> createState() => _FocusProductScreenState();
 }
 
-class _FocusProductScreenState extends State<FocusProductScreen> {
+class _FocusProductScreenState extends BaseState<FocusProductScreen> {
   final _focusProductProvider = ProductProvider();
   final _refreshController = RefreshController(initialRefresh: false);
 

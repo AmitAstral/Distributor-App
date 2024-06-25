@@ -3,12 +3,13 @@ import 'package:distributor_empower/constants/fonts/font_family.dart';
 import 'package:distributor_empower/constants/fonts/font_weight.dart';
 import 'package:distributor_empower/generated/l10n.dart';
 import 'package:distributor_empower/model/dashboard_response.dart';
+import 'package:distributor_empower/presentation/base_statefull_widget.dart';
 import 'package:distributor_empower/utils/text_styles.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class OrderDetailsWidget extends StatefulWidget {
+class OrderDetailsWidget extends BaseStatefulWidget {
   final String? title;
 
   final List<OrderDetail>? orderDetails;
@@ -16,10 +17,10 @@ class OrderDetailsWidget extends StatefulWidget {
   const OrderDetailsWidget(this.orderDetails, {required this.title, super.key});
 
   @override
-  State<OrderDetailsWidget> createState() => _OrderDetailsWidgetState();
+  BaseState<OrderDetailsWidget> createState() => _OrderDetailsWidgetState();
 }
 
-class _OrderDetailsWidgetState extends State<OrderDetailsWidget> {
+class _OrderDetailsWidgetState extends BaseState<OrderDetailsWidget> {
   int touchedIndex = -1;
 
   List<OrderDetail> get getOrderLabelList => widget.orderDetails ?? [];

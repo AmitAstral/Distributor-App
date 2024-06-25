@@ -3,6 +3,7 @@ import 'package:distributor_empower/constants/app_colors/app_colors.dart';
 import 'package:distributor_empower/core/di/locator.dart';
 import 'package:distributor_empower/gen/assets.gen.dart';
 import 'package:distributor_empower/generated/l10n.dart';
+import 'package:distributor_empower/presentation/base_statefull_widget.dart';
 import 'package:distributor_empower/presentation/dashboard/provider/bottombar_navigation_provider.dart';
 import 'package:distributor_empower/presentation/focus_products/provider/product_provider.dart';
 import 'package:distributor_empower/presentation/quick_order/checkout_bottom_sheet.dart';
@@ -20,14 +21,14 @@ import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 @RoutePage()
-class QuickOrderScreen extends StatefulWidget {
+class QuickOrderScreen extends BaseStatefulWidget {
   const QuickOrderScreen({super.key});
 
   @override
-  State<QuickOrderScreen> createState() => _QuickOrderScreenState();
+  BaseState<QuickOrderScreen> createState() => _QuickOrderScreenState();
 }
 
-class _QuickOrderScreenState extends State<QuickOrderScreen> {
+class _QuickOrderScreenState extends BaseState<QuickOrderScreen> {
   final _productProvider = ProductProvider();
   final _refreshController = RefreshController(initialRefresh: false);
 

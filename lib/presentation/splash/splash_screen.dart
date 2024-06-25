@@ -46,6 +46,7 @@ class SplashScreen extends StatelessWidget {
     if (storage.userDetails.isUpdateAvailable) {
       CommonDialog.showUpdateAppDialog();
     } else {
+      final appRouter = AutoRouter.of(appContext);
       final isConnected = await checkInternetConnectivity();
 
       if (isConnected) {

@@ -1,8 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:distributor_empower/constants/app_colors/app_colors.dart';
-import 'package:distributor_empower/core/di/locator.dart';
 import 'package:distributor_empower/generated/l10n.dart';
 import 'package:distributor_empower/model/drop_down_response.dart';
+import 'package:distributor_empower/presentation/base_statefull_widget.dart';
 import 'package:distributor_empower/presentation/my_orders/provider/order_provider.dart';
 import 'package:distributor_empower/routes/router.dart';
 import 'package:distributor_empower/utils/extensions.dart';
@@ -17,14 +17,14 @@ import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 @RoutePage()
-class OrderHistoryScreen extends StatefulWidget {
+class OrderHistoryScreen extends BaseStatefulWidget {
   const OrderHistoryScreen({super.key});
 
   @override
-  State<OrderHistoryScreen> createState() => _OrderHistoryScreenState();
+  BaseState<OrderHistoryScreen> createState() => _OrderHistoryScreenState();
 }
 
-class _OrderHistoryScreenState extends State<OrderHistoryScreen> {
+class _OrderHistoryScreenState extends BaseState<OrderHistoryScreen> {
   final _orderProvider = OrderProvider();
   final _refreshController = RefreshController(initialRefresh: false);
 
@@ -71,9 +71,10 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen> {
           loadMoreData: () {
             _getOrderList(pageNo: _orderProvider.pageNo + 1, isLoading: false);
           },
-          child: Consumer<OrderProvider>(builder: (context, provider, child) {
-            return ProgressWidget(
-              inAsyncCall: provider.isLoading.value,
+          child: Consumer<OrderProvider>(
+            builder: (context, provider, child) {
+              return ProgressWidget(
+                inAsyncCall: provider.isLoading.value,
                 child: SingleChildScrollView(
                   child: Column(
                     children: [

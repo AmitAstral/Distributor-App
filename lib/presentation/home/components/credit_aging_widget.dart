@@ -4,23 +4,24 @@ import 'package:distributor_empower/constants/app_colors/app_colors.dart';
 import 'package:distributor_empower/constants/fonts/font_family.dart';
 import 'package:distributor_empower/constants/fonts/font_weight.dart';
 import 'package:distributor_empower/model/dashboard_response.dart';
+import 'package:distributor_empower/presentation/base_statefull_widget.dart';
 import 'package:distributor_empower/utils/extensions.dart';
 import 'package:distributor_empower/utils/text_styles.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class CreditAgingWidget extends StatefulWidget {
+class CreditAgingWidget extends BaseStatefulWidget {
   final CreditAgingData? creditAging;
   final String title;
 
   const CreditAgingWidget(this.creditAging, {required this.title, super.key});
 
   @override
-  State<CreditAgingWidget> createState() => _CreditAgingWidgetState();
+  BaseState<CreditAgingWidget> createState() => _CreditAgingWidgetState();
 }
 
-class _CreditAgingWidgetState extends State<CreditAgingWidget> {
+class _CreditAgingWidgetState extends BaseState<CreditAgingWidget> {
   int touchedIndex = -1;
 
   List<CreditAging> get getCreditAging => widget.creditAging?.list ?? [];

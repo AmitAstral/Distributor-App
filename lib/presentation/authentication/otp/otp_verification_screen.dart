@@ -5,6 +5,7 @@ import 'package:distributor_empower/constants/app_colors/app_colors.dart';
 import 'package:distributor_empower/core/di/locator.dart';
 import 'package:distributor_empower/generated/l10n.dart';
 import 'package:distributor_empower/presentation/authentication/otp/provider/otp_verification_provider.dart';
+import 'package:distributor_empower/presentation/base_statefull_widget.dart';
 import 'package:distributor_empower/routes/router.dart';
 import 'package:distributor_empower/utils/enum_classes.dart';
 import 'package:distributor_empower/utils/extensions.dart';
@@ -20,17 +21,17 @@ import 'package:provider/provider.dart';
 
 @RoutePage()
 // ignore: must_be_immutable
-class OtpVerificationScreen extends StatefulWidget {
+class OtpVerificationScreen extends BaseStatefulWidget {
   OTPVerificationType? screenType = OTPVerificationType.login;
   String sentOTP = '';
 
   OtpVerificationScreen({required this.sentOTP, this.screenType, super.key});
 
   @override
-  State<OtpVerificationScreen> createState() => _OtpVerificationScreenState();
+  BaseState<OtpVerificationScreen> createState() => _OtpVerificationScreenState();
 }
 
-class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
+class _OtpVerificationScreenState extends BaseState<OtpVerificationScreen> {
   String _otp = '';
 
   final ValueNotifier<int> _secondsRemaining = ValueNotifier(0);

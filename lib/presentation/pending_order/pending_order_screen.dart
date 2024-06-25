@@ -1,8 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:distributor_empower/constants/app_colors/app_colors.dart';
-import 'package:distributor_empower/core/di/locator.dart';
 import 'package:distributor_empower/generated/l10n.dart';
 import 'package:distributor_empower/model/pending_order_response.dart';
+import 'package:distributor_empower/presentation/base_statefull_widget.dart';
 import 'package:distributor_empower/presentation/pending_order/provider/pending_order_provider.dart';
 import 'package:distributor_empower/routes/router.dart';
 import 'package:distributor_empower/utils/text_styles.dart';
@@ -17,14 +17,14 @@ import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 @RoutePage()
-class PendingOrderScreen extends StatefulWidget {
+class PendingOrderScreen extends BaseStatefulWidget {
   const PendingOrderScreen({super.key});
 
   @override
-  State<PendingOrderScreen> createState() => _PendingOrderScreenState();
+  BaseState<PendingOrderScreen> createState() => _PendingOrderScreenState();
 }
 
-class _PendingOrderScreenState extends State<PendingOrderScreen> {
+class _PendingOrderScreenState extends BaseState<PendingOrderScreen> {
   final _pendingOrderProvider = PendingOrderProvider();
   final _refreshController = RefreshController(initialRefresh: false);
 

@@ -1,4 +1,3 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:distributor_empower/core/api/api_repositry.dart';
 import 'package:distributor_empower/core/api/api_service.dart';
 import 'package:distributor_empower/core/storage/storage.dart';
@@ -16,7 +15,7 @@ abstract class Locator {
   }
 }
 
-final appRouter = AutoRouter.of(appContext);
+//final appRouter = AutoRouter.of(appContext);
 final appContext = AppRouter().navigatorKey.currentContext!;
 final storage = GetIt.I<StorageService>();
 final apiService = GetIt.I<ApiService>();

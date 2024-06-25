@@ -3,6 +3,7 @@ import 'package:distributor_empower/constants/app_colors/app_colors.dart';
 import 'package:distributor_empower/core/di/locator.dart';
 import 'package:distributor_empower/generated/l10n.dart';
 import 'package:distributor_empower/model/statement_response.dart';
+import 'package:distributor_empower/presentation/base_statefull_widget.dart';
 import 'package:distributor_empower/presentation/statement_of_account/provider/statement_provider.dart';
 import 'package:distributor_empower/utils/app_date_utils.dart';
 import 'package:distributor_empower/utils/extensions.dart';
@@ -16,14 +17,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 @RoutePage()
-class StatementOfAccountScreen extends StatefulWidget {
+class StatementOfAccountScreen extends BaseStatefulWidget {
   const StatementOfAccountScreen({super.key});
 
   @override
-  State<StatementOfAccountScreen> createState() => _StatementOfAccountScreenState();
+  BaseState<StatementOfAccountScreen> createState() => _StatementOfAccountScreenState();
 }
 
-class _StatementOfAccountScreenState extends State<StatementOfAccountScreen> {
+class _StatementOfAccountScreenState extends BaseState<StatementOfAccountScreen> {
   String? fromDate = storage.settingsData.fYStartDate ?? AppDateUtils.getCurrentDateStr;
   String? toDate = AppDateUtils.getCurrentDateStr;
 

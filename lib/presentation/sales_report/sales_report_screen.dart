@@ -3,6 +3,7 @@ import 'package:distributor_empower/constants/app_colors/app_colors.dart';
 import 'package:distributor_empower/core/di/locator.dart';
 import 'package:distributor_empower/generated/l10n.dart';
 import 'package:distributor_empower/model/sales_report_response.dart';
+import 'package:distributor_empower/presentation/base_statefull_widget.dart';
 import 'package:distributor_empower/presentation/sales_report/provider/sales_report_provider.dart';
 import 'package:distributor_empower/routes/router.dart';
 import 'package:distributor_empower/utils/app_date_utils.dart';
@@ -20,16 +21,16 @@ import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 @RoutePage()
-class SalesReportScreen extends StatefulWidget {
+class SalesReportScreen extends BaseStatefulWidget {
   const SalesReportScreen({
     super.key,
   });
 
   @override
-  State<SalesReportScreen> createState() => _SalesReportScreenState();
+  BaseState<SalesReportScreen> createState() => _SalesReportScreenState();
 }
 
-class _SalesReportScreenState extends State<SalesReportScreen> {
+class _SalesReportScreenState extends BaseState<SalesReportScreen> {
   String? fromDate = storage.settingsData.fYStartDate ?? AppDateUtils.getCurrentDateStr;
   String? toDate = AppDateUtils.getCurrentDateStr;
 

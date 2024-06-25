@@ -1,22 +1,23 @@
 import 'package:auto_route/annotations.dart';
 import 'package:distributor_empower/constants/app_colors/app_colors.dart';
+import 'package:distributor_empower/presentation/base_statefull_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:video_player/video_player.dart';
 
 @RoutePage()
-class VideoPlayerScreen extends StatefulWidget {
+class VideoPlayerScreen extends BaseStatefulWidget {
   final String productArguments;
   final String title;
 
   const VideoPlayerScreen({required this.productArguments, required this.title, super.key});
 
   @override
-  State<VideoPlayerScreen> createState() => _VideoPlayerScreenState();
+  BaseState<VideoPlayerScreen> createState() => _VideoPlayerScreenState();
 }
 
-class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
+class _VideoPlayerScreenState extends BaseState<VideoPlayerScreen> {
   late final VideoPlayerController _controller;
   late Future<void> videoPlayerFuture;
 
