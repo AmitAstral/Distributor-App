@@ -28,7 +28,7 @@ class _DrawerScreenState extends BaseState<DrawerScreen> {
   int currentIndex = 0;
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildBody(BuildContext context) {
     return Drawer(
       width: 0.6.sw,
       backgroundColor: AppColor.primaryColor,

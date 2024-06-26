@@ -88,4 +88,6 @@ class AppRouter extends _$AppRouter {
       predicate: (route) => false,
     );
   }
+
+  final RouteObserver<PageRoute> routeObserver = RouteObserver<PageRoute>();
 }

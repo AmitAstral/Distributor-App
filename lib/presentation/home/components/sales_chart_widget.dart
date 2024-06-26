@@ -1,23 +1,22 @@
 import 'package:distributor_empower/constants/app_colors/app_colors.dart';
 import 'package:distributor_empower/generated/l10n.dart';
 import 'package:distributor_empower/model/dashboard_response.dart';
-import 'package:distributor_empower/presentation/base_statefull_widget.dart';
 import 'package:distributor_empower/utils/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
-class SalesChartWidget extends BaseStatefulWidget {
+class SalesChartWidget extends StatefulWidget {
   final List<Sales>? sales;
   final String? title;
 
   const SalesChartWidget(this.sales, {super.key, this.title});
 
   @override
-  BaseState<SalesChartWidget> createState() => _SalesChartWidgetState();
+  State<SalesChartWidget> createState() => _SalesChartWidgetState();
 }
 
-class _SalesChartWidgetState extends BaseState<SalesChartWidget> with AutomaticKeepAliveClientMixin {
+class _SalesChartWidgetState extends State<SalesChartWidget> with AutomaticKeepAliveClientMixin {
   final TooltipBehavior _tooltip = TooltipBehavior(enable: true);
 
   @override
@@ -55,10 +54,10 @@ class _SalesChartWidgetState extends BaseState<SalesChartWidget> with AutomaticK
                 cardinalSplineTension: 1,
                 dataSource: widget.sales,
                 xValueMapper: (Sales data, _) => data.monthName,
-                  yValueMapper: (Sales data, _) => data.netTotalSales,
-                  borderColor: const Color(0xFFC3C1FF),
-                  name: AppLocalizations.of(context).sales,
-                  borderWidth: 1.5,
+                yValueMapper: (Sales data, _) => data.netTotalSales,
+                borderColor: const Color(0xFFC3C1FF),
+                name: AppLocalizations.of(context).sales,
+                borderWidth: 1.5,
                 color: const Color(0xFF0A04B1),
                 gradient: LinearGradient(
                   colors: [

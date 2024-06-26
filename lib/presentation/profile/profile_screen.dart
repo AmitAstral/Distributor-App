@@ -47,18 +47,18 @@ class _ProfileScreenState extends BaseState<ProfileScreen> {
       [];
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildBody(BuildContext context) {
     return PopScope(
       onPopInvoked: (didPop) {
         BottomBarNavigationProvider().selectHomePage();
       },
       child: Scaffold(
-          backgroundColor: AppColor.white,
-          appBar: PreferredSize(
-            preferredSize: Size.fromHeight(AppBar().preferredSize.height),
-            child: AppBarWidget(
-              toolbarHeight: AppBar().preferredSize.height,
-              title: Text(
+        backgroundColor: AppColor.white,
+        appBar: PreferredSize(
+          preferredSize: Size.fromHeight(AppBar().preferredSize.height),
+          child: AppBarWidget(
+            toolbarHeight: AppBar().preferredSize.height,
+            title: Text(
                 AppLocalizations.current.profile,
                 maxLines: 1,
                 style: TextStyles.semiBold15,

@@ -1,0 +1,2001 @@
+Subject: [PATCH] [=] Base Stateful with context manage
+---
+Index: lib/presentation/my_orders/order_history_screen.dart
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/lib/presentation/my_orders/order_history_screen.dart b/lib/presentation/my_orders/order_history_screen.dart
+--- a/lib/presentation/my_orders/order_history_screen.dart	(revision 2da0afebfeef4232d63d17f0434e55e2781be866)
++++ b/lib/presentation/my_orders/order_history_screen.dart	(date 1719300380435)
+@@ -1,8 +1,8 @@
+ import 'package:auto_route/auto_route.dart';
+ import 'package:distributor_empower/constants/app_colors/app_colors.dart';
+-import 'package:distributor_empower/core/di/locator.dart';
+ import 'package:distributor_empower/generated/l10n.dart';
+ import 'package:distributor_empower/model/drop_down_response.dart';
++import 'package:distributor_empower/presentation/base_statefull_widget.dart';
+ import 'package:distributor_empower/presentation/my_orders/provider/order_provider.dart';
+ import 'package:distributor_empower/routes/router.dart';
+ import 'package:distributor_empower/utils/extensions.dart';
+@@ -17,14 +17,14 @@
+ import 'package:pull_to_refresh/pull_to_refresh.dart';
+ 
+ @RoutePage()
+-class OrderHistoryScreen extends StatefulWidget {
++class OrderHistoryScreen extends BaseStatefulWidget {
+   const OrderHistoryScreen({super.key});
+ 
+   @override
+-  State<OrderHistoryScreen> createState() => _OrderHistoryScreenState();
++  BaseState<OrderHistoryScreen> createState() => _OrderHistoryScreenState();
+ }
+ 
+-class _OrderHistoryScreenState extends State<OrderHistoryScreen> {
++class _OrderHistoryScreenState extends BaseState<OrderHistoryScreen> {
+   final _orderProvider = OrderProvider();
+   final _refreshController = RefreshController(initialRefresh: false);
+ 
+@@ -71,9 +71,10 @@
+           loadMoreData: () {
+             _getOrderList(pageNo: _orderProvider.pageNo + 1, isLoading: false);
+           },
+-          child: Consumer<OrderProvider>(builder: (context, provider, child) {
+-            return ProgressWidget(
+-              inAsyncCall: provider.isLoading.value,
++          child: Consumer<OrderProvider>(
++            builder: (context, provider, child) {
++              return ProgressWidget(
++                inAsyncCall: provider.isLoading.value,
+                 child: SingleChildScrollView(
+                   child: Column(
+                     children: [
+Index: lib/presentation/my_orders/order_details_screen.dart
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/lib/presentation/my_orders/order_details_screen.dart b/lib/presentation/my_orders/order_details_screen.dart
+--- a/lib/presentation/my_orders/order_details_screen.dart	(revision 2da0afebfeef4232d63d17f0434e55e2781be866)
++++ b/lib/presentation/my_orders/order_details_screen.dart	(date 1719232479910)
+@@ -1,8 +1,10 @@
+ import 'package:auto_route/annotations.dart';
++import 'package:auto_route/auto_route.dart';
+ import 'package:distributor_empower/constants/app_colors/app_colors.dart';
+ import 'package:distributor_empower/core/di/locator.dart';
+ import 'package:distributor_empower/generated/l10n.dart';
+ import 'package:distributor_empower/model/order_response.dart';
++import 'package:distributor_empower/presentation/base_statefull_widget.dart';
+ import 'package:distributor_empower/presentation/my_orders/provider/order_provider.dart';
+ import 'package:distributor_empower/utils/text_styles.dart';
+ import 'package:distributor_empower/widgets/custom_app_bar/app_bar.dart';
+@@ -14,16 +16,16 @@
+ import 'package:pull_to_refresh/pull_to_refresh.dart';
+ 
+ @RoutePage()
+-class OrderDetailsScreen extends StatefulWidget {
++class OrderDetailsScreen extends BaseStatefulWidget {
+   final OrderResponse? orderItem;
+ 
+   const OrderDetailsScreen({required this.orderItem, super.key});
+ 
+   @override
+-  State<OrderDetailsScreen> createState() => _OrderDetailsScreenState();
++  BaseState<OrderDetailsScreen> createState() => _OrderDetailsScreenState();
+ }
+ 
+-class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
++class _OrderDetailsScreenState extends BaseState<OrderDetailsScreen> {
+   final _orderProvider = OrderProvider();
+   final _refreshController = RefreshController(initialRefresh: false);
+ 
+@@ -68,121 +70,122 @@
+         },
+         child: ChangeNotifierProvider.value(
+           value: _orderProvider,
+-          child: Consumer<OrderProvider>(builder: (context, value, child) {
+-            return ProgressWidget(
+-              inAsyncCall: value.isLoading.value,
+-              child: SingleChildScrollView(
+-                child: Container(
+-                  margin: EdgeInsets.symmetric(vertical: 10.h, horizontal: 12.w),
+-                  child: Column(
+-                    crossAxisAlignment: CrossAxisAlignment.start,
+-                    children: [
+-                      Row(
+-                        children: [
+-                          Expanded(
+-                            flex: 7,
+-                            child: Text(
+-                              AppLocalizations.current.distributorName,
+-                              style: TextStyles.regular10.copyWith(color: AppColor.textSecondary),
+-                            ),
+-                          ),
+-                          8.horizontalSpace,
+-                          Expanded(
+-                            flex: 3,
+-                            child: Text(
+-                              AppLocalizations.current.mobileNo,
+-                              style: TextStyles.regular10.copyWith(
+-                                color: AppColor.textSecondary,
+-                              ),
+-                            ),
+-                          ),
+-                        ],
+-                      ),
+-                      3.verticalSpace,
+-                      Row(
+-                        children: [
+-                          Expanded(
+-                            flex: 7,
+-                            child: Container(
+-                              padding: EdgeInsets.only(left: 8.w, right: 8.w, top: 8.h, bottom: 8.w),
+-                              decoration: ShapeDecoration(
+-                                color: Colors.white,
+-                                shape: RoundedRectangleBorder(
+-                                  side: const BorderSide(width: 1, color: AppColor.primaryColor),
+-                                  borderRadius: BorderRadius.circular(5.r),
+-                                ),
+-                              ),
+-                              child: Text(
+-                                orderItem?.distName ?? '',
+-                                maxLines: 2,
+-                                style: TextStyles.semiBold11.copyWith(color: AppColor.textSecondary),
+-                              ),
+-                            ),
+-                          ),
+-                          8.horizontalSpace,
+-                          Expanded(
+-                            flex: 3,
+-                            child: Container(
+-                              alignment: Alignment.center,
+-                              padding: EdgeInsets.only(left: 8.w, right: 8.w, top: 8.h, bottom: 8.w),
+-                              decoration: ShapeDecoration(
+-                                color: Colors.white,
+-                                shape: RoundedRectangleBorder(
+-                                  side: const BorderSide(width: 1, color: AppColor.primaryColor),
+-                                  borderRadius: BorderRadius.circular(5.r),
+-                                ),
+-                              ),
+-                              child: Text(
+-                                storage.userDetails.distributorMobileNumber ?? '',
+-                                maxLines: 2,
+-                                style: TextStyles.semiBold11.copyWith(color: AppColor.textSecondary),
+-                              ),
+-                            ),
+-                          ),
+-                        ],
+-                      ),
+-                      8.verticalSpace,
+-                      Text(
+-                        AppLocalizations.current.address,
+-                        textAlign: TextAlign.start,
+-                        style: TextStyles.regular10.copyWith(color: AppColor.textSecondary),
+-                      ),
+-                      3.verticalSpace,
+-                      Container(
+-                        width: 1.sw,
+-                        padding: EdgeInsets.only(left: 8.w, right: 8.w, top: 8.h, bottom: 8.w),
+-                        decoration: ShapeDecoration(
+-                          color: Colors.white,
+-                          shape: RoundedRectangleBorder(
+-                            side: const BorderSide(width: 1, color: AppColor.primaryColor),
+-                            borderRadius: BorderRadius.circular(5.r),
+-                          ),
+-                        ),
+-                        child: Text(
+-                          storage.userDetails.address ?? '',
+-                          maxLines: 3,
+-                          style: TextStyles.semiBold11.copyWith(color: AppColor.textSecondary),
+-                        ),
+-                      ),
+-                      8.verticalSpace,
+-                      Row(
+-                        crossAxisAlignment: CrossAxisAlignment.start,
+-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+-                        children: [
+-                          Column(
+-                            crossAxisAlignment: CrossAxisAlignment.start,
+-                            mainAxisAlignment: MainAxisAlignment.start,
+-                            children: [
+-                              Text(
+-                                AppLocalizations.current.date,
+-                                style: TextStyles.regular10.copyWith(color: AppColor.textSecondary),
+-                              ),
+-                              3.verticalSpace,
+-                              Container(
+-                                padding: EdgeInsets.only(left: 8.w, right: 8.w, top: 8.h, bottom: 8.w),
+-                                decoration: ShapeDecoration(
+-                                  color: Colors.white,
+-                                  shape: RoundedRectangleBorder(
++          child: Consumer<OrderProvider>(
++            builder: (context, value, child) {
++              return ProgressWidget(
++                inAsyncCall: value.isLoading.value,
++                child: SingleChildScrollView(
++                  child: Container(
++                    margin: EdgeInsets.symmetric(vertical: 10.h, horizontal: 12.w),
++                    child: Column(
++                      crossAxisAlignment: CrossAxisAlignment.start,
++                      children: [
++                        Row(
++                          children: [
++                            Expanded(
++                              flex: 7,
++                              child: Text(
++                                AppLocalizations.current.distributorName,
++                                style: TextStyles.regular10.copyWith(color: AppColor.textSecondary),
++                              ),
++                            ),
++                            8.horizontalSpace,
++                            Expanded(
++                              flex: 3,
++                              child: Text(
++                                AppLocalizations.current.mobileNo,
++                                style: TextStyles.regular10.copyWith(
++                                  color: AppColor.textSecondary,
++                                ),
++                              ),
++                            ),
++                          ],
++                        ),
++                        3.verticalSpace,
++                        Row(
++                          children: [
++                            Expanded(
++                              flex: 7,
++                              child: Container(
++                                padding: EdgeInsets.only(left: 8.w, right: 8.w, top: 8.h, bottom: 8.w),
++                                decoration: ShapeDecoration(
++                                  color: Colors.white,
++                                  shape: RoundedRectangleBorder(
++                                    side: const BorderSide(width: 1, color: AppColor.primaryColor),
++                                    borderRadius: BorderRadius.circular(5.r),
++                                  ),
++                                ),
++                                child: Text(
++                                  orderItem?.distName ?? '',
++                                  maxLines: 2,
++                                  style: TextStyles.semiBold11.copyWith(color: AppColor.textSecondary),
++                                ),
++                              ),
++                            ),
++                            8.horizontalSpace,
++                            Expanded(
++                              flex: 3,
++                              child: Container(
++                                alignment: Alignment.center,
++                                padding: EdgeInsets.only(left: 8.w, right: 8.w, top: 8.h, bottom: 8.w),
++                                decoration: ShapeDecoration(
++                                  color: Colors.white,
++                                  shape: RoundedRectangleBorder(
++                                    side: const BorderSide(width: 1, color: AppColor.primaryColor),
++                                    borderRadius: BorderRadius.circular(5.r),
++                                  ),
++                                ),
++                                child: Text(
++                                  storage.userDetails.distributorMobileNumber ?? '',
++                                  maxLines: 2,
++                                  style: TextStyles.semiBold11.copyWith(color: AppColor.textSecondary),
++                                ),
++                              ),
++                            ),
++                          ],
++                        ),
++                        8.verticalSpace,
++                        Text(
++                          AppLocalizations.current.address,
++                          textAlign: TextAlign.start,
++                          style: TextStyles.regular10.copyWith(color: AppColor.textSecondary),
++                        ),
++                        3.verticalSpace,
++                        Container(
++                          width: 1.sw,
++                          padding: EdgeInsets.only(left: 8.w, right: 8.w, top: 8.h, bottom: 8.w),
++                          decoration: ShapeDecoration(
++                            color: Colors.white,
++                            shape: RoundedRectangleBorder(
++                              side: const BorderSide(width: 1, color: AppColor.primaryColor),
++                              borderRadius: BorderRadius.circular(5.r),
++                            ),
++                          ),
++                          child: Text(
++                            storage.userDetails.address ?? '',
++                            maxLines: 3,
++                            style: TextStyles.semiBold11.copyWith(color: AppColor.textSecondary),
++                          ),
++                        ),
++                        8.verticalSpace,
++                        Row(
++                          crossAxisAlignment: CrossAxisAlignment.start,
++                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
++                          children: [
++                            Column(
++                              crossAxisAlignment: CrossAxisAlignment.start,
++                              mainAxisAlignment: MainAxisAlignment.start,
++                              children: [
++                                Text(
++                                  AppLocalizations.current.date,
++                                  style: TextStyles.regular10.copyWith(color: AppColor.textSecondary),
++                                ),
++                                3.verticalSpace,
++                                Container(
++                                  padding: EdgeInsets.only(left: 8.w, right: 8.w, top: 8.h, bottom: 8.w),
++                                  decoration: ShapeDecoration(
++                                    color: Colors.white,
++                                    shape: RoundedRectangleBorder(
+                                       side: const BorderSide(width: 1, color: AppColor.primaryColor),
+                                       borderRadius: BorderRadius.circular(5.r),
+                                     ),
+@@ -195,48 +198,48 @@
+                                   ),
+                                 ),
+                               ],
+-                          ),
+-                          Expanded(child: 0.horizontalSpace),
+-                          Column(
+-                            crossAxisAlignment: CrossAxisAlignment.start,
+-                            mainAxisAlignment: MainAxisAlignment.start,
+-                            children: [
+-                              Text(
+-                                AppLocalizations.current.orderNo,
+-                                style: TextStyles.regular10.copyWith(color: AppColor.textSecondary),
+-                              ),
+-                              3.verticalSpace,
+-                              Container(
+-                                alignment: Alignment.center,
+-                                padding: EdgeInsets.only(left: 8.w, right: 8.w, top: 8.h, bottom: 8.w),
+-                                decoration: ShapeDecoration(
+-                                  color: Colors.white,
+-                                  shape: RoundedRectangleBorder(
+-                                    side: const BorderSide(width: 1, color: AppColor.primaryColor),
+-                                    borderRadius: BorderRadius.circular(5.r),
+-                                  ),
+-                                ),
+-                                child: Text(
+-                                  orderItem?.orderNo ?? '',
+-                                  style: TextStyles.semiBold11.copyWith(color: AppColor.textSecondary),
+-                                ),
+-                              ),
+-                            ],
+-                          ),
+-                        ],
+-                      ),
+-                      5.verticalSpace,
+-                      if (_orderProvider.orderDetailsResponse?.orderDetails?.isNotEmpty ?? false) ...[
+-                        buildTable(),
+-                        5.verticalSpace,
+-                        Row(
+-                          children: [
+-                            Expanded(child: 0.horizontalSpace),
+-                            Container(
+-                              width: 63.w,
+-                              height: 1,
+-                              decoration: const ShapeDecoration(
+-                                color: AppColor.hintTextColor,
++                            ),
++                            Expanded(child: 0.horizontalSpace),
++                            Column(
++                              crossAxisAlignment: CrossAxisAlignment.start,
++                              mainAxisAlignment: MainAxisAlignment.start,
++                              children: [
++                                Text(
++                                  AppLocalizations.current.orderNo,
++                                  style: TextStyles.regular10.copyWith(color: AppColor.textSecondary),
++                                ),
++                                3.verticalSpace,
++                                Container(
++                                  alignment: Alignment.center,
++                                  padding: EdgeInsets.only(left: 8.w, right: 8.w, top: 8.h, bottom: 8.w),
++                                  decoration: ShapeDecoration(
++                                    color: Colors.white,
++                                    shape: RoundedRectangleBorder(
++                                      side: const BorderSide(width: 1, color: AppColor.primaryColor),
++                                      borderRadius: BorderRadius.circular(5.r),
++                                    ),
++                                  ),
++                                  child: Text(
++                                    orderItem?.orderNo ?? '',
++                                    style: TextStyles.semiBold11.copyWith(color: AppColor.textSecondary),
++                                  ),
++                                ),
++                              ],
++                            ),
++                          ],
++                        ),
++                        5.verticalSpace,
++                        if (_orderProvider.orderDetailsResponse?.orderDetails?.isNotEmpty ?? false) ...[
++                          buildTable(),
++                          5.verticalSpace,
++                          Row(
++                            children: [
++                              Expanded(child: 0.horizontalSpace),
++                              Container(
++                                width: 63.w,
++                                height: 1,
++                                decoration: const ShapeDecoration(
++                                  color: AppColor.hintTextColor,
+                                   shape: OvalBorder(),
+                                 ),
+                               ),
+@@ -314,21 +317,21 @@
+   TableRow _buildRow(int index) {
+     final item = _orderProvider.orderDetailsResponse?.orderDetails?[index];
+     return TableRow(
+-        decoration: BoxDecoration(
+-          color: index % 2 == 0 ? AppColor.tableEvenRowColor : AppColor.tableOddRowColor,
+-        ),
+-        children: [
+-          TableCell(
+-            child: Padding(
+-              padding: const EdgeInsets.all(5),
+-              child: Text(
+-                item?.itemName ?? '',
+-                style: TextStyles.regular11.copyWith(color: AppColor.black),
+-              ),
+-            ),
+-          ),
+-          TableCell(
+-            child: Center(
++      decoration: BoxDecoration(
++        color: index % 2 == 0 ? AppColor.tableEvenRowColor : AppColor.tableOddRowColor,
++      ),
++      children: [
++        TableCell(
++          child: Padding(
++            padding: const EdgeInsets.all(5),
++            child: Text(
++              item?.itemName ?? '',
++              style: TextStyles.regular11.copyWith(color: AppColor.black),
++            ),
++          ),
++        ),
++        TableCell(
++          child: Center(
+             child: Padding(
+               padding: const EdgeInsets.all(5),
+               child: Text(
+@@ -338,26 +341,26 @@
+             ),
+           ),
+         ),
+-          TableCell(
+-            child: Padding(
+-              padding: const EdgeInsets.all(5),
+-              child: Text(
+-                item?.qty ?? '',
+-                style: TextStyles.regular11.copyWith(color: AppColor.black),
+-                textAlign: TextAlign.right,
+-              ),
+-            ),
+-          ),
+-          TableCell(
+-            child: Padding(
+-              padding: const EdgeInsets.all(5),
+-              child: Text(
+-                item?.rate ?? '',
+-                style: TextStyles.regular11.copyWith(color: AppColor.black),
+-                textAlign: TextAlign.right,
+-              ),
+-            ),
+-          ),
++        TableCell(
++          child: Padding(
++            padding: const EdgeInsets.all(5),
++            child: Text(
++              item?.qty ?? '',
++              style: TextStyles.regular11.copyWith(color: AppColor.black),
++              textAlign: TextAlign.right,
++            ),
++          ),
++        ),
++        TableCell(
++          child: Padding(
++            padding: const EdgeInsets.all(5),
++            child: Text(
++              item?.rate ?? '',
++              style: TextStyles.regular11.copyWith(color: AppColor.black),
++              textAlign: TextAlign.right,
++            ),
++          ),
++        ),
+         TableCell(
+           child: Padding(
+             padding: const EdgeInsets.all(5),
+Index: lib/presentation/pending_order/pending_order_screen.dart
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/lib/presentation/pending_order/pending_order_screen.dart b/lib/presentation/pending_order/pending_order_screen.dart
+--- a/lib/presentation/pending_order/pending_order_screen.dart	(revision 2da0afebfeef4232d63d17f0434e55e2781be866)
++++ b/lib/presentation/pending_order/pending_order_screen.dart	(date 1719300380328)
+@@ -1,8 +1,8 @@
+ import 'package:auto_route/auto_route.dart';
+ import 'package:distributor_empower/constants/app_colors/app_colors.dart';
+-import 'package:distributor_empower/core/di/locator.dart';
+ import 'package:distributor_empower/generated/l10n.dart';
+ import 'package:distributor_empower/model/pending_order_response.dart';
++import 'package:distributor_empower/presentation/base_statefull_widget.dart';
+ import 'package:distributor_empower/presentation/pending_order/provider/pending_order_provider.dart';
+ import 'package:distributor_empower/routes/router.dart';
+ import 'package:distributor_empower/utils/text_styles.dart';
+@@ -17,14 +17,14 @@
+ import 'package:pull_to_refresh/pull_to_refresh.dart';
+ 
+ @RoutePage()
+-class PendingOrderScreen extends StatefulWidget {
++class PendingOrderScreen extends BaseStatefulWidget {
+   const PendingOrderScreen({super.key});
+ 
+   @override
+-  State<PendingOrderScreen> createState() => _PendingOrderScreenState();
++  BaseState<PendingOrderScreen> createState() => _PendingOrderScreenState();
+ }
+ 
+-class _PendingOrderScreenState extends State<PendingOrderScreen> {
++class _PendingOrderScreenState extends BaseState<PendingOrderScreen> {
+   final _pendingOrderProvider = PendingOrderProvider();
+   final _refreshController = RefreshController(initialRefresh: false);
+ 
+Index: lib/presentation/pending_order/pending_order_details_screen.dart
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/lib/presentation/pending_order/pending_order_details_screen.dart b/lib/presentation/pending_order/pending_order_details_screen.dart
+--- a/lib/presentation/pending_order/pending_order_details_screen.dart	(revision 2da0afebfeef4232d63d17f0434e55e2781be866)
++++ b/lib/presentation/pending_order/pending_order_details_screen.dart	(date 1719300380341)
+@@ -3,6 +3,7 @@
+ import 'package:distributor_empower/generated/l10n.dart';
+ import 'package:distributor_empower/model/pending_order_response.dart';
+ import 'package:distributor_empower/model/product_details_response.dart';
++import 'package:distributor_empower/presentation/base_statefull_widget.dart';
+ import 'package:distributor_empower/presentation/pending_order/provider/pending_order_provider.dart';
+ import 'package:distributor_empower/utils/text_styles.dart';
+ import 'package:distributor_empower/widgets/custom_app_bar/app_bar.dart';
+@@ -14,16 +15,16 @@
+ import 'package:pull_to_refresh/pull_to_refresh.dart';
+ 
+ @RoutePage()
+-class PendingOrderDetailsScreen extends StatefulWidget {
++class PendingOrderDetailsScreen extends BaseStatefulWidget {
+   final PendingOrderResponse? orderDetails;
+ 
+   const PendingOrderDetailsScreen(this.orderDetails, {super.key});
+ 
+   @override
+-  State<PendingOrderDetailsScreen> createState() => _PendingOrderDetailsScreenState();
++  BaseState<PendingOrderDetailsScreen> createState() => _PendingOrderDetailsScreenState();
+ }
+ 
+-class _PendingOrderDetailsScreenState extends State<PendingOrderDetailsScreen> {
++class _PendingOrderDetailsScreenState extends BaseState<PendingOrderDetailsScreen> {
+   final _pendingOrderProvider = PendingOrderProvider();
+   final _refreshController = RefreshController(initialRefresh: false);
+ 
+Index: lib/presentation/focus_products/focus_product_screen.dart
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/lib/presentation/focus_products/focus_product_screen.dart b/lib/presentation/focus_products/focus_product_screen.dart
+--- a/lib/presentation/focus_products/focus_product_screen.dart	(revision 2da0afebfeef4232d63d17f0434e55e2781be866)
++++ b/lib/presentation/focus_products/focus_product_screen.dart	(date 1719300380299)
+@@ -1,5 +1,6 @@
+ import 'package:auto_route/annotations.dart';
+ import 'package:distributor_empower/constants/app_colors/app_colors.dart';
++import 'package:distributor_empower/presentation/base_statefull_widget.dart';
+ import 'package:distributor_empower/presentation/focus_products/provider/product_provider.dart';
+ import 'package:distributor_empower/presentation/home/components/product_view_widget.dart';
+ import 'package:distributor_empower/presentation/home/provider/home_provider.dart';
+@@ -14,7 +15,7 @@
+ import 'package:pull_to_refresh/pull_to_refresh.dart';
+ 
+ @RoutePage()
+-class FocusProductScreen extends StatefulWidget {
++class FocusProductScreen extends BaseStatefulWidget {
+   final String? title;
+   final HomeProvider homeProvider;
+ 
+@@ -25,10 +26,10 @@
+   });
+ 
+   @override
+-  State<FocusProductScreen> createState() => _FocusProductScreenState();
++  BaseState<FocusProductScreen> createState() => _FocusProductScreenState();
+ }
+ 
+-class _FocusProductScreenState extends State<FocusProductScreen> {
++class _FocusProductScreenState extends BaseState<FocusProductScreen> {
+   final _focusProductProvider = ProductProvider();
+   final _refreshController = RefreshController(initialRefresh: false);
+ 
+Index: lib/core/di/locator.dart
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/lib/core/di/locator.dart b/lib/core/di/locator.dart
+--- a/lib/core/di/locator.dart	(revision 2da0afebfeef4232d63d17f0434e55e2781be866)
++++ b/lib/core/di/locator.dart	(date 1719292762953)
+@@ -1,4 +1,3 @@
+-import 'package:auto_route/auto_route.dart';
+ import 'package:distributor_empower/core/api/api_repositry.dart';
+ import 'package:distributor_empower/core/api/api_service.dart';
+ import 'package:distributor_empower/core/storage/storage.dart';
+@@ -16,7 +15,7 @@
+   }
+ }
+ 
+-final appRouter = AutoRouter.of(appContext);
++//final appRouter = AutoRouter.of(appContext);
+ final appContext = AppRouter().navigatorKey.currentContext!;
+ final storage = GetIt.I<StorageService>();
+ final apiService = GetIt.I<ApiService>();
+Index: lib/core/storage/storage.dart
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/lib/core/storage/storage.dart b/lib/core/storage/storage.dart
+--- a/lib/core/storage/storage.dart	(revision 2da0afebfeef4232d63d17f0434e55e2781be866)
++++ b/lib/core/storage/storage.dart	(date 1719232918802)
+@@ -1,5 +1,6 @@
+ import 'dart:convert';
+ 
++import 'package:auto_route/auto_route.dart';
+ import 'package:distributor_empower/core/api/api_repositry.dart';
+ import 'package:distributor_empower/core/di/locator.dart';
+ import 'package:distributor_empower/core/storage/storage_constants.dart';
+@@ -72,7 +73,7 @@
+     isLogin = false;
+     authToken = '';
+     userDetails = null;
+-    appRouter.pushAndPopUntil(
++    AutoRouter.of(appContext).pushAndPopUntil(
+       const LoginRoute(),
+       predicate: (route) => false,
+     );
+Index: lib/presentation/knowledge_gallery/knowledge_gallery_screen.dart
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/lib/presentation/knowledge_gallery/knowledge_gallery_screen.dart b/lib/presentation/knowledge_gallery/knowledge_gallery_screen.dart
+--- a/lib/presentation/knowledge_gallery/knowledge_gallery_screen.dart	(revision 2da0afebfeef4232d63d17f0434e55e2781be866)
++++ b/lib/presentation/knowledge_gallery/knowledge_gallery_screen.dart	(date 1719300380321)
+@@ -1,7 +1,7 @@
+ import 'package:auto_route/annotations.dart';
+ import 'package:distributor_empower/constants/app_colors/app_colors.dart';
+-import 'package:distributor_empower/core/di/locator.dart';
+ import 'package:distributor_empower/generated/l10n.dart';
++import 'package:distributor_empower/presentation/base_statefull_widget.dart';
+ import 'package:distributor_empower/presentation/knowledge_gallery/knowledge_gallery_provider.dart';
+ import 'package:distributor_empower/routes/router.dart';
+ import 'package:distributor_empower/utils/text_styles.dart';
+@@ -16,14 +16,14 @@
+ import 'package:pull_to_refresh/pull_to_refresh.dart';
+ 
+ @RoutePage()
+-class KnowledgeGalleryScreen extends StatefulWidget {
++class KnowledgeGalleryScreen extends BaseStatefulWidget {
+   const KnowledgeGalleryScreen({super.key});
+ 
+   @override
+-  State<KnowledgeGalleryScreen> createState() => _KnowledgeGalleryScreenState();
++  BaseState<KnowledgeGalleryScreen> createState() => _KnowledgeGalleryScreenState();
+ }
+ 
+-class _KnowledgeGalleryScreenState extends State<KnowledgeGalleryScreen> {
++class _KnowledgeGalleryScreenState extends BaseState<KnowledgeGalleryScreen> {
+   final _refreshController = RefreshController(initialRefresh: false);
+   final _knowledgeGalleryProvider = KnowledgeGalleryProvider();
+ 
+Index: lib/model/base/api_req_data.dart
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/lib/model/base/api_req_data.dart b/lib/model/base/api_req_data.dart
+--- a/lib/model/base/api_req_data.dart	(revision 2da0afebfeef4232d63d17f0434e55e2781be866)
++++ b/lib/model/base/api_req_data.dart	(date 1719232918805)
+@@ -1,3 +1,4 @@
++import 'package:auto_route/auto_route.dart';
+ import 'package:distributor_empower/core/di/locator.dart';
+ 
+ class ApiReqData {
+@@ -194,7 +195,7 @@
+ UserInfo get getUserInfo {
+   final userDetails = storage.userDetails;
+   return UserInfo(
+-    pageName: appRouter.current.name,
++    pageName: AutoRouter.of(appContext).current.name,
+     mobile: userDetails.distributorMobileNumber,
+     sapCode: userDetails.distributorSapCode,
+     distributorUserID: userDetails.distributorUserID,
+Index: lib/utils/common_dialog.dart
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/lib/utils/common_dialog.dart b/lib/utils/common_dialog.dart
+--- a/lib/utils/common_dialog.dart	(revision 2da0afebfeef4232d63d17f0434e55e2781be866)
++++ b/lib/utils/common_dialog.dart	(date 1719232918814)
+@@ -1,5 +1,6 @@
+ import 'dart:io';
+ 
++import 'package:auto_route/auto_route.dart';
+ import 'package:distributor_empower/constants/app_colors/app_colors.dart';
+ import 'package:distributor_empower/core/api/api_constants.dart';
+ import 'package:distributor_empower/core/di/locator.dart';
+@@ -35,7 +36,7 @@
+                       style: TextStyles.regular14.copyWith(color: AppColor.primaryColor),
+                     ),
+                     onPressed: () {
+-                      appRouter.maybePop();
++                      AutoRouter.of(appContext).maybePop();
+                       if (onNegativePressed != null) onNegativePressed();
+                     },
+                   ),
+@@ -45,7 +46,7 @@
+                       style: TextStyles.regular14.copyWith(color: AppColor.primaryColor),
+                     ),
+                     onPressed: () {
+-                      appRouter.maybePop();
++                      AutoRouter.of(appContext).maybePop();
+                       onPositivePressed();
+                     },
+                   ),
+@@ -65,7 +66,7 @@
+                       style: TextStyles.regular14.copyWith(color: AppColor.primaryColor),
+                     ),
+                     onPressed: () {
+-                      appRouter.maybePop();
++                      AutoRouter.of(appContext).maybePop();
+                       if (onNegativePressed != null) onNegativePressed();
+                     },
+                   ),
+@@ -75,7 +76,7 @@
+                       style: TextStyles.regular14.copyWith(color: AppColor.primaryColor),
+                     ),
+                     onPressed: () {
+-                      appRouter.maybePop();
++                      AutoRouter.of(appContext).maybePop();
+                       onPositivePressed();
+                     },
+                   ),
+Index: lib/presentation/reports/report_screen.dart
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/lib/presentation/reports/report_screen.dart b/lib/presentation/reports/report_screen.dart
+--- a/lib/presentation/reports/report_screen.dart	(revision 2da0afebfeef4232d63d17f0434e55e2781be866)
++++ b/lib/presentation/reports/report_screen.dart	(date 1719300380403)
+@@ -1,8 +1,8 @@
+ import 'package:auto_route/annotations.dart';
+ import 'package:distributor_empower/constants/app_colors/app_colors.dart';
+-import 'package:distributor_empower/core/di/locator.dart';
+ import 'package:distributor_empower/generated/l10n.dart';
+ import 'package:distributor_empower/model/report_menu_response.dart';
++import 'package:distributor_empower/presentation/base_statefull_widget.dart';
+ import 'package:distributor_empower/presentation/reports/report_provider.dart';
+ import 'package:distributor_empower/utils/extensions.dart';
+ import 'package:distributor_empower/utils/text_styles.dart';
+@@ -16,11 +16,20 @@
+ import 'package:provider/provider.dart';
+ 
+ @RoutePage()
+-class ReportScreen extends StatelessWidget {
++class ReportScreen extends BaseStatefulWidget {
++  const ReportScreen({super.key});
++
++  @override
++  BaseState<ReportScreen> createState() => _ReportScreenState();
++}
++
++class _ReportScreenState extends BaseState<ReportScreen> {
+   final _reportProvider = ReportProvider();
+ 
+-  ReportScreen({super.key}) {
++  @override
++  void initState() {
+     _reportProvider.getReportMenuList();
++    super.initState();
+   }
+ 
+   @override
+Index: lib/utils/lifecycle_event_handler.dart
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/lib/utils/lifecycle_event_handler.dart b/lib/utils/lifecycle_event_handler.dart
+new file mode 100644
+--- /dev/null	(date 1719300378807)
++++ b/lib/utils/lifecycle_event_handler.dart	(date 1719300378807)
+@@ -0,0 +1,32 @@
++import 'package:flutter/foundation.dart';
++import 'package:flutter/material.dart';
++
++class LifecycleEventHandler extends WidgetsBindingObserver {
++  final AsyncCallback? resumeCallBack;
++  final AsyncCallback? suspendingCallBack;
++
++  LifecycleEventHandler({
++    this.resumeCallBack,
++    this.suspendingCallBack,
++  });
++
++  @override
++  Future<void> didChangeAppLifecycleState(AppLifecycleState state) async {
++    debugPrint('state changed ${state.name}');
++    switch (state) {
++      case AppLifecycleState.resumed:
++        if (resumeCallBack != null) {
++          await resumeCallBack!();
++        }
++        break;
++      case AppLifecycleState.inactive:
++      case AppLifecycleState.paused:
++      case AppLifecycleState.detached:
++      case AppLifecycleState.hidden:
++        if (suspendingCallBack != null) {
++          await suspendingCallBack!();
++        }
++        break;
++    }
++  }
++}
+Index: lib/presentation/splash/splash_screen.dart
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/lib/presentation/splash/splash_screen.dart b/lib/presentation/splash/splash_screen.dart
+--- a/lib/presentation/splash/splash_screen.dart	(revision 2da0afebfeef4232d63d17f0434e55e2781be866)
++++ b/lib/presentation/splash/splash_screen.dart	(date 1719293218736)
+@@ -46,6 +46,7 @@
+     if (storage.userDetails.isUpdateAvailable) {
+       CommonDialog.showUpdateAppDialog();
+     } else {
++      final appRouter = AutoRouter.of(appContext);
+       final isConnected = await checkInternetConnectivity();
+ 
+       if (isConnected) {
+Index: lib/presentation/maintainance/no_internet_screen.dart
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/lib/presentation/maintainance/no_internet_screen.dart b/lib/presentation/maintainance/no_internet_screen.dart
+--- a/lib/presentation/maintainance/no_internet_screen.dart	(revision 2da0afebfeef4232d63d17f0434e55e2781be866)
++++ b/lib/presentation/maintainance/no_internet_screen.dart	(date 1719232918798)
+@@ -1,6 +1,6 @@
+ import 'dart:io';
+ 
+-import 'package:auto_route/annotations.dart';
++import 'package:auto_route/auto_route.dart';
+ import 'package:distributor_empower/constants/app_colors/app_colors.dart';
+ import 'package:distributor_empower/core/di/locator.dart';
+ import 'package:distributor_empower/gen/assets.gen.dart';
+@@ -42,7 +42,7 @@
+               AppButton(
+                 width: 0.4.sw,
+                 onPressed: () {
+-                  appRouter.replace(SplashRoute());
++                  AutoRouter.of(appContext).replace(SplashRoute());
+                 },
+                 text: AppLocalizations.current.refresh,
+               ),
+Index: lib/presentation/maintainance/maintenance_screen.dart
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/lib/presentation/maintainance/maintenance_screen.dart b/lib/presentation/maintainance/maintenance_screen.dart
+--- a/lib/presentation/maintainance/maintenance_screen.dart	(revision 2da0afebfeef4232d63d17f0434e55e2781be866)
++++ b/lib/presentation/maintainance/maintenance_screen.dart	(date 1719300380379)
+@@ -1,6 +1,6 @@
+ import 'dart:io';
+ 
+-import 'package:auto_route/annotations.dart';
++import 'package:auto_route/auto_route.dart';
+ import 'package:distributor_empower/constants/app_colors/app_colors.dart';
+ import 'package:distributor_empower/core/di/locator.dart';
+ import 'package:distributor_empower/gen/assets.gen.dart';
+@@ -43,7 +43,7 @@
+               AppButton(
+                 width: 0.4.sw,
+                 onPressed: () {
+-                  appRouter.replace(SplashRoute());
++                  AutoRouter.of(appContext).replace(SplashRoute());
+                 },
+                 text: AppLocalizations.current.refresh,
+               ),
+Index: lib/presentation/dashboard/provider/bottombar_navigation_provider.dart
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/lib/presentation/dashboard/provider/bottombar_navigation_provider.dart b/lib/presentation/dashboard/provider/bottombar_navigation_provider.dart
+--- a/lib/presentation/dashboard/provider/bottombar_navigation_provider.dart	(revision 2da0afebfeef4232d63d17f0434e55e2781be866)
++++ b/lib/presentation/dashboard/provider/bottombar_navigation_provider.dart	(date 1719299649598)
+@@ -1,3 +1,4 @@
++import 'package:auto_route/auto_route.dart';
+ import 'package:distributor_empower/core/di/locator.dart';
+ import 'package:distributor_empower/routes/router.dart';
+ import 'package:distributor_empower/utils/enum_classes.dart';
+@@ -6,8 +7,12 @@
+ class BottomBarNavigationProvider with ChangeNotifier {
+   int currentIndex = 0;
+ 
++  late BuildContext currentContext;
++
+   final GlobalKey<ScaffoldState> dashboardKey = GlobalKey();
+ 
++  StackRouter get appRouter => AutoRouter.of(currentContext);
++
+   TabController? navigationController;
+ 
+   factory BottomBarNavigationProvider() => _instance ?? BottomBarNavigationProvider._internal();
+@@ -20,8 +25,19 @@
+ 
+   BottomNavigationEnum get currentNavigationEnum => BottomNavigationEnum.values[currentIndex];
+ 
+-  void setCurrentBottomItem(BottomNavigationEnum bottomNavigationEnum) {
++  Future<void> setCurrentBottomItem(BottomNavigationEnum bottomNavigationEnum) async {
+     if (appRouter.childControllers.firstOrNull?.topPage?.name == bottomNavigationEnum.route.routeName) return;
++
++    if (bottomNavigationEnum == BottomNavigationEnum.home) {
++      if (currentIndex != bottomNavigationEnum.index) {
++        selectHomePage();
++      }
++      appRouter.popUntil(
++        (route) => route.isFirst,
++      );
++      return;
++    }
++
+     currentIndex = bottomNavigationEnum.index;
+     navigationController?.index = currentIndex;
+     _onTap();
+@@ -29,15 +45,17 @@
+   }
+ 
+   void _onTap() {
+-    appRouter.pushAndPopUntil(currentNavigationEnum.route, predicate: (Route<dynamic> route) {
+-      return currentNavigationEnum.route == const HomeRoute() ? false : route.isFirst;
+-    // ignore: require_trailing_commas
+-    });
++    AutoRouter.of(currentContext).pushAndPopUntil(
++      currentNavigationEnum.route,
++      predicate: (Route<dynamic> route) {
++        return currentNavigationEnum.route == const HomeRoute() ? false : route.isFirst;
++      },
++    );
+   }
+ 
+   void selectHomePage() {
+     Future.delayed(const Duration(milliseconds: 100), () {
+-      if (appRouter.childControllers.firstOrNull?.topPage?.name == BottomNavigationEnum.home.route.routeName &&
++      if (AutoRouter.of(appContext).childControllers.firstOrNull?.topPage?.name == BottomNavigationEnum.home.route.routeName &&
+           currentIndex != BottomNavigationEnum.home.index) {
+         currentIndex = BottomNavigationEnum.home.index;
+         navigationController?.index = currentIndex;
+Index: lib/presentation/base_statefull_widget.dart
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/lib/presentation/base_statefull_widget.dart b/lib/presentation/base_statefull_widget.dart
+new file mode 100644
+--- /dev/null	(date 1719299790133)
++++ b/lib/presentation/base_statefull_widget.dart	(date 1719299790133)
+@@ -0,0 +1,33 @@
++import 'package:auto_route/auto_route.dart';
++import 'package:distributor_empower/presentation/dashboard/provider/bottombar_navigation_provider.dart';
++import 'package:flutter/material.dart';
++
++abstract class BaseStatefulWidget extends StatefulWidget {
++  const BaseStatefulWidget({super.key});
++
++  @override
++  BaseState createState();
++}
++
++abstract class BaseState<T extends BaseStatefulWidget> extends State<T> {
++  late StackRouter appRouter;
++  BuildContext? baseContext;
++
++  @override
++  void initState() {
++    super.initState();
++  }
++
++  @override
++  void didChangeDependencies() {
++    baseContext = context;
++    appRouter = AutoRouter.of(context);
++    BottomBarNavigationProvider().currentContext = context;
++    super.didChangeDependencies();
++  }
++
++  @override
++  void dispose() {
++    super.dispose();
++  }
++}
+Index: lib/presentation/authentication/otp/otp_verification_screen.dart
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/lib/presentation/authentication/otp/otp_verification_screen.dart b/lib/presentation/authentication/otp/otp_verification_screen.dart
+--- a/lib/presentation/authentication/otp/otp_verification_screen.dart	(revision 2da0afebfeef4232d63d17f0434e55e2781be866)
++++ b/lib/presentation/authentication/otp/otp_verification_screen.dart	(date 1719300380282)
+@@ -5,6 +5,7 @@
+ import 'package:distributor_empower/core/di/locator.dart';
+ import 'package:distributor_empower/generated/l10n.dart';
+ import 'package:distributor_empower/presentation/authentication/otp/provider/otp_verification_provider.dart';
++import 'package:distributor_empower/presentation/base_statefull_widget.dart';
+ import 'package:distributor_empower/routes/router.dart';
+ import 'package:distributor_empower/utils/enum_classes.dart';
+ import 'package:distributor_empower/utils/extensions.dart';
+@@ -20,17 +21,17 @@
+ 
+ @RoutePage()
+ // ignore: must_be_immutable
+-class OtpVerificationScreen extends StatefulWidget {
++class OtpVerificationScreen extends BaseStatefulWidget {
+   OTPVerificationType? screenType = OTPVerificationType.login;
+   String sentOTP = '';
+ 
+   OtpVerificationScreen({required this.sentOTP, this.screenType, super.key});
+ 
+   @override
+-  State<OtpVerificationScreen> createState() => _OtpVerificationScreenState();
++  BaseState<OtpVerificationScreen> createState() => _OtpVerificationScreenState();
+ }
+ 
+-class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
++class _OtpVerificationScreenState extends BaseState<OtpVerificationScreen> {
+   String _otp = '';
+ 
+   final ValueNotifier<int> _secondsRemaining = ValueNotifier(0);
+Index: lib/presentation/quick_order/quick_order_screen.dart
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/lib/presentation/quick_order/quick_order_screen.dart b/lib/presentation/quick_order/quick_order_screen.dart
+--- a/lib/presentation/quick_order/quick_order_screen.dart	(revision 2da0afebfeef4232d63d17f0434e55e2781be866)
++++ b/lib/presentation/quick_order/quick_order_screen.dart	(date 1719300380294)
+@@ -3,6 +3,7 @@
+ import 'package:distributor_empower/core/di/locator.dart';
+ import 'package:distributor_empower/gen/assets.gen.dart';
+ import 'package:distributor_empower/generated/l10n.dart';
++import 'package:distributor_empower/presentation/base_statefull_widget.dart';
+ import 'package:distributor_empower/presentation/dashboard/provider/bottombar_navigation_provider.dart';
+ import 'package:distributor_empower/presentation/focus_products/provider/product_provider.dart';
+ import 'package:distributor_empower/presentation/quick_order/checkout_bottom_sheet.dart';
+@@ -20,14 +21,14 @@
+ import 'package:pull_to_refresh/pull_to_refresh.dart';
+ 
+ @RoutePage()
+-class QuickOrderScreen extends StatefulWidget {
++class QuickOrderScreen extends BaseStatefulWidget {
+   const QuickOrderScreen({super.key});
+ 
+   @override
+-  State<QuickOrderScreen> createState() => _QuickOrderScreenState();
++  BaseState<QuickOrderScreen> createState() => _QuickOrderScreenState();
+ }
+ 
+-class _QuickOrderScreenState extends State<QuickOrderScreen> {
++class _QuickOrderScreenState extends BaseState<QuickOrderScreen> {
+   final _productProvider = ProductProvider();
+   final _refreshController = RefreshController(initialRefresh: false);
+ 
+Index: lib/presentation/home/screen/home_screen.dart
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/lib/presentation/home/screen/home_screen.dart b/lib/presentation/home/screen/home_screen.dart
+--- a/lib/presentation/home/screen/home_screen.dart	(revision 2da0afebfeef4232d63d17f0434e55e2781be866)
++++ b/lib/presentation/home/screen/home_screen.dart	(date 1719300380304)
+@@ -4,6 +4,7 @@
+ import 'package:distributor_empower/gen/assets.gen.dart';
+ import 'package:distributor_empower/generated/l10n.dart';
+ import 'package:distributor_empower/model/dashboard_response.dart';
++import 'package:distributor_empower/presentation/base_statefull_widget.dart';
+ import 'package:distributor_empower/presentation/dashboard/provider/bottombar_navigation_provider.dart';
+ import 'package:distributor_empower/presentation/home/components/credit_aging_widget.dart';
+ import 'package:distributor_empower/presentation/home/components/credit_details_widget.dart';
+@@ -25,14 +26,14 @@
+ import 'package:pull_to_refresh/pull_to_refresh.dart';
+ 
+ @RoutePage()
+-class HomeScreen extends StatefulWidget {
++class HomeScreen extends BaseStatefulWidget {
+   const HomeScreen({super.key});
+ 
+   @override
+-  State<HomeScreen> createState() => _HomeScreenState();
++  BaseState<HomeScreen> createState() => _HomeScreenState();
+ }
+ 
+-class _HomeScreenState extends State<HomeScreen> {
++class _HomeScreenState extends BaseState<HomeScreen> {
+   final _refreshController = RefreshController(initialRefresh: false);
+   final _homeProvider = HomeProvider();
+ 
+Index: lib/presentation/authentication/pin/set_pin_screen.dart
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/lib/presentation/authentication/pin/set_pin_screen.dart b/lib/presentation/authentication/pin/set_pin_screen.dart
+--- a/lib/presentation/authentication/pin/set_pin_screen.dart	(revision 2da0afebfeef4232d63d17f0434e55e2781be866)
++++ b/lib/presentation/authentication/pin/set_pin_screen.dart	(date 1719300380308)
+@@ -4,6 +4,7 @@
+ import 'package:distributor_empower/generated/l10n.dart';
+ import 'package:distributor_empower/model/base/api_req_data.dart';
+ import 'package:distributor_empower/presentation/authentication/pin/provider/user_pin_provider.dart';
++import 'package:distributor_empower/presentation/base_statefull_widget.dart';
+ import 'package:distributor_empower/routes/router.dart';
+ import 'package:distributor_empower/utils/enum_classes.dart';
+ import 'package:distributor_empower/utils/text_styles.dart';
+@@ -17,14 +18,14 @@
+ import 'package:provider/provider.dart';
+ 
+ @RoutePage()
+-class SetPinScreen extends StatefulWidget {
++class SetPinScreen extends BaseStatefulWidget {
+   const SetPinScreen({super.key});
+ 
+   @override
+-  State<SetPinScreen> createState() => _SetPinScreenState();
++  BaseState<SetPinScreen> createState() => _SetPinScreenState();
+ }
+ 
+-class _SetPinScreenState extends State<SetPinScreen> {
++class _SetPinScreenState extends BaseState<SetPinScreen> {
+   final ValueNotifier<bool> _isDisable = ValueNotifier(true);
+ 
+   final _userPinProvider = UserPinProvider();
+Index: lib/presentation/ageing/ageing_screen.dart
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/lib/presentation/ageing/ageing_screen.dart b/lib/presentation/ageing/ageing_screen.dart
+--- a/lib/presentation/ageing/ageing_screen.dart	(revision 2da0afebfeef4232d63d17f0434e55e2781be866)
++++ b/lib/presentation/ageing/ageing_screen.dart	(date 1719300380312)
+@@ -3,6 +3,7 @@
+ import 'package:distributor_empower/generated/l10n.dart';
+ import 'package:distributor_empower/model/ageing_model.dart';
+ import 'package:distributor_empower/presentation/ageing/ageing_provider.dart';
++import 'package:distributor_empower/presentation/base_statefull_widget.dart';
+ import 'package:distributor_empower/utils/text_styles.dart';
+ import 'package:distributor_empower/widgets/custom_app_bar/app_bar.dart';
+ import 'package:distributor_empower/widgets/no_data_found_widget.dart';
+@@ -12,14 +13,14 @@
+ import 'package:provider/provider.dart';
+ 
+ @RoutePage()
+-class AgeingScreen extends StatefulWidget {
++class AgeingScreen extends BaseStatefulWidget {
+   const AgeingScreen({super.key});
+ 
+   @override
+-  State<AgeingScreen> createState() => _AgeingScreenState();
++  BaseState<AgeingScreen> createState() => _AgeingScreenState();
+ }
+ 
+-class _AgeingScreenState extends State<AgeingScreen> {
++class _AgeingScreenState extends BaseState<AgeingScreen> {
+   final _ageingProvider = AgeingProvider();
+ 
+   @override
+Index: lib/presentation/authentication/pin/verify_pin_screen.dart
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/lib/presentation/authentication/pin/verify_pin_screen.dart b/lib/presentation/authentication/pin/verify_pin_screen.dart
+--- a/lib/presentation/authentication/pin/verify_pin_screen.dart	(revision 2da0afebfeef4232d63d17f0434e55e2781be866)
++++ b/lib/presentation/authentication/pin/verify_pin_screen.dart	(date 1719300380290)
+@@ -5,6 +5,7 @@
+ import 'package:distributor_empower/generated/l10n.dart';
+ import 'package:distributor_empower/model/base/api_req_data.dart';
+ import 'package:distributor_empower/presentation/authentication/pin/provider/user_pin_provider.dart';
++import 'package:distributor_empower/presentation/base_statefull_widget.dart';
+ import 'package:distributor_empower/routes/router.dart';
+ import 'package:distributor_empower/utils/common_dialog.dart';
+ import 'package:distributor_empower/utils/enum_classes.dart';
+@@ -20,14 +21,14 @@
+ import 'package:provider/provider.dart';
+ 
+ @RoutePage()
+-class VerifyPinScreen extends StatefulWidget {
++class VerifyPinScreen extends BaseStatefulWidget {
+   const VerifyPinScreen({super.key});
+ 
+   @override
+-  State<VerifyPinScreen> createState() => _VerifyPinScreenState();
++  BaseState<VerifyPinScreen> createState() => _VerifyPinScreenState();
+ }
+ 
+-class _VerifyPinScreenState extends State<VerifyPinScreen> {
++class _VerifyPinScreenState extends BaseState<VerifyPinScreen> {
+   final ValueNotifier<bool> _isDisable = ValueNotifier(true);
+ 
+   String _pin = '';
+Index: lib/presentation/authentication/login/login_screen.dart
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/lib/presentation/authentication/login/login_screen.dart b/lib/presentation/authentication/login/login_screen.dart
+--- a/lib/presentation/authentication/login/login_screen.dart	(revision 2da0afebfeef4232d63d17f0434e55e2781be866)
++++ b/lib/presentation/authentication/login/login_screen.dart	(date 1719300380333)
+@@ -2,6 +2,7 @@
+ import 'package:distributor_empower/core/di/locator.dart';
+ import 'package:distributor_empower/generated/l10n.dart';
+ import 'package:distributor_empower/presentation/authentication/login/login_provider.dart';
++import 'package:distributor_empower/presentation/base_statefull_widget.dart';
+ import 'package:distributor_empower/routes/router.dart';
+ import 'package:distributor_empower/utils/enum_classes.dart';
+ import 'package:distributor_empower/widgets/app_button.dart';
+@@ -13,14 +14,14 @@
+ import 'package:provider/provider.dart';
+ 
+ @RoutePage()
+-class LoginScreen extends StatefulWidget {
++class LoginScreen extends BaseStatefulWidget {
+   const LoginScreen({super.key});
+ 
+   @override
+-  State<LoginScreen> createState() => _LoginScreenState();
++  BaseState<LoginScreen> createState() => _LoginScreenState();
+ }
+ 
+-class _LoginScreenState extends State<LoginScreen> {
++class _LoginScreenState extends BaseState<LoginScreen> {
+   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+ 
+   final TextEditingController _sapCodeController = TextEditingController();
+Index: lib/presentation/dashboard/screens/dashboard_screen.dart
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/lib/presentation/dashboard/screens/dashboard_screen.dart b/lib/presentation/dashboard/screens/dashboard_screen.dart
+--- a/lib/presentation/dashboard/screens/dashboard_screen.dart	(revision 2da0afebfeef4232d63d17f0434e55e2781be866)
++++ b/lib/presentation/dashboard/screens/dashboard_screen.dart	(date 1719300380317)
+@@ -2,6 +2,7 @@
+ import 'package:convex_bottom_bar/convex_bottom_bar.dart';
+ import 'package:distributor_empower/constants/app_colors/app_colors.dart';
+ import 'package:distributor_empower/core/di/locator.dart';
++import 'package:distributor_empower/presentation/base_statefull_widget.dart';
+ import 'package:distributor_empower/presentation/dashboard/provider/bottombar_navigation_provider.dart';
+ import 'package:distributor_empower/presentation/drawer/drawer_screen.dart';
+ import 'package:distributor_empower/utils/common_dialog.dart';
+@@ -11,14 +12,14 @@
+ import 'package:provider/provider.dart';
+ 
+ @RoutePage()
+-class DashboardScreen extends StatefulWidget {
++class DashboardScreen extends BaseStatefulWidget {
+   const DashboardScreen({super.key});
+ 
+   @override
+-  State<DashboardScreen> createState() => _DashboardScreenState();
++  BaseState<DashboardScreen> createState() => _DashboardScreenState();
+ }
+ 
+-class _DashboardScreenState extends State<DashboardScreen> with TickerProviderStateMixin {
++class _DashboardScreenState extends BaseState<DashboardScreen> with TickerProviderStateMixin {
+   @override
+   void initState() {
+     BottomBarNavigationProvider().navigationController ??= TabController(length: BottomNavigationEnum.values.length, vsync: this);
+Index: lib/presentation/statement_of_account/statement_of_account_screen.dart
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/lib/presentation/statement_of_account/statement_of_account_screen.dart b/lib/presentation/statement_of_account/statement_of_account_screen.dart
+--- a/lib/presentation/statement_of_account/statement_of_account_screen.dart	(revision 2da0afebfeef4232d63d17f0434e55e2781be866)
++++ b/lib/presentation/statement_of_account/statement_of_account_screen.dart	(date 1719300380442)
+@@ -3,6 +3,7 @@
+ import 'package:distributor_empower/core/di/locator.dart';
+ import 'package:distributor_empower/generated/l10n.dart';
+ import 'package:distributor_empower/model/statement_response.dart';
++import 'package:distributor_empower/presentation/base_statefull_widget.dart';
+ import 'package:distributor_empower/presentation/statement_of_account/provider/statement_provider.dart';
+ import 'package:distributor_empower/utils/app_date_utils.dart';
+ import 'package:distributor_empower/utils/extensions.dart';
+@@ -16,14 +17,14 @@
+ import 'package:provider/provider.dart';
+ 
+ @RoutePage()
+-class StatementOfAccountScreen extends StatefulWidget {
++class StatementOfAccountScreen extends BaseStatefulWidget {
+   const StatementOfAccountScreen({super.key});
+ 
+   @override
+-  State<StatementOfAccountScreen> createState() => _StatementOfAccountScreenState();
++  BaseState<StatementOfAccountScreen> createState() => _StatementOfAccountScreenState();
+ }
+ 
+-class _StatementOfAccountScreenState extends State<StatementOfAccountScreen> {
++class _StatementOfAccountScreenState extends BaseState<StatementOfAccountScreen> {
+   String? fromDate = storage.settingsData.fYStartDate ?? AppDateUtils.getCurrentDateStr;
+   String? toDate = AppDateUtils.getCurrentDateStr;
+ 
+Index: lib/presentation/drawer/drawer_screen.dart
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/lib/presentation/drawer/drawer_screen.dart b/lib/presentation/drawer/drawer_screen.dart
+--- a/lib/presentation/drawer/drawer_screen.dart	(revision 2da0afebfeef4232d63d17f0434e55e2781be866)
++++ b/lib/presentation/drawer/drawer_screen.dart	(date 1719300378801)
+@@ -3,6 +3,7 @@
+ import 'package:distributor_empower/gen/assets.gen.dart';
+ import 'package:distributor_empower/generated/l10n.dart';
+ import 'package:distributor_empower/model/menu_response.dart';
++import 'package:distributor_empower/presentation/base_statefull_widget.dart';
+ import 'package:distributor_empower/presentation/dashboard/provider/bottombar_navigation_provider.dart';
+ import 'package:distributor_empower/presentation/home/provider/home_provider.dart';
+ import 'package:distributor_empower/routes/router.dart';
+@@ -16,14 +17,14 @@
+ import 'package:flutter_screenutil/flutter_screenutil.dart';
+ import 'package:flutter_svg/svg.dart';
+ 
+-class DrawerScreen extends StatefulWidget {
++class DrawerScreen extends BaseStatefulWidget {
+   const DrawerScreen({super.key});
+ 
+   @override
+-  State<DrawerScreen> createState() => _DrawerScreenState();
++  BaseState<DrawerScreen> createState() => _DrawerScreenState();
+ }
+ 
+-class _DrawerScreenState extends State<DrawerScreen> {
++class _DrawerScreenState extends BaseState<DrawerScreen> {
+   int currentIndex = 0;
+ 
+   @override
+@@ -103,42 +104,42 @@
+               ),
+               Expanded(
+                 child: ListView.builder(
+-                    shrinkWrap: true,
+-                    itemCount: mainMenuListData?.length ?? 0,
+-                    itemBuilder: (context, index) {
+-                      final item = mainMenuListData?[index];
+-                      return Container(
+-                        width: 1.sw,
+-                        padding: EdgeInsets.only(top: 5.h, bottom: 5.h, left: 8.w, right: 8.w),
+-                        margin: EdgeInsets.only(top: 8.h),
+-                        decoration: index == currentIndex
+-                            ? BoxDecoration(
+-                                gradient: LinearGradient(
+-                                  begin: const Alignment(-1.00, -0.00),
+-                                  end: const Alignment(1, 0),
+-                                  colors: [
+-                                    Colors.white.withOpacity(0),
+-                                    Colors.white,
+-                                  ],
+-                                ),
+-                              )
+-                            : BoxDecoration(color: Colors.white.withOpacity(0.1)),
+-                        child: Row(
+-                          children: [
+-                            Container(
+-                              padding: EdgeInsets.only(left: 8.w, right: 25.w),
+-                              child: SvgPicture.network(
+-                                item?.menuIconURL ?? '',
+-                                height: 14.h,
+-                                width: 14.w,
+-                              ),
+-                            ),
+-                            Expanded(
+-                              child: Text(
+-                                item?.menuName ?? '',
+-                                style: TextStyles.semiBold15,
+-                              ),
+-                            ),
++                  shrinkWrap: true,
++                  itemCount: mainMenuListData?.length ?? 0,
++                  itemBuilder: (context, index) {
++                    final item = mainMenuListData?[index];
++                    return Container(
++                      width: 1.sw,
++                      padding: EdgeInsets.only(top: 5.h, bottom: 5.h, left: 8.w, right: 8.w),
++                      margin: EdgeInsets.only(top: 8.h),
++                      decoration: index == currentIndex
++                          ? BoxDecoration(
++                              gradient: LinearGradient(
++                                begin: const Alignment(-1.00, -0.00),
++                                end: const Alignment(1, 0),
++                                colors: [
++                                  Colors.white.withOpacity(0),
++                                  Colors.white,
++                                ],
++                              ),
++                            )
++                          : BoxDecoration(color: Colors.white.withOpacity(0.1)),
++                      child: Row(
++                        children: [
++                          Container(
++                            padding: EdgeInsets.only(left: 8.w, right: 25.w),
++                            child: SvgPicture.network(
++                              item?.menuIconURL ?? '',
++                              height: 14.h,
++                              width: 14.w,
++                            ),
++                          ),
++                          Expanded(
++                            child: Text(
++                              item?.menuName ?? '',
++                              style: TextStyles.semiBold15,
++                            ),
++                          ),
+                         ],
+                       ),
+                     ).addGesture(
+@@ -207,9 +208,11 @@
+         BottomBarNavigationProvider().setCurrentBottomItem(BottomNavigationEnum.offers);
+         break;
+       case '4':
+-        appRouter.pushNamed(OrderHistoryRoute.name);
++        //ORDER HISTORY
++        appRouter.push(const OrderHistoryRoute());
+         break;
+       case '5':
++        //REPORTS
+         appRouter.push(ReportRoute());
+         break;
+       case '6':
+Index: pubspec.lock
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/pubspec.lock b/pubspec.lock
+--- a/pubspec.lock	(revision 2da0afebfeef4232d63d17f0434e55e2781be866)
++++ b/pubspec.lock	(date 1719295252187)
+@@ -1437,6 +1437,14 @@
+       url: "https://pub.dev"
+     source: hosted
+     version: "2.3.1"
++  visibility_detector:
++    dependency: "direct main"
++    description:
++      name: visibility_detector
++      sha256: dd5cc11e13494f432d15939c3aa8ae76844c42b723398643ce9addb88a5ed420
++      url: "https://pub.dev"
++    source: hosted
++    version: "0.4.0+2"
+   vm_service:
+     dependency: transitive
+     description:
+Index: lib/presentation/home/components/credit_aging_widget.dart
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/lib/presentation/home/components/credit_aging_widget.dart b/lib/presentation/home/components/credit_aging_widget.dart
+--- a/lib/presentation/home/components/credit_aging_widget.dart	(revision 2da0afebfeef4232d63d17f0434e55e2781be866)
++++ b/lib/presentation/home/components/credit_aging_widget.dart	(date 1719232479900)
+@@ -4,23 +4,24 @@
+ import 'package:distributor_empower/constants/fonts/font_family.dart';
+ import 'package:distributor_empower/constants/fonts/font_weight.dart';
+ import 'package:distributor_empower/model/dashboard_response.dart';
++import 'package:distributor_empower/presentation/base_statefull_widget.dart';
+ import 'package:distributor_empower/utils/extensions.dart';
+ import 'package:distributor_empower/utils/text_styles.dart';
+ import 'package:fl_chart/fl_chart.dart';
+ import 'package:flutter/material.dart';
+ import 'package:flutter_screenutil/flutter_screenutil.dart';
+ 
+-class CreditAgingWidget extends StatefulWidget {
++class CreditAgingWidget extends BaseStatefulWidget {
+   final CreditAgingData? creditAging;
+   final String title;
+ 
+   const CreditAgingWidget(this.creditAging, {required this.title, super.key});
+ 
+   @override
+-  State<CreditAgingWidget> createState() => _CreditAgingWidgetState();
++  BaseState<CreditAgingWidget> createState() => _CreditAgingWidgetState();
+ }
+ 
+-class _CreditAgingWidgetState extends State<CreditAgingWidget> {
++class _CreditAgingWidgetState extends BaseState<CreditAgingWidget> {
+   int touchedIndex = -1;
+ 
+   List<CreditAging> get getCreditAging => widget.creditAging?.list ?? [];
+Index: lib/presentation/offers/schemes_screen.dart
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/lib/presentation/offers/schemes_screen.dart b/lib/presentation/offers/schemes_screen.dart
+--- a/lib/presentation/offers/schemes_screen.dart	(revision 2da0afebfeef4232d63d17f0434e55e2781be866)
++++ b/lib/presentation/offers/schemes_screen.dart	(date 1719300380372)
+@@ -2,8 +2,8 @@
+ import 'package:distributor_empower/constants/app_colors/app_colors.dart';
+ import 'package:distributor_empower/constants/fonts/font_family.dart';
+ import 'package:distributor_empower/constants/fonts/font_weight.dart';
+-import 'package:distributor_empower/core/di/locator.dart';
+ import 'package:distributor_empower/generated/l10n.dart';
++import 'package:distributor_empower/presentation/base_statefull_widget.dart';
+ import 'package:distributor_empower/presentation/dashboard/provider/bottombar_navigation_provider.dart';
+ import 'package:distributor_empower/presentation/offers/schemes_provider.dart';
+ import 'package:distributor_empower/routes/router.dart';
+@@ -19,14 +19,14 @@
+ import 'package:pull_to_refresh/pull_to_refresh.dart';
+ 
+ @RoutePage()
+-class SchemesScreen extends StatefulWidget {
++class SchemesScreen extends BaseStatefulWidget {
+   const SchemesScreen({super.key});
+ 
+   @override
+-  State<SchemesScreen> createState() => _SchemesScreenState();
++  BaseState<SchemesScreen> createState() => _SchemesScreenState();
+ }
+ 
+-class _SchemesScreenState extends State<SchemesScreen> {
++class _SchemesScreenState extends BaseState<SchemesScreen> {
+   final _schemesProvider = SchemesProvider();
+   final _refreshController = RefreshController(initialRefresh: false);
+ 
+Index: lib/presentation/home/components/filter_menu_widget.dart
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/lib/presentation/home/components/filter_menu_widget.dart b/lib/presentation/home/components/filter_menu_widget.dart
+--- a/lib/presentation/home/components/filter_menu_widget.dart	(revision 2da0afebfeef4232d63d17f0434e55e2781be866)
++++ b/lib/presentation/home/components/filter_menu_widget.dart	(date 1719232479945)
+@@ -2,11 +2,12 @@
+ import 'package:distributor_empower/core/di/locator.dart';
+ import 'package:distributor_empower/generated/l10n.dart';
+ import 'package:distributor_empower/model/dashboard_response.dart';
++import 'package:distributor_empower/presentation/base_statefull_widget.dart';
+ import 'package:distributor_empower/utils/text_styles.dart';
+ import 'package:flutter/material.dart';
+ import 'package:flutter_screenutil/flutter_screenutil.dart';
+ 
+-class FilterMenuWidget extends StatefulWidget {
++class FilterMenuWidget extends BaseStatefulWidget {
+   final List<FilterData>? filter;
+   final String title;
+   final Function(FilterData) onChangeDivision;
+@@ -14,10 +15,10 @@
+   const FilterMenuWidget(this.filter, this.title, this.onChangeDivision, {super.key});
+ 
+   @override
+-  State<FilterMenuWidget> createState() => _FilterMenuWidgetState();
++  BaseState<FilterMenuWidget> createState() => _FilterMenuWidgetState();
+ }
+ 
+-class _FilterMenuWidgetState extends State<FilterMenuWidget> {
++class _FilterMenuWidgetState extends BaseState<FilterMenuWidget> {
+   FilterData get getSelectedItem =>
+       widget.filter?.firstWhere(
+         (element) => element.divisionID == storage.userDetails.divisionID,
+Index: lib/presentation/home/components/focus_product_widget.dart
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/lib/presentation/home/components/focus_product_widget.dart b/lib/presentation/home/components/focus_product_widget.dart
+--- a/lib/presentation/home/components/focus_product_widget.dart	(revision 2da0afebfeef4232d63d17f0434e55e2781be866)
++++ b/lib/presentation/home/components/focus_product_widget.dart	(date 1719300380286)
+@@ -1,7 +1,7 @@
+ import 'package:distributor_empower/constants/app_colors/app_colors.dart';
+-import 'package:distributor_empower/core/di/locator.dart';
+ import 'package:distributor_empower/generated/l10n.dart';
+ import 'package:distributor_empower/model/dashboard_response.dart';
++import 'package:distributor_empower/presentation/base_statefull_widget.dart';
+ import 'package:distributor_empower/presentation/focus_products/provider/product_provider.dart';
+ import 'package:distributor_empower/presentation/home/components/product_view_widget.dart';
+ import 'package:distributor_empower/presentation/home/provider/home_provider.dart';
+@@ -11,7 +11,7 @@
+ import 'package:flutter/material.dart';
+ import 'package:flutter_screenutil/flutter_screenutil.dart';
+ 
+-class FocusProductWidget extends StatefulWidget {
++class FocusProductWidget extends BaseStatefulWidget {
+   final List<FocusProduct?>? focusProductList;
+   final String title;
+   final HomeProvider homeProvider;
+@@ -19,10 +19,10 @@
+   const FocusProductWidget(this.focusProductList, {required this.title, required this.homeProvider, super.key});
+ 
+   @override
+-  State<FocusProductWidget> createState() => _FocusProductWidgetState();
++  BaseState<FocusProductWidget> createState() => _FocusProductWidgetState();
+ }
+ 
+-class _FocusProductWidgetState extends State<FocusProductWidget> {
++class _FocusProductWidgetState extends BaseState<FocusProductWidget> {
+   final _productProvider = ProductProvider();
+ 
+   @override
+Index: lib/presentation/home/components/order_details_widget.dart
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/lib/presentation/home/components/order_details_widget.dart b/lib/presentation/home/components/order_details_widget.dart
+--- a/lib/presentation/home/components/order_details_widget.dart	(revision 2da0afebfeef4232d63d17f0434e55e2781be866)
++++ b/lib/presentation/home/components/order_details_widget.dart	(date 1719232479915)
+@@ -3,12 +3,13 @@
+ import 'package:distributor_empower/constants/fonts/font_weight.dart';
+ import 'package:distributor_empower/generated/l10n.dart';
+ import 'package:distributor_empower/model/dashboard_response.dart';
++import 'package:distributor_empower/presentation/base_statefull_widget.dart';
+ import 'package:distributor_empower/utils/text_styles.dart';
+ import 'package:fl_chart/fl_chart.dart';
+ import 'package:flutter/material.dart';
+ import 'package:flutter_screenutil/flutter_screenutil.dart';
+ 
+-class OrderDetailsWidget extends StatefulWidget {
++class OrderDetailsWidget extends BaseStatefulWidget {
+   final String? title;
+ 
+   final List<OrderDetail>? orderDetails;
+@@ -16,10 +17,10 @@
+   const OrderDetailsWidget(this.orderDetails, {required this.title, super.key});
+ 
+   @override
+-  State<OrderDetailsWidget> createState() => _OrderDetailsWidgetState();
++  BaseState<OrderDetailsWidget> createState() => _OrderDetailsWidgetState();
+ }
+ 
+-class _OrderDetailsWidgetState extends State<OrderDetailsWidget> {
++class _OrderDetailsWidgetState extends BaseState<OrderDetailsWidget> {
+   int touchedIndex = -1;
+ 
+   List<OrderDetail> get getOrderLabelList => widget.orderDetails ?? [];
+Index: lib/presentation/home/components/sales_chart_widget.dart
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/lib/presentation/home/components/sales_chart_widget.dart b/lib/presentation/home/components/sales_chart_widget.dart
+--- a/lib/presentation/home/components/sales_chart_widget.dart	(revision 2da0afebfeef4232d63d17f0434e55e2781be866)
++++ b/lib/presentation/home/components/sales_chart_widget.dart	(date 1719232479905)
+@@ -1,22 +1,23 @@
+ import 'package:distributor_empower/constants/app_colors/app_colors.dart';
+ import 'package:distributor_empower/generated/l10n.dart';
+ import 'package:distributor_empower/model/dashboard_response.dart';
++import 'package:distributor_empower/presentation/base_statefull_widget.dart';
+ import 'package:distributor_empower/utils/text_styles.dart';
+ import 'package:flutter/material.dart';
+ import 'package:flutter_screenutil/flutter_screenutil.dart';
+ import 'package:syncfusion_flutter_charts/charts.dart';
+ 
+-class SalesChartWidget extends StatefulWidget {
++class SalesChartWidget extends BaseStatefulWidget {
+   final List<Sales>? sales;
+   final String? title;
+ 
+   const SalesChartWidget(this.sales, {super.key, this.title});
+ 
+   @override
+-  State<SalesChartWidget> createState() => _SalesChartWidgetState();
++  BaseState<SalesChartWidget> createState() => _SalesChartWidgetState();
+ }
+ 
+-class _SalesChartWidgetState extends State<SalesChartWidget> with AutomaticKeepAliveClientMixin {
++class _SalesChartWidgetState extends BaseState<SalesChartWidget> with AutomaticKeepAliveClientMixin {
+   final TooltipBehavior _tooltip = TooltipBehavior(enable: true);
+ 
+   @override
+Index: pubspec.yaml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/pubspec.yaml b/pubspec.yaml
+--- a/pubspec.yaml	(revision 2da0afebfeef4232d63d17f0434e55e2781be866)
++++ b/pubspec.yaml	(date 1719295249576)
+@@ -78,6 +78,7 @@
+   syncfusion_flutter_pdfviewer: ^26.1.35
+   youtube_player_iframe: ^5.1.2
+   video_player: ^2.8.7
++  visibility_detector: ^0.4.0+2
+ 
+ dev_dependencies:
+   flutter_test:
+Index: lib/presentation/sales_report/sales_report_screen.dart
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/lib/presentation/sales_report/sales_report_screen.dart b/lib/presentation/sales_report/sales_report_screen.dart
+--- a/lib/presentation/sales_report/sales_report_screen.dart	(revision 2da0afebfeef4232d63d17f0434e55e2781be866)
++++ b/lib/presentation/sales_report/sales_report_screen.dart	(date 1719300380353)
+@@ -3,6 +3,7 @@
+ import 'package:distributor_empower/core/di/locator.dart';
+ import 'package:distributor_empower/generated/l10n.dart';
+ import 'package:distributor_empower/model/sales_report_response.dart';
++import 'package:distributor_empower/presentation/base_statefull_widget.dart';
+ import 'package:distributor_empower/presentation/sales_report/provider/sales_report_provider.dart';
+ import 'package:distributor_empower/routes/router.dart';
+ import 'package:distributor_empower/utils/app_date_utils.dart';
+@@ -20,16 +21,16 @@
+ import 'package:pull_to_refresh/pull_to_refresh.dart';
+ 
+ @RoutePage()
+-class SalesReportScreen extends StatefulWidget {
++class SalesReportScreen extends BaseStatefulWidget {
+   const SalesReportScreen({
+     super.key,
+   });
+ 
+   @override
+-  State<SalesReportScreen> createState() => _SalesReportScreenState();
++  BaseState<SalesReportScreen> createState() => _SalesReportScreenState();
+ }
+ 
+-class _SalesReportScreenState extends State<SalesReportScreen> {
++class _SalesReportScreenState extends BaseState<SalesReportScreen> {
+   String? fromDate = storage.settingsData.fYStartDate ?? AppDateUtils.getCurrentDateStr;
+   String? toDate = AppDateUtils.getCurrentDateStr;
+ 
+Index: lib/presentation/viewer/common_webview.dart
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/lib/presentation/viewer/common_webview.dart b/lib/presentation/viewer/common_webview.dart
+--- a/lib/presentation/viewer/common_webview.dart	(revision 2da0afebfeef4232d63d17f0434e55e2781be866)
++++ b/lib/presentation/viewer/common_webview.dart	(date 1719232479924)
+@@ -1,5 +1,6 @@
+ import 'package:auto_route/annotations.dart';
+ import 'package:distributor_empower/constants/app_colors/app_colors.dart';
++import 'package:distributor_empower/presentation/base_statefull_widget.dart';
+ import 'package:distributor_empower/utils/text_styles.dart';
+ import 'package:distributor_empower/widgets/custom_app_bar/app_bar.dart';
+ import 'package:distributor_empower/widgets/progress_widget.dart';
+@@ -7,17 +8,17 @@
+ import 'package:webview_flutter/webview_flutter.dart';
+ 
+ @RoutePage()
+-class CommonWebViewScreen extends StatefulWidget {
++class CommonWebViewScreen extends BaseStatefulWidget {
+   final String url;
+   final String? title;
+ 
+   const CommonWebViewScreen({required this.url, super.key, this.title});
+ 
+   @override
+-  State<CommonWebViewScreen> createState() => _CommonWebViewScreenState();
++  BaseState<CommonWebViewScreen> createState() => _CommonWebViewScreenState();
+ }
+ 
+-class _CommonWebViewScreenState extends State<CommonWebViewScreen> {
++class _CommonWebViewScreenState extends BaseState<CommonWebViewScreen> {
+   final controller = WebViewController();
+   var isLoading = true;
+ 
+Index: lib/presentation/viewer/youtube_player_screen.dart
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/lib/presentation/viewer/youtube_player_screen.dart b/lib/presentation/viewer/youtube_player_screen.dart
+--- a/lib/presentation/viewer/youtube_player_screen.dart	(revision 2da0afebfeef4232d63d17f0434e55e2781be866)
++++ b/lib/presentation/viewer/youtube_player_screen.dart	(date 1719232479927)
+@@ -1,19 +1,20 @@
+ import 'package:auto_route/annotations.dart';
++import 'package:distributor_empower/presentation/base_statefull_widget.dart';
+ import 'package:flutter/material.dart';
+ import 'package:flutter/services.dart';
+ import 'package:youtube_player_iframe/youtube_player_iframe.dart';
+ 
+ @RoutePage()
+-class YoutubePlayerScreen extends StatefulWidget {
++class YoutubePlayerScreen extends BaseStatefulWidget {
+   final String productArguments;
+ 
+   const YoutubePlayerScreen({required this.productArguments, super.key});
+ 
+   @override
+-  State<YoutubePlayerScreen> createState() => _YoutubePlayerScreenState();
++  BaseState<YoutubePlayerScreen> createState() => _YoutubePlayerScreenState();
+ }
+ 
+-class _YoutubePlayerScreenState extends State<YoutubePlayerScreen> {
++class _YoutubePlayerScreenState extends BaseState<YoutubePlayerScreen> {
+   late final YoutubePlayerController? _ytbPlayerController;
+ 
+   @override
+Index: lib/presentation/viewer/view_image_screen.dart
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/lib/presentation/viewer/view_image_screen.dart b/lib/presentation/viewer/view_image_screen.dart
+--- a/lib/presentation/viewer/view_image_screen.dart	(revision 2da0afebfeef4232d63d17f0434e55e2781be866)
++++ b/lib/presentation/viewer/view_image_screen.dart	(date 1719232479920)
+@@ -1,22 +1,23 @@
+ import 'package:auto_route/annotations.dart';
+ import 'package:distributor_empower/constants/app_colors/app_colors.dart';
++import 'package:distributor_empower/presentation/base_statefull_widget.dart';
+ import 'package:distributor_empower/utils/text_styles.dart';
+ import 'package:distributor_empower/widgets/cache_network_image_widget.dart';
+ import 'package:distributor_empower/widgets/custom_app_bar/app_bar.dart';
+ import 'package:flutter/material.dart';
+ 
+ @RoutePage()
+-class ViewImageScreen extends StatefulWidget {
++class ViewImageScreen extends BaseStatefulWidget {
+   final String? productArguments;
+   final String title;
+ 
+   const ViewImageScreen({required this.title, required this.productArguments, super.key});
+ 
+   @override
+-  State<ViewImageScreen> createState() => _ViewImageScreenState();
++  BaseState<ViewImageScreen> createState() => _ViewImageScreenState();
+ }
+ 
+-class _ViewImageScreenState extends State<ViewImageScreen> {
++class _ViewImageScreenState extends BaseState<ViewImageScreen> {
+   final viewTransformationController = TransformationController();
+ 
+   @override
+Index: lib/presentation/viewer/video_player_screen.dart
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/lib/presentation/viewer/video_player_screen.dart b/lib/presentation/viewer/video_player_screen.dart
+--- a/lib/presentation/viewer/video_player_screen.dart	(revision 2da0afebfeef4232d63d17f0434e55e2781be866)
++++ b/lib/presentation/viewer/video_player_screen.dart	(date 1719232479930)
+@@ -1,22 +1,23 @@
+ import 'package:auto_route/annotations.dart';
+ import 'package:distributor_empower/constants/app_colors/app_colors.dart';
++import 'package:distributor_empower/presentation/base_statefull_widget.dart';
+ import 'package:flutter/material.dart';
+ import 'package:flutter/services.dart';
+ import 'package:flutter_screenutil/flutter_screenutil.dart';
+ import 'package:video_player/video_player.dart';
+ 
+ @RoutePage()
+-class VideoPlayerScreen extends StatefulWidget {
++class VideoPlayerScreen extends BaseStatefulWidget {
+   final String productArguments;
+   final String title;
+ 
+   const VideoPlayerScreen({required this.productArguments, required this.title, super.key});
+ 
+   @override
+-  State<VideoPlayerScreen> createState() => _VideoPlayerScreenState();
++  BaseState<VideoPlayerScreen> createState() => _VideoPlayerScreenState();
+ }
+ 
+-class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
++class _VideoPlayerScreenState extends BaseState<VideoPlayerScreen> {
+   late final VideoPlayerController _controller;
+   late Future<void> videoPlayerFuture;
+ 
+Index: lib/presentation/viewer/pdf_viewer_screen.dart
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/lib/presentation/viewer/pdf_viewer_screen.dart b/lib/presentation/viewer/pdf_viewer_screen.dart
+--- a/lib/presentation/viewer/pdf_viewer_screen.dart	(revision 2da0afebfeef4232d63d17f0434e55e2781be866)
++++ b/lib/presentation/viewer/pdf_viewer_screen.dart	(date 1719232479934)
+@@ -1,22 +1,23 @@
+ import 'package:auto_route/annotations.dart';
+ import 'package:distributor_empower/constants/app_colors/app_colors.dart';
++import 'package:distributor_empower/presentation/base_statefull_widget.dart';
+ import 'package:distributor_empower/utils/text_styles.dart';
+ import 'package:distributor_empower/widgets/custom_app_bar/app_bar.dart';
+ import 'package:flutter/material.dart';
+ import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
+ 
+ @RoutePage()
+-class PDFViewerScreen extends StatefulWidget {
++class PDFViewerScreen extends BaseStatefulWidget {
+   final String url;
+   final String title;
+ 
+   const PDFViewerScreen({required this.url, required this.title, super.key});
+ 
+   @override
+-  State<PDFViewerScreen> createState() => _PDFViewerScreenState();
++  BaseState<PDFViewerScreen> createState() => _PDFViewerScreenState();
+ }
+ 
+-class _PDFViewerScreenState extends State<PDFViewerScreen> {
++class _PDFViewerScreenState extends BaseState<PDFViewerScreen> {
+   final _pdfViewerKey = PdfViewerController();
+ 
+   @override
+Index: lib/presentation/sales_report/sales_report_detail_screen.dart
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/lib/presentation/sales_report/sales_report_detail_screen.dart b/lib/presentation/sales_report/sales_report_detail_screen.dart
+--- a/lib/presentation/sales_report/sales_report_detail_screen.dart	(revision 2da0afebfeef4232d63d17f0434e55e2781be866)
++++ b/lib/presentation/sales_report/sales_report_detail_screen.dart	(date 1719300380420)
+@@ -3,6 +3,7 @@
+ import 'package:distributor_empower/gen/assets.gen.dart';
+ import 'package:distributor_empower/generated/l10n.dart';
+ import 'package:distributor_empower/model/sales_report_details.dart';
++import 'package:distributor_empower/presentation/base_statefull_widget.dart';
+ import 'package:distributor_empower/presentation/sales_report/provider/sales_report_provider.dart';
+ import 'package:distributor_empower/utils/text_styles.dart';
+ import 'package:distributor_empower/widgets/custom_app_bar/app_bar.dart';
+@@ -13,7 +14,7 @@
+ import 'package:provider/provider.dart';
+ 
+ @RoutePage()
+-class SalesReportDetailScreen extends StatefulWidget {
++class SalesReportDetailScreen extends BaseStatefulWidget {
+   final String docId;
+ 
+   const SalesReportDetailScreen({
+@@ -22,10 +23,10 @@
+   });
+ 
+   @override
+-  State<SalesReportDetailScreen> createState() => _SalesReportDetailScreenState();
++  BaseState<SalesReportDetailScreen> createState() => _SalesReportDetailScreenState();
+ }
+ 
+-class _SalesReportDetailScreenState extends State<SalesReportDetailScreen> {
++class _SalesReportDetailScreenState extends BaseState<SalesReportDetailScreen> {
+   final _saleInvoiceDetailProvider = SalesReportProvider();
+ 
+   SalesReportDetailsResponse? get getSalesReportDetails => _saleInvoiceDetailProvider.salesReportDetails;
+Index: lib/presentation/profile/profile_screen.dart
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/lib/presentation/profile/profile_screen.dart b/lib/presentation/profile/profile_screen.dart
+--- a/lib/presentation/profile/profile_screen.dart	(revision 2da0afebfeef4232d63d17f0434e55e2781be866)
++++ b/lib/presentation/profile/profile_screen.dart	(date 1719232479940)
+@@ -5,6 +5,7 @@
+ import 'package:distributor_empower/gen/assets.gen.dart';
+ import 'package:distributor_empower/generated/l10n.dart';
+ import 'package:distributor_empower/model/menu_response.dart';
++import 'package:distributor_empower/presentation/base_statefull_widget.dart';
+ import 'package:distributor_empower/presentation/dashboard/provider/bottombar_navigation_provider.dart';
+ import 'package:distributor_empower/presentation/home/provider/home_provider.dart';
+ import 'package:distributor_empower/routes/router.dart';
+@@ -21,14 +22,14 @@
+ import 'package:url_launcher/url_launcher_string.dart';
+ 
+ @RoutePage()
+-class ProfileScreen extends StatefulWidget {
++class ProfileScreen extends BaseStatefulWidget {
+   const ProfileScreen({super.key});
+ 
+   @override
+-  State<ProfileScreen> createState() => _ProfileScreenState();
++  BaseState<ProfileScreen> createState() => _ProfileScreenState();
+ }
+ 
+-class _ProfileScreenState extends State<ProfileScreen> {
++class _ProfileScreenState extends BaseState<ProfileScreen> {
+   final _commonProvider = CommonProvider();
+ 
+   final List<MenuResponse?> horizontalOption = profileMenuListData

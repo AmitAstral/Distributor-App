@@ -40,7 +40,7 @@ class _CommonWebViewScreenState extends BaseState<CommonWebViewScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildBody(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.white,
       appBar: PreferredSize(

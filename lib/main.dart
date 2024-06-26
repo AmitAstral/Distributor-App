@@ -76,12 +76,12 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
       DeviceOrientation.portraitDown,
     ]);
     return ScreenUtilInit(
-        designSize: const Size(360, 690),
-        useInheritedMediaQuery: true,
-        builder: (context, child) {
-          return MaterialApp.router(
-            scaffoldMessengerKey: Init().scaffoldMessengerKey,
-            routerDelegate: AppRouter().delegate(),
+      designSize: const Size(360, 690),
+      useInheritedMediaQuery: true,
+      builder: (context, child) {
+        return MaterialApp.router(
+          scaffoldMessengerKey: Init().scaffoldMessengerKey,
+          routerDelegate: AppRouter().delegate(navigatorObservers: () => [AppRouter().routeObserver]),
           routeInformationParser: AppRouter().defaultRouteParser(),
           debugShowCheckedModeBanner: false,
           theme: ThemeData(

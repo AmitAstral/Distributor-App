@@ -26,7 +26,7 @@ class _OrderDetailsWidgetState extends BaseState<OrderDetailsWidget> {
   List<OrderDetail> get getOrderLabelList => widget.orderDetails ?? [];
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildBody(BuildContext context) {
     return Container(
       width: 1.sw,
       margin: EdgeInsets.symmetric(horizontal: 10.w, vertical: 6.h),

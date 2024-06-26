@@ -43,7 +43,7 @@ class _VerifyPinScreenState extends BaseState<VerifyPinScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildBody(BuildContext context) {
     return Scaffold(
       body: ProgressWidget(
         inAsyncCall: false,

@@ -38,18 +38,18 @@ class _SalesReportDetailScreenState extends BaseState<SalesReportDetailScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildBody(BuildContext context) {
     return Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(AppBar().preferredSize.height),
-          child: AppBarWidget(
-            toolbarHeight: AppBar().preferredSize.height,
-            titleText: AppLocalizations.of(context).salesDetails,
-            centerTitle: true,
-            elevation: 0,
-            flexibleSpace: null,
-            actions: const [
-              /*Padding(
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(AppBar().preferredSize.height),
+        child: AppBarWidget(
+          toolbarHeight: AppBar().preferredSize.height,
+          titleText: AppLocalizations.of(context).salesDetails,
+          centerTitle: true,
+          elevation: 0,
+          flexibleSpace: null,
+          actions: const [
+            /*Padding(
                 padding: const EdgeInsets.only(right: 10.0).w,
                 child: IconButton(
                   icon: const Icon(

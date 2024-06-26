@@ -24,7 +24,7 @@ class OrderHistoryScreen extends BaseStatefulWidget {
   BaseState<OrderHistoryScreen> createState() => _OrderHistoryScreenState();
 }
 
-class _OrderHistoryScreenState extends BaseState<OrderHistoryScreen> {
+class _OrderHistoryScreenState extends BaseState<OrderHistoryScreen> with RouteAware {
   final _orderProvider = OrderProvider();
   final _refreshController = RefreshController(initialRefresh: false);
 
@@ -42,7 +42,7 @@ class _OrderHistoryScreenState extends BaseState<OrderHistoryScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildBody(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.white,
       appBar: PreferredSize(

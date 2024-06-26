@@ -37,7 +37,7 @@ class _PendingOrderScreenState extends BaseState<PendingOrderScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildBody(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(AppBar().preferredSize.height),

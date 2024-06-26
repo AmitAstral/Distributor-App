@@ -1,4 +1,3 @@
-import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:distributor_empower/constants/app_colors/app_colors.dart';
 import 'package:distributor_empower/core/di/locator.dart';
@@ -25,7 +24,7 @@ class OrderDetailsScreen extends BaseStatefulWidget {
   BaseState<OrderDetailsScreen> createState() => _OrderDetailsScreenState();
 }
 
-class _OrderDetailsScreenState extends BaseState<OrderDetailsScreen> {
+class _OrderDetailsScreenState extends BaseState<OrderDetailsScreen> with AutoRouteAware {
   final _orderProvider = OrderProvider();
   final _refreshController = RefreshController(initialRefresh: false);
 
@@ -45,7 +44,7 @@ class _OrderDetailsScreenState extends BaseState<OrderDetailsScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildBody(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.white,
       appBar: PreferredSize(

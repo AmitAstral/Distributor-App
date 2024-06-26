@@ -27,7 +27,7 @@ class _CreditAgingWidgetState extends BaseState<CreditAgingWidget> {
   List<CreditAging> get getCreditAging => widget.creditAging?.list ?? [];
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildBody(BuildContext context) {
     return Container(
       width: 1.sw,
       height: 340.h,

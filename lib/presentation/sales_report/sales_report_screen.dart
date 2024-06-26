@@ -47,18 +47,18 @@ class _SalesReportScreenState extends BaseState<SalesReportScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildBody(BuildContext context) {
     return Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(AppBar().preferredSize.height),
-          child: AppBarWidget(
-            toolbarHeight: AppBar().preferredSize.height,
-            titleText: AppLocalizations.of(context).salesReport,
-            centerTitle: true,
-            elevation: 0,
-            flexibleSpace: null,
-          ),
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(AppBar().preferredSize.height),
+        child: AppBarWidget(
+          toolbarHeight: AppBar().preferredSize.height,
+          titleText: AppLocalizations.of(context).salesReport,
+          centerTitle: true,
+          elevation: 0,
+          flexibleSpace: null,
         ),
+      ),
         body: ChangeNotifierProvider.value(
           value: _salesReportProvider,
           builder: (context, child) {

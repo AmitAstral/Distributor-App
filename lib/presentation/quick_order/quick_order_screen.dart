@@ -46,7 +46,7 @@ class _QuickOrderScreenState extends BaseState<QuickOrderScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildBody(BuildContext context) {
     return PopScope(
       onPopInvoked: (didPop) {
         BottomBarNavigationProvider().selectHomePage();

@@ -44,7 +44,7 @@ class _SchemesScreenState extends BaseState<SchemesScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildBody(BuildContext context) {
     return PopScope(
       onPopInvoked: (didPop) {
         BottomBarNavigationProvider().selectHomePage();

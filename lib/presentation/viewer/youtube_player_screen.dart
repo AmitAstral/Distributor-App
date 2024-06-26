@@ -51,7 +51,7 @@ class _YoutubePlayerScreenState extends BaseState<YoutubePlayerScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildBody(BuildContext context) {
     return _buildYtbView();
   }
 

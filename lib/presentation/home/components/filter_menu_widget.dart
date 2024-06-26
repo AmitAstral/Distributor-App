@@ -26,7 +26,7 @@ class _FilterMenuWidgetState extends BaseState<FilterMenuWidget> {
       FilterData();
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildBody(BuildContext context) {
     if (widget.filter?.isEmpty ?? true) return const SizedBox.shrink();
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 10).w,

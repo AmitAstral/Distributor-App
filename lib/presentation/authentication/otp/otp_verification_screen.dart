@@ -57,7 +57,7 @@ class _OtpVerificationScreenState extends BaseState<OtpVerificationScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildBody(BuildContext context) {
     return Scaffold(
       body: ProgressWidget(
         inAsyncCall: false,

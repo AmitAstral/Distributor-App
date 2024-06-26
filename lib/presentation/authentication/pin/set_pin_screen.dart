@@ -42,7 +42,7 @@ class _SetPinScreenState extends BaseState<SetPinScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildBody(BuildContext context) {
     return Scaffold(
       body: ProgressWidget(
         inAsyncCall: false,

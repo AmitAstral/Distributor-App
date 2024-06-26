@@ -45,18 +45,18 @@ class _StatementOfAccountScreenState extends BaseState<StatementOfAccountScreen>
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildBody(BuildContext context) {
     return Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(AppBar().preferredSize.height),
-          child: AppBarWidget(
-            toolbarHeight: AppBar().preferredSize.height,
-            titleText: AppLocalizations.of(context).statementOfAccounts,
-            centerTitle: true,
-            elevation: 0,
-            flexibleSpace: null,
-          ),
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(AppBar().preferredSize.height),
+        child: AppBarWidget(
+          toolbarHeight: AppBar().preferredSize.height,
+          titleText: AppLocalizations.of(context).statementOfAccounts,
+          centerTitle: true,
+          elevation: 0,
+          flexibleSpace: null,
         ),
+      ),
         body: ChangeNotifierProvider.value(
           value: _statementProvider,
           builder: (context, child) {

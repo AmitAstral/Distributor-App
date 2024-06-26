@@ -26,7 +26,7 @@ class _FocusProductWidgetState extends BaseState<FocusProductWidget> {
   final _productProvider = ProductProvider();
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildBody(BuildContext context) {
     if (widget.focusProductList?.isEmpty ?? true) return const SizedBox.shrink();
     return Container(
       height: 190.h,

@@ -54,7 +54,7 @@ class _VideoPlayerScreenState extends BaseState<VideoPlayerScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildBody(BuildContext context) {
     return Scaffold(
       body: Center(
         child: Stack(

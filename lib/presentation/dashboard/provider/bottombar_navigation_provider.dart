@@ -67,4 +67,8 @@ class BottomBarNavigationProvider with ChangeNotifier {
   void closeDrawer() {
     BottomBarNavigationProvider().dashboardKey.currentState?.closeDrawer();
   }
+
+  void openDrawer() {
+    BottomBarNavigationProvider().dashboardKey.currentState?.openDrawer();
+  }
 }

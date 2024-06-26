@@ -45,7 +45,7 @@ class _HomeScreenState extends BaseState<HomeScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildBody(BuildContext context) {
     return ChangeNotifierProvider.value(
       value: _homeProvider,
       child: Scaffold(
@@ -116,9 +116,7 @@ class _HomeScreenState extends BaseState<HomeScreen> {
         Padding(
           padding: EdgeInsets.only(right: 5.w),
           child: IconButton(
-            onPressed: () {
-              BottomBarNavigationProvider().dashboardKey.currentState?.openDrawer();
-            },
+            onPressed: BottomBarNavigationProvider().openDrawer,
             icon: Assets.icons.menu.svg(),
           ),
         ),

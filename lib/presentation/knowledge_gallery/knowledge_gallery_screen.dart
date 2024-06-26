@@ -41,7 +41,7 @@ class _KnowledgeGalleryScreenState extends BaseState<KnowledgeGalleryScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildBody(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.white,
       appBar: PreferredSize(

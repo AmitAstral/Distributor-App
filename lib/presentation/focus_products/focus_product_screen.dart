@@ -40,7 +40,7 @@ class _FocusProductScreenState extends BaseState<FocusProductScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildBody(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.white,
       appBar: PreferredSize(

@@ -36,7 +36,7 @@ class _LoginScreenState extends BaseState<LoginScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildBody(BuildContext context) {
     return Scaffold(
       body: ProgressWidget(
         inAsyncCall: false,
