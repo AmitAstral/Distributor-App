@@ -6,6 +6,7 @@ import 'package:distributor_empower/generated/l10n.dart';
 import 'package:distributor_empower/model/dashboard_response.dart';
 import 'package:distributor_empower/presentation/base_statefull_widget.dart';
 import 'package:distributor_empower/presentation/dashboard/provider/bottombar_navigation_provider.dart';
+import 'package:distributor_empower/presentation/home/components/categories_widget.dart';
 import 'package:distributor_empower/presentation/home/components/credit_aging_widget.dart';
 import 'package:distributor_empower/presentation/home/components/credit_details_widget.dart';
 import 'package:distributor_empower/presentation/home/components/filter_menu_widget.dart';
@@ -53,7 +54,6 @@ class _HomeScreenState extends BaseState<HomeScreen> {
 
   @override
   Widget buildBody(BuildContext context) {
-    debugPrint('HERE HOME PAGE  ${_homeProvider.dashboardData}');
     return ChangeNotifierProvider.value(
       value: _homeProvider,
       child: Scaffold(
@@ -182,6 +182,13 @@ class _HomeScreenState extends BaseState<HomeScreen> {
       case DashboardViewType.focusProduct:
         return FocusProductWidget(
           dashboardData?.focusProduct,
+          title: dashboardData?.title ?? '',
+          homeProvider: _homeProvider,
+        );
+
+      case DashboardViewType.categories:
+        return CategoriesWidget(
+          dashboardData?.categories,
           title: dashboardData?.title ?? '',
           homeProvider: _homeProvider,
         );

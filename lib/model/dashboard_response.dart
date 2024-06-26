@@ -62,6 +62,14 @@ class DashboardResponse extends BaseModel {
     }
   }
 
+  List<Categories> get categories {
+    try {
+      return data ?? [];
+    } catch (e) {
+      return [];
+    }
+  }
+
   DashboardViewType get getViewType => DashboardViewType.values.byName((viewType.ifBlank ?? 'none'));
 
   @override
@@ -87,6 +95,8 @@ class DashboardResponse extends BaseModel {
           obj.data = CreditAgingData.fromJson(data);
         case DashboardViewType.filter:
           obj.data = List<FilterData>.from(data.map((x) => FilterData.fromJson(x)));
+        case DashboardViewType.categories:
+          obj.data = List<Categories>.from(data.map((x) => Categories.fromJson(x)));
         default:
           obj.data = data;
       }
@@ -332,6 +342,36 @@ class FilterData {
     map['DivisionID'] = divisionID;
     map['Label'] = label;
     map['SapCode'] = sapCode;
+    return map;
+  }
+}
+
+class Categories {
+  Categories({
+    this.id,
+    this.name,
+    this.divisionId,
+    this.imgUrl,
+  });
+
+  Categories.fromJson(json) {
+    id = json['Id'];
+    name = json['Name'];
+    divisionId = json['Division_Id'];
+    imgUrl = json['Img_url'];
+  }
+
+  String? id;
+  String? name;
+  String? divisionId;
+  String? imgUrl;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['Id'] = id;
+    map['Name'] = name;
+    map['Division_Id'] = divisionId;
+    map['Img_url'] = imgUrl;
     return map;
   }
 }

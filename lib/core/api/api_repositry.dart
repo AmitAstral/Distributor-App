@@ -3,6 +3,7 @@ import 'package:distributor_empower/core/api/api_constants.dart';
 import 'package:distributor_empower/core/di/locator.dart';
 import 'package:distributor_empower/model/ageing_model.dart';
 import 'package:distributor_empower/model/base/api_req_data.dart';
+import 'package:distributor_empower/model/base/base_model.dart';
 import 'package:distributor_empower/model/base/base_response.dart';
 import 'package:distributor_empower/model/dashboard_response.dart';
 import 'package:distributor_empower/model/drop_down_response.dart';
@@ -273,6 +274,47 @@ class ApiRepository extends ApiCaller {
       apiCall: apiService.post(endPoint: ApiConstants.getKnowledgeGalleryList, data: request.toJson()),
       onApiError: onApiError,
       baseModel: KnowledgeGalleryModel(),
+    );
+    return data;
+  }
+
+  Future<BaseResponse> AddToCartAPI(ApiReqData request, Function(String errorRes) onApiError) async {
+    var data = await executeApiCall(
+      apiCall: apiService.post(endPoint: ApiConstants.addToCart, data: request.toJson()),
+      onApiError: onApiError,
+    );
+    return data;
+  }
+
+  Future<BaseResponse> getCartProductList(Function(String errorRes) onApiError) async {
+    var data = await executeApiCall(
+      apiCall: apiService.post(
+        endPoint: ApiConstants.addToCart,
+        data: ApiReqData.getUserDetails.toJson(),
+      ),
+      onApiError: onApiError,
+    );
+    return data;
+  }
+
+  Future<BaseResponse<BaseModel?>> removeProductFromCart(ApiReqData request, Function(String errorRes) onApiError) async {
+    var data = await executeApiCall(
+      apiCall: apiService.post(
+        endPoint: ApiConstants.removeToCart,
+        data: request.toJson(),
+      ),
+      onApiError: onApiError,
+    );
+    return data;
+  }
+
+  Future<BaseResponse<BaseModel?>> orderSaveAPI(ApiReqData request, Function(String errorRes) onApiError) async {
+    var data = await executeApiCall(
+      apiCall: apiService.post(
+        endPoint: ApiConstants.removeToCart,
+        data: request.toJson(),
+      ),
+      onApiError: onApiError,
     );
     return data;
   }

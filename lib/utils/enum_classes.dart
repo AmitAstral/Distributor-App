@@ -23,6 +23,7 @@ enum DashboardViewType {
   focusProduct,
   creditAging,
   filter,
+  categories,
   none;
 }
 

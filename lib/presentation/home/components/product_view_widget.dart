@@ -23,12 +23,13 @@ class ProductViewWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        StatefulBuilder(builder: (context, state) {
-          return Container(
-            alignment: Alignment.centerLeft,
-            padding: const EdgeInsets.symmetric(horizontal: 8).copyWith(top: 5).w,
-            child: Icon(
-              Icons.bookmark_rounded,
+        StatefulBuilder(
+          builder: (context, state) {
+            return Container(
+              alignment: Alignment.centerLeft,
+              padding: const EdgeInsets.symmetric(horizontal: 8).copyWith(top: 5).w,
+              child: Icon(
+                Icons.bookmark_rounded,
                 size: 20.sp,
                 color: (item?.isFavorite ?? false) ? AppColor.leavePendingColor : AppColor.grey,
               ),
@@ -90,7 +91,7 @@ class ProductViewWidget extends StatelessWidget {
           ),
         ),
         2.verticalSpace,
-        Container(
+        /*Container(
           width: 1.sw,
           padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
           margin: EdgeInsets.symmetric(vertical: 8.h, horizontal: 10.w),
@@ -125,7 +126,7 @@ class ProductViewWidget extends StatelessWidget {
               ),
             ],
           ),
-        ),
+        ),*/
       ],
     );
   }

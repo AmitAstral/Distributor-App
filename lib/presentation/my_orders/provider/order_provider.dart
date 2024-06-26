@@ -78,4 +78,67 @@ class OrderProvider extends BaseProvider {
       isLoading.value = false;
     }
   }
+
+  Future<void> addToCartAPI({required String? productId, required String? qty}) async {
+    try {
+      final request = ApiReqData(
+        orderId: productId,
+      );
+      final response = await apiRep.AddToCartAPI(request, onApiError);
+      if (response.getIsSuccess) {
+        //orderDetailsResponse = response.getData;
+      }
+    } catch (e, stack) {
+      debugPrintStack(stackTrace: stack);
+    } finally {
+      notifyListeners();
+    }
+  }
+
+  Future<void> getCartProductList({bool loading = true}) async {
+    isLoading.value = loading;
+    try {
+      final response = await apiRep.getCartProductList(onApiError);
+      if (response.getIsSuccess) {
+        //orderDetailsResponse = response.getData;
+      }
+    } catch (e, stack) {
+      debugPrintStack(stackTrace: stack);
+    } finally {
+      isLoading.value = false;
+      notifyListeners();
+    }
+  }
+
+  Future<void> removeProductFromCart({required String? productId}) async {
+    try {
+      final request = ApiReqData(
+        orderId: productId,
+      );
+      final response = await apiRep.removeProductFromCart(request, onApiError);
+      if (response.getIsSuccess) {
+        //orderDetailsResponse = response.getData;
+      }
+    } catch (e, stack) {
+      debugPrintStack(stackTrace: stack);
+    } finally {
+      notifyListeners();
+    }
+  }
+
+  Future<void> orderSaveAPI({required String? remarks}) async {
+    try {
+      final request = ApiReqData(
+        orderId: remarks,
+      );
+      final response = await apiRep.orderSaveAPI(request, onApiError);
+      if (response.getIsSuccess) {
+        //orderDetailsResponse = response.getData;
+      }
+    } catch (e, stack) {
+      debugPrintStack(stackTrace: stack);
+    } finally {
+      notifyListeners();
+    }
+  }
 }
