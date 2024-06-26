@@ -45,7 +45,15 @@ class _HomeScreenState extends BaseState<HomeScreen> {
   }
 
   @override
+  void dispose() {
+    _refreshController.dispose();
+    //_homeProvider.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget buildBody(BuildContext context) {
+    debugPrint('HERE HOME PAGE  ${_homeProvider.dashboardData}');
     return ChangeNotifierProvider.value(
       value: _homeProvider,
       child: Scaffold(
@@ -60,13 +68,6 @@ class _HomeScreenState extends BaseState<HomeScreen> {
         ),
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    _refreshController.dispose();
-    _homeProvider.dispose();
-    super.dispose();
   }
 
   void _onRefresh() async {

@@ -5,7 +5,6 @@ import 'package:distributor_empower/core/di/locator.dart';
 import 'package:distributor_empower/presentation/base_statefull_widget.dart';
 import 'package:distributor_empower/presentation/dashboard/provider/bottombar_navigation_provider.dart';
 import 'package:distributor_empower/presentation/drawer/drawer_screen.dart';
-import 'package:distributor_empower/routes/router.dart';
 import 'package:distributor_empower/utils/common_dialog.dart';
 import 'package:distributor_empower/utils/enum_classes.dart';
 import 'package:distributor_empower/widgets/bottom_tab_builder.dart';
@@ -50,9 +49,8 @@ class _DashboardScreenState extends BaseState<DashboardScreen> with TickerProvid
                 currentProvider.setCurrentBottomItem(BottomNavigationEnum.values[index]);
               },
             ),
-            body: AutoRouter(
-              inheritNavigatorObservers: true,
-              navigatorObservers: () => [AppRouter().routeObserver],
+            body: const AutoRouter(
+              inheritNavigatorObservers: false,
             ),
           );
         },

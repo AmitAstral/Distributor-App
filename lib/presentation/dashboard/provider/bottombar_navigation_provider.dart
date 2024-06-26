@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 class BottomBarNavigationProvider with ChangeNotifier {
   int currentIndex = 0;
 
-  late BuildContext currentContext;
+  BuildContext currentContext = appContext;
 
   final GlobalKey<ScaffoldState> dashboardKey = GlobalKey();
 
@@ -28,7 +28,7 @@ class BottomBarNavigationProvider with ChangeNotifier {
   Future<void> setCurrentBottomItem(BottomNavigationEnum bottomNavigationEnum) async {
     if (appRouter.childControllers.firstOrNull?.topPage?.name == bottomNavigationEnum.route.routeName) return;
 
-    if (bottomNavigationEnum == BottomNavigationEnum.home) {
+    /*if (bottomNavigationEnum == BottomNavigationEnum.home) {
       if (currentIndex != bottomNavigationEnum.index) {
         selectHomePage();
       }
@@ -36,7 +36,7 @@ class BottomBarNavigationProvider with ChangeNotifier {
         (route) => route.isFirst,
       );
       return;
-    }
+    }*/
 
     currentIndex = bottomNavigationEnum.index;
     navigationController?.index = currentIndex;

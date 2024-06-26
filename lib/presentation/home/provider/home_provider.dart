@@ -10,12 +10,19 @@ List<MenuResponse?>? mainMenuListData;
 List<MenuResponse?>? profileMenuListData;
 
 class HomeProvider extends BaseProvider {
+  static HomeProvider? _instance;
+
+  factory HomeProvider() => _instance ?? HomeProvider._internal();
+
+  HomeProvider._internal() {
+    _instance = this;
+  }
+
   List<DashboardResponse?>? dashboardData;
 
   Future<void> callGetDashboardAPI() async {
-    isLoading.value = true;
+    isLoading.value = dashboardData == null;
     try {
-      dashboardData = null;
       final response = await apiRep.getDashboard(ApiReqData.getUserDetails, onApiError);
       if (response.getIsSuccess && response.getData != null) {
         dashboardData = response.dataList;
@@ -64,7 +71,7 @@ class HomeProvider extends BaseProvider {
       dashboardData
           ?.firstWhere(
             (element) => element?.getViewType == DashboardViewType.focusProduct,
-          )
+      )
           ?.focusProduct
           .firstWhere((element) => element?.id == item?.id)
           ?.isFavorite = item?.isFavorite ?? false;
