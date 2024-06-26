@@ -1160,6 +1160,36 @@ class AppLocalizations {
       args: [],
     );
   }
+
+  /// `Search`
+  String get search {
+    return Intl.message(
+      'Search',
+      name: 'search',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `(Total SKU - ${name})`
+  String totalSkuOrderproviderproductlistlength(Object name) {
+    return Intl.message(
+      '(Total SKU - \$$name)',
+      name: 'totalSkuOrderproviderproductlistlength',
+      desc: '',
+      args: [name],
+    );
+  }
+
+  /// `Item not found`
+  String get itemNotFound {
+    return Intl.message(
+      'Item not found',
+      name: 'itemNotFound',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<AppLocalizations> {

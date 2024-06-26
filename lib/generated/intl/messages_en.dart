@@ -28,9 +28,12 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m3(name) => "SapCode : ${name}";
 
-  static String m4(name) => "Version : v${name}";
+  static String m4(name) => "(Total SKU - \$${name})";
+
+  static String m5(name) => "Version : v${name}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
+
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "SAPCode": MessageLookupByLibrary.simpleMessage("SAP Code"),
         "addToCart": MessageLookupByLibrary.simpleMessage("Add to cart"),
@@ -73,6 +76,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "internetIsNotConnected": MessageLookupByLibrary.simpleMessage("Internet is not connected"),
         "invoiceNo": MessageLookupByLibrary.simpleMessage("Invoice No."),
         "itemName": MessageLookupByLibrary.simpleMessage("Item Name"),
+        "itemNotFound": MessageLookupByLibrary.simpleMessage("Item not found"),
         "knowledgeGallery": MessageLookupByLibrary.simpleMessage("Knowledge Gallery"),
         "login": MessageLookupByLibrary.simpleMessage("Login"),
         "logout": MessageLookupByLibrary.simpleMessage("Log Out"),
@@ -119,6 +123,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "sapCode": MessageLookupByLibrary.simpleMessage("SAPCode"),
         "sapcodeTitle": m3,
         "schemes": MessageLookupByLibrary.simpleMessage("Schemes"),
+        "search": MessageLookupByLibrary.simpleMessage("Search"),
         "seeAll": MessageLookupByLibrary.simpleMessage("See all"),
         "select": MessageLookupByLibrary.simpleMessage("Select"),
         "setPin": MessageLookupByLibrary.simpleMessage("Set Pin"),
@@ -131,6 +136,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "theEnteredOtpIsInvalid": MessageLookupByLibrary.simpleMessage("The entered Astral code is invalid."),
         "totalOrder": MessageLookupByLibrary.simpleMessage("Total Order"),
         "totalSku": MessageLookupByLibrary.simpleMessage("Total SKU"),
+        "totalSkuOrderproviderproductlistlength": m4,
         "unauthorizedPendingOrder": MessageLookupByLibrary.simpleMessage("Unauthorized Pending Order"),
         "unit": MessageLookupByLibrary.simpleMessage("Unit"),
         "updateNow": MessageLookupByLibrary.simpleMessage("Update Now"),
@@ -140,7 +146,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "validationPhoneNumber": MessageLookupByLibrary.simpleMessage("Please Enter a Valid Phone Number"),
         "verify": MessageLookupByLibrary.simpleMessage("Verify"),
         "verifyPin": MessageLookupByLibrary.simpleMessage("Verify Pin"),
-        "versionWithversion": m4,
+        "versionWithversion": m5,
         "welcomeToAstral": MessageLookupByLibrary.simpleMessage("Welcome To Astral"),
         "wereDownForMaintenanceNWillBeBackSoon": MessageLookupByLibrary.simpleMessage("We\'re down for maintenance \n We\'ll be back soon..."),
         "yes": MessageLookupByLibrary.simpleMessage("Yes")

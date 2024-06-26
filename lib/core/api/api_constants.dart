@@ -32,6 +32,8 @@ class ApiConstants {
   static const String getDropDownList = '${common}GetDropDownList';
   static const String getWebViewMenuDetails = '${common}GetWebViewMenuDetails';
   static const String getKnowledgeGalleryList = '${common}GetKnowledgeGalleryList';
+  static const String getProductGroupByCategory = '${common}GetProductGroup';
+  static const String getProductSubGroup = '${common}GetProductSubGroup';
 
   ///Dashboard
   static const String getDashboard = '${dashboard}GetDashboard';

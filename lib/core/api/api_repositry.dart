@@ -14,7 +14,9 @@ import 'package:distributor_empower/model/order_details_response.dart';
 import 'package:distributor_empower/model/order_response.dart';
 import 'package:distributor_empower/model/pending_order_response.dart';
 import 'package:distributor_empower/model/product_details_response.dart';
+import 'package:distributor_empower/model/product_group_model.dart';
 import 'package:distributor_empower/model/product_response.dart';
+import 'package:distributor_empower/model/product_sub_group_model.dart';
 import 'package:distributor_empower/model/report_menu_response.dart';
 import 'package:distributor_empower/model/sales_report_details.dart';
 import 'package:distributor_empower/model/sales_report_response.dart';
@@ -314,6 +316,30 @@ class ApiRepository extends ApiCaller {
         endPoint: ApiConstants.removeToCart,
         data: request.toJson(),
       ),
+      onApiError: onApiError,
+    );
+    return data;
+  }
+
+  Future<BaseResponse<ProductGroupModel?>> getProductGroupsByCategories(ApiReqData request, Function(String errorRes) onApiError) async {
+    var data = await executeApiCall<ProductGroupModel>(
+      apiCall: apiService.post(
+        endPoint: ApiConstants.getProductGroupByCategory,
+        data: request.toJson(),
+      ),
+      baseModel: ProductGroupModel(),
+      onApiError: onApiError,
+    );
+    return data;
+  }
+
+  Future<BaseResponse<ProductSubGroupModel?>> getProductSubGroupList(ApiReqData request, Function(String errorRes) onApiError) async {
+    var data = await executeApiCall<ProductSubGroupModel>(
+      apiCall: apiService.post(
+        endPoint: ApiConstants.getProductSubGroup,
+        data: request.toJson(),
+      ),
+      baseModel: ProductSubGroupModel(),
       onApiError: onApiError,
     );
     return data;

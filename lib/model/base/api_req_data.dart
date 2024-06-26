@@ -26,6 +26,9 @@ class ApiReqData {
   String? itemId;
   String? action;
   int? menuType;
+  String? categoryId;
+  String? productGroupId;
+  String? search;
 
   ApiReqData({
     this.page,
@@ -52,6 +55,9 @@ class ApiReqData {
     this.menuType,
     this.itemId,
     this.action,
+    this.categoryId,
+    this.productGroupId,
+    this.search,
   });
 
   static UserInfo get getUserDetails => getUserInfo;
@@ -89,7 +95,10 @@ class ApiReqData {
     json['EntityType'] = entityType;
     json['TimePeriod'] = timePeriod;
     json['order_id'] = orderId;
+    json['CategoryID'] = categoryId;
     json['MenuType'] = menuType;
+    json['ProductGroupId'] = productGroupId;
+    json['search'] = search;
     json.removeWhere((key, value) => value == null);
     return json;
   }

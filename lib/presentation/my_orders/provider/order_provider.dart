@@ -3,6 +3,8 @@ import 'package:distributor_empower/model/base/api_req_data.dart';
 import 'package:distributor_empower/model/drop_down_response.dart';
 import 'package:distributor_empower/model/order_details_response.dart';
 import 'package:distributor_empower/model/order_response.dart';
+import 'package:distributor_empower/model/product_group_model.dart';
+import 'package:distributor_empower/model/product_sub_group_model.dart';
 import 'package:distributor_empower/utils/enum_classes.dart';
 import 'package:flutter/foundation.dart';
 
@@ -11,6 +13,14 @@ class OrderProvider extends BaseProvider {
   List<OrderResponse?> orderListResponse = [];
   OrderDetailsResponse? orderDetailsResponse;
   DropDownResponse? selectedMenu;
+
+  final searchValue = ValueNotifier('');
+
+  List<ProductGroupModel?> productGroupList = [];
+  List<ProductSubGroupModel?> productSubGroupList = [];
+  var productList = [];
+
+  bool isCategoryLoading = true;
 
   Future<void> callGetOrderListAPI(bool loading) async {
     isPaginationLoading = pageNo > 1;
@@ -138,6 +148,50 @@ class OrderProvider extends BaseProvider {
     } catch (e, stack) {
       debugPrintStack(stackTrace: stack);
     } finally {
+      notifyListeners();
+    }
+  }
+
+  Future<void> getProductGroupsByCategories({required String? categoryId}) async {
+    isLoading.value = true;
+    try {
+      final request = ApiReqData(
+        categoryId: categoryId,
+      );
+      final response = await apiRep.getProductGroupsByCategories(request, onApiError);
+      if (response.getIsSuccess) {
+        productGroupList = response.dataList ?? [];
+        getProductSubGroupList(
+          productGroupId: response.getData?.id,
+        );
+      }
+    } catch (e, stack) {
+      debugPrintStack(stackTrace: stack);
+    } finally {
+      isCategoryLoading = false;
+      notifyListeners();
+    }
+  }
+
+  Future<void> getProductSubGroupList({
+    required String? productGroupId,
+    String? searchText,
+    bool loading = true,
+  }) async {
+    isLoading.value = loading;
+    try {
+      final request = ApiReqData(
+        productGroupId: productGroupId,
+        search: searchText,
+      );
+      final response = await apiRep.getProductSubGroupList(request, onApiError);
+      if (response.getIsSuccess) {
+        productSubGroupList = response.dataList ?? [];
+      }
+    } catch (e, stack) {
+      debugPrintStack(stackTrace: stack);
+    } finally {
+      isLoading.value = false;
       notifyListeners();
     }
   }

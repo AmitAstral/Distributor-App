@@ -1,7 +1,8 @@
 import 'package:distributor_empower/constants/app_colors/app_colors.dart';
 import 'package:distributor_empower/model/dashboard_response.dart';
 import 'package:distributor_empower/presentation/base_statefull_widget.dart';
-import 'package:distributor_empower/presentation/home/provider/home_provider.dart';
+import 'package:distributor_empower/routes/router.dart';
+import 'package:distributor_empower/utils/extensions.dart';
 import 'package:distributor_empower/utils/text_styles.dart';
 import 'package:distributor_empower/widgets/cache_network_image_widget.dart';
 import 'package:flutter/material.dart';
@@ -10,9 +11,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class CategoriesWidget extends BaseStatefulWidget {
   final List<Categories?>? focusProductList;
   final String title;
-  final HomeProvider homeProvider;
 
-  const CategoriesWidget(this.focusProductList, {required this.title, required this.homeProvider, super.key});
+  const CategoriesWidget(this.focusProductList, {required this.title, super.key});
 
   @override
   BaseState<CategoriesWidget> createState() => _CategoriesWidgetState();
@@ -109,6 +109,10 @@ class _CategoriesWidgetState extends BaseState<CategoriesWidget> {
           ),
         ],
       ),
+    ).addGesture(
+      () {
+        appRouter.push(CategoryDetailsRoute(categoryId: item?.id ?? '', categoryName: item?.name ?? ''));
+      },
     );
   }
 }

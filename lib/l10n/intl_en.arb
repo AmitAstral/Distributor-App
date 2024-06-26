@@ -109,5 +109,8 @@
   "checkout": "Checkout",
   "versionWithversion": "Version : v{name}",
   "perPiece": "per piece",
-  "knowledgeGallery": "Knowledge Gallery"
+  "knowledgeGallery": "Knowledge Gallery",
+  "search": "Search",
+  "totalSkuOrderproviderproductlistlength": "(Total SKU - ${name})",
+  "itemNotFound": "Item not found"
 }

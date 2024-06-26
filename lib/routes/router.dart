@@ -25,6 +25,7 @@ import 'package:distributor_empower/presentation/sales_report/sales_report_detai
 import 'package:distributor_empower/presentation/sales_report/sales_report_screen.dart';
 import 'package:distributor_empower/presentation/splash/splash_screen.dart';
 import 'package:distributor_empower/presentation/statement_of_account/statement_of_account_screen.dart';
+import 'package:distributor_empower/presentation/view_all_categories/category_details_screen.dart';
 import 'package:distributor_empower/presentation/viewer/common_webview.dart';
 import 'package:distributor_empower/presentation/viewer/pdf_viewer_screen.dart';
 import 'package:distributor_empower/presentation/viewer/video_player_screen.dart';
@@ -70,6 +71,7 @@ class AppRouter extends _$AppRouter {
             AutoRoute(page: FocusProductRoute.page, path: FocusProductRoute.name),
             AutoRoute(page: KnowledgeGalleryRoute.page, path: KnowledgeGalleryRoute.name),
             AutoRoute(page: ViewImageRoute.page, path: ViewImageRoute.name),
+            AutoRoute(page: CategoryDetailsRoute.page, path: CategoryDetailsRoute.name),
           ],
         ),
         AutoRoute(page: LoginRoute.page),

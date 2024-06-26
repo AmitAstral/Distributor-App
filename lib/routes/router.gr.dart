@@ -21,13 +21,24 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const AgeingScreen(),
       );
     },
+    CategoryDetailsRoute.name: (routeData) {
+      final args = routeData.argsAs<CategoryDetailsRouteArgs>();
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: CategoryDetailsScreen(
+          categoryId: args.categoryId,
+          categoryName: args.categoryName,
+          key: args.key,
+        ),
+      );
+    },
     CommonWebViewRoute.name: (routeData) {
       final args = routeData.argsAs<CommonWebViewRouteArgs>();
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: CommonWebViewScreen(
-          key: args.key,
           url: args.url,
+          key: args.key,
           title: args.title,
         ),
       );
@@ -43,9 +54,9 @@ abstract class _$AppRouter extends RootStackRouter {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: FocusProductScreen(
-          key: args.key,
           title: args.title,
           homeProvider: args.homeProvider,
+          key: args.key,
         ),
       );
     },
@@ -100,8 +111,8 @@ abstract class _$AppRouter extends RootStackRouter {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: OtpVerificationScreen(
-          screenType: args.screenType,
           sentOTP: args.sentOTP,
+          screenType: args.screenType,
           key: args.key,
         ),
       );
@@ -111,9 +122,9 @@ abstract class _$AppRouter extends RootStackRouter {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: PDFViewerScreen(
-          key: args.key,
           url: args.url,
           title: args.title,
+          key: args.key,
         ),
       );
     },
@@ -146,10 +157,9 @@ abstract class _$AppRouter extends RootStackRouter {
       );
     },
     ReportRoute.name: (routeData) {
-      final args = routeData.argsAs<ReportRouteArgs>(orElse: () => const ReportRouteArgs());
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: ReportScreen(key: args.key),
+        child: const ReportScreen(),
       );
     },
     SalesReportDetailRoute.name: (routeData) {
@@ -175,10 +185,9 @@ abstract class _$AppRouter extends RootStackRouter {
       );
     },
     SetPinRoute.name: (routeData) {
-      final args = routeData.argsAs<SetPinRouteArgs>(orElse: () => const SetPinRouteArgs());
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: SetPinScreen(key: args.key),
+        child: const SetPinScreen(),
       );
     },
     SplashRoute.name: (routeData) {
@@ -205,9 +214,9 @@ abstract class _$AppRouter extends RootStackRouter {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: VideoPlayerScreen(
-          key: args.key,
           productArguments: args.productArguments,
           title: args.title,
+          key: args.key,
         ),
       );
     },
@@ -216,9 +225,9 @@ abstract class _$AppRouter extends RootStackRouter {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: ViewImageScreen(
-          key: args.key,
           title: args.title,
           productArguments: args.productArguments,
+          key: args.key,
         ),
       );
     },
@@ -227,8 +236,8 @@ abstract class _$AppRouter extends RootStackRouter {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: YoutubePlayerScreen(
-          key: args.key,
           productArguments: args.productArguments,
+          key: args.key,
         ),
       );
     },
@@ -250,18 +259,60 @@ class AgeingRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [CategoryDetailsScreen]
+class CategoryDetailsRoute extends PageRouteInfo<CategoryDetailsRouteArgs> {
+  CategoryDetailsRoute({
+    required String categoryId,
+    required String categoryName,
+    Key? key,
+    List<PageRouteInfo>? children,
+  }) : super(
+          CategoryDetailsRoute.name,
+          args: CategoryDetailsRouteArgs(
+            categoryId: categoryId,
+            categoryName: categoryName,
+            key: key,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'CategoryDetailsRoute';
+
+  static const PageInfo<CategoryDetailsRouteArgs> page = PageInfo<CategoryDetailsRouteArgs>(name);
+}
+
+class CategoryDetailsRouteArgs {
+  const CategoryDetailsRouteArgs({
+    required this.categoryId,
+    required this.categoryName,
+    this.key,
+  });
+
+  final String categoryId;
+
+  final String categoryName;
+
+  final Key? key;
+
+  @override
+  String toString() {
+    return 'CategoryDetailsRouteArgs{categoryId: $categoryId, categoryName: $categoryName, key: $key}';
+  }
+}
+
+/// generated route for
 /// [CommonWebViewScreen]
 class CommonWebViewRoute extends PageRouteInfo<CommonWebViewRouteArgs> {
   CommonWebViewRoute({
-    Key? key,
     required String url,
+    Key? key,
     String? title,
     List<PageRouteInfo>? children,
   }) : super(
           CommonWebViewRoute.name,
           args: CommonWebViewRouteArgs(
-            key: key,
             url: url,
+            key: key,
             title: title,
           ),
           initialChildren: children,
@@ -274,20 +325,20 @@ class CommonWebViewRoute extends PageRouteInfo<CommonWebViewRouteArgs> {
 
 class CommonWebViewRouteArgs {
   const CommonWebViewRouteArgs({
-    this.key,
     required this.url,
+    this.key,
     this.title,
   });
 
-  final Key? key;
-
   final String url;
+
+  final Key? key;
 
   final String? title;
 
   @override
   String toString() {
-    return 'CommonWebViewRouteArgs{key: $key, url: $url, title: $title}';
+    return 'CommonWebViewRouteArgs{url: $url, key: $key, title: $title}';
   }
 }
 
@@ -309,16 +360,16 @@ class DashboardRoute extends PageRouteInfo<void> {
 /// [FocusProductScreen]
 class FocusProductRoute extends PageRouteInfo<FocusProductRouteArgs> {
   FocusProductRoute({
-    Key? key,
     required String? title,
     required HomeProvider homeProvider,
+    Key? key,
     List<PageRouteInfo>? children,
   }) : super(
           FocusProductRoute.name,
           args: FocusProductRouteArgs(
-            key: key,
             title: title,
             homeProvider: homeProvider,
+            key: key,
           ),
           initialChildren: children,
         );
@@ -330,20 +381,20 @@ class FocusProductRoute extends PageRouteInfo<FocusProductRouteArgs> {
 
 class FocusProductRouteArgs {
   const FocusProductRouteArgs({
-    this.key,
     required this.title,
     required this.homeProvider,
+    this.key,
   });
-
-  final Key? key;
 
   final String? title;
 
   final HomeProvider homeProvider;
 
+  final Key? key;
+
   @override
   String toString() {
-    return 'FocusProductRouteArgs{key: $key, title: $title, homeProvider: $homeProvider}';
+    return 'FocusProductRouteArgs{title: $title, homeProvider: $homeProvider, key: $key}';
   }
 }
 
@@ -472,15 +523,15 @@ class OrderHistoryRoute extends PageRouteInfo<void> {
 /// [OtpVerificationScreen]
 class OtpVerificationRoute extends PageRouteInfo<OtpVerificationRouteArgs> {
   OtpVerificationRoute({
-    OTPVerificationType? screenType,
     required String sentOTP,
+    OTPVerificationType? screenType,
     Key? key,
     List<PageRouteInfo>? children,
   }) : super(
           OtpVerificationRoute.name,
           args: OtpVerificationRouteArgs(
-            screenType: screenType,
             sentOTP: sentOTP,
+            screenType: screenType,
             key: key,
           ),
           initialChildren: children,
@@ -493,20 +544,20 @@ class OtpVerificationRoute extends PageRouteInfo<OtpVerificationRouteArgs> {
 
 class OtpVerificationRouteArgs {
   const OtpVerificationRouteArgs({
-    this.screenType,
     required this.sentOTP,
+    this.screenType,
     this.key,
   });
 
-  final OTPVerificationType? screenType;
-
   final String sentOTP;
+
+  final OTPVerificationType? screenType;
 
   final Key? key;
 
   @override
   String toString() {
-    return 'OtpVerificationRouteArgs{screenType: $screenType, sentOTP: $sentOTP, key: $key}';
+    return 'OtpVerificationRouteArgs{sentOTP: $sentOTP, screenType: $screenType, key: $key}';
   }
 }
 
@@ -514,16 +565,16 @@ class OtpVerificationRouteArgs {
 /// [PDFViewerScreen]
 class PDFViewerRoute extends PageRouteInfo<PDFViewerRouteArgs> {
   PDFViewerRoute({
-    Key? key,
     required String url,
     required String title,
+    Key? key,
     List<PageRouteInfo>? children,
   }) : super(
           PDFViewerRoute.name,
           args: PDFViewerRouteArgs(
-            key: key,
             url: url,
             title: title,
+            key: key,
           ),
           initialChildren: children,
         );
@@ -535,20 +586,20 @@ class PDFViewerRoute extends PageRouteInfo<PDFViewerRouteArgs> {
 
 class PDFViewerRouteArgs {
   const PDFViewerRouteArgs({
-    this.key,
     required this.url,
     required this.title,
+    this.key,
   });
-
-  final Key? key;
 
   final String url;
 
   final String title;
 
+  final Key? key;
+
   @override
   String toString() {
-    return 'PDFViewerRouteArgs{key: $key, url: $url, title: $title}';
+    return 'PDFViewerRouteArgs{url: $url, title: $title, key: $key}';
   }
 }
 
@@ -633,30 +684,16 @@ class QuickOrderRoute extends PageRouteInfo<void> {
 
 /// generated route for
 /// [ReportScreen]
-class ReportRoute extends PageRouteInfo<ReportRouteArgs> {
-  ReportRoute({
-    Key? key,
-    List<PageRouteInfo>? children,
-  }) : super(
+class ReportRoute extends PageRouteInfo<void> {
+  const ReportRoute({List<PageRouteInfo>? children})
+      : super(
           ReportRoute.name,
-          args: ReportRouteArgs(key: key),
           initialChildren: children,
         );
 
   static const String name = 'ReportRoute';
 
-  static const PageInfo<ReportRouteArgs> page = PageInfo<ReportRouteArgs>(name);
-}
-
-class ReportRouteArgs {
-  const ReportRouteArgs({this.key});
-
-  final Key? key;
-
-  @override
-  String toString() {
-    return 'ReportRouteArgs{key: $key}';
-  }
+  static const PageInfo<void> page = PageInfo<void>(name);
 }
 
 /// generated route for
@@ -726,30 +763,16 @@ class SchemesRoute extends PageRouteInfo<void> {
 
 /// generated route for
 /// [SetPinScreen]
-class SetPinRoute extends PageRouteInfo<SetPinRouteArgs> {
-  SetPinRoute({
-    Key? key,
-    List<PageRouteInfo>? children,
-  }) : super(
+class SetPinRoute extends PageRouteInfo<void> {
+  const SetPinRoute({List<PageRouteInfo>? children})
+      : super(
           SetPinRoute.name,
-          args: SetPinRouteArgs(key: key),
           initialChildren: children,
         );
 
   static const String name = 'SetPinRoute';
 
-  static const PageInfo<SetPinRouteArgs> page = PageInfo<SetPinRouteArgs>(name);
-}
-
-class SetPinRouteArgs {
-  const SetPinRouteArgs({this.key});
-
-  final Key? key;
-
-  @override
-  String toString() {
-    return 'SetPinRouteArgs{key: $key}';
-  }
+  static const PageInfo<void> page = PageInfo<void>(name);
 }
 
 /// generated route for
@@ -812,16 +835,16 @@ class VerifyPinRoute extends PageRouteInfo<void> {
 /// [VideoPlayerScreen]
 class VideoPlayerRoute extends PageRouteInfo<VideoPlayerRouteArgs> {
   VideoPlayerRoute({
-    Key? key,
     required String productArguments,
     required String title,
+    Key? key,
     List<PageRouteInfo>? children,
   }) : super(
           VideoPlayerRoute.name,
           args: VideoPlayerRouteArgs(
-            key: key,
             productArguments: productArguments,
             title: title,
+            key: key,
           ),
           initialChildren: children,
         );
@@ -833,20 +856,20 @@ class VideoPlayerRoute extends PageRouteInfo<VideoPlayerRouteArgs> {
 
 class VideoPlayerRouteArgs {
   const VideoPlayerRouteArgs({
-    this.key,
     required this.productArguments,
     required this.title,
+    this.key,
   });
-
-  final Key? key;
 
   final String productArguments;
 
   final String title;
 
+  final Key? key;
+
   @override
   String toString() {
-    return 'VideoPlayerRouteArgs{key: $key, productArguments: $productArguments, title: $title}';
+    return 'VideoPlayerRouteArgs{productArguments: $productArguments, title: $title, key: $key}';
   }
 }
 
@@ -854,16 +877,16 @@ class VideoPlayerRouteArgs {
 /// [ViewImageScreen]
 class ViewImageRoute extends PageRouteInfo<ViewImageRouteArgs> {
   ViewImageRoute({
-    Key? key,
     required String title,
     required String? productArguments,
+    Key? key,
     List<PageRouteInfo>? children,
   }) : super(
           ViewImageRoute.name,
           args: ViewImageRouteArgs(
-            key: key,
             title: title,
             productArguments: productArguments,
+            key: key,
           ),
           initialChildren: children,
         );
@@ -875,20 +898,20 @@ class ViewImageRoute extends PageRouteInfo<ViewImageRouteArgs> {
 
 class ViewImageRouteArgs {
   const ViewImageRouteArgs({
-    this.key,
     required this.title,
     required this.productArguments,
+    this.key,
   });
-
-  final Key? key;
 
   final String title;
 
   final String? productArguments;
 
+  final Key? key;
+
   @override
   String toString() {
-    return 'ViewImageRouteArgs{key: $key, title: $title, productArguments: $productArguments}';
+    return 'ViewImageRouteArgs{title: $title, productArguments: $productArguments, key: $key}';
   }
 }
 
@@ -896,14 +919,14 @@ class ViewImageRouteArgs {
 /// [YoutubePlayerScreen]
 class YoutubePlayerRoute extends PageRouteInfo<YoutubePlayerRouteArgs> {
   YoutubePlayerRoute({
-    Key? key,
     required String productArguments,
+    Key? key,
     List<PageRouteInfo>? children,
   }) : super(
           YoutubePlayerRoute.name,
           args: YoutubePlayerRouteArgs(
-            key: key,
             productArguments: productArguments,
+            key: key,
           ),
           initialChildren: children,
         );
@@ -915,16 +938,16 @@ class YoutubePlayerRoute extends PageRouteInfo<YoutubePlayerRouteArgs> {
 
 class YoutubePlayerRouteArgs {
   const YoutubePlayerRouteArgs({
-    this.key,
     required this.productArguments,
+    this.key,
   });
-
-  final Key? key;
 
   final String productArguments;
 
+  final Key? key;
+
   @override
   String toString() {
-    return 'YoutubePlayerRouteArgs{key: $key, productArguments: $productArguments}';
+    return 'YoutubePlayerRouteArgs{productArguments: $productArguments, key: $key}';
   }
 }

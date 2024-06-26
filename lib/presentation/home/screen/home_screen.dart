@@ -190,7 +190,6 @@ class _HomeScreenState extends BaseState<HomeScreen> {
         return CategoriesWidget(
           dashboardData?.categories,
           title: dashboardData?.title ?? '',
-          homeProvider: _homeProvider,
         );
 
       case DashboardViewType.creditAging:
