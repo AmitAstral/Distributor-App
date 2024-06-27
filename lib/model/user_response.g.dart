@@ -31,6 +31,7 @@ class UserResponseAdapter extends TypeAdapter<UserResponse> {
       address: fields[11] as String?,
       gstNo: fields[14] as String?,
       divisionID: fields[15] as String?,
+      cartBadge: fields[16] as String?,
     )
       ..otpSentMessage = fields[12] as String?
       ..otpResendMessage = fields[13] as String?;
@@ -39,7 +40,7 @@ class UserResponseAdapter extends TypeAdapter<UserResponse> {
   @override
   void write(BinaryWriter writer, UserResponse obj) {
     writer
-      ..writeByte(16)
+      ..writeByte(17)
       ..writeByte(0)
       ..write(obj.distributorUserID)
       ..writeByte(1)
@@ -71,7 +72,9 @@ class UserResponseAdapter extends TypeAdapter<UserResponse> {
       ..writeByte(14)
       ..write(obj.gstNo)
       ..writeByte(15)
-      ..write(obj.divisionID);
+      ..write(obj.divisionID)
+      ..writeByte(16)
+      ..write(obj.cartBadge);
   }
 
   @override

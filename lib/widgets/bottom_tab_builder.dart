@@ -7,32 +7,36 @@ import 'package:flutter/material.dart';
 class BottomTabBuilder extends DelegateBuilder {
   @override
   Widget build(BuildContext context, int index, bool active) {
-    return SizedBox(
-      height: 50,
-      child: (active
-          ? Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  decoration: BoxDecoration(color: AppColor.primaryColor, borderRadius: BorderRadius.circular(100)),
-                  padding: const EdgeInsets.all(6),
-                  child: Icon(
+    return index == 2
+        ? const SizedBox(
+            width: 5,
+          )
+        : SizedBox(
+            height: 50,
+            child: (active
+                ? Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(color: AppColor.primaryColor, borderRadius: BorderRadius.circular(100)),
+                        padding: const EdgeInsets.all(6),
+                        child: Icon(
+                          BottomNavigationEnum.values[index].icon,
+                          color: active ? AppColor.white : AppColor.grey,
+                          size: 28,
+                        ),
+                      ),
+                      Text(
+                        BottomNavigationEnum.values[index].label,
+                        style: TextStyles.semiBold11.copyWith(color: active ? AppColor.primaryColor : AppColor.grey),
+                      ),
+                    ],
+                  )
+                : Icon(
                     BottomNavigationEnum.values[index].icon,
-                    color: active ? AppColor.white : AppColor.grey,
-                    size: 28,
-                  ),
-                ),
-                Text(
-                  BottomNavigationEnum.values[index].label,
-                  style: TextStyles.semiBold12.copyWith(color: active ? AppColor.primaryColor : AppColor.grey),
-                ),
-              ],
-            )
-          : Icon(
-              BottomNavigationEnum.values[index].icon,
-              color: AppColor.grey,
-              size: 24,
-            )),
-    );
+                    color: AppColor.grey,
+                    size: 24,
+                  )),
+          );
   }
 }

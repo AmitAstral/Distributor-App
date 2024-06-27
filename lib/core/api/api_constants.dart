@@ -34,6 +34,7 @@ class ApiConstants {
   static const String getKnowledgeGalleryList = '${common}GetKnowledgeGalleryList';
   static const String getProductGroupByCategory = '${common}GetProductGroup';
   static const String getProductSubGroup = '${common}GetProductSubGroup';
+  static const String getProductList = '${common}GetProductList';
 
   ///Dashboard
   static const String getDashboard = '${dashboard}GetDashboard';
@@ -60,6 +61,7 @@ class ApiConstants {
   static const String addToCart = '${order}AddOrderItemInTemp';
   static const String removeToCart = '${order}DeleteOrderItemInTemp';
   static const String orderSave = '${order}OrderSave';
+  static const String getTempOrderList = '${order}GetTempOrderList';
 
   static Future<String> get getAppURL async {
     final appId = await getAppPackageName();

@@ -1,10 +1,14 @@
+import 'package:auto_route/auto_route.dart';
+import 'package:distributor_empower/core/di/locator.dart';
 import 'package:distributor_empower/core/provider/base_provider.dart';
 import 'package:distributor_empower/model/base/api_req_data.dart';
 import 'package:distributor_empower/model/drop_down_response.dart';
 import 'package:distributor_empower/model/order_details_response.dart';
 import 'package:distributor_empower/model/order_response.dart';
 import 'package:distributor_empower/model/product_group_model.dart';
+import 'package:distributor_empower/model/product_model.dart';
 import 'package:distributor_empower/model/product_sub_group_model.dart';
+import 'package:distributor_empower/presentation/dashboard/provider/bottombar_navigation_provider.dart';
 import 'package:distributor_empower/utils/enum_classes.dart';
 import 'package:flutter/foundation.dart';
 
@@ -18,7 +22,8 @@ class OrderProvider extends BaseProvider {
 
   List<ProductGroupModel?> productGroupList = [];
   List<ProductSubGroupModel?> productSubGroupList = [];
-  var productList = [];
+  List<ProductModel?> productList = [];
+  List<ProductModel?> filteredProductList = [];
 
   bool isCategoryLoading = true;
 
@@ -89,33 +94,33 @@ class OrderProvider extends BaseProvider {
     }
   }
 
-  Future<void> addToCartAPI({required String? productId, required String? qty}) async {
+  Future<void> addToCartAPI() async {
+    isButtonLoading = true;
+    notifyListeners();
     try {
+      final tempOrderList = productList
+          .where(
+        (element) => element?.qty.value != 0,
+      )
+          .map(
+        (e) {
+          return TempOrderItem(e?.id, (e?.qty.value ?? 0).toString()).toJson();
+        },
+      ).toList();
+
       final request = ApiReqData(
-        orderId: productId,
+        tempOrderLists: tempOrderList,
       );
       final response = await apiRep.AddToCartAPI(request, onApiError);
       if (response.getIsSuccess) {
         //orderDetailsResponse = response.getData;
+        BottomBarNavigationProvider().callGetUserDetails();
+        AutoRouter.of(appContext).maybePop();
       }
     } catch (e, stack) {
       debugPrintStack(stackTrace: stack);
     } finally {
-      notifyListeners();
-    }
-  }
-
-  Future<void> getCartProductList({bool loading = true}) async {
-    isLoading.value = loading;
-    try {
-      final response = await apiRep.getCartProductList(onApiError);
-      if (response.getIsSuccess) {
-        //orderDetailsResponse = response.getData;
-      }
-    } catch (e, stack) {
-      debugPrintStack(stackTrace: stack);
-    } finally {
-      isLoading.value = false;
+      isButtonLoading = false;
       notifyListeners();
     }
   }
@@ -123,11 +128,15 @@ class OrderProvider extends BaseProvider {
   Future<void> removeProductFromCart({required String? productId}) async {
     try {
       final request = ApiReqData(
-        orderId: productId,
+        tempOrderID: productId,
       );
       final response = await apiRep.removeProductFromCart(request, onApiError);
       if (response.getIsSuccess) {
-        //orderDetailsResponse = response.getData;
+        productList.removeWhere(
+          (element) => element?.id == productId,
+        );
+        filteredProductList = productList;
+        BottomBarNavigationProvider().callGetUserDetails();
       }
     } catch (e, stack) {
       debugPrintStack(stackTrace: stack);
@@ -144,6 +153,7 @@ class OrderProvider extends BaseProvider {
       final response = await apiRep.orderSaveAPI(request, onApiError);
       if (response.getIsSuccess) {
         //orderDetailsResponse = response.getData;
+        BottomBarNavigationProvider().callGetUserDetails();
       }
     } catch (e, stack) {
       debugPrintStack(stackTrace: stack);
@@ -193,6 +203,59 @@ class OrderProvider extends BaseProvider {
     } finally {
       isLoading.value = false;
       notifyListeners();
+    }
+  }
+
+  Future<void> getProductList(String? id) async {
+    try {
+      isLoading.value = true;
+      final request = ApiReqData(
+        productSubGroupId: id,
+      );
+
+      final response = await apiRep.getProductList(request, onApiError);
+      if (response.getIsSuccess) {
+        productList = response.dataList ?? [];
+        filteredProductList = productList;
+      }
+    } catch (e, stack) {
+      debugPrintStack(stackTrace: stack);
+    } finally {
+      isLoading.value = false;
+    }
+  }
+
+  Future<void> getCartProductList({bool loading = true}) async {
+    isLoading.value = loading;
+    try {
+      final response = await apiRep.getCartProductList(onApiError);
+      if (response.getIsSuccess) {
+        productList = response.dataList ?? [];
+        filteredProductList = productList;
+      }
+    } catch (e, stack) {
+      debugPrintStack(stackTrace: stack);
+    } finally {
+      isLoading.value = false;
+      notifyListeners();
+    }
+  }
+
+  void searchProducts(String? search) {
+    filteredProductList = productList
+        .where(
+          (element) => (element?.description?.toLowerCase().contains(search?.toLowerCase() ?? '') ?? true),
+        )
+        .toList();
+    notifyListeners();
+  }
+
+  Future<void> addRemoveFromFav(String? id, String? action) async {
+    try {
+      final request = ApiReqData(itemId: id, action: action);
+      await apiRep.addRemoveFromFav(request, onApiError);
+    } catch (e, stack) {
+      debugPrintStack(stackTrace: stack);
     }
   }
 }

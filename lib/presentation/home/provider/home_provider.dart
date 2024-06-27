@@ -3,6 +3,7 @@ import 'package:distributor_empower/core/provider/base_provider.dart';
 import 'package:distributor_empower/model/base/api_req_data.dart';
 import 'package:distributor_empower/model/dashboard_response.dart';
 import 'package:distributor_empower/model/menu_response.dart';
+import 'package:distributor_empower/presentation/dashboard/provider/bottombar_navigation_provider.dart';
 import 'package:distributor_empower/utils/enum_classes.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -44,6 +45,7 @@ class HomeProvider extends BaseProvider {
     } catch (e, stack) {
       debugPrintStack(stackTrace: stack);
     } finally {
+      BottomBarNavigationProvider().notifyListeners();
       notifyListeners();
     }
   }

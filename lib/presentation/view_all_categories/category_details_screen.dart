@@ -2,8 +2,10 @@ import 'package:auto_route/annotations.dart';
 import 'package:distributor_empower/constants/app_colors/app_colors.dart';
 import 'package:distributor_empower/gen/assets.gen.dart';
 import 'package:distributor_empower/generated/l10n.dart';
+import 'package:distributor_empower/model/product_sub_group_model.dart';
 import 'package:distributor_empower/presentation/base_statefull_widget.dart';
 import 'package:distributor_empower/presentation/my_orders/provider/order_provider.dart';
+import 'package:distributor_empower/presentation/quick_order/bottom_sheet/checkout_bottom_sheet.dart';
 import 'package:distributor_empower/presentation/view_all_categories/product_shimmer_widget.dart';
 import 'package:distributor_empower/utils/text_styles.dart';
 import 'package:distributor_empower/widgets/cache_network_image_widget.dart';
@@ -58,7 +60,7 @@ class _CategoryDetailsScreenState extends BaseState<CategoryDetailsScreen> {
   @override
   Widget buildBody(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColor.white,
+      backgroundColor: AppColor.transparent,
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(AppBar().preferredSize.height),
         child: AppBarWidget(
@@ -187,118 +189,109 @@ class _CategoryDetailsScreenState extends BaseState<CategoryDetailsScreen> {
               Expanded(
                 child: _orderProvider.isLoading.value
                     ? child!
-                    : _orderProvider.productSubGroupList.isEmpty
-                        ? const NoDataFoundWidget()
-                        : SmartRefresherWidget(
-                            controller: _refreshController,
-                            onRefresh: () async {
-                              await _orderProvider.getProductSubGroupList(
-                                productGroupId: productId,
-                                searchText: _searchController.text.trim(),
-                                loading: false,
-                              );
-                              _refreshController.refreshCompleted();
-                            },
-                            child: GridView.builder(
-                              shrinkWrap: true,
-                              itemCount: _orderProvider.productSubGroupList.length,
-                              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 2,
-                                childAspectRatio: MediaQuery.of(context).size.width / (MediaQuery.of(context).size.height / 1.6),
-                                crossAxisSpacing: 0.0,
-                                mainAxisSpacing: 0.0,
-                              ),
-                              itemBuilder: (BuildContext context, int index) {
-                                final item = _orderProvider.productSubGroupList[index];
-                                return GestureDetector(
-                                  child: Container(
-                                    width: MediaQuery.of(context).size.width * 0.44,
-                                    padding: const EdgeInsets.all(10),
-                                    margin: const EdgeInsets.all(6),
-                                    decoration: BoxDecoration(
-                                      color: AppColor.white,
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      children: [
-                                        Expanded(
-                                          flex: 6,
-                                          child: SizedBox(
-                                            child: Container(
-                                              child: CachedNetworkImageWidget(
-                                                imageUrl: item?.imgUrl ?? '',
-                                                imageBuilder: (context, imageProvider) => Container(
-                                                  width: 0.25.sw,
-                                                  decoration: BoxDecoration(
-                                                    image: DecorationImage(
-                                                      image: imageProvider,
-                                                      fit: BoxFit.contain,
+                    : SmartRefresherWidget(
+                        controller: _refreshController,
+                        onRefresh: () async {
+                          await _orderProvider.getProductSubGroupList(
+                            productGroupId: productId ?? _orderProvider.productGroupList.firstOrNull?.id,
+                            searchText: _searchController.text.trim(),
+                            loading: false,
+                          );
+                          _refreshController.refreshCompleted();
+                        },
+                        child: _orderProvider.productSubGroupList.isEmpty
+                            ? const NoDataFoundWidget()
+                            : GridView.builder(
+                                shrinkWrap: true,
+                                itemCount: _orderProvider.productSubGroupList.length,
+                                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2,
+                                  childAspectRatio: MediaQuery.of(context).size.width / (MediaQuery.of(context).size.height / 1.6),
+                                  crossAxisSpacing: 0.0,
+                                  mainAxisSpacing: 0.0,
+                                ),
+                                itemBuilder: (BuildContext context, int index) {
+                                  final item = _orderProvider.productSubGroupList[index];
+                                  return GestureDetector(
+                                    child: Container(
+                                      width: MediaQuery.of(context).size.width * 0.44,
+                                      padding: const EdgeInsets.all(10),
+                                      margin: const EdgeInsets.all(6),
+                                      decoration: BoxDecoration(
+                                        color: AppColor.white,
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        children: [
+                                          Expanded(
+                                            flex: 6,
+                                            child: SizedBox(
+                                              child: Container(
+                                                child: CachedNetworkImageWidget(
+                                                  imageUrl: item?.imgUrl ?? '',
+                                                  imageBuilder: (context, imageProvider) => Container(
+                                                    width: 0.25.sw,
+                                                    decoration: BoxDecoration(
+                                                      image: DecorationImage(
+                                                        image: imageProvider,
+                                                        fit: BoxFit.contain,
+                                                      ),
                                                     ),
                                                   ),
                                                 ),
                                               ),
                                             ),
                                           ),
-                                        ),
-                                        Expanded(
-                                          flex: 2,
-                                          child: Align(
-                                            alignment: Alignment.bottomLeft,
-                                            child: Text(
-                                              item?.description ?? '',
-                                              maxLines: 2,
-                                              style: TextStyles.regular12.copyWith(color: AppColor.textSecondary),
-                                              //   maxLine: 2,
+                                          Expanded(
+                                            flex: 2,
+                                            child: Align(
+                                              alignment: Alignment.bottomLeft,
+                                              child: Text(
+                                                item?.description ?? '',
+                                                maxLines: 2,
+                                                style: TextStyles.regular12.copyWith(color: AppColor.textSecondary),
+                                                //   maxLine: 2,
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                        2.verticalSpace,
-                                        Expanded(
-                                          flex: 2,
-                                          child: Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Expanded(
-                                                flex: 7,
-                                                child: Text(
-                                                  item?.unitDesc ?? '',
-                                                  maxLines: 2,
-                                                  style: TextStyles.regular11.copyWith(color: AppColor.primaryColor),
-                                                ),
-                                              ),
-                                              Expanded(
-                                                flex: 4,
-                                                child: InkWell(
-                                                  onTap: () async {
-                                                    /*var subgroupid = item?.id.toString();
-                                          ItemListProvider().qtyValue.value = "0";
-                                          if (!value1.isLoading) {
-                                            value1.itemList(subgroupid, true, searchController.text).then((value) {
-                                              ChooseQuantity.cartBottomSheet(context, AppConst.choose_quantity, AppConst.add_to_cart,
-                                                  subgroupid, searchController.text);
-                                            });
-                                          }*/
-                                                  },
-                                                  child: Container(
-                                                    padding: const EdgeInsets.only(top: 5, bottom: 5),
-                                                    decoration:
-                                                        BoxDecoration(color: AppColor.grey.withOpacity(0.2), borderRadius: BorderRadius.circular(5)),
-                                                    child: Assets.icons.cart.svg(color: AppColor.black),
+                                          2.verticalSpace,
+                                          Expanded(
+                                            flex: 2,
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                Expanded(
+                                                  flex: 7,
+                                                  child: Text(
+                                                    item?.unitDesc ?? '',
+                                                    maxLines: 2,
+                                                    style: TextStyles.regular11.copyWith(color: AppColor.primaryColor),
                                                   ),
                                                 ),
-                                              ),
-                                            ],
+                                                Expanded(
+                                                  flex: 4,
+                                                  child: InkWell(
+                                                    onTap: () => _openProductListBottomSheet(item),
+                                                    child: Container(
+                                                      padding: const EdgeInsets.only(top: 5, bottom: 5),
+                                                      decoration: BoxDecoration(
+                                                          color: AppColor.grey.withOpacity(0.2), borderRadius: BorderRadius.circular(5)),
+                                                      child: Assets.icons.cart.svg(color: AppColor.black),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
                                           ),
-                                        ),
-                                      ],
+                                        ],
+                                      ),
                                     ),
-                                  ),
-                                );
-                              },
-                            ),
-                          ),
+                                  );
+                                },
+                              ),
+                      ),
               ),
             ],
           );
@@ -387,5 +380,9 @@ class _CategoryDetailsScreenState extends BaseState<CategoryDetailsScreen> {
         );
       },
     );
+  }
+
+  Future<void> _openProductListBottomSheet(ProductSubGroupModel? item) async {
+    CheckoutBottomSheet.checkoutBottomSheetWidget(subGroupId: item?.id ?? '', isCart: false);
   }
 }

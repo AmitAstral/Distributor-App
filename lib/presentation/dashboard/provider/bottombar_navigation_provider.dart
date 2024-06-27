@@ -1,8 +1,10 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:distributor_empower/core/api/api_repositry.dart';
 import 'package:distributor_empower/core/di/locator.dart';
 import 'package:distributor_empower/routes/router.dart';
 import 'package:distributor_empower/utils/enum_classes.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 
 class BottomBarNavigationProvider with ChangeNotifier {
   int currentIndex = 0;
@@ -70,5 +72,18 @@ class BottomBarNavigationProvider with ChangeNotifier {
 
   void openDrawer() {
     BottomBarNavigationProvider().dashboardKey.currentState?.openDrawer();
+  }
+
+  Future<void> callGetUserDetails() async {
+    try {
+      final response = await GetIt.I<ApiRepository>().getUserDetails();
+      if (response.getIsSuccess && response.getData != null) {
+        storage.userDetails = response.getData;
+      }
+    } catch (e, stack) {
+      debugPrintStack(stackTrace: stack);
+    } finally {
+      notifyListeners();
+    }
   }
 }

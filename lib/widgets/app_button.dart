@@ -14,8 +14,10 @@ class AppButton extends StatelessWidget {
   final bool isDisable;
   final Color bgColor;
   final double? width;
+  final Widget? icon;
 
-  const AppButton({super.key,
+  const AppButton({
+    super.key,
     this.textStyle,
     this.onPressed,
     this.duration = 100,
@@ -25,7 +27,9 @@ class AppButton extends StatelessWidget {
     this.width,
     this.bgColor = AppColor.primaryColor,
     this.horizontalPadding,
-    this.verticalPadding,});
+    this.verticalPadding,
+    this.icon,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -46,9 +50,14 @@ class AppButton extends StatelessWidget {
                     strokeWidth: 2,
                   ),
                 )
-              : Text(
-                  text ?? '',
-                  style: textStyle ?? TextStyles.semiBold16,
+              : Row(
+                  children: [
+                    if (icon != null) icon!,
+                    Text(
+                      text ?? '',
+                      style: textStyle ?? TextStyles.semiBold16,
+                    ),
+                  ],
                 ),
         ),
       ),

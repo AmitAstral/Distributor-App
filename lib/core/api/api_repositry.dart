@@ -15,6 +15,7 @@ import 'package:distributor_empower/model/order_response.dart';
 import 'package:distributor_empower/model/pending_order_response.dart';
 import 'package:distributor_empower/model/product_details_response.dart';
 import 'package:distributor_empower/model/product_group_model.dart';
+import 'package:distributor_empower/model/product_model.dart';
 import 'package:distributor_empower/model/product_response.dart';
 import 'package:distributor_empower/model/product_sub_group_model.dart';
 import 'package:distributor_empower/model/report_menu_response.dart';
@@ -288,12 +289,13 @@ class ApiRepository extends ApiCaller {
     return data;
   }
 
-  Future<BaseResponse> getCartProductList(Function(String errorRes) onApiError) async {
-    var data = await executeApiCall(
+  Future<BaseResponse<ProductModel?>> getCartProductList(Function(String errorRes) onApiError) async {
+    var data = await executeApiCall<ProductModel>(
       apiCall: apiService.post(
-        endPoint: ApiConstants.addToCart,
+        endPoint: ApiConstants.getTempOrderList,
         data: ApiReqData.getUserDetails.toJson(),
       ),
+      baseModel: ProductModel(),
       onApiError: onApiError,
     );
     return data;
@@ -313,7 +315,7 @@ class ApiRepository extends ApiCaller {
   Future<BaseResponse<BaseModel?>> orderSaveAPI(ApiReqData request, Function(String errorRes) onApiError) async {
     var data = await executeApiCall(
       apiCall: apiService.post(
-        endPoint: ApiConstants.removeToCart,
+        endPoint: ApiConstants.orderSave,
         data: request.toJson(),
       ),
       onApiError: onApiError,
@@ -340,6 +342,18 @@ class ApiRepository extends ApiCaller {
         data: request.toJson(),
       ),
       baseModel: ProductSubGroupModel(),
+      onApiError: onApiError,
+    );
+    return data;
+  }
+
+  Future<BaseResponse<ProductModel?>> getProductList(ApiReqData request, Function(String errorRes) onApiError) async {
+    var data = await executeApiCall<ProductModel>(
+      apiCall: apiService.post(
+        endPoint: ApiConstants.getProductList,
+        data: request.toJson(),
+      ),
+      baseModel: ProductModel(),
       onApiError: onApiError,
     );
     return data;

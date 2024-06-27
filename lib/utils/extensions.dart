@@ -1,3 +1,4 @@
+import 'package:distributor_empower/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
@@ -8,13 +9,13 @@ extension StrExtensions on String? {
   String get formatWithCurrency {
     var format = NumberFormat.currency(
       locale: 'HI',
-      symbol: '₹ ',
+      symbol: '${AppLocalizations.current.rupees} ',
       decimalDigits: int.tryParse(this ?? '0') != null ? 0 : 2,
     );
     return format.format(int.tryParse(this ?? '0') ?? double.tryParse(this ?? '0') ?? '0');
   }
 
-  num get parseToNum => int.tryParse(this ?? '0') ?? double.tryParse(this ?? '0') ?? 0;
+  num get tryParseToNum => int.tryParse(this ?? '0') ?? double.tryParse(this ?? '0') ?? 0;
 
   Color get getColorFromString => HexColor.fromHex(ifBlank ?? '#fff');
 

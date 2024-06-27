@@ -94,7 +94,7 @@ class _CreditAgingWidgetState extends BaseState<CreditAgingWidget> {
 
   BarChart buildBarChart() {
     final numList = getCreditAging.map(
-      (e) => e.value.parseToNum.toDouble(),
+      (e) => e.value.tryParseToNum.toDouble(),
     );
     return BarChart(
       BarChartData(
@@ -123,7 +123,7 @@ class _CreditAgingWidgetState extends BaseState<CreditAgingWidget> {
             int rodIndex,
           ) {
             return BarTooltipItem(
-              getCreditAging[groupIndex].value.parseToNum < 1 ? '' : getCreditAging[groupIndex].value.removeTrailingZeros,
+              getCreditAging[groupIndex].value.tryParseToNum < 1 ? '' : getCreditAging[groupIndex].value.removeTrailingZeros,
               TextStyles.regular12.copyWith(
                 color: AppColor.primaryColor,
               ),
@@ -173,7 +173,7 @@ class _CreditAgingWidgetState extends BaseState<CreditAgingWidget> {
           barRods: [
             BarChartRodData(
               color: AppColor.primaryColor,
-              toY: e.value.parseToNum.toDouble(),
+              toY: e.value.tryParseToNum.toDouble(),
             ),
           ],
           showingTooltipIndicators: [0],

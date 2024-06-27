@@ -69,4 +69,5 @@ class AppColor {
   static var tableOddRowColor = primaryColorLight.withOpacity(0.5);
   static var tableBorderColor = primaryColorLight.withOpacity(0.2);
   static const Color iconColor = Color(0xffD8D8D8);
+  static const Color lightPink = const Color(0xFFF1A1A2);
 }

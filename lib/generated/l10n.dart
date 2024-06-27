@@ -1171,10 +1171,10 @@ class AppLocalizations {
     );
   }
 
-  /// `(Total SKU - ${name})`
+  /// `(Total SKU - {name})`
   String totalSkuOrderproviderproductlistlength(Object name) {
     return Intl.message(
-      '(Total SKU - \$$name)',
+      '(Total SKU - $name)',
       name: 'totalSkuOrderproviderproductlistlength',
       desc: '',
       args: [name],
@@ -1186,6 +1186,106 @@ class AppLocalizations {
     return Intl.message(
       'Item not found',
       name: 'itemNotFound',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `(Total SKU - {name})`
+  String totalSkuWithNo(Object name) {
+    return Intl.message(
+      '(Total SKU - $name)',
+      name: 'totalSkuWithNo',
+      desc: '',
+      args: [name],
+    );
+  }
+
+  /// `Carton Qty. {name}`
+  String cartonQtyWIthNo(Object name) {
+    return Intl.message(
+      'Carton Qty. $name',
+      name: 'cartonQtyWIthNo',
+      desc: '',
+      args: [name],
+    );
+  }
+
+  /// `Total`
+  String get total {
+    return Intl.message(
+      'Total',
+      name: 'total',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `This Product is Already added in The Cart`
+  String get thisProductIsAlreadyAddedInTheCart {
+    return Intl.message(
+      'This Product is Already added in The Cart',
+      name: 'thisProductIsAlreadyAddedInTheCart',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Items : {name}`
+  String itemsWithNo(Object name) {
+    return Intl.message(
+      'Items : $name',
+      name: 'itemsWithNo',
+      desc: '',
+      args: [name],
+    );
+  }
+
+  /// `My Cart`
+  String get myCart {
+    return Intl.message(
+      'My Cart',
+      name: 'myCart',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ` (Total Items {name})`
+  String totalItemsName(Object name) {
+    return Intl.message(
+      ' (Total Items $name)',
+      name: 'totalItemsName',
+      desc: '',
+      args: [name],
+    );
+  }
+
+  /// `Place Order`
+  String get placeOrder {
+    return Intl.message(
+      'Place Order',
+      name: 'placeOrder',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Are you sure, you want to confirm ? Once confirmed, it cannot be canceled.`
+  String get areYouSureYouWantToConfirmOnceConfirmedIt {
+    return Intl.message(
+      'Are you sure, you want to confirm ? Once confirmed, it cannot be canceled.',
+      name: 'areYouSureYouWantToConfirmOnceConfirmedIt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Are you sure you want to delete this product from cart?`
+  String get areYouSureYouWantToDeleteThisProductFrom {
+    return Intl.message(
+      'Are you sure you want to delete this product from cart?',
+      name: 'areYouSureYouWantToDeleteThisProductFrom',
       desc: '',
       args: [],
     );

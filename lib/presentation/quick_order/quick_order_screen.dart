@@ -6,7 +6,6 @@ import 'package:distributor_empower/generated/l10n.dart';
 import 'package:distributor_empower/presentation/base_statefull_widget.dart';
 import 'package:distributor_empower/presentation/dashboard/provider/bottombar_navigation_provider.dart';
 import 'package:distributor_empower/presentation/focus_products/provider/product_provider.dart';
-import 'package:distributor_empower/presentation/quick_order/checkout_bottom_sheet.dart';
 import 'package:distributor_empower/utils/extensions.dart';
 import 'package:distributor_empower/utils/text_styles.dart';
 import 'package:distributor_empower/widgets/cache_network_image_widget.dart';
@@ -286,11 +285,10 @@ class _QuickOrderScreenState extends BaseState<QuickOrderScreen> {
             ),
           ),
           onPressed: () {
-            CheckoutBottomSheet.checkoutBottomSheetWidget(
-              context,
+            /*CheckoutBottomSheet.checkoutBottomSheetWidget(
               AppLocalizations.of(context).chooseQuantity,
               AppLocalizations.of(context).addToCart,
-            );
+            );*/
           },
           child: Row(
             mainAxisSize: MainAxisSize.min,

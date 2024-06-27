@@ -111,6 +111,16 @@
   "perPiece": "per piece",
   "knowledgeGallery": "Knowledge Gallery",
   "search": "Search",
-  "totalSkuOrderproviderproductlistlength": "(Total SKU - ${name})",
-  "itemNotFound": "Item not found"
+  "totalSkuOrderproviderproductlistlength": "(Total SKU - {name})",
+  "itemNotFound": "Item not found",
+  "totalSkuWithNo": "(Total SKU - {name})",
+  "cartonQtyWIthNo": "Carton Qty. {name}",
+  "total": "Total",
+  "thisProductIsAlreadyAddedInTheCart": "This Product is Already added in The Cart",
+  "itemsWithNo": "Items : {name}",
+  "myCart": "My Cart",
+  "totalItemsName": " (Total Items {name})",
+  "placeOrder": "Place Order",
+  "areYouSureYouWantToConfirmOnceConfirmedIt": "Are you sure, you want to confirm ? Once confirmed, it cannot be canceled.",
+  "areYouSureYouWantToDeleteThisProductFrom": "Are you sure you want to delete this product from cart?"
 }
