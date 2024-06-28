@@ -116,18 +116,6 @@ class _KnowledgeGalleryScreenState extends BaseState<KnowledgeGalleryScreen> {
                                         width: MediaQuery.of(context).size.width,
                                         child: CachedNetworkImageWidget(
                                           imageUrl: item?.getImageURL ?? '',
-                                          imageBuilder: (context, imageProvider) => Container(
-                                            alignment: Alignment.centerLeft,
-                                            height: 0.07.sh,
-                                            width: 0.24.sw,
-                                            decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.all(Radius.circular(10.r)),
-                                              image: DecorationImage(
-                                                image: imageProvider,
-                                                fit: BoxFit.fill,
-                                              ),
-                                            ),
-                                          ),
                                         ),
                                       ),
                                     ),

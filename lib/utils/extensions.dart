@@ -53,6 +53,53 @@ extension WidgetsExtensions on Widget {
       child: this,
     );
   }
+
+/*Widget get viewFullImageGesture {
+    return InkWell(
+      overlayColor: WidgetStateProperty.all(Colors.transparent),
+      onTap: () {
+        if (!isRedundantClick(DateTime.now())) {
+          HapticFeedback.mediumImpact();
+          showDialog(
+            context: appContext,
+            builder: (context) {
+              final viewTransformationController = TransformationController();
+              return Dialog(
+                child: Padding(
+                  padding: const EdgeInsets.all(20).r,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Stack(
+                        children: [
+                          InteractiveViewer(
+                            transformationController: viewTransformationController,
+                            minScale: 1.0,
+                            panEnabled: false,
+                            maxScale: 1.6,
+                            scaleFactor: BorderSide.strokeAlignCenter,
+                            child: this,
+                          ),
+                          const Align(
+                            alignment: Alignment.centerRight,
+                            child: Padding(
+                              padding: EdgeInsets.all(15),
+                              child: Icon(Icons.cancel),
+                            ),
+                          ).addGesture(AutoRouter.of(context).maybePop),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            },
+          );
+        }
+      },
+      child: this,
+    );
+  }*/
 }
 
 DateTime? firstClickTime;

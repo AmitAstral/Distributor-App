@@ -1,11 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:distributor_empower/constants/app_colors/app_colors.dart';
+import 'package:distributor_empower/gen/assets.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CachedNetworkImageWidget extends CachedNetworkImage {
   final Color? loaderColor;
   final Color? errorIconColor;
+  final double? loaderSize;
 
   CachedNetworkImageWidget({
     required super.imageUrl,
@@ -39,15 +41,20 @@ class CachedNetworkImageWidget extends CachedNetworkImage {
     super.errorListener,
     this.loaderColor,
     this.errorIconColor,
+    this.loaderSize,
   });
+
+  @override
+  Widget build(BuildContext context) {
+    return super.build(context);
+  }
 
   @override
   LoadingErrorWidgetBuilder? get errorWidget =>
       super.errorWidget ??
       (context, url, error) {
-        return Icon(
-          Icons.error_outline,
-          color: errorIconColor ?? AppColor.primaryColor,
+        return Assets.images.splashLogo.image(
+          color: AppColor.grey,
         );
       };
 
@@ -56,8 +63,8 @@ class CachedNetworkImageWidget extends CachedNetworkImage {
       super.progressIndicatorBuilder ??
       (context, url, error) {
         return SizedBox(
-          width: 30.w,
-          height: 30.w,
+          width: loaderSize ?? 30.w,
+          height: loaderSize ?? 30.w,
           child: Center(
             child: CircularProgressIndicator(
               color: loaderColor ?? AppColor.primaryColor,

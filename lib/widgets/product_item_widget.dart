@@ -11,13 +11,19 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ProductItemWidget extends StatefulWidget {
   final ProductModel? item;
-  final VoidCallback addRemoveCallback;
+  final VoidCallback addRemoveFavCallback;
   final VoidCallback? deleteFromCart;
   final Function(ProductModel?, bool) manageAddRemoveQty;
   final bool isCart;
 
-  const ProductItemWidget(
-      {required this.item, required this.addRemoveCallback, required this.manageAddRemoveQty, required this.isCart, this.deleteFromCart, super.key});
+  const ProductItemWidget({
+    required this.item,
+    required this.addRemoveFavCallback,
+    required this.manageAddRemoveQty,
+    required this.isCart,
+    this.deleteFromCart,
+    super.key,
+  });
 
   @override
   State<ProductItemWidget> createState() => _ProductItemWidgetState();
@@ -70,7 +76,7 @@ class _ProductItemWidgetState extends State<ProductItemWidget> {
                       () {
                         item?.isFavorite = item?.getIsFav ?? false ? '0' : '1';
                         innerState(() {});
-                        widget.addRemoveCallback();
+                        widget.addRemoveFavCallback();
                       },
                     );
                   },
@@ -133,21 +139,36 @@ class _ProductItemWidgetState extends State<ProductItemWidget> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Container(
-                        padding: EdgeInsets.symmetric(horizontal: 0, vertical: 5.h).copyWith(left: 5.w),
-                        decoration: BoxDecoration(
-                          color: AppColor.white,
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(20.r),
-                            bottomLeft: Radius.circular(20.r),
-                          ),
-                        ),
-                        child: Icon(
-                          Icons.remove,
-                          size: 16.sp,
-                        ),
-                      ).addGesture(
-                        () => widget.manageAddRemoveQty(item, false),
+                      ValueListenableBuilder(
+                        valueListenable: item?.qty ?? ValueNotifier(0),
+                        builder: (context, value, child) {
+                          return Container(
+                            padding: EdgeInsets.symmetric(horizontal: 0, vertical: 5.h).copyWith(left: 5.w),
+                            decoration: BoxDecoration(
+                              color: AppColor.white,
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(20.r),
+                                bottomLeft: Radius.circular(20.r),
+                              ),
+                            ),
+                            child: Icon(
+                              (widget.isCart && (item?.qty.value.toInt() == item?.cartonNo.tryParseToNum.toInt()))
+                                  ? Icons.delete_outline_outlined
+                                  : Icons.remove,
+                              size: 16.sp,
+                            ),
+                          ).addGesture(
+                            () {
+                              if (widget.isCart &&
+                                  (item?.qty.value.toInt() == item?.cartonNo.tryParseToNum.toInt()) &&
+                                  widget.deleteFromCart != null) {
+                                widget.deleteFromCart!();
+                              } else {
+                                widget.manageAddRemoveQty(item, false);
+                              }
+                            },
+                          );
+                        },
                       ),
                       ValueListenableBuilder(
                         valueListenable: item?.qty ?? ValueNotifier(0),

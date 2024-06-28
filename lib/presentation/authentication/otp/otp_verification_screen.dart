@@ -20,7 +20,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 @RoutePage()
-// ignore: must_be_immutable
 class OtpVerificationScreen extends BaseStatefulWidget {
   OTPVerificationType? screenType = OTPVerificationType.login;
   String sentOTP = '';
@@ -39,18 +38,17 @@ class _OtpVerificationScreenState extends BaseState<OtpVerificationScreen> {
   final _otpVerificationProvider = OTPVerificationProvider();
 
   Timer? _timer;
+  String? _message;
 
   @override
   void initState() {
-    if (widget.screenType == OTPVerificationType.forgotPin) {
-      _sendOTP(isShowMessage: false);
-    }
+    _forgotPinSendOTP();
     super.initState();
   }
 
   @override
   void dispose() {
-    _timer = null;
+    _timer?.cancel();
     _secondsRemaining.dispose();
     _otpVerificationProvider.dispose();
     super.dispose();
@@ -76,7 +74,7 @@ class _OtpVerificationScreenState extends BaseState<OtpVerificationScreen> {
                     children: [
                       const Spacer(),
                       Text(
-                        storage.userDetails.otpSentMessage ?? '',
+                        storage.userDetails.otpSentMessage ?? _message ?? '',
                         style: TextStyles.regular13.copyWith(color: AppColor.textSecondary),
                       ),
                       const Spacer(),
@@ -101,11 +99,12 @@ class _OtpVerificationScreenState extends BaseState<OtpVerificationScreen> {
                       ),
                       10.verticalSpace,
                       ValueListenableBuilder(
-                          valueListenable: _secondsRemaining,
-                          builder: (context, value, Widget? child) {
-                            return ChangeNotifierProvider.value(
-                              value: _otpVerificationProvider,
-                              child: Consumer<OTPVerificationProvider>(builder: (context, provider, child) {
+                        valueListenable: _secondsRemaining,
+                        builder: (context, value, Widget? child) {
+                          return ChangeNotifierProvider.value(
+                            value: _otpVerificationProvider,
+                            child: Consumer<OTPVerificationProvider>(
+                              builder: (context, provider, child) {
                                 return Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -177,7 +176,9 @@ class _OtpVerificationScreenState extends BaseState<OtpVerificationScreen> {
   }
 
   Future<void> _sendOTP({required bool isShowMessage}) async {
-    widget.sentOTP = await _otpVerificationProvider.sendOTP(isShowMessage: isShowMessage);
+    final response = await _otpVerificationProvider.sendOTP(isShowMessage: isShowMessage);
+    widget.sentOTP = response?.otp ?? '';
+    _message = response?.message ?? '';
   }
 
   void _startTimer() {
@@ -198,7 +199,7 @@ class _OtpVerificationScreenState extends BaseState<OtpVerificationScreen> {
   Future<void> _onPressVerifyOTP() async {
     if (_otp == widget.sentOTP) {
       if (widget.screenType == OTPVerificationType.forgotPin) {
-        appRouter.replace(SetPinRoute());
+        appRouter.replace(const SetPinRoute());
       } else {
         final result = await _otpVerificationProvider.callSubmitUserInfo();
         if (result) {
@@ -209,12 +210,23 @@ class _OtpVerificationScreenState extends BaseState<OtpVerificationScreen> {
               predicate: (route) => false,
             );
           } else {
-            appRouter.replace(SetPinRoute());
+            appRouter.replace(const SetPinRoute());
           }
         }
       }
     } else {
       errorToast(AppLocalizations.current.theEnteredOtpIsInvalid);
+    }
+  }
+
+  void _forgotPinSendOTP() {
+    if (widget.screenType == OTPVerificationType.forgotPin) {
+      WidgetsBinding.instance.addPostFrameCallback(
+        (_) async {
+          await _sendOTP(isShowMessage: false);
+          setState(() {});
+        },
+      );
     }
   }
 }

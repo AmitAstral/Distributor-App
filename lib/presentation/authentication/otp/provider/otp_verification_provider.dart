@@ -1,5 +1,6 @@
 import 'package:distributor_empower/core/di/locator.dart';
 import 'package:distributor_empower/model/base/api_req_data.dart';
+import 'package:distributor_empower/model/send_OTP_model.dart';
 import 'package:distributor_empower/utils/device_info.dart';
 import 'package:distributor_empower/utils/providers/common_provider.dart';
 import 'package:distributor_empower/utils/toast.dart';
@@ -9,20 +10,20 @@ class OTPVerificationProvider extends CommonProvider {
   bool isResendOTPButtonLoading = false;
   final ValueNotifier<bool> isDisable = ValueNotifier(true);
 
-  Future<String> sendOTP({bool isShowMessage = true}) async {
+  Future<SendOtpModel?> sendOTP({bool isShowMessage = true}) async {
     try {
       if (isShowMessage) isResendOTPButtonLoading = true;
       notifyListeners();
       final response = await apiRep.sendOTP(req: ApiReqData.getUserDetails, onApiError: onApiError);
       if (isShowMessage) successToast(response.message ?? '');
-      return response.dataStr ?? '';
+      return response.getData;
     } catch (e, stack) {
       debugPrintStack(stackTrace: stack);
     } finally {
       isResendOTPButtonLoading = false;
       notifyListeners();
     }
-    return '';
+    return null;
   }
 
   Future<bool> callSubmitUserInfo() async {

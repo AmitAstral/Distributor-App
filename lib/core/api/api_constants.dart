@@ -62,6 +62,8 @@ class ApiConstants {
   static const String removeToCart = '${order}DeleteOrderItemInTemp';
   static const String orderSave = '${order}OrderSave';
   static const String getTempOrderList = '${order}GetTempOrderList';
+  static const String updateCartItem = '${order}UpdateOrderItemInTemp';
+  static const String getAllShipToDistributor = '${order}GetAllShipToDistributor';
 
   static Future<String> get getAppURL async {
     final appId = await getAppPackageName();

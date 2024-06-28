@@ -78,7 +78,7 @@ class _FocusProductWidgetState extends BaseState<FocusProductWidget> {
                       item: item,
                       height: 35.h,
                       onChangeFav: () {
-                        _productProvider.addRemoveFromFav(item?.id, item?.getRequireAction);
+                        //_productProvider.addRemoveFromFav(item?.id, item?.getRequireAction);
                       },
                     ),
                   );

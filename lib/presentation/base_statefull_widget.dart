@@ -28,6 +28,9 @@ abstract class BaseState<T extends BaseStatefulWidget> extends State<T> with Rou
   Widget buildBody(BuildContext context);
 
   @override
+  bool get wantKeepAlive => true;
+
+  @override
   void didChangeDependencies() {
     /*AppRouter().routeObserver.subscribe(this, ModalRoute.of(context) as PageRoute<dynamic>);
     baseContext = context;

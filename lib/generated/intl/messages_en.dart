@@ -20,25 +20,27 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
-  static String m0(name) => "${name} %";
+  static String m0(name) => "Address : ${name}";
 
-  static String m1(name) => "Carton Qty. ${name}";
+  static String m1(name) => "${name} %";
 
-  static String m2(name) => "(${name} Left)";
+  static String m2(name) => "Carton Qty. ${name}";
 
-  static String m3(name) => "Hi, ${name}";
+  static String m3(name) => "(${name} Left)";
 
-  static String m4(name) => "Items : ${name}";
+  static String m4(name) => "Hi, ${name}";
 
-  static String m5(name) => "SapCode : ${name}";
+  static String m5(name) => "Items : ${name}";
 
-  static String m6(name) => " (Total Items ${name})";
+  static String m6(name) => "SapCode : ${name}";
 
-  static String m7(name) => "(Total SKU - ${name})";
+  static String m7(name) => " (Total Items ${name})";
 
   static String m8(name) => "(Total SKU - ${name})";
 
-  static String m9(name) => "Version : v${name}";
+  static String m9(name) => "(Total SKU - ${name})";
+
+  static String m10(name) => "Version : v${name}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
 
@@ -46,10 +48,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "SAPCode": MessageLookupByLibrary.simpleMessage("SAP Code"),
         "addToCart": MessageLookupByLibrary.simpleMessage("Add to cart"),
         "address": MessageLookupByLibrary.simpleMessage("Address"),
+        "addressSelecteditemaddress": m0,
         "ageing": MessageLookupByLibrary.simpleMessage("Ageing"),
         "amount": MessageLookupByLibrary.simpleMessage("Amount"),
         "amountInLacs": MessageLookupByLibrary.simpleMessage("* amount in lacs"),
-        "amountWithPercentage": m0,
+        "amountWithPercentage": m1,
         "areYouSureYouWantToConfirmOnceConfirmedIt":
             MessageLookupByLibrary.simpleMessage("Are you sure, you want to confirm ? Once confirmed, it cannot be canceled."),
         "areYouSureYouWantToDeleteThisProductFrom": MessageLookupByLibrary.simpleMessage("Are you sure you want to delete this product from cart?"),
@@ -59,7 +62,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "balance": MessageLookupByLibrary.simpleMessage("Balance"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "cart": MessageLookupByLibrary.simpleMessage("Cart"),
-        "cartonQtyWIthNo": m1,
+        "cartonQtyWIthNo": m2,
         "checkout": MessageLookupByLibrary.simpleMessage("Checkout"),
         "chooseQty": MessageLookupByLibrary.simpleMessage("Choose Quantity "),
         "chooseQuantity": MessageLookupByLibrary.simpleMessage("Choose quantity"),
@@ -67,7 +70,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "confirmPin": MessageLookupByLibrary.simpleMessage("Confirm Pin"),
         "continueLabel": MessageLookupByLibrary.simpleMessage("Continue"),
         "credit": MessageLookupByLibrary.simpleMessage("Credit"),
-        "creditLeftWithAmount": m2,
+        "creditLeftWithAmount": m3,
         "creditLimit": MessageLookupByLibrary.simpleMessage("Credit Limit"),
         "currentBalance": MessageLookupByLibrary.simpleMessage("Current Balance"),
         "date": MessageLookupByLibrary.simpleMessage("Date"),
@@ -83,13 +86,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "forgotPin": MessageLookupByLibrary.simpleMessage("Forgot pin?"),
         "gstNo": MessageLookupByLibrary.simpleMessage("GSTNo"),
         "hello": MessageLookupByLibrary.simpleMessage("Hello,"),
-        "hiWithName": m3,
+        "hiWithName": m4,
         "home": MessageLookupByLibrary.simpleMessage("Home"),
         "internetIsNotConnected": MessageLookupByLibrary.simpleMessage("Internet is not connected"),
         "invoiceNo": MessageLookupByLibrary.simpleMessage("Invoice No."),
         "itemName": MessageLookupByLibrary.simpleMessage("Item Name"),
         "itemNotFound": MessageLookupByLibrary.simpleMessage("Item not found"),
-        "itemsWithNo": m4,
+        "itemsWithNo": m5,
         "knowledgeGallery": MessageLookupByLibrary.simpleMessage("Knowledge Gallery"),
         "login": MessageLookupByLibrary.simpleMessage("Login"),
         "logout": MessageLookupByLibrary.simpleMessage("Log Out"),
@@ -105,6 +108,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "noDataFound": MessageLookupByLibrary.simpleMessage("No data found"),
         "noInternetConnection": MessageLookupByLibrary.simpleMessage("No internet connection"),
         "offer": MessageLookupByLibrary.simpleMessage("Offer"),
+        "ok": MessageLookupByLibrary.simpleMessage("Ok"),
         "orderAmount": MessageLookupByLibrary.simpleMessage("Order Amt."),
         "orderDate": MessageLookupByLibrary.simpleMessage("Order Date"),
         "orderDetails": MessageLookupByLibrary.simpleMessage("Order Details"),
@@ -120,6 +124,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "pin": MessageLookupByLibrary.simpleMessage("Pin"),
         "placeOrder": MessageLookupByLibrary.simpleMessage("Place Order"),
         "pleaseSelectFromDate": MessageLookupByLibrary.simpleMessage("Please select from date"),
+        "pleaseSelectShipmentToDealer": MessageLookupByLibrary.simpleMessage("Please select Shipment to Dealer"),
         "pleaseSelectToDate": MessageLookupByLibrary.simpleMessage("Please select to date"),
         "price": MessageLookupByLibrary.simpleMessage("Price"),
         "productName": MessageLookupByLibrary.simpleMessage("Product Name"),
@@ -129,6 +134,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "rateUsOnTheAppStore": MessageLookupByLibrary.simpleMessage("Rate us on the app store"),
         "refresh": MessageLookupByLibrary.simpleMessage("Refresh"),
         "remainingCredit": MessageLookupByLibrary.simpleMessage("Remaining Credit"),
+        "remarks": MessageLookupByLibrary.simpleMessage("Remarks"),
         "reports": MessageLookupByLibrary.simpleMessage("Reports"),
         "resendOtp": MessageLookupByLibrary.simpleMessage("Resend Astral code"),
         "rupees": MessageLookupByLibrary.simpleMessage("₹"),
@@ -136,11 +142,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "salesDetails": MessageLookupByLibrary.simpleMessage("Sales Details"),
         "salesReport": MessageLookupByLibrary.simpleMessage("Sales Report"),
         "sapCode": MessageLookupByLibrary.simpleMessage("SAPCode"),
-        "sapcodeTitle": m5,
+        "sapcodeTitle": m6,
         "schemes": MessageLookupByLibrary.simpleMessage("Schemes"),
         "search": MessageLookupByLibrary.simpleMessage("Search"),
         "seeAll": MessageLookupByLibrary.simpleMessage("See all"),
         "select": MessageLookupByLibrary.simpleMessage("Select"),
+        "selectShipmentToDealer": MessageLookupByLibrary.simpleMessage("Select Shipment to Dealer"),
         "setPin": MessageLookupByLibrary.simpleMessage("Set Pin"),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
         "somethingWentWrong": MessageLookupByLibrary.simpleMessage("Something went wrong"),
@@ -151,11 +158,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "theEnteredOtpIsInvalid": MessageLookupByLibrary.simpleMessage("The entered Astral code is invalid."),
         "thisProductIsAlreadyAddedInTheCart": MessageLookupByLibrary.simpleMessage("This Product is Already added in The Cart"),
         "total": MessageLookupByLibrary.simpleMessage("Total"),
-        "totalItemsName": m6,
+        "totalItemsName": m7,
         "totalOrder": MessageLookupByLibrary.simpleMessage("Total Order"),
         "totalSku": MessageLookupByLibrary.simpleMessage("Total SKU"),
-        "totalSkuOrderproviderproductlistlength": m7,
-        "totalSkuWithNo": m8,
+        "totalSkuOrderproviderproductlistlength": m8,
+        "totalSkuWithNo": m9,
         "unauthorizedPendingOrder": MessageLookupByLibrary.simpleMessage("Unauthorized Pending Order"),
         "unit": MessageLookupByLibrary.simpleMessage("Unit"),
         "updateNow": MessageLookupByLibrary.simpleMessage("Update Now"),
@@ -165,7 +172,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "validationPhoneNumber": MessageLookupByLibrary.simpleMessage("Please Enter a Valid Phone Number"),
         "verify": MessageLookupByLibrary.simpleMessage("Verify"),
         "verifyPin": MessageLookupByLibrary.simpleMessage("Verify Pin"),
-        "versionWithversion": m9,
+        "versionWithversion": m10,
         "welcomeToAstral": MessageLookupByLibrary.simpleMessage("Welcome To Astral"),
         "wereDownForMaintenanceNWillBeBackSoon": MessageLookupByLibrary.simpleMessage("We\'re down for maintenance \n We\'ll be back soon..."),
         "yes": MessageLookupByLibrary.simpleMessage("Yes")

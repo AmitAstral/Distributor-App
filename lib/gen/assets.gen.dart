@@ -124,15 +124,17 @@ class $AssetsImagesGen {
 class $AssetsLottiesGen {
   const $AssetsLottiesGen();
 
+  /// File path: assets/lotties/add_to_cart.json
+  String get addToCart => 'assets/lotties/add_to_cart.json';
+
   /// File path: assets/lotties/maintenance_animation.json
-  String get maintenanceAnimation =>
-      'assets/lotties/maintenance_animation.json';
+  String get maintenanceAnimation => 'assets/lotties/maintenance_animation.json';
 
   /// File path: assets/lotties/no_internet.json
   String get noInternet => 'assets/lotties/no_internet.json';
 
   /// List of all assets
-  List<String> get values => [maintenanceAnimation, noInternet];
+  List<String> get values => [addToCart, maintenanceAnimation, noInternet];
 }
 
 class $AssetsStaticImagesGen {

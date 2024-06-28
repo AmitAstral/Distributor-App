@@ -80,15 +80,6 @@ class _CategoriesWidgetState extends BaseState<CategoriesWidget> {
               padding: const EdgeInsets.all(4),
               child: CachedNetworkImageWidget(
                 imageUrl: item?.imgUrl ?? '',
-                imageBuilder: (context, imageProvider) => Container(
-                  decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.all(Radius.circular(7)),
-                    image: DecorationImage(
-                      image: imageProvider,
-                      fit: BoxFit.contain,
-                    ),
-                  ),
-                ),
               ),
             ),
           ),

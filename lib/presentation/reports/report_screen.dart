@@ -47,48 +47,53 @@ class _ReportScreenState extends BaseState<ReportScreen> {
       ),
       body: ChangeNotifierProvider.value(
         value: _reportProvider,
-        child: Consumer<ReportProvider>(builder: (context, provider, child) {
-          return ProgressWidget(
-            inAsyncCall: provider.isLoading.value,
-            child: reportMenuList.isEmpty && !provider.isLoading.value
-                ? const NoDataFoundWidget()
-                : Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 12).copyWith(top: 10).w,
-                    child: GridView.builder(
-                      itemCount: reportMenuList.length,
-                      shrinkWrap: true,
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 3,
-                        mainAxisSpacing: 20.h,
-                  crossAxisSpacing: 20.w,
-                ),
-                itemBuilder: (context, index) {
-                  final item = reportMenuList[index];
-                  return Column(
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.all(16).w,
-                        margin: const EdgeInsets.symmetric(horizontal: 20).w,
-                        decoration: BoxDecoration(
-                          color: const Color(0xffEEF1FA),
-                          borderRadius: BorderRadius.all(const Radius.circular(16).r),
-                          boxShadow: [
-                            BoxShadow(
-                              color: AppColor.primaryColor.withOpacity(0.19),
-                              spreadRadius: 2,
-                              blurRadius: 5,
-                            ),
-                          ],
+        child: Consumer<ReportProvider>(
+          builder: (context, provider, child) {
+            return ProgressWidget(
+              inAsyncCall: provider.isLoading.value,
+              child: reportMenuList.isEmpty && !provider.isLoading.value
+                  ? const NoDataFoundWidget()
+                  : Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 12).copyWith(top: 10).w,
+                      child: GridView.builder(
+                        itemCount: reportMenuList.length,
+                        shrinkWrap: true,
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 3,
+                          mainAxisSpacing: 20.h,
+                          crossAxisSpacing: 20.w,
                         ),
-                        child: CachedNetworkImageWidget(
-                          imageUrl: item?.iconsUrl ?? '',
-                        ),
-                      ),
-                      10.verticalSpace,
-                      Text(
-                                item?.name ?? '',
-                                style: TextStyles.semiBold12.copyWith(color: AppColor.textSecondary),
+                        itemBuilder: (context, index) {
+                          final item = reportMenuList[index];
+                          return Column(
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.all(16).w,
+                                margin: const EdgeInsets.symmetric(horizontal: 15).w,
+                                decoration: BoxDecoration(
+                                  color: const Color(0xffEEF1FA),
+                                  borderRadius: BorderRadius.all(const Radius.circular(16).r),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: AppColor.primaryColor.withOpacity(0.19),
+                                      spreadRadius: 2,
+                                      blurRadius: 5,
+                                    ),
+                                  ],
+                                ),
+                                child: CachedNetworkImageWidget(
+                                  imageUrl: (item?.iconsUrl ?? ''),
+                                  height: 24,
+                                  width: 24,
+                                ),
+                              ),
+                              5.verticalSpace,
+                              Text(
+                                (item?.name ?? ''),
+                                style: TextStyles.regular12.copyWith(color: AppColor.textSecondary),
                                 textAlign: TextAlign.center,
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
                               ),
                             ],
                           ).addGesture(() => _onPressReportMenu(item));

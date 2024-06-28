@@ -36,6 +36,7 @@ class _DashboardScreenState extends BaseState<DashboardScreen> with TickerProvid
 
   @override
   Widget buildBody(BuildContext context) {
+    bool isKeyboardOpen = MediaQuery.of(context).viewInsets.bottom != 0.0;
     return ChangeNotifierProvider.value(
       value: BottomBarNavigationProvider(),
       child: Consumer<BottomBarNavigationProvider>(
@@ -43,6 +44,7 @@ class _DashboardScreenState extends BaseState<DashboardScreen> with TickerProvid
           return Scaffold(
             drawer: const DrawerScreen(),
             key: currentProvider.dashboardKey,
+            resizeToAvoidBottomInset: false,
             floatingActionButton: FloatingActionButton(
               child: Stack(
                 children: [
@@ -72,16 +74,22 @@ class _DashboardScreenState extends BaseState<DashboardScreen> with TickerProvid
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50.r)),
             ),
             floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-            bottomNavigationBar: ConvexAppBar.builder(
-              count: 5,
-              backgroundColor: AppColor.white,
-              itemBuilder: BottomTabBuilder(),
-              top: currentProvider.currentIndex == -1 ? 0 : -15,
-              curveSize: currentProvider.currentIndex == -1 ? 0 : 50,
-              controller: currentProvider.navigationController,
-              onTap: (index) {
-                currentProvider.setCurrentBottomItem(BottomNavigationEnum.values[index]);
-              },
+            bottomNavigationBar: AnimatedContainer(
+              height: isKeyboardOpen ? 0 : null,
+              duration: const Duration(milliseconds: 400),
+              child: isKeyboardOpen
+                  ? null
+                  : ConvexAppBar.builder(
+                      count: 5,
+                      backgroundColor: AppColor.white,
+                      itemBuilder: BottomTabBuilder(),
+                      top: currentProvider.currentIndex == -1 ? 0 : -15,
+                      curveSize: currentProvider.currentIndex == -1 ? 0 : 50,
+                      controller: currentProvider.navigationController,
+                      onTap: (index) {
+                        currentProvider.setCurrentBottomItem(BottomNavigationEnum.values[index]);
+                      },
+                    ),
             ),
             body: const AutoRouter(
               inheritNavigatorObservers: false,

@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:distributor_empower/core/di/locator.dart';
 import 'package:distributor_empower/core/provider/base_provider.dart';
 import 'package:distributor_empower/model/base/api_req_data.dart';
+import 'package:distributor_empower/model/distributor_model.dart';
 import 'package:distributor_empower/model/drop_down_response.dart';
 import 'package:distributor_empower/model/order_details_response.dart';
 import 'package:distributor_empower/model/order_response.dart';
@@ -26,6 +27,8 @@ class OrderProvider extends BaseProvider {
   List<ProductModel?> filteredProductList = [];
 
   bool isCategoryLoading = true;
+
+  List<DistributorModel?> distributorList = [];
 
   Future<void> callGetOrderListAPI(bool loading) async {
     isPaginationLoading = pageNo > 1;
@@ -113,7 +116,6 @@ class OrderProvider extends BaseProvider {
       );
       final response = await apiRep.AddToCartAPI(request, onApiError);
       if (response.getIsSuccess) {
-        //orderDetailsResponse = response.getData;
         BottomBarNavigationProvider().callGetUserDetails();
         AutoRouter.of(appContext).maybePop();
       }
@@ -145,21 +147,26 @@ class OrderProvider extends BaseProvider {
     }
   }
 
-  Future<void> orderSaveAPI({required String? remarks}) async {
+  Future<bool> orderSaveAPI({required String? shipToId, required String? remarks}) async {
+    isButtonLoading = true;
+    notifyListeners();
     try {
       final request = ApiReqData(
-        orderId: remarks,
+        remarks: remarks,
+        shipToId: shipToId,
       );
       final response = await apiRep.orderSaveAPI(request, onApiError);
       if (response.getIsSuccess) {
-        //orderDetailsResponse = response.getData;
         BottomBarNavigationProvider().callGetUserDetails();
       }
+      return response.getIsSuccess;
     } catch (e, stack) {
       debugPrintStack(stackTrace: stack);
     } finally {
+      isButtonLoading = false;
       notifyListeners();
     }
+    return false;
   }
 
   Future<void> getProductGroupsByCategories({required String? categoryId}) async {
@@ -191,7 +198,7 @@ class OrderProvider extends BaseProvider {
     isLoading.value = loading;
     try {
       final request = ApiReqData(
-        productGroupId: productGroupId,
+        productGroupId: productGroupId ?? productGroupList.firstOrNull?.id,
         search: searchText,
       );
       final response = await apiRep.getProductSubGroupList(request, onApiError);
@@ -241,6 +248,18 @@ class OrderProvider extends BaseProvider {
     }
   }
 
+  Future<void> updateCartItem({required String productId, required int qty}) async {
+    try {
+      final request = ApiReqData(
+        tempOrderID: productId,
+        qty: qty.toString(),
+      );
+      await apiRep.updateCartItem(request, onApiError);
+    } catch (e, stack) {
+      debugPrintStack(stackTrace: stack);
+    }
+  }
+
   void searchProducts(String? search) {
     filteredProductList = productList
         .where(
@@ -257,5 +276,22 @@ class OrderProvider extends BaseProvider {
     } catch (e, stack) {
       debugPrintStack(stackTrace: stack);
     }
+  }
+
+  Future<List<DistributorModel?>> getAllShipToDistributor() async {
+    if (distributorList.isNotEmpty) return distributorList;
+    isButtonLoading = true;
+    notifyListeners();
+    try {
+      final response = await apiRep.getAllShipToDistributor(onApiError);
+      distributorList = response.dataList ?? [];
+      return distributorList;
+    } catch (e, stack) {
+      debugPrintStack(stackTrace: stack);
+    } finally {
+      isButtonLoading = false;
+      notifyListeners();
+    }
+    return [];
   }
 }

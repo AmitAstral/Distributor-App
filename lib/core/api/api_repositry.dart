@@ -6,6 +6,7 @@ import 'package:distributor_empower/model/base/api_req_data.dart';
 import 'package:distributor_empower/model/base/base_model.dart';
 import 'package:distributor_empower/model/base/base_response.dart';
 import 'package:distributor_empower/model/dashboard_response.dart';
+import 'package:distributor_empower/model/distributor_model.dart';
 import 'package:distributor_empower/model/drop_down_response.dart';
 import 'package:distributor_empower/model/entity_response.dart';
 import 'package:distributor_empower/model/knowledge_gallery_model.dart';
@@ -16,11 +17,11 @@ import 'package:distributor_empower/model/pending_order_response.dart';
 import 'package:distributor_empower/model/product_details_response.dart';
 import 'package:distributor_empower/model/product_group_model.dart';
 import 'package:distributor_empower/model/product_model.dart';
-import 'package:distributor_empower/model/product_response.dart';
 import 'package:distributor_empower/model/product_sub_group_model.dart';
 import 'package:distributor_empower/model/report_menu_response.dart';
 import 'package:distributor_empower/model/sales_report_details.dart';
 import 'package:distributor_empower/model/sales_report_response.dart';
+import 'package:distributor_empower/model/send_OTP_model.dart';
 import 'package:distributor_empower/model/setting_response.dart';
 import 'package:distributor_empower/model/statement_response.dart';
 import 'package:distributor_empower/model/user_response.dart';
@@ -83,10 +84,11 @@ class ApiRepository extends ApiCaller {
     return data;
   }
 
-  Future<BaseResponse> sendOTP({required UserInfo req, Function(String)? onApiError}) async {
-    var data = await executeApiCall(
+  Future<BaseResponse<SendOtpModel?>> sendOTP({required UserInfo req, Function(String)? onApiError}) async {
+    var data = await executeApiCall<SendOtpModel>(
       apiCall: apiService.post(endPoint: ApiConstants.sendOTP, data: req.toJson()),
       onApiError: onApiError,
+      baseModel: SendOtpModel(),
     );
     return data;
   }
@@ -263,11 +265,11 @@ class ApiRepository extends ApiCaller {
     return data;
   }
 
-  Future<BaseResponse<ProductResponse?>> getFavProductList(UserInfo request, Function(String errorRes) onApiError) async {
-    var data = await executeApiCall<ProductResponse>(
+  Future<BaseResponse<ProductModel?>> getFavProductList(UserInfo request, Function(String errorRes) onApiError) async {
+    var data = await executeApiCall<ProductModel>(
       apiCall: apiService.post(endPoint: ApiConstants.getFavProductList, data: request.toJson()),
       onApiError: onApiError,
-      baseModel: ProductResponse(),
+      baseModel: ProductModel(),
     );
     return data;
   }
@@ -296,6 +298,17 @@ class ApiRepository extends ApiCaller {
         data: ApiReqData.getUserDetails.toJson(),
       ),
       baseModel: ProductModel(),
+      onApiError: onApiError,
+    );
+    return data;
+  }
+
+  Future<BaseResponse> updateCartItem(ApiReqData request, Function(String errorRes) onApiError) async {
+    var data = await executeApiCall(
+      apiCall: apiService.post(
+        endPoint: ApiConstants.updateCartItem,
+        data: request.toJson(),
+      ),
       onApiError: onApiError,
     );
     return data;
@@ -354,6 +367,18 @@ class ApiRepository extends ApiCaller {
         data: request.toJson(),
       ),
       baseModel: ProductModel(),
+      onApiError: onApiError,
+    );
+    return data;
+  }
+
+  Future<BaseResponse<DistributorModel?>> getAllShipToDistributor(Function(String errorRes) onApiError) async {
+    var data = await executeApiCall<DistributorModel>(
+      apiCall: apiService.post(
+        endPoint: ApiConstants.getAllShipToDistributor,
+        data: ApiReqData.getUserDetails.toJson(),
+      ),
+      baseModel: DistributorModel(),
       onApiError: onApiError,
     );
     return data;

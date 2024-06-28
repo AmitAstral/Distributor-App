@@ -1290,6 +1290,56 @@ class AppLocalizations {
       args: [],
     );
   }
+
+  /// `Ok`
+  String get ok {
+    return Intl.message(
+      'Ok',
+      name: 'ok',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Select Shipment to Dealer`
+  String get selectShipmentToDealer {
+    return Intl.message(
+      'Select Shipment to Dealer',
+      name: 'selectShipmentToDealer',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Address : {name}`
+  String addressSelecteditemaddress(Object name) {
+    return Intl.message(
+      'Address : $name',
+      name: 'addressSelecteditemaddress',
+      desc: '',
+      args: [name],
+    );
+  }
+
+  /// `Please select Shipment to Dealer`
+  String get pleaseSelectShipmentToDealer {
+    return Intl.message(
+      'Please select Shipment to Dealer',
+      name: 'pleaseSelectShipmentToDealer',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Remarks`
+  String get remarks {
+    return Intl.message(
+      'Remarks',
+      name: 'remarks',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<AppLocalizations> {

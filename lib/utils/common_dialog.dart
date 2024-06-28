@@ -6,6 +6,7 @@ import 'package:distributor_empower/core/api/api_constants.dart';
 import 'package:distributor_empower/core/di/locator.dart';
 import 'package:distributor_empower/generated/l10n.dart';
 import 'package:distributor_empower/utils/text_styles.dart';
+import 'package:distributor_empower/widgets/order_place_successfully_dialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher_string.dart';
@@ -96,6 +97,15 @@ class CommonDialog {
         exit(0);
       },
       onNegativePressed: () => exit(0),
+    );
+  }
+
+  static Future<void> showSuccessfullyPlaceOrder() async {
+    await showDialog(
+      context: appContext,
+      builder: (BuildContext context) {
+        return const OrderPlaceSuccessfullyDialog();
+      },
     );
   }
 }

@@ -1,8 +1,12 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:distributor_empower/constants/app_colors/app_colors.dart';
+import 'package:distributor_empower/core/di/locator.dart';
 import 'package:distributor_empower/gen/assets.gen.dart';
 import 'package:distributor_empower/generated/l10n.dart';
+import 'package:distributor_empower/model/distributor_model.dart';
 import 'package:distributor_empower/model/product_model.dart';
 import 'package:distributor_empower/presentation/my_orders/provider/order_provider.dart';
+import 'package:distributor_empower/presentation/quick_order/bottom_sheet/cart_confirmation_dialog.dart';
 import 'package:distributor_empower/utils/common_dialog.dart';
 import 'package:distributor_empower/utils/extensions.dart';
 import 'package:distributor_empower/utils/text_styles.dart';
@@ -15,17 +19,17 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:provider/provider.dart';
 
-class ProductListWidget extends StatefulWidget {
+class ProductListDialog extends StatefulWidget {
   final String subGroupId;
   final bool isCart;
 
-  const ProductListWidget({required this.subGroupId, required this.isCart, super.key});
+  const ProductListDialog({required this.subGroupId, required this.isCart, super.key});
 
   @override
-  State<ProductListWidget> createState() => _ProductListWidgetState();
+  State<ProductListDialog> createState() => _ProductListDialogState();
 }
 
-class _ProductListWidgetState extends State<ProductListWidget> {
+class _ProductListDialogState extends State<ProductListDialog> {
   final _orderProvider = OrderProvider();
   final _searchController = TextEditingController();
 
@@ -122,7 +126,11 @@ class _ProductListWidgetState extends State<ProductListWidget> {
                       ],
                     ),
                   ),
-                  _buildSearchTextField(),
+                  Consumer<OrderProvider>(
+                    builder: (context, value, child) {
+                      return _buildSearchTextField();
+                    },
+                  ),
                   5.verticalSpace,
                   const Divider(height: 1),
                 ],
@@ -140,15 +148,15 @@ class _ProductListWidgetState extends State<ProductListWidget> {
                         child: _orderProvider.filteredProductList.isEmpty
                             ? const NoDataFoundWidget()
                             : ListView.builder(
-                                controller: scrollController,
-                                shrinkWrap: true,
-                                itemCount: _orderProvider.filteredProductList.length,
-                                itemBuilder: (context, index) {
-                                  final item = _orderProvider.filteredProductList[index];
-                                  return ProductItemWidget(
-                                    item: item,
-                                    addRemoveCallback: () {
-                                      _orderProvider.addRemoveFromFav(item?.id, item?.getRequireAction);
+                          controller: scrollController,
+                          shrinkWrap: true,
+                          itemCount: _orderProvider.filteredProductList.length,
+                          itemBuilder: (context, index) {
+                            final item = _orderProvider.filteredProductList[index];
+                            return ProductItemWidget(
+                              item: item,
+                                    addRemoveFavCallback: () {
+                                      _orderProvider.addRemoveFromFav(widget.isCart ? item?.itemId : item?.id, item?.getRequireAction);
                                     },
                                     manageAddRemoveQty: _manageAddRemoveQty,
                                     isCart: widget.isCart,
@@ -160,13 +168,13 @@ class _ProductListWidgetState extends State<ProductListWidget> {
                                           negativeTitle: AppLocalizations.current.no,
                                           onPositivePressed: () {
                                             _orderProvider.removeProductFromCart(productId: item?.id);
-                                          },
-                                        );
-                                      }
                                     },
                                   );
-                                },
-                              ),
+                                }
+                              },
+                            );
+                          },
+                        ),
                       ),
                     ),
                     if (_orderProvider.productList.isNotEmpty)
@@ -200,7 +208,7 @@ class _ProductListWidgetState extends State<ProductListWidget> {
                                               _orderProvider.productList
                                                   .where(
                                                     (e) => (e?.qty.value ?? 0) > 0,
-                                                  )
+                                              )
                                                   .length
                                                   .toString(),
                                             ),
@@ -218,24 +226,12 @@ class _ProductListWidgetState extends State<ProductListWidget> {
                               isLoading: _orderProvider.isButtonLoading,
                               onPressed: () {
                                 if (widget.isCart) {
-                                  CommonDialog.showCommonDialog(
-                                    title: AppLocalizations.of(context).areYouSureYouWantToConfirmOnceConfirmedIt,
-                                    positiveTitle: AppLocalizations.current.yes,
-                                    negativeTitle: AppLocalizations.current.no,
-                                    onPositivePressed: () {
-                                      _orderProvider.orderSaveAPI(remarks: '');
-                                      //TODO
-                                      // Order place DIALOG
-                                    },
-                                  );
+                                  _placeOrderProcess();
                                 } else {
                                   _orderProvider.addToCartAPI();
                                 }
                               },
-                              icon: Padding(
-                                padding: EdgeInsets.only(right: 10.w),
-                                child: Assets.icons.cart.svg(),
-                              ),
+                              icon: Assets.icons.cart.svg(),
                             ),
                           ],
                         ),
@@ -334,6 +330,9 @@ class _ProductListWidgetState extends State<ProductListWidget> {
     item?.textController.text = currentQty.toString();
     item?.qty.value = currentQty;
     _updateNetAmount();
+    if (widget.isCart) {
+      _orderProvider.updateCartItem(productId: item?.id ?? '', qty: currentQty);
+    }
   }
 
   Future<void> _getProductList() async {
@@ -346,13 +345,36 @@ class _ProductListWidgetState extends State<ProductListWidget> {
   }
 
   void _updateNetAmount() {
-    _netValue.value = (_orderProvider.productList
-        .map(
-          (e) => e?.getNetAmount ?? 0,
-        )
-        .toList()
-        .reduce((a, b) => a + b)
-        .toDouble());
+    if (_orderProvider.productList.isNotEmpty) {
+      _netValue.value = (_orderProvider.productList
+          .map(
+            (e) => e?.getNetAmount ?? 0,
+          )
+          .toList()
+          .reduce((a, b) => a + b)
+          .toDouble());
+    } else {
+      _netValue.value = 0;
+    }
+  }
+
+  Future<void> _placeOrderProcess() async {
+    final distributorList = await _orderProvider.getAllShipToDistributor();
+    showDialog(
+      context: appContext,
+      builder: (BuildContext context) {
+        return CartConfirmationDialog(
+          distributorList: distributorList,
+          yes: (DistributorModel? item, String? remark) async {
+            final result = await _orderProvider.orderSaveAPI(shipToId: item?.value, remarks: remark);
+            if (result) {
+              await CommonDialog.showSuccessfullyPlaceOrder();
+              AutoRouter.of(appContext).maybePop();
+            }
+          },
+        );
+      },
+    );
   }
 }
 

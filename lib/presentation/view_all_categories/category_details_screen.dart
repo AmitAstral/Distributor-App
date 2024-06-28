@@ -7,6 +7,7 @@ import 'package:distributor_empower/presentation/base_statefull_widget.dart';
 import 'package:distributor_empower/presentation/my_orders/provider/order_provider.dart';
 import 'package:distributor_empower/presentation/quick_order/bottom_sheet/checkout_bottom_sheet.dart';
 import 'package:distributor_empower/presentation/view_all_categories/product_shimmer_widget.dart';
+import 'package:distributor_empower/utils/debounce.dart';
 import 'package:distributor_empower/utils/text_styles.dart';
 import 'package:distributor_empower/widgets/cache_network_image_widget.dart';
 import 'package:distributor_empower/widgets/custom_app_bar/app_bar.dart';
@@ -38,6 +39,7 @@ class _CategoryDetailsScreenState extends BaseState<CategoryDetailsScreen> {
   final _orderProvider = OrderProvider();
   final _searchController = TextEditingController();
   final _refreshController = RefreshController(initialRefresh: false);
+  final _debounce = Debounce(const Duration(milliseconds: 400));
 
   int _selectedIndex = 0;
 
@@ -122,9 +124,9 @@ class _CategoryDetailsScreenState extends BaseState<CategoryDetailsScreen> {
                               children: [
                                 GestureDetector(
                                   onTap: () {
+                                    if (_selectedIndex == index) return;
                                     _selectedIndex = index;
-                                    productId = item?.id;
-                                    _orderProvider.getProductSubGroupList(productGroupId: productId, searchText: _searchController.text.trim());
+                                    _orderProvider.getProductSubGroupList(productGroupId: productId);
                                   },
                                   child: Align(
                                     alignment: Alignment.center,
@@ -143,15 +145,6 @@ class _CategoryDetailsScreenState extends BaseState<CategoryDetailsScreen> {
                                       child: Container(
                                         child: CachedNetworkImageWidget(
                                           imageUrl: item?.imgUrl ?? '',
-                                          imageBuilder: (context, imageProvider) => Container(
-                                            width: 0.25.sw,
-                                            decoration: BoxDecoration(
-                                              image: DecorationImage(
-                                                image: imageProvider,
-                                                fit: BoxFit.contain,
-                                              ),
-                                            ),
-                                          ),
                                         ),
                                       ),
                                     ),
@@ -201,95 +194,94 @@ class _CategoryDetailsScreenState extends BaseState<CategoryDetailsScreen> {
                         },
                         child: _orderProvider.productSubGroupList.isEmpty
                             ? const NoDataFoundWidget()
-                            : GridView.builder(
-                                shrinkWrap: true,
-                                itemCount: _orderProvider.productSubGroupList.length,
-                                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 2,
-                                  childAspectRatio: MediaQuery.of(context).size.width / (MediaQuery.of(context).size.height / 1.6),
-                                  crossAxisSpacing: 0.0,
-                                  mainAxisSpacing: 0.0,
-                                ),
-                                itemBuilder: (BuildContext context, int index) {
-                                  final item = _orderProvider.productSubGroupList[index];
-                                  return GestureDetector(
-                                    child: Container(
-                                      width: MediaQuery.of(context).size.width * 0.44,
-                                      padding: const EdgeInsets.all(10),
-                                      margin: const EdgeInsets.all(6),
-                                      decoration: BoxDecoration(
-                                        color: AppColor.white,
-                                        borderRadius: BorderRadius.circular(10),
+                            : SingleChildScrollView(
+                                child: Column(
+                                  children: [
+                                    GridView.builder(
+                                      shrinkWrap: true,
+                                      physics: const NeverScrollableScrollPhysics(),
+                                      itemCount: _orderProvider.productSubGroupList.length,
+                                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount: 2,
+                                        childAspectRatio: MediaQuery.of(context).size.width / (MediaQuery.of(context).size.height / 1.6),
+                                        crossAxisSpacing: 0.0,
+                                        mainAxisSpacing: 0.0,
                                       ),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.min,
-                                        mainAxisAlignment: MainAxisAlignment.start,
-                                        children: [
-                                          Expanded(
-                                            flex: 6,
-                                            child: SizedBox(
-                                              child: Container(
-                                                child: CachedNetworkImageWidget(
-                                                  imageUrl: item?.imgUrl ?? '',
-                                                  imageBuilder: (context, imageProvider) => Container(
-                                                    width: 0.25.sw,
-                                                    decoration: BoxDecoration(
-                                                      image: DecorationImage(
-                                                        image: imageProvider,
-                                                        fit: BoxFit.contain,
+                                      itemBuilder: (BuildContext context, int index) {
+                                        final item = _orderProvider.productSubGroupList[index];
+                                        return GestureDetector(
+                                          child: Container(
+                                            width: MediaQuery.of(context).size.width * 0.44,
+                                            padding: const EdgeInsets.all(10),
+                                            margin: const EdgeInsets.all(6),
+                                            decoration: BoxDecoration(
+                                              color: AppColor.white,
+                                              borderRadius: BorderRadius.circular(10),
+                                            ),
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.min,
+                                              mainAxisAlignment: MainAxisAlignment.start,
+                                              children: [
+                                                Expanded(
+                                                  flex: 6,
+                                                  child: SizedBox(
+                                                    child: Container(
+                                                      child: CachedNetworkImageWidget(
+                                                        imageUrl: item?.imgUrl ?? '',
                                                       ),
                                                     ),
                                                   ),
                                                 ),
-                                              ),
-                                            ),
-                                          ),
-                                          Expanded(
-                                            flex: 2,
-                                            child: Align(
-                                              alignment: Alignment.bottomLeft,
-                                              child: Text(
-                                                item?.description ?? '',
-                                                maxLines: 2,
-                                                style: TextStyles.regular12.copyWith(color: AppColor.textSecondary),
-                                                //   maxLine: 2,
-                                              ),
-                                            ),
-                                          ),
-                                          2.verticalSpace,
-                                          Expanded(
-                                            flex: 2,
-                                            child: Row(
-                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                              children: [
                                                 Expanded(
-                                                  flex: 7,
-                                                  child: Text(
-                                                    item?.unitDesc ?? '',
-                                                    maxLines: 2,
-                                                    style: TextStyles.regular11.copyWith(color: AppColor.primaryColor),
+                                                  flex: 2,
+                                                  child: Align(
+                                                    alignment: Alignment.bottomLeft,
+                                                    child: Text(
+                                                      item?.description ?? '',
+                                                      maxLines: 2,
+                                                      style: TextStyles.regular12.copyWith(color: AppColor.textSecondary),
+                                                      //   maxLine: 2,
+                                                    ),
                                                   ),
                                                 ),
+                                                2.verticalSpace,
                                                 Expanded(
-                                                  flex: 4,
-                                                  child: InkWell(
-                                                    onTap: () => _openProductListBottomSheet(item),
-                                                    child: Container(
-                                                      padding: const EdgeInsets.only(top: 5, bottom: 5),
-                                                      decoration: BoxDecoration(
-                                                          color: AppColor.grey.withOpacity(0.2), borderRadius: BorderRadius.circular(5)),
-                                                      child: Assets.icons.cart.svg(color: AppColor.black),
-                                                    ),
+                                                  flex: 2,
+                                                  child: Row(
+                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                    children: [
+                                                      Expanded(
+                                                        flex: 7,
+                                                        child: Text(
+                                                          item?.unitDesc ?? '',
+                                                          maxLines: 2,
+                                                          style: TextStyles.regular11.copyWith(color: AppColor.primaryColor),
+                                                        ),
+                                                      ),
+                                                      Expanded(
+                                                        flex: 4,
+                                                        child: InkWell(
+                                                          onTap: () => _openProductListBottomSheet(item),
+                                                          child: Container(
+                                                            padding: const EdgeInsets.only(top: 5, bottom: 5),
+                                                            decoration: BoxDecoration(
+                                                                color: AppColor.grey.withOpacity(0.2), borderRadius: BorderRadius.circular(5)),
+                                                            child: Assets.icons.cart.svg(color: AppColor.black),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
                                                   ),
                                                 ),
                                               ],
                                             ),
                                           ),
-                                        ],
-                                      ),
+                                        );
+                                      },
                                     ),
-                                  );
-                                },
+                                    15.verticalSpace,
+                                  ],
+                                ),
                               ),
                       ),
               ),
@@ -330,6 +322,7 @@ class _CategoryDetailsScreenState extends BaseState<CategoryDetailsScreen> {
                 onPressed: () {
                   /*_selectedIndex = 0;*/
                   _searchController.clear();
+                  _searchProductGroup();
                 },
                 icon: const Icon(Icons.close, size: 20),
               ),
@@ -353,8 +346,7 @@ class _CategoryDetailsScreenState extends BaseState<CategoryDetailsScreen> {
           ),
           keyboardType: TextInputType.text,
           onChanged: (val) {
-            _selectedIndex = 0;
-            //_searchController.clear();
+            _searchProductGroup();
           },
         ),
       ),
@@ -384,5 +376,11 @@ class _CategoryDetailsScreenState extends BaseState<CategoryDetailsScreen> {
 
   Future<void> _openProductListBottomSheet(ProductSubGroupModel? item) async {
     CheckoutBottomSheet.checkoutBottomSheetWidget(subGroupId: item?.id ?? '', isCart: false);
+  }
+
+  void _searchProductGroup() {
+    _debounce(() {
+      _orderProvider.getProductSubGroupList(productGroupId: productId, searchText: _searchController.text.trim(), loading: false);
+    });
   }
 }

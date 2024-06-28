@@ -14,6 +14,7 @@ class AppButton extends StatelessWidget {
   final bool isDisable;
   final Color bgColor;
   final double? width;
+  final double? height;
   final Widget? icon;
 
   const AppButton({
@@ -29,6 +30,7 @@ class AppButton extends StatelessWidget {
     this.horizontalPadding,
     this.verticalPadding,
     this.icon,
+    this.height,
   });
 
   @override
@@ -36,10 +38,11 @@ class AppButton extends StatelessWidget {
     return Center(
       child: SizedBox(
         width: width ?? 0.5.sw,
+        height: height ?? null,
         child: ElevatedButton(
-          onPressed: (isDisable || isLoading) ? () {} : onPressed ?? () {},
+          onPressed: (isDisable || isLoading) ? null : onPressed ?? () {},
           style: ButtonStyle(
-            backgroundColor: WidgetStatePropertyAll(bgColor.withOpacity(isDisable ? 0.4 : 1)),
+            backgroundColor: WidgetStatePropertyAll(isDisable ? AppColor.grey : bgColor),
           ),
           child: isLoading
               ? const SizedBox(
@@ -51,8 +54,9 @@ class AppButton extends StatelessWidget {
                   ),
                 )
               : Row(
+            mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    if (icon != null) icon!,
+                    if (icon != null) Padding(padding: EdgeInsets.only(right: 10.w), child: icon!),
                     Text(
                       text ?? '',
                       style: textStyle ?? TextStyles.semiBold16,

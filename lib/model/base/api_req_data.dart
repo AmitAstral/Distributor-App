@@ -31,6 +31,9 @@ class ApiReqData {
   String? productSubGroupId;
   String? search;
   String? tempOrderID;
+  String? qty;
+  String? shipToId;
+  String? remarks;
   List<Map<String, dynamic>>? tempOrderLists;
 
   ApiReqData({
@@ -64,6 +67,9 @@ class ApiReqData {
     this.search,
     this.tempOrderLists,
     this.tempOrderID,
+    this.qty,
+    this.remarks,
+    this.shipToId,
   });
 
   static UserInfo get getUserDetails => getUserInfo;
@@ -108,6 +114,9 @@ class ApiReqData {
     json['ProductSubGroupId'] = productSubGroupId;
     json['TempOrderLists'] = tempOrderLists;
     json['TempOrderID'] = tempOrderID;
+    json['Qty'] = qty;
+    json['Remarks'] = remarks;
+    json['ShipToId'] = shipToId;
     json.removeWhere((key, value) => value == null);
     return json;
   }
