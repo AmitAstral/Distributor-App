@@ -1,7 +1,8 @@
 import 'package:auto_route/annotations.dart';
 import 'package:distributor_empower/constants/app_colors/app_colors.dart';
+import 'package:distributor_empower/core/di/locator.dart';
 import 'package:distributor_empower/generated/l10n.dart';
-import 'package:distributor_empower/presentation/base_statefull_widget.dart';
+import 'package:distributor_empower/presentation/base_stateful_widget.dart';
 import 'package:distributor_empower/presentation/knowledge_gallery/knowledge_gallery_provider.dart';
 import 'package:distributor_empower/routes/router.dart';
 import 'package:distributor_empower/utils/text_styles.dart';
@@ -13,7 +14,6 @@ import 'package:distributor_empower/widgets/smart_refresher_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 @RoutePage()
 class KnowledgeGalleryScreen extends BaseStatefulWidget {
@@ -24,7 +24,6 @@ class KnowledgeGalleryScreen extends BaseStatefulWidget {
 }
 
 class _KnowledgeGalleryScreenState extends BaseState<KnowledgeGalleryScreen> {
-  final _refreshController = RefreshController(initialRefresh: false);
   final _knowledgeGalleryProvider = KnowledgeGalleryProvider();
 
   @override
@@ -35,7 +34,6 @@ class _KnowledgeGalleryScreenState extends BaseState<KnowledgeGalleryScreen> {
 
   @override
   void dispose() {
-    _refreshController.dispose();
     _knowledgeGalleryProvider.dispose();
     super.dispose();
   }
@@ -65,10 +63,10 @@ class _KnowledgeGalleryScreenState extends BaseState<KnowledgeGalleryScreen> {
             return ProgressWidget(
               inAsyncCall: value.isLoading.value,
               child: SmartRefresherWidget(
-                controller: _refreshController,
+                controller: refreshController,
                 onRefresh: () async {
                   await _knowledgeGalleryProvider.getKnowledgeGalleryList(loading: false);
-                  _refreshController.refreshCompleted();
+                  refreshController.refreshCompleted();
                 },
                 child: value.knowledgeGalleryList.isEmpty
                     ? const NoDataFoundWidget()

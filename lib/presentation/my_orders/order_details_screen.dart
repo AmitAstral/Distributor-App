@@ -3,7 +3,7 @@ import 'package:distributor_empower/constants/app_colors/app_colors.dart';
 import 'package:distributor_empower/core/di/locator.dart';
 import 'package:distributor_empower/generated/l10n.dart';
 import 'package:distributor_empower/model/order_response.dart';
-import 'package:distributor_empower/presentation/base_statefull_widget.dart';
+import 'package:distributor_empower/presentation/base_stateful_widget.dart';
 import 'package:distributor_empower/presentation/my_orders/provider/order_provider.dart';
 import 'package:distributor_empower/utils/text_styles.dart';
 import 'package:distributor_empower/widgets/custom_app_bar/app_bar.dart';
@@ -12,7 +12,6 @@ import 'package:distributor_empower/widgets/smart_refresher_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 @RoutePage()
 class OrderDetailsScreen extends BaseStatefulWidget {
@@ -24,9 +23,8 @@ class OrderDetailsScreen extends BaseStatefulWidget {
   BaseState<OrderDetailsScreen> createState() => _OrderDetailsScreenState();
 }
 
-class _OrderDetailsScreenState extends BaseState<OrderDetailsScreen> with AutoRouteAware {
+class _OrderDetailsScreenState extends BaseState<OrderDetailsScreen> {
   final _orderProvider = OrderProvider();
-  final _refreshController = RefreshController(initialRefresh: false);
 
   OrderResponse? get orderItem => widget.orderItem;
 
@@ -39,7 +37,6 @@ class _OrderDetailsScreenState extends BaseState<OrderDetailsScreen> with AutoRo
   @override
   void dispose() {
     _orderProvider.dispose();
-    _refreshController.dispose();
     super.dispose();
   }
 
@@ -62,10 +59,10 @@ class _OrderDetailsScreenState extends BaseState<OrderDetailsScreen> with AutoRo
         ),
       ),
       body: SmartRefresherWidget(
-        controller: _refreshController,
+        controller: refreshController,
         onRefresh: () async {
           await _orderProvider.getOrderDetailsAPI(orderId: orderItem?.orderNo, loading: false);
-          _refreshController.refreshCompleted();
+          refreshController.refreshCompleted();
         },
         child: ChangeNotifierProvider.value(
           value: _orderProvider,

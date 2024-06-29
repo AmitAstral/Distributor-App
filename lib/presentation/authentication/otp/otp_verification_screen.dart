@@ -5,7 +5,7 @@ import 'package:distributor_empower/constants/app_colors/app_colors.dart';
 import 'package:distributor_empower/core/di/locator.dart';
 import 'package:distributor_empower/generated/l10n.dart';
 import 'package:distributor_empower/presentation/authentication/otp/provider/otp_verification_provider.dart';
-import 'package:distributor_empower/presentation/base_statefull_widget.dart';
+import 'package:distributor_empower/presentation/base_stateful_widget.dart';
 import 'package:distributor_empower/routes/router.dart';
 import 'package:distributor_empower/utils/enum_classes.dart';
 import 'package:distributor_empower/utils/extensions.dart';
@@ -33,7 +33,7 @@ class OtpVerificationScreen extends BaseStatefulWidget {
 class _OtpVerificationScreenState extends BaseState<OtpVerificationScreen> {
   String _otp = '';
 
-  final ValueNotifier<int> _secondsRemaining = ValueNotifier(0);
+  final _secondsRemaining = ValueNotifier(0);
 
   final _otpVerificationProvider = OTPVerificationProvider();
 

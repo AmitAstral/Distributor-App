@@ -3,13 +3,12 @@ import 'package:distributor_empower/constants/fonts/font_family.dart';
 import 'package:distributor_empower/constants/fonts/font_weight.dart';
 import 'package:distributor_empower/generated/l10n.dart';
 import 'package:distributor_empower/model/dashboard_response.dart';
-import 'package:distributor_empower/presentation/base_statefull_widget.dart';
 import 'package:distributor_empower/utils/text_styles.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class OrderDetailsWidget extends BaseStatefulWidget {
+class OrderDetailsWidget extends StatefulWidget {
   final String? title;
 
   final List<OrderDetail>? orderDetails;
@@ -17,16 +16,17 @@ class OrderDetailsWidget extends BaseStatefulWidget {
   const OrderDetailsWidget(this.orderDetails, {required this.title, super.key});
 
   @override
-  BaseState<OrderDetailsWidget> createState() => _OrderDetailsWidgetState();
+  State<OrderDetailsWidget> createState() => _OrderDetailsWidgetState();
 }
 
-class _OrderDetailsWidgetState extends BaseState<OrderDetailsWidget> {
+class _OrderDetailsWidgetState extends State<OrderDetailsWidget> {
   int touchedIndex = -1;
 
   List<OrderDetail> get getOrderLabelList => widget.orderDetails ?? [];
 
   @override
-  Widget buildBody(BuildContext context) {
+  Widget build(BuildContext context) {
+    if (getOrderLabelList.isEmpty) return const SizedBox.shrink();
     return Container(
       width: 1.sw,
       margin: EdgeInsets.symmetric(horizontal: 10.w, vertical: 6.h),
@@ -62,34 +62,7 @@ class _OrderDetailsWidgetState extends BaseState<OrderDetailsWidget> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               8.horizontalSpace,
-              Expanded(
-                child: Container(
-                  width: (1.sw / 2) - 17.55.w,
-                  height: 112.h,
-                  alignment: Alignment.center,
-                  child: PieChart(
-                    PieChartData(
-                      pieTouchData: PieTouchData(
-                        touchCallback: (FlTouchEvent event, pieTouchResponse) {
-                          setState(() {
-                            if (!event.isInterestedForInteractions || pieTouchResponse == null || pieTouchResponse.touchedSection == null) {
-                              touchedIndex = -1;
-                              return;
-                            }
-                            touchedIndex = pieTouchResponse.touchedSection!.touchedSectionIndex;
-                          });
-                        },
-                      ),
-                      borderData: FlBorderData(
-                        show: false,
-                      ),
-                      sectionsSpace: 2,
-                      centerSpaceRadius: 0,
-                      sections: showingSections(),
-                    ),
-                  ),
-                ),
-              ),
+              _buildGraph(),
               8.horizontalSpace,
               Expanded(
                 child: SizedBox(
@@ -163,5 +136,38 @@ class _OrderDetailsWidgetState extends BaseState<OrderDetailsWidget> {
         titleStyle: googleFontPoppins.copyWith(fontWeight: GoogleFontWeight.regular, fontSize: fontSize, color: AppColor.white, shadows: shadows),
       );
     });
+  }
+
+  Widget _buildGraph() {
+    return Expanded(
+      child: ((getOrderLabelList.first.percentageValue ?? 0.0).toInt() == 0)
+          ? const SizedBox.shrink()
+          : Container(
+              width: (1.sw / 2) - 17.55.w,
+              height: 112.h,
+              alignment: Alignment.center,
+              child: PieChart(
+                PieChartData(
+                  pieTouchData: PieTouchData(
+                    touchCallback: (FlTouchEvent event, pieTouchResponse) {
+                      setState(() {
+                        if (!event.isInterestedForInteractions || pieTouchResponse == null || pieTouchResponse.touchedSection == null) {
+                          touchedIndex = -1;
+                          return;
+                        }
+                        touchedIndex = pieTouchResponse.touchedSection!.touchedSectionIndex;
+                      });
+                    },
+                  ),
+                  borderData: FlBorderData(
+                    show: false,
+                  ),
+                  sectionsSpace: 2,
+                  centerSpaceRadius: 0,
+                  sections: showingSections(),
+                ),
+              ),
+            ),
+    );
   }
 }

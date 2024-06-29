@@ -1,6 +1,6 @@
 import 'package:distributor_empower/constants/app_colors/app_colors.dart';
+import 'package:distributor_empower/core/di/locator.dart';
 import 'package:distributor_empower/model/dashboard_response.dart';
-import 'package:distributor_empower/presentation/base_statefull_widget.dart';
 import 'package:distributor_empower/routes/router.dart';
 import 'package:distributor_empower/utils/extensions.dart';
 import 'package:distributor_empower/utils/text_styles.dart';
@@ -8,19 +8,19 @@ import 'package:distributor_empower/widgets/cache_network_image_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class CategoriesWidget extends BaseStatefulWidget {
+class CategoriesWidget extends StatefulWidget {
   final List<Categories?>? focusProductList;
   final String title;
 
   const CategoriesWidget(this.focusProductList, {required this.title, super.key});
 
   @override
-  BaseState<CategoriesWidget> createState() => _CategoriesWidgetState();
+  State<CategoriesWidget> createState() => _CategoriesWidgetState();
 }
 
-class _CategoriesWidgetState extends BaseState<CategoriesWidget> {
+class _CategoriesWidgetState extends State<CategoriesWidget> {
   @override
-  Widget buildBody(BuildContext context) {
+  Widget build(BuildContext context) {
     if (widget.focusProductList?.isEmpty ?? true) return const SizedBox.shrink();
     return SizedBox(
       height: 150.h,

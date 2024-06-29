@@ -5,11 +5,12 @@ import 'package:distributor_empower/core/di/locator.dart';
 import 'package:distributor_empower/gen/assets.gen.dart';
 import 'package:distributor_empower/generated/l10n.dart';
 import 'package:distributor_empower/model/menu_response.dart';
-import 'package:distributor_empower/presentation/base_statefull_widget.dart';
+import 'package:distributor_empower/presentation/base_stateful_widget.dart';
 import 'package:distributor_empower/presentation/dashboard/provider/bottombar_navigation_provider.dart';
 import 'package:distributor_empower/presentation/home/provider/home_provider.dart';
 import 'package:distributor_empower/routes/router.dart';
 import 'package:distributor_empower/utils/common_dialog.dart';
+import 'package:distributor_empower/utils/enum_classes.dart';
 import 'package:distributor_empower/utils/extensions.dart';
 import 'package:distributor_empower/utils/providers/common_provider.dart';
 import 'package:distributor_empower/utils/text_styles.dart';
@@ -32,147 +33,154 @@ class ProfileScreen extends BaseStatefulWidget {
 class _ProfileScreenState extends BaseState<ProfileScreen> {
   final _commonProvider = CommonProvider();
 
-  final List<MenuResponse?> horizontalOption = profileMenuListData
+  final _horizontalOption = profileMenuListData
           ?.where(
-            (e) => e?.isMenuHorizontal?.toLowerCase() == 'true',
+            (e) => e?.isMenuHorizontal ?? false,
           )
           .toList() ??
       [];
 
-  final List<MenuResponse?> verticalOption = profileMenuListData
+  final _verticalOption = profileMenuListData
           ?.where(
-            (e) => e?.isMenuHorizontal?.toLowerCase() != 'true',
+            (e) => !(e?.isMenuHorizontal ?? false),
           )
           .toList() ??
       [];
 
   @override
+  void dispose() {
+    _commonProvider.dispose();
+    super.dispose();
+  }
+
+  @override
+  void onVisibleInvoke() {
+    BottomBarNavigationProvider().updateCurrentTab(BottomNavigationEnum.profile);
+    super.onVisibleInvoke();
+  }
+
+  @override
   Widget buildBody(BuildContext context) {
-    return PopScope(
-      onPopInvoked: (didPop) {
-        BottomBarNavigationProvider().selectHomePage();
-      },
-      child: Scaffold(
-        backgroundColor: AppColor.white,
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(AppBar().preferredSize.height),
-          child: AppBarWidget(
-            toolbarHeight: AppBar().preferredSize.height,
-            title: Text(
-                AppLocalizations.current.profile,
-                maxLines: 1,
-                style: TextStyles.semiBold15,
-              ),
-              centerTitle: true,
-              elevation: 0,
-              flexibleSpace: null,
-              leading: const SizedBox.shrink(),
-            ),
+    return Scaffold(
+      backgroundColor: AppColor.white,
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(AppBar().preferredSize.height),
+        child: AppBarWidget(
+          toolbarHeight: AppBar().preferredSize.height,
+          title: Text(
+            AppLocalizations.current.profile,
+            maxLines: 1,
+            style: TextStyles.semiBold15,
           ),
-          body: SingleChildScrollView(
-            child: Padding(
-              padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 14.w),
-              child: Column(
+          centerTitle: true,
+          elevation: 0,
+          flexibleSpace: null,
+          leading: const SizedBox.shrink(),
+        ),
+      ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 14.w),
+          child: Column(
+            children: [
+              Row(
                 children: [
-                  Row(
-                    children: [
-                      ProfileWidget(
-                        width: 45.h,
-                        height: 45.h,
-                      ),
-                      9.horizontalSpace,
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              AppLocalizations.current.hiWithName(storage.userDetails.distributorName ?? ''),
-                              maxLines: 2,
-                              style: TextStyles.semiBold16.copyWith(
-                                color: AppColor.textSecondary,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ),
-                            Text(
-                              storage.userDetails.address ?? '',
-                              style: TextStyles.semiBold10.copyWith(
-                                color: AppColor.hintTextColor,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
+                  ProfileWidget(
+                    width: 45.h,
+                    height: 45.h,
                   ),
-                  15.verticalSpace,
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Expanded(child: _buildInfoView(AppLocalizations.current.division, storage.userDetails.divisionID)),
-                      Expanded(child: _buildInfoView(AppLocalizations.current.sapCode, storage.userDetails.distributorSapCode)),
-                    ],
-                  ),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Expanded(child: _buildInfoView(AppLocalizations.current.gstNo, storage.userDetails.gstNo)),
-                      Expanded(child: _buildInfoView(AppLocalizations.current.mobileNo, storage.userDetails.distributorMobileNumber)),
-                    ],
-                  ),
-                  10.verticalSpace,
-                  _buildHorizontalOptions(),
-                  15.verticalSpace,
-                  _buildVerticalOptions(),
-                  20.verticalSpace,
-                  Container(
-                    decoration: ShapeDecoration(
-                      color: const Color(0xFFF8FAFB),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.r),
-                      ),
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(vertical: 9.h, horizontal: 15.w),
-                      child: Row(
-                        children: [
-                          Assets.icons.logOut.svg(
-                            height: 15.w,
-                            width: 15.w,
-                          ),
-                          15.horizontalSpace,
-                        Expanded(
-                          child: Text(
-                            AppLocalizations.current.logout,
-                            style: TextStyles.regular14.copyWith(color: AppColor.textSecondary),
+                  9.horizontalSpace,
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          AppLocalizations.current.hiWithName(storage.userDetails.distributorName ?? ''),
+                          maxLines: 2,
+                          style: TextStyles.semiBold16.copyWith(
+                            color: AppColor.textSecondary,
+                            overflow: TextOverflow.ellipsis,
                           ),
                         ),
-                        Icon(
-                          Icons.arrow_forward_ios_rounded,
-                          color: const Color(0xFFB4B6C2),
-                          size: 18.sp,
+                        Text(
+                          storage.userDetails.address ?? '',
+                          style: TextStyles.semiBold10.copyWith(
+                            color: AppColor.hintTextColor,
+                          ),
                         ),
                       ],
-                      ),
                     ),
-                  ).addGesture(
-                    () {
-                      CommonDialog.showCommonDialog(
-                        title: AppLocalizations.current.messageAreYouSureLogout,
-                        positiveTitle: AppLocalizations.current.yes,
-                        negativeTitle: AppLocalizations.current.no,
-                        onPositivePressed: () {
-                          storage.logout();
-                        },
-                      );
-                  },
+                  ),
+                ],
+              ),
+              15.verticalSpace,
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(child: _buildInfoView(AppLocalizations.current.division, storage.userDetails.divisionID)),
+                  Expanded(child: _buildInfoView(AppLocalizations.current.sapCode, storage.userDetails.distributorSapCode)),
+                ],
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(child: _buildInfoView(AppLocalizations.current.gstNo, storage.userDetails.gstNo)),
+                  Expanded(child: _buildInfoView(AppLocalizations.current.mobileNo, storage.userDetails.distributorMobileNumber)),
+                ],
+              ),
+              10.verticalSpace,
+              _buildHorizontalOptions(),
+              15.verticalSpace,
+              _buildVerticalOptions(),
+              20.verticalSpace,
+              Container(
+                decoration: ShapeDecoration(
+                  color: const Color(0xFFF8FAFB),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.r),
+                  ),
                 ),
-                50.verticalSpace,
-                Text(
-                  AppLocalizations.of(context).versionWithversion(storage.currentAppVersion),
-                  style: TextStyles.regular11.copyWith(color: AppColor.textSecondary),
+                child: Padding(
+                  padding: EdgeInsets.symmetric(vertical: 9.h, horizontal: 15.w),
+                  child: Row(
+                    children: [
+                      Assets.icons.logOut.svg(
+                        height: 15.w,
+                        width: 15.w,
+                      ),
+                      15.horizontalSpace,
+                      Expanded(
+                        child: Text(
+                          AppLocalizations.current.logout,
+                          style: TextStyles.regular14.copyWith(color: AppColor.textSecondary),
+                        ),
+                      ),
+                      Icon(
+                        Icons.arrow_forward_ios_rounded,
+                        color: const Color(0xFFB4B6C2),
+                        size: 18.sp,
+                      ),
+                    ],
+                  ),
                 ),
-              ],
-            ),
+              ).addGesture(
+                () {
+                  CommonDialog.showCommonDialog(
+                    title: AppLocalizations.current.messageAreYouSureLogout,
+                    positiveTitle: AppLocalizations.current.yes,
+                    negativeTitle: AppLocalizations.current.no,
+                    onPositivePressed: () {
+                      storage.logout();
+                    },
+                  );
+                },
+              ),
+              50.verticalSpace,
+              Text(
+                AppLocalizations.of(context).versionWithversion(storage.currentAppVersion),
+                style: TextStyles.regular11.copyWith(color: AppColor.textSecondary),
+              ),
+            ],
           ),
         ),
       ),
@@ -189,10 +197,10 @@ class _ProfileScreenState extends BaseState<ProfileScreen> {
       ),
       child: ListView.builder(
         physics: const NeverScrollableScrollPhysics(),
-        itemCount: verticalOption.length,
+        itemCount: _verticalOption.length,
         shrinkWrap: true,
         itemBuilder: (context, index) {
-          final item = verticalOption[index];
+          final item = _verticalOption[index];
           return Column(
             children: [
               Padding(
@@ -235,31 +243,32 @@ class _ProfileScreenState extends BaseState<ProfileScreen> {
 
   Widget _buildInfoView(String? title, String? value) {
     return Container(
-        padding: EdgeInsets.symmetric(vertical: 5.h, horizontal: 5.w),
-        margin: const EdgeInsets.only(bottom: 5, right: 5).h,
-        decoration: ShapeDecoration(
-          color: const Color(0xFFF8FAFB),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(5.r),
-          ),
+      padding: EdgeInsets.symmetric(vertical: 5.h, horizontal: 5.w),
+      margin: const EdgeInsets.only(bottom: 5, right: 5).h,
+      decoration: ShapeDecoration(
+        color: const Color(0xFFF8FAFB),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(5.r),
         ),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              '$title : ',
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            '$title : ',
             style: TextStyles.regular10.copyWith(color: AppColor.hintTextColor),
           ),
-            const Spacer(),
-            Expanded(
-              flex: 60,
-              child: Text(
-                value ?? '',
-                style: TextStyles.semiBold10.copyWith(color: AppColor.textSecondary),
-              ),
+          const Spacer(),
+          Expanded(
+            flex: 60,
+            child: Text(
+              value ?? '',
+              style: TextStyles.semiBold10.copyWith(color: AppColor.textSecondary),
             ),
-          ],
-        ),);
+          ),
+        ],
+      ),
+    );
   }
 
   Widget _buildHorizontalOptions() {
@@ -267,10 +276,10 @@ class _ProfileScreenState extends BaseState<ProfileScreen> {
       height: 65.h,
       child: ListView.builder(
         shrinkWrap: true,
-        itemCount: horizontalOption.length,
+        itemCount: _horizontalOption.length,
         scrollDirection: Axis.horizontal,
         itemBuilder: (context, index) {
-          final item = horizontalOption[index];
+          final item = _horizontalOption[index];
           return Container(
             padding: EdgeInsets.symmetric(
               horizontal: 14.w,

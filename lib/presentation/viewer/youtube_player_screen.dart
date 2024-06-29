@@ -1,5 +1,5 @@
 import 'package:auto_route/annotations.dart';
-import 'package:distributor_empower/presentation/base_statefull_widget.dart';
+import 'package:distributor_empower/presentation/base_stateful_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';

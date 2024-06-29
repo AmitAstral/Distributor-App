@@ -3,7 +3,7 @@ import 'package:distributor_empower/constants/app_colors/app_colors.dart';
 import 'package:distributor_empower/core/di/locator.dart';
 import 'package:distributor_empower/generated/l10n.dart';
 import 'package:distributor_empower/model/sales_report_response.dart';
-import 'package:distributor_empower/presentation/base_statefull_widget.dart';
+import 'package:distributor_empower/presentation/base_stateful_widget.dart';
 import 'package:distributor_empower/presentation/sales_report/provider/sales_report_provider.dart';
 import 'package:distributor_empower/routes/router.dart';
 import 'package:distributor_empower/utils/app_date_utils.dart';
@@ -18,7 +18,6 @@ import 'package:distributor_empower/widgets/smart_refresher_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 @RoutePage()
 class SalesReportScreen extends BaseStatefulWidget {
@@ -34,8 +33,6 @@ class _SalesReportScreenState extends BaseState<SalesReportScreen> {
   String? fromDate = storage.settingsData.fYStartDate ?? AppDateUtils.getCurrentDateStr;
   String? toDate = AppDateUtils.getCurrentDateStr;
 
-  final _refreshController = RefreshController(initialRefresh: false);
-
   final _salesReportProvider = SalesReportProvider();
 
   List<SalesReportResponse?> get getSalesReportList => _salesReportProvider.salesListResponse;
@@ -44,6 +41,12 @@ class _SalesReportScreenState extends BaseState<SalesReportScreen> {
   void initState() {
     _getFreshData();
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _salesReportProvider.dispose();
+    super.dispose();
   }
 
   @override
@@ -63,17 +66,18 @@ class _SalesReportScreenState extends BaseState<SalesReportScreen> {
           value: _salesReportProvider,
           builder: (context, child) {
             return SmartRefresherWidget(
-              controller: _refreshController,
-              onRefresh: () async {
-                if (_salesReportProvider.isLoading.value) {
-                  _refreshController.refreshCompleted();
-                  return;
-                }
-                await _getFreshData(isLoading: false);
-                _refreshController.refreshCompleted();
-              },
-              loadMoreData: _loadMore,
-              child: Consumer<SalesReportProvider>(builder: (context, value, child) {
+              controller: refreshController,
+            onRefresh: () async {
+              if (_salesReportProvider.isLoading.value) {
+                refreshController.refreshCompleted();
+                return;
+              }
+              await _getFreshData(isLoading: false);
+              refreshController.refreshCompleted();
+            },
+            loadMoreData: _loadMore,
+            child: Consumer<SalesReportProvider>(
+              builder: (context, value, child) {
                 return ProgressWidget(
                   inAsyncCall: _salesReportProvider.isLoading.value,
                   child: SingleChildScrollView(

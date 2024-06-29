@@ -4,7 +4,7 @@ import 'package:distributor_empower/core/di/locator.dart';
 import 'package:distributor_empower/generated/l10n.dart';
 import 'package:distributor_empower/model/base/api_req_data.dart';
 import 'package:distributor_empower/presentation/authentication/pin/provider/user_pin_provider.dart';
-import 'package:distributor_empower/presentation/base_statefull_widget.dart';
+import 'package:distributor_empower/presentation/base_stateful_widget.dart';
 import 'package:distributor_empower/routes/router.dart';
 import 'package:distributor_empower/utils/enum_classes.dart';
 import 'package:distributor_empower/utils/text_styles.dart';

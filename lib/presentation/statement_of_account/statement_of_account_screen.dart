@@ -3,7 +3,7 @@ import 'package:distributor_empower/constants/app_colors/app_colors.dart';
 import 'package:distributor_empower/core/di/locator.dart';
 import 'package:distributor_empower/generated/l10n.dart';
 import 'package:distributor_empower/model/statement_response.dart';
-import 'package:distributor_empower/presentation/base_statefull_widget.dart';
+import 'package:distributor_empower/presentation/base_stateful_widget.dart';
 import 'package:distributor_empower/presentation/statement_of_account/provider/statement_provider.dart';
 import 'package:distributor_empower/utils/app_date_utils.dart';
 import 'package:distributor_empower/utils/extensions.dart';

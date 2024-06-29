@@ -54,7 +54,7 @@ enum ReportType {
 
 enum BottomNavigationEnum {
   home(route: HomeRoute(), icon: Icons.home, label: 'Home'),
-  cart(route: QuickOrderRoute(), icon: Icons.shopping_bag_sharp, label: 'Quick Order'),
+  quickOrder(route: QuickOrderRoute(), icon: Icons.shopping_bag_sharp, label: 'Quick Order'),
   none(route: QuickOrderRoute(), icon: Icons.shopping_bag_sharp, label: 'Quick Order'),
   offers(route: SchemesRoute(), icon: Icons.local_offer_rounded, label: 'Offers'),
   profile(route: ProfileRoute(), icon: Icons.person, label: 'Settings');

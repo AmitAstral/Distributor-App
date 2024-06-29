@@ -3,7 +3,6 @@ import 'package:distributor_empower/core/di/locator.dart';
 import 'package:distributor_empower/gen/assets.gen.dart';
 import 'package:distributor_empower/generated/l10n.dart';
 import 'package:distributor_empower/model/menu_response.dart';
-import 'package:distributor_empower/presentation/base_statefull_widget.dart';
 import 'package:distributor_empower/presentation/dashboard/provider/bottombar_navigation_provider.dart';
 import 'package:distributor_empower/presentation/home/provider/home_provider.dart';
 import 'package:distributor_empower/routes/router.dart';
@@ -17,18 +16,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
-class DrawerScreen extends BaseStatefulWidget {
+class DrawerScreen extends StatelessWidget {
   const DrawerScreen({super.key});
 
   @override
-  BaseState<DrawerScreen> createState() => _DrawerScreenState();
-}
-
-class _DrawerScreenState extends BaseState<DrawerScreen> {
-  int currentIndex = 0;
-
-  @override
-  Widget buildBody(BuildContext context) {
+  Widget build(BuildContext context) {
     return Drawer(
       width: 0.6.sw,
       backgroundColor: AppColor.primaryColor,
@@ -103,51 +95,54 @@ class _DrawerScreenState extends BaseState<DrawerScreen> {
                 ),
               ),
               Expanded(
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: mainMenuListData?.length ?? 0,
-                  itemBuilder: (context, index) {
-                    final item = mainMenuListData?[index];
-                    return Container(
-                      width: 1.sw,
-                      padding: EdgeInsets.only(top: 5.h, bottom: 5.h, left: 8.w, right: 8.w),
-                      margin: EdgeInsets.only(top: 8.h),
-                      decoration: index == currentIndex
-                          ? BoxDecoration(
-                              gradient: LinearGradient(
-                                begin: const Alignment(-1.00, -0.00),
-                                end: const Alignment(1, 0),
-                                colors: [
-                                  Colors.white.withOpacity(0),
-                                  Colors.white,
-                                ],
+                child: ValueListenableBuilder(
+                  valueListenable: BottomBarNavigationProvider().drawerSelectedIndex,
+                  builder: (context, value, child) {
+                    return ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: mainMenuListData?.length ?? 0,
+                      itemBuilder: (context, index) {
+                        final item = mainMenuListData?[index];
+                        return Container(
+                          width: 1.sw,
+                          padding: EdgeInsets.only(top: 5.h, bottom: 5.h, left: 8.w, right: 8.w),
+                          margin: EdgeInsets.only(top: 8.h),
+                          decoration: index == BottomBarNavigationProvider().drawerSelectedIndex.value
+                              ? BoxDecoration(
+                                  gradient: LinearGradient(
+                                    begin: const Alignment(-1.00, -0.00),
+                                    end: const Alignment(1, 0),
+                                    colors: [
+                                      Colors.white.withOpacity(0),
+                                      Colors.white,
+                                    ],
+                                  ),
+                                )
+                              : BoxDecoration(color: Colors.white.withOpacity(0.1)),
+                          child: Row(
+                            children: [
+                              Container(
+                                padding: EdgeInsets.only(left: 8.w, right: 25.w),
+                                child: SvgPicture.network(
+                                  item?.menuIconURL ?? '',
+                                  height: 14.h,
+                                  width: 14.w,
+                                ),
                               ),
-                            )
-                          : BoxDecoration(color: Colors.white.withOpacity(0.1)),
-                      child: Row(
-                        children: [
-                          Container(
-                            padding: EdgeInsets.only(left: 8.w, right: 25.w),
-                            child: SvgPicture.network(
-                              item?.menuIconURL ?? '',
-                              height: 14.h,
-                              width: 14.w,
-                            ),
+                              Expanded(
+                                child: Text(
+                                  item?.menuName ?? '',
+                                  style: TextStyles.semiBold15,
+                                ),
+                              ),
+                            ],
                           ),
-                          Expanded(
-                            child: Text(
-                              item?.menuName ?? '',
-                              style: TextStyles.semiBold15,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ).addGesture(
-                      () {
-                        setState(() {
-                          currentIndex = index;
-                        });
-                        _drawerNavigation(item);
+                        ).addGesture(
+                          () {
+                            BottomBarNavigationProvider().drawerSelectedIndex.value = index;
+                            _drawerNavigation(item);
+                          },
+                        );
                       },
                     );
                   },
@@ -202,9 +197,11 @@ class _DrawerScreenState extends BaseState<DrawerScreen> {
       //HOME
         break;
       case '2':
+      //PROFILE
         BottomBarNavigationProvider().setCurrentBottomItem(BottomNavigationEnum.profile);
         break;
       case '3':
+      //SCHEMES/OFFERS
         BottomBarNavigationProvider().setCurrentBottomItem(BottomNavigationEnum.offers);
         break;
       case '4':
@@ -213,7 +210,7 @@ class _DrawerScreenState extends BaseState<DrawerScreen> {
         break;
       case '5':
         //REPORTS
-        appRouter.push(ReportRoute());
+        appRouter.push(const ReportRoute());
         break;
       case '6':
         //Price List

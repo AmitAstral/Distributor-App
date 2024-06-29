@@ -10,10 +10,11 @@ abstract class Locator {
     getIt.registerLazySingleton<StorageService>(() => StorageService());
     getIt.registerLazySingleton<ApiService>(() => ApiService());
     getIt.registerLazySingleton<ApiRepository>(() => ApiRepository());
+    getIt.registerLazySingleton<AppRouter>(() => AppRouter());
   }
 }
 
-//final appRouter = AutoRouter.of(appContext);
+final appRouter = GetIt.I<AppRouter>();
 final appContext = AppRouter().navigatorKey.currentContext!;
 final storage = GetIt.I<StorageService>();
 final apiService = GetIt.I<ApiService>();

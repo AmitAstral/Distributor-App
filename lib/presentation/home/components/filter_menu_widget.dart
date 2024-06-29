@@ -2,12 +2,11 @@ import 'package:distributor_empower/constants/app_colors/app_colors.dart';
 import 'package:distributor_empower/core/di/locator.dart';
 import 'package:distributor_empower/generated/l10n.dart';
 import 'package:distributor_empower/model/dashboard_response.dart';
-import 'package:distributor_empower/presentation/base_statefull_widget.dart';
 import 'package:distributor_empower/utils/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class FilterMenuWidget extends BaseStatefulWidget {
+class FilterMenuWidget extends StatefulWidget {
   final List<FilterData>? filter;
   final String title;
   final Function(FilterData) onChangeDivision;
@@ -15,10 +14,10 @@ class FilterMenuWidget extends BaseStatefulWidget {
   const FilterMenuWidget(this.filter, this.title, this.onChangeDivision, {super.key});
 
   @override
-  BaseState<FilterMenuWidget> createState() => _FilterMenuWidgetState();
+  State<FilterMenuWidget> createState() => _FilterMenuWidgetState();
 }
 
-class _FilterMenuWidgetState extends BaseState<FilterMenuWidget> {
+class _FilterMenuWidgetState extends State<FilterMenuWidget> {
   FilterData get getSelectedItem =>
       widget.filter?.firstWhere(
         (element) => element.divisionID == storage.userDetails.divisionID,
@@ -26,7 +25,7 @@ class _FilterMenuWidgetState extends BaseState<FilterMenuWidget> {
       FilterData();
 
   @override
-  Widget buildBody(BuildContext context) {
+  Widget build(BuildContext context) {
     if (widget.filter?.isEmpty ?? true) return const SizedBox.shrink();
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 10).w,

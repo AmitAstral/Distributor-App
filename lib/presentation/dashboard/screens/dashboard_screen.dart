@@ -3,7 +3,7 @@ import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:distributor_empower/constants/app_colors/app_colors.dart';
 import 'package:distributor_empower/core/di/locator.dart';
 import 'package:distributor_empower/gen/assets.gen.dart';
-import 'package:distributor_empower/presentation/base_statefull_widget.dart';
+import 'package:distributor_empower/presentation/base_stateful_widget.dart';
 import 'package:distributor_empower/presentation/dashboard/provider/bottombar_navigation_provider.dart';
 import 'package:distributor_empower/presentation/drawer/drawer_screen.dart';
 import 'package:distributor_empower/presentation/quick_order/bottom_sheet/checkout_bottom_sheet.dart';
@@ -91,9 +91,7 @@ class _DashboardScreenState extends BaseState<DashboardScreen> with TickerProvid
                       },
                     ),
             ),
-            body: const AutoRouter(
-              inheritNavigatorObservers: false,
-            ),
+            body: const AutoRouter(),
           );
         },
       ),

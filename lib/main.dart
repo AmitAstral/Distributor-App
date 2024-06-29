@@ -81,7 +81,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
       builder: (context, child) {
         return MaterialApp.router(
           scaffoldMessengerKey: Init().scaffoldMessengerKey,
-          routerDelegate: AppRouter().delegate(navigatorObservers: () => [AppRouter().routeObserver]),
+          routerDelegate: AppRouter().delegate(),
           routeInformationParser: AppRouter().defaultRouteParser(),
           debugShowCheckedModeBanner: false,
           theme: ThemeData(

@@ -4,10 +4,18 @@ import 'package:distributor_empower/model/entity_response.dart';
 import 'package:flutter/material.dart';
 
 class SchemesProvider extends BaseProvider {
+  factory SchemesProvider() => _instance ?? SchemesProvider._internal();
+
+  static SchemesProvider? _instance;
+
+  SchemesProvider._internal() {
+    _instance = this;
+  }
+
   List<EntityResponse?> schemeListResponse = [];
 
-  Future<void> callGetSchemesList({bool isProgress = true}) async {
-    isLoading.value = isProgress;
+  Future<void> callGetSchemesList() async {
+    isLoading.value = schemeListResponse.isEmpty;
     try {
       final request = ApiReqData(
         entityType: 'schemes',

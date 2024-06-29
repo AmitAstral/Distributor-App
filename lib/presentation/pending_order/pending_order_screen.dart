@@ -1,8 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:distributor_empower/constants/app_colors/app_colors.dart';
+import 'package:distributor_empower/core/di/locator.dart';
 import 'package:distributor_empower/generated/l10n.dart';
 import 'package:distributor_empower/model/pending_order_response.dart';
-import 'package:distributor_empower/presentation/base_statefull_widget.dart';
+import 'package:distributor_empower/presentation/base_stateful_widget.dart';
 import 'package:distributor_empower/presentation/pending_order/provider/pending_order_provider.dart';
 import 'package:distributor_empower/routes/router.dart';
 import 'package:distributor_empower/utils/text_styles.dart';
@@ -14,7 +15,6 @@ import 'package:distributor_empower/widgets/smart_refresher_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 @RoutePage()
 class PendingOrderScreen extends BaseStatefulWidget {
@@ -26,7 +26,6 @@ class PendingOrderScreen extends BaseStatefulWidget {
 
 class _PendingOrderScreenState extends BaseState<PendingOrderScreen> {
   final _pendingOrderProvider = PendingOrderProvider();
-  final _refreshController = RefreshController(initialRefresh: false);
 
   List<PendingOrderResponse?> get getPendingOrderList => _pendingOrderProvider.pendingOrderListResponse;
 
@@ -52,11 +51,11 @@ class _PendingOrderScreenState extends BaseState<PendingOrderScreen> {
       body: ChangeNotifierProvider.value(
         value: _pendingOrderProvider,
         child: SmartRefresherWidget(
-          controller: _refreshController,
+          controller: refreshController,
           onRefresh: () async {
             _pendingOrderProvider.pageNo = 1;
             await _getPendingOrderList(getPendingOrderList.isEmpty);
-            _refreshController.refreshCompleted();
+            refreshController.refreshCompleted();
           },
           loadMoreData: _loadMore,
           child: Consumer<PendingOrderProvider>(
@@ -81,7 +80,6 @@ class _PendingOrderScreenState extends BaseState<PendingOrderScreen> {
   @override
   void dispose() {
     _pendingOrderProvider.dispose();
-    _refreshController.dispose();
     super.dispose();
   }
 

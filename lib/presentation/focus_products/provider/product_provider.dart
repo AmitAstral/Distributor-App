@@ -6,11 +6,19 @@ import 'package:distributor_empower/presentation/dashboard/provider/bottombar_na
 import 'package:flutter/material.dart';
 
 class ProductProvider extends BaseProvider {
+  factory ProductProvider() => _instance ?? ProductProvider._internal();
+
+  static ProductProvider? _instance;
+
+  ProductProvider._internal() {
+    _instance = this;
+  }
+
   List<FocusProduct?> focusProductList = [];
   List<ProductModel?> favProductList = [];
 
-  Future<void> getFocusProductsList({loading = true}) async {
-    isLoading.value = loading || focusProductList.isEmpty;
+  Future<void> getFocusProductsList() async {
+    isLoading.value = focusProductList.isEmpty;
     try {
       final request = ApiReqData.getUserDetails;
       final response = await apiRep.getFocusProductsList(request, onApiError);
@@ -39,8 +47,8 @@ class ProductProvider extends BaseProvider {
     }
   }
 
-  Future<void> getFavProductList({loading = true}) async {
-    isLoading.value = loading || favProductList.isEmpty;
+  Future<void> getFavProductList() async {
+    isLoading.value = favProductList.isEmpty;
     try {
       final request = ApiReqData.getUserDetails;
       final response = await apiRep.getFavProductList(request, onApiError);
@@ -61,10 +69,10 @@ class ProductProvider extends BaseProvider {
     try {
       final tempOrderList = favProductList
           .where(
-        (element) => element?.qty.value != 0,
+            (element) => element?.qty.value != 0,
       )
           .map(
-        (e) {
+            (e) {
           return TempOrderItem(e?.itemId, (e?.qty.value ?? 0).toString()).toJson();
         },
       ).toList();

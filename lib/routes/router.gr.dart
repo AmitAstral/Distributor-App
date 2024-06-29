@@ -181,7 +181,7 @@ abstract class _$AppRouter extends RootStackRouter {
     SchemesRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const SchemesScreen(),
+        child: SchemesScreen(),
       );
     },
     SetPinRoute.name: (routeData) {

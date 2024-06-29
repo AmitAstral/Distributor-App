@@ -3,7 +3,7 @@ import 'package:distributor_empower/constants/app_colors/app_colors.dart';
 import 'package:distributor_empower/gen/assets.gen.dart';
 import 'package:distributor_empower/generated/l10n.dart';
 import 'package:distributor_empower/model/product_sub_group_model.dart';
-import 'package:distributor_empower/presentation/base_statefull_widget.dart';
+import 'package:distributor_empower/presentation/base_stateful_widget.dart';
 import 'package:distributor_empower/presentation/my_orders/provider/order_provider.dart';
 import 'package:distributor_empower/presentation/quick_order/bottom_sheet/checkout_bottom_sheet.dart';
 import 'package:distributor_empower/presentation/view_all_categories/product_shimmer_widget.dart';
@@ -18,7 +18,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:provider/provider.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 @RoutePage()
 class CategoryDetailsScreen extends BaseStatefulWidget {
@@ -38,7 +37,6 @@ class CategoryDetailsScreen extends BaseStatefulWidget {
 class _CategoryDetailsScreenState extends BaseState<CategoryDetailsScreen> {
   final _orderProvider = OrderProvider();
   final _searchController = TextEditingController();
-  final _refreshController = RefreshController(initialRefresh: false);
   final _debounce = Debounce(const Duration(milliseconds: 400));
 
   int _selectedIndex = 0;
@@ -54,7 +52,6 @@ class _CategoryDetailsScreenState extends BaseState<CategoryDetailsScreen> {
   @override
   void dispose() {
     _orderProvider.dispose();
-    _refreshController.dispose();
     _searchController.dispose();
     super.dispose();
   }
@@ -183,14 +180,14 @@ class _CategoryDetailsScreenState extends BaseState<CategoryDetailsScreen> {
                 child: _orderProvider.isLoading.value
                     ? child!
                     : SmartRefresherWidget(
-                        controller: _refreshController,
+                  controller: refreshController,
                         onRefresh: () async {
                           await _orderProvider.getProductSubGroupList(
                             productGroupId: productId ?? _orderProvider.productGroupList.firstOrNull?.id,
                             searchText: _searchController.text.trim(),
                             loading: false,
                           );
-                          _refreshController.refreshCompleted();
+                          refreshController.refreshCompleted();
                         },
                         child: _orderProvider.productSubGroupList.isEmpty
                             ? const NoDataFoundWidget()

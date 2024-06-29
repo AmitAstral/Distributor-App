@@ -1,6 +1,6 @@
 import 'package:auto_route/annotations.dart';
 import 'package:distributor_empower/constants/app_colors/app_colors.dart';
-import 'package:distributor_empower/presentation/base_statefull_widget.dart';
+import 'package:distributor_empower/presentation/base_stateful_widget.dart';
 import 'package:distributor_empower/presentation/focus_products/provider/product_provider.dart';
 import 'package:distributor_empower/presentation/home/components/product_view_widget.dart';
 import 'package:distributor_empower/presentation/home/provider/home_provider.dart';
@@ -12,7 +12,6 @@ import 'package:distributor_empower/widgets/smart_refresher_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 @RoutePage()
 class FocusProductScreen extends BaseStatefulWidget {
@@ -31,7 +30,6 @@ class FocusProductScreen extends BaseStatefulWidget {
 
 class _FocusProductScreenState extends BaseState<FocusProductScreen> {
   final _focusProductProvider = ProductProvider();
-  final _refreshController = RefreshController(initialRefresh: false);
 
   @override
   void initState() {
@@ -59,23 +57,22 @@ class _FocusProductScreenState extends BaseState<FocusProductScreen> {
       ),
       body: ChangeNotifierProvider.value(
         value: _focusProductProvider,
-        child: Consumer<ProductProvider>(builder: (context, provider, child) {
-          return SmartRefresherWidget(
-            controller: _refreshController,
-            onRefresh: () async {
-              await _focusProductProvider.getFocusProductsList(
-                loading: false,
-              );
-              _refreshController.refreshCompleted();
-            },
-            child: ProgressWidget(
-              inAsyncCall: provider.isLoading.value,
-              child: _focusProductProvider.focusProductList.isEmpty
-                  ? const NoDataFoundWidget()
-                  : Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10).w,
-                      child: GridView.builder(
-                        shrinkWrap: true,
+        child: Consumer<ProductProvider>(
+          builder: (context, provider, child) {
+            return SmartRefresherWidget(
+              controller: refreshController,
+              onRefresh: () async {
+                await _focusProductProvider.getFocusProductsList();
+                refreshController.refreshCompleted();
+              },
+              child: ProgressWidget(
+                inAsyncCall: provider.isLoading.value,
+                child: _focusProductProvider.focusProductList.isEmpty
+                    ? const NoDataFoundWidget()
+                    : Container(
+                        margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10).w,
+                        child: GridView.builder(
+                          shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
                           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 2,

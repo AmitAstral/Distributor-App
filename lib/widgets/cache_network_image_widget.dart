@@ -53,9 +53,18 @@ class CachedNetworkImageWidget extends CachedNetworkImage {
   LoadingErrorWidgetBuilder? get errorWidget =>
       super.errorWidget ??
       (context, url, error) {
-        return Assets.images.splashLogo.image(
-          color: AppColor.grey,
-        );
+        return _buildErrorWidget;
+      };
+
+  Widget get _buildErrorWidget => Assets.images.splashLogo.image(
+        color: AppColor.grey,
+      );
+
+  @override
+  ValueChanged<Object>? get errorListener =>
+      super.errorListener ??
+      (value) {
+        debugPrint('$value');
       };
 
   @override

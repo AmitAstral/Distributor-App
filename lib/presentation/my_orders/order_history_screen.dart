@@ -1,8 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:distributor_empower/constants/app_colors/app_colors.dart';
+import 'package:distributor_empower/core/di/locator.dart';
 import 'package:distributor_empower/generated/l10n.dart';
 import 'package:distributor_empower/model/drop_down_response.dart';
-import 'package:distributor_empower/presentation/base_statefull_widget.dart';
+import 'package:distributor_empower/presentation/base_stateful_widget.dart';
 import 'package:distributor_empower/presentation/my_orders/provider/order_provider.dart';
 import 'package:distributor_empower/routes/router.dart';
 import 'package:distributor_empower/utils/extensions.dart';
@@ -14,7 +15,6 @@ import 'package:distributor_empower/widgets/smart_refresher_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 @RoutePage()
 class OrderHistoryScreen extends BaseStatefulWidget {
@@ -24,9 +24,8 @@ class OrderHistoryScreen extends BaseStatefulWidget {
   BaseState<OrderHistoryScreen> createState() => _OrderHistoryScreenState();
 }
 
-class _OrderHistoryScreenState extends BaseState<OrderHistoryScreen> with RouteAware {
+class _OrderHistoryScreenState extends BaseState<OrderHistoryScreen> {
   final _orderProvider = OrderProvider();
-  final _refreshController = RefreshController(initialRefresh: false);
 
   @override
   void initState() {
@@ -37,7 +36,6 @@ class _OrderHistoryScreenState extends BaseState<OrderHistoryScreen> with RouteA
   @override
   void dispose() {
     _orderProvider.dispose();
-    _refreshController.dispose();
     super.dispose();
   }
 
@@ -62,11 +60,11 @@ class _OrderHistoryScreenState extends BaseState<OrderHistoryScreen> with RouteA
       body: ChangeNotifierProvider.value(
         value: _orderProvider,
         child: SmartRefresherWidget(
-          controller: _refreshController,
+          controller: refreshController,
           onRefresh: () async {
             _orderProvider.hasMore = true;
             await _getOrderList(pageNo: 1, isLoading: false);
-            _refreshController.refreshCompleted();
+            refreshController.refreshCompleted();
           },
           loadMoreData: () {
             _getOrderList(pageNo: _orderProvider.pageNo + 1, isLoading: false);

@@ -43,7 +43,6 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m10(name) => "Version : v${name}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
-
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "SAPCode": MessageLookupByLibrary.simpleMessage("SAP Code"),
         "addToCart": MessageLookupByLibrary.simpleMessage("Add to cart"),

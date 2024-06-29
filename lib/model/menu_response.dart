@@ -19,7 +19,7 @@ class MenuResponse extends BaseModel {
       redirectURL: json['Redirect_URL'],
       uRLType: json['URL_Type'],
       menuIconURL: json['Menu_Icon_URL'],
-      isMenuHorizontal: json['IsMenuHorizontal'],
+      isMenuHorizontal: json['IsMenuHorizontal'].toString().toLowerCase() == 'true',
       entityType: json['EntityType'],
     );
   }
@@ -29,7 +29,7 @@ class MenuResponse extends BaseModel {
   String? redirectURL;
   String? uRLType;
   String? menuIconURL;
-  String? isMenuHorizontal;
+  bool? isMenuHorizontal;
   String? entityType;
 
   Map<String, dynamic> toJson() {
