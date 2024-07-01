@@ -34,6 +34,9 @@ class BottomBarNavigationProvider with ChangeNotifier {
   BottomNavigationEnum get currentNavigationEnum => BottomNavigationEnum.values[currentIndex];
 
   Future<void> setCurrentBottomItem(BottomNavigationEnum bottomNavigationEnum) async {
+    if (!currentContext.mounted) {
+      currentContext = appContext;
+    }
     if (appRouter.childControllers.firstOrNull?.topPage?.name == bottomNavigationEnum.route.routeName) return;
     if (appRouter.current.route.name == bottomNavigationEnum.route.routeName) return;
 
